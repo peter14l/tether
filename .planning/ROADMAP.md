@@ -59,11 +59,11 @@ Core Circle management and chronological feed.
 **Plans:** 5 plans in 2 waves
 
 Plans:
-- [ ] 02-01-PLAN.md — Circles Domain & Data (Entities, Models, Supabase Repo)
-- [ ] 02-02-PLAN.md — Feed Domain & Data (Posts, Reactions, Supabase Repo)
-- [ ] 02-03-PLAN.md — Time-Adaptive UI Engine (Theme Slots, Tokens, Cubit)
-- [ ] 02-04-PLAN.md — Circle Management UI (CircleCubit, Screens, Creation)
-- [ ] 02-05-PLAN.md — Feed & Reactions UI (FeedCubit, Post Widgets, Reaction Bar)
+- [x] 02-01-PLAN.md — Circles Domain & Data (Entities, Models, Supabase Repo)
+- [x] 02-02-PLAN.md — Feed Domain & Data (Posts, Reactions, Supabase Repo)
+- [x] 02-03-PLAN.md — Time-Adaptive UI Engine (Theme Slots, Tokens, Cubit)
+- [x] 02-04-PLAN.md — Circle Management UI (CircleCubit, Screens, Creation)
+- [x] 02-05-PLAN.md — Feed & Reactions UI (FeedCubit, Post Widgets, Reaction Bar)
 
 ### Features
 - Create Friend Circle (2–20 members)
@@ -80,9 +80,9 @@ Plans:
 - Phase 1 (foundation)
 
 ### Success Criteria
-- [ ] User can create and manage Circles
-- [ ] Feed shows posts chronologically
-- [ ] Time theme changes with device clock
+- [x] User can create and manage Circles
+- [x] Feed shows posts chronologically
+- [x] Time theme changes with device clock
 
 ---
 
@@ -94,9 +94,9 @@ Direct messaging (DMs), Voice Notes, and Quiet Presence mode.
 **Plans:** 3 plans in 3 waves
 
 Plans:
-- [ ] 03-01-PLAN.md — Messaging & Presence Core (Domain & Data)
-- [ ] 03-02-PLAN.md — Messaging & Presence BLoCs
-- [ ] 03-03-PLAN.md — Messaging UI & Voice Recording
+- [x] 03-01-PLAN.md — Messaging & Presence Core (Domain & Data)
+- [x] 03-02-PLAN.md — Messaging & Presence BLoCs
+- [x] 03-03-PLAN.md — Messaging UI & Voice Recording
 
 ### Features
 - Direct messages between Circle members (real-time)
@@ -109,28 +109,45 @@ Plans:
 - Phase 2 (circles)
 
 ### Success Criteria
-- [ ] User can send/receive real-time text DMs
-- [ ] User can record and play back voice notes
-- [ ] User can toggle Quiet presence mode
-- [ ] Slow Chat mode restricts UI to voice only
+- [x] User can send/receive real-time text DMs
+- [x] User can record and play back voice notes
+- [x] User can toggle Quiet presence mode
+- [x] Slow Chat mode restricts UI to voice only
 
 ---
 
 ## Phase 4: Wellness
 
 ### Goal
-Emotional wellness features.
+Implement emotional wellness features: Mood Rooms, Encrypted Gratitude Journal, Reflection Wall, and Breathing Exercises.
+
+**Plans:** 4 plans in 2 waves
+
+Plans:
+- [ ] 04-01-PLAN.md — Mood Room Feature (Domain, Data, Presentation, UI)
+- [ ] 04-02-PLAN.md — Encrypted Gratitude Journal (Domain, Data, Presentation, UI)
+- [ ] 04-03-PLAN.md — Reflection Wall & Breathing Room (Domain, Data, Presentation, UI)
+- [ ] 04-04-PLAN.md — Mood-Adaptive UI Integration (Theme Engine, Avatar Ring)
 
 ### Features
 - Mood Rooms with status options
-- One-tap Check-In
-- Quiet Hours configuration
-- Wind Down mode
+- One-tap Check-In (Pending integration)
+- Quiet Hours configuration (Pending integration)
 - Breathing Room (4-7-8 pattern)
-- Digital Hug
+- Gratitude Journal (Encrypted)
+- Reflection Wall (Encrypted)
+- Mood-Adaptive UI (Accent color shifts)
 
 ### Dependencies
-- Phase 2 (circles)
+- Phase 1 (Encryption Service)
+- Phase 3 (Messaging & Circle Context)
+
+### Success Criteria
+- [ ] User can set their mood status and label
+- [ ] Gratitude journal entries are encrypted client-side
+- [ ] Reflection wall is functional and private
+- [ ] Breathing exercise animation follows the 4-7-8 pattern
+- [ ] UI accent color reacts to current mood status
 
 ---
 
@@ -175,8 +192,6 @@ Remaining extended features.
 
 ### Features
 - Letter Mode
-- Reflection Wall (encrypted)
-- Gratitude Journal
 - Shared Playlists
 - Memories Lane
 - Temperature Check
