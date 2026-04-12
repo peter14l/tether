@@ -43,8 +43,8 @@ Plans:
 - [x] 02-04-PLAN.md — Circle Management UI (CircleCubit, Screens, Creation)
 - [x] 02-05-PLAN.md — Feed & Reactions UI (FeedCubit, Post Widgets, Reaction Bar)
 - [ ] 02-06-PLAN.md — Aesthetic Refinement: Theme Foundation
-- [ ] 02-07-PLAN.md — Aesthetic Refinement: Primitives (Glow & Motion)
-- [ ] 02-08-PLAN.md — Aesthetic Refinement: Accessibility & Global Polish
+- [ ] 02-07-PLAN.md — Aesthetic Refinement: Primitives (Button, Card, Photo, TextField with Glow & Motion)
+- [ ] 02-08-PLAN.md — Aesthetic Refinement: Global Polish & Accessibility Audit (Feed, Circles, Chat, Messaging)
 
 ---
 
