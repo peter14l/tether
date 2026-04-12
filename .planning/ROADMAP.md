@@ -9,7 +9,7 @@
 | 3 | Messaging | DMs, Voice Notes, Presence | 2 |
 | 4 | Wellness | Mood Rooms, Check-In, Quiet Hours, Breathing Room | 2 |
 | 5 | Couples | Couples features for Couple Circles | 2 |
-| 6 | Family | Family features for Family Circles | 2 |
+| 6 | Family | Family features for Family Circles | 5 |
 | 7-10 | Extended | Extended features (25+) | 1+ |
 
 ---
@@ -27,28 +27,6 @@ Plans:
 - [x] 01-03-PLAN.md — DI & Routing (Final main.dart wiring: GetIt, GoRouter)
 - [x] 01-04-PLAN.md — E2E Encryption Core (AES-256, PIN-based recovery foundation)
 
-### Features
-- Clean Architecture folder structure with all 13 feature directories (auth, circles, mood, journal, messaging, feed, memories, wellness, couples, family, vault, calendar, settings)
-- Required dependencies (Supabase, BLoC, DI, Crypto)
-- Supabase client initialization (Initial setup in Plan 02, final in Plan 03)
-- Full database schema (Profiles, Circles, Posts, Messages, Escrow Keys, etc.)
-- E2E Encryption Service (AES-256-GCM)
-- Cloud Escrow + PIN recovery foundation
-- Dependency injection setup
-- GoRouter navigation foundation
-
-**Wave Analysis:**
-- Wave 1: 01-01
-- Wave 2: 01-02, 01-04 (Depends on Wave 1)
-- Wave 3: 01-03 (Depends on Wave 2)
-
-### Success Criteria
-- [x] Project folder structure matches PRD 5.2 including all 13 features
-- [x] SQL migration file defines all PRD tables, messaging, and escrow keys
-- [x] Dependency injection container is successfully generated
-- [x] App initializes with Supabase and GoRouter in `main.dart`
-- [x] Encryption service passes basic verification
-
 ---
 
 ## Phase 2: Circles & Feed
@@ -65,25 +43,6 @@ Plans:
 - [x] 02-04-PLAN.md — Circle Management UI (CircleCubit, Screens, Creation)
 - [x] 02-05-PLAN.md — Feed & Reactions UI (FeedCubit, Post Widgets, Reaction Bar)
 
-### Features
-- Create Friend Circle (2–20 members)
-- Create Couple Circle (2 members only)
-- Create Family Circle
-- Invite members
-- Circle feed (chronological)
-- Post: text, images
-- Gentle reactions: Warm, Comforting, I See You, Sending Strength
-- Time-Adaptive UI engine
-- Time slots: morning, afternoon, dusk, night
-
-### Dependencies
-- Phase 1 (foundation)
-
-### Success Criteria
-- [x] User can create and manage Circles
-- [x] Feed shows posts chronologically
-- [x] Time theme changes with device clock
-
 ---
 
 ## Phase 3: Messaging
@@ -97,22 +56,6 @@ Plans:
 - [x] 03-01-PLAN.md — Messaging & Presence Core (Domain & Data)
 - [x] 03-02-PLAN.md — Messaging & Presence BLoCs
 - [x] 03-03-PLAN.md — Messaging UI & Voice Recording
-
-### Features
-- Direct messages between Circle members (real-time)
-- Voice notes recording & playback
-- Read receipts (opt-in)
-- Quiet presence mode (online/quiet)
-- Slow Chat mode (voice-only)
-
-### Dependencies
-- Phase 2 (circles)
-
-### Success Criteria
-- [x] User can send/receive real-time text DMs
-- [x] User can record and play back voice notes
-- [x] User can toggle Quiet presence mode
-- [x] Slow Chat mode restricts UI to voice only
 
 ---
 
@@ -129,59 +72,52 @@ Plans:
 - [ ] 04-03-PLAN.md — Reflection Wall & Breathing Room (Domain, Data, Presentation, UI)
 - [ ] 04-04-PLAN.md — Mood-Adaptive UI Integration (Theme Engine, Avatar Ring)
 
-### Features
-- Mood Rooms with status options
-- One-tap Check-In (Pending integration)
-- Quiet Hours configuration (Pending integration)
-- Breathing Room (4-7-8 pattern)
-- Gratitude Journal (Encrypted)
-- Reflection Wall (Encrypted)
-- Mood-Adaptive UI (Accent color shifts)
-
-### Dependencies
-- Phase 1 (Encryption Service)
-- Phase 3 (Messaging & Circle Context)
-
-### Success Criteria
-- [ ] User can set their mood status and label
-- [ ] Gratitude journal entries are encrypted client-side
-- [ ] Reflection wall is functional and private
-- [ ] Breathing exercise animation follows the 4-7-8 pattern
-- [ ] UI accent color reacts to current mood status
-
 ---
 
 ## Phase 5: Couples
 
 ### Goal
-Couples-specific features.
+Implement the "Our Bubble" private space for Couple circles with shared gallery, milestones, and real-time interactions.
 
-### Features
-- Our Bubble (private space)
-- Heartbeat Check
-- Good Morning / Good Night messages
-- Private Gallery (encrypted)
-- Relationship Milestones
+**Plans:** 4 plans in 4 waves
 
-### Dependencies
-- Phase 2 (circles)
+Plans:
+- [ ] 05-01-PLAN.md — Couples Foundation & Schema (Domain, Data Models, Migration)
+- [ ] 05-02-PLAN.md — Couples Data Layer & Messaging Pause Integration
+- [ ] 05-03-PLAN.md — Couples Presentation & Real-time Integration
+- [ ] 05-04-PLAN.md — "Our Bubble" UI & Animations (Pulse, Ripple, Timeline, Gallery)
 
 ---
 
 ## Phase 6: Family
 
 ### Goal
-Family-specific features.
+Implement Family-specific features including Safety Checks, SOS Alerts, Heritage Corner, and Bedtime Stories.
+
+**Plans:** 3 plans in 3 waves
+
+Plans:
+- [ ] 06-01-PLAN.md — Family Domain & Data Layers
+- [ ] 06-02-PLAN.md — Family Presentation (BLoC/Cubit)
+- [ ] 06-03-PLAN.md — Family UI (Dashboard, SOS, Heritage, Bedtime Stories)
 
 ### Features
-- Family Circle features
-- Safety Check system
-- Emergency SOS
-- Location sharing (opt-in)
-- Grandparent Easy View
+- Family Circle features (FAM-01)
+- Safety Check system (FAM-02)
+- Emergency SOS (FAM-03)
+- Heritage Corner & Generational Memories (FAM-04)
+- Bedtime Stories (FAM-05)
 
 ### Dependencies
-- Phase 2 (circles)
+- Phase 2 (Circles & Feed)
+- Phase 5 (Couples - for consistency/patterns)
+
+### Success Criteria
+- [ ] User in a Family circle can trigger an SOS
+- [ ] User can respond to a safety check
+- [ ] User can upload to Heritage Corner
+- [ ] SOS alerts are broadcast real-time to the circle
+- [ ] User can record and play back bedtime stories
 
 ---
 
