@@ -38,7 +38,7 @@
 | Phase | Status |
 |-------|--------|
 | 1: Foundation | Done |
-| 2: Circles & Feed | Done |
+| 2: Circles & Feed | In Progress |
 | 3: Messaging | Done |
 | 4: Wellness | Done |
 | 5: Couples | Done |

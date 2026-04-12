@@ -32,9 +32,9 @@ Plans:
 ## Phase 2: Circles & Feed
 
 ### Goal
-Core Circle management and chronological feed.
+Core Circle management and chronological feed, with subsequent aesthetic refinement.
 
-**Plans:** 5 plans in 2 waves
+**Plans:** 8 plans in 3 waves
 
 Plans:
 - [x] 02-01-PLAN.md — Circles Domain & Data (Entities, Models, Supabase Repo)
@@ -42,6 +42,9 @@ Plans:
 - [x] 02-03-PLAN.md — Time-Adaptive UI Engine (Theme Slots, Tokens, Cubit)
 - [x] 02-04-PLAN.md — Circle Management UI (CircleCubit, Screens, Creation)
 - [x] 02-05-PLAN.md — Feed & Reactions UI (FeedCubit, Post Widgets, Reaction Bar)
+- [ ] 02-06-PLAN.md — Aesthetic Refinement: Theme Foundation
+- [ ] 02-07-PLAN.md — Aesthetic Refinement: Primitives (Glow & Motion)
+- [ ] 02-08-PLAN.md — Aesthetic Refinement: Accessibility & Global Polish
 
 ---
 
