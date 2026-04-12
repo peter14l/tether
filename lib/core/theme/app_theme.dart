@@ -55,7 +55,7 @@ class AppTheme {
           color: tokens.textSecondary,
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: tokens.backgroundElevated,
         elevation: isDark ? 4 : 2,
         shape: RoundedRectangleBorder(

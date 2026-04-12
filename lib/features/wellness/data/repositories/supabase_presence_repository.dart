@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -26,11 +27,13 @@ class SupabasePresenceRepository implements IPresenceRepository {
   @override
   Stream<Map<String, dynamic>> streamPresence(String circleId) {
     final channel = _client.channel('circle:$circleId');
+    final controller = StreamController<Map<String, dynamic>>();
     
-    // In a real app, you would track and sync presence
-    // For now, we'll just track the current user
-    channel.subscribe((status, [error]) async {
-      if (status == RealtimeChannelStatus.subscribed) {
+    // In Supabase 2.x, we track presence and use callbacks
+    channel.on(RealtimeListenTypes.presence, (event) {
+      controller.add(channel.presenceState());
+    }).subscribe((status, [error]) async {
+      if (status == RealtimeStatus.subscribed) {
         await channel.track({
           'user_id': _client.auth.currentUser?.id,
           'online_at': DateTime.now().toIso8601String(),
@@ -38,6 +41,6 @@ class SupabasePresenceRepository implements IPresenceRepository {
       }
     });
 
-    return channel.onPresenceSync().map((_) => channel.presenceState());
+    return controller.stream;
   }
 }

@@ -32,7 +32,8 @@ class SupabaseGalleryRepository implements IGalleryRepository {
         if (json['caption'] != null) {
           decryptedCaption = await _encryptionService.decrypt(json['caption'] as String, _placeholderKey);
         }
-        items.add(GalleryItemModel.fromJson(json)..copyWithCaption(decryptedCaption));
+        final item = GalleryItemModel.fromJson(json);
+        items.add(item.copyWithCaption(decryptedCaption));
       }
       
       return Right(items);
@@ -78,7 +79,7 @@ class SupabaseGalleryRepository implements IGalleryRepository {
 extension on GalleryItemEntity {
   GalleryItemEntity copyWithCaption(String? newCaption) {
     return GalleryItemEntity(
-      id: id,
+      id: this.id,
       circleId: circleId,
       uploadedBy: uploadedBy,
       storagePath: storagePath,
