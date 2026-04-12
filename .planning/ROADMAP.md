@@ -22,10 +22,10 @@ Initialize the core technical foundation including full feature scaffolding, Sup
 **Plans:** 4 plans in 3 waves
 
 Plans:
-- [ ] 01-01-PLAN.md — Scaffolding & Dependencies (Clean Arch, 13 features, pubspec.yaml)
-- [ ] 01-02-PLAN.md — Supabase Schema (SQL migration for 20+ tables + messages/escrow)
-- [ ] 01-03-PLAN.md — DI & Routing (Final main.dart wiring: GetIt, GoRouter)
-- [ ] 01-04-PLAN.md — E2E Encryption Core (AES-256, PIN-based recovery foundation)
+- [x] 01-01-PLAN.md — Scaffolding & Dependencies (Clean Arch, 13 features, pubspec.yaml)
+- [x] 01-02-PLAN.md — Supabase Schema (SQL migration for 20+ tables + messages/escrow)
+- [x] 01-03-PLAN.md — DI & Routing (Final main.dart wiring: GetIt, GoRouter)
+- [x] 01-04-PLAN.md — E2E Encryption Core (AES-256, PIN-based recovery foundation)
 
 ### Features
 - Clean Architecture folder structure with all 13 feature directories (auth, circles, mood, journal, messaging, feed, memories, wellness, couples, family, vault, calendar, settings)
@@ -43,11 +43,11 @@ Plans:
 - Wave 3: 01-03 (Depends on Wave 2)
 
 ### Success Criteria
-- [ ] Project folder structure matches PRD 5.2 including all 13 features
-- [ ] SQL migration file defines all PRD tables, messaging, and escrow keys
-- [ ] Dependency injection container is successfully generated
-- [ ] App initializes with Supabase and GoRouter in `main.dart`
-- [ ] Encryption service passes basic verification
+- [x] Project folder structure matches PRD 5.2 including all 13 features
+- [x] SQL migration file defines all PRD tables, messaging, and escrow keys
+- [x] Dependency injection container is successfully generated
+- [x] App initializes with Supabase and GoRouter in `main.dart`
+- [x] Encryption service passes basic verification
 
 ---
 
@@ -55,6 +55,15 @@ Plans:
 
 ### Goal
 Core Circle management and chronological feed.
+
+**Plans:** 5 plans in 2 waves
+
+Plans:
+- [ ] 02-01-PLAN.md — Circles Domain & Data (Entities, Models, Supabase Repo)
+- [ ] 02-02-PLAN.md — Feed Domain & Data (Posts, Reactions, Supabase Repo)
+- [ ] 02-03-PLAN.md — Time-Adaptive UI Engine (Theme Slots, Tokens, Cubit)
+- [ ] 02-04-PLAN.md — Circle Management UI (CircleCubit, Screens, Creation)
+- [ ] 02-05-PLAN.md — Feed & Reactions UI (FeedCubit, Post Widgets, Reaction Bar)
 
 ### Features
 - Create Friend Circle (2–20 members)
