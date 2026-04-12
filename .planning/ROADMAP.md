@@ -89,16 +89,30 @@ Plans:
 ## Phase 3: Messaging
 
 ### Goal
-Direct messaging and voice notes.
+Direct messaging (DMs), Voice Notes, and Quiet Presence mode.
+
+**Plans:** 3 plans in 3 waves
+
+Plans:
+- [ ] 03-01-PLAN.md — Messaging & Presence Core (Domain & Data)
+- [ ] 03-02-PLAN.md — Messaging & Presence BLoCs
+- [ ] 03-03-PLAN.md — Messaging UI & Voice Recording
 
 ### Features
-- Direct messages between Circle members
-- Voice notes recording
+- Direct messages between Circle members (real-time)
+- Voice notes recording & playback
 - Read receipts (opt-in)
-- Quiet presence mode
+- Quiet presence mode (online/quiet)
+- Slow Chat mode (voice-only)
 
 ### Dependencies
 - Phase 2 (circles)
+
+### Success Criteria
+- [ ] User can send/receive real-time text DMs
+- [ ] User can record and play back voice notes
+- [ ] User can toggle Quiet presence mode
+- [ ] Slow Chat mode restricts UI to voice only
 
 ---
 
