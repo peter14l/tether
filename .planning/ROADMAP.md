@@ -17,31 +17,36 @@
 ## Phase 1: Foundation
 
 ### Goal
-Initialize the core technical foundation including Clean Architecture scaffolding, Supabase database schema, and the E2E encryption system.
+Initialize the core technical foundation including full feature scaffolding, Supabase database schema (including messaging and escrow), and the E2E encryption system.
 
-**Plans:** 4 plans
+**Plans:** 4 plans in 3 waves
 
 Plans:
-- [ ] 01-01-PLAN.md — Scaffolding & Dependencies (Clean Arch, pubspec.yaml)
-- [ ] 01-02-PLAN.md — Supabase Schema (SQL migration for 20+ tables)
-- [ ] 01-03-PLAN.md — DI & Routing (GetIt, Injectable, GoRouter)
+- [ ] 01-01-PLAN.md — Scaffolding & Dependencies (Clean Arch, 13 features, pubspec.yaml)
+- [ ] 01-02-PLAN.md — Supabase Schema (SQL migration for 20+ tables + messages/escrow)
+- [ ] 01-03-PLAN.md — DI & Routing (Final main.dart wiring: GetIt, GoRouter)
 - [ ] 01-04-PLAN.md — E2E Encryption Core (AES-256, PIN-based recovery foundation)
 
 ### Features
-- Clean Architecture folder structure
+- Clean Architecture folder structure with all 13 feature directories (auth, circles, mood, journal, messaging, feed, memories, wellness, couples, family, vault, calendar, settings)
 - Required dependencies (Supabase, BLoC, DI, Crypto)
-- Supabase client initialization
-- Full database schema (Profiles, Circles, Posts, etc.)
+- Supabase client initialization (Initial setup in Plan 02, final in Plan 03)
+- Full database schema (Profiles, Circles, Posts, Messages, Escrow Keys, etc.)
 - E2E Encryption Service (AES-256-GCM)
 - Cloud Escrow + PIN recovery foundation
 - Dependency injection setup
 - GoRouter navigation foundation
 
+**Wave Analysis:**
+- Wave 1: 01-01
+- Wave 2: 01-02, 01-04 (Depends on Wave 1)
+- Wave 3: 01-03 (Depends on Wave 2)
+
 ### Success Criteria
-- [ ] Project folder structure matches PRD 5.2
-- [ ] SQL migration file defines all PRD tables and RLS policies
+- [ ] Project folder structure matches PRD 5.2 including all 13 features
+- [ ] SQL migration file defines all PRD tables, messaging, and escrow keys
 - [ ] Dependency injection container is successfully generated
-- [ ] App initializes with Supabase and GoRouter
+- [ ] App initializes with Supabase and GoRouter in `main.dart`
 - [ ] Encryption service passes basic verification
 
 ---
