@@ -67,9 +67,9 @@ Implement emotional wellness features: Mood Rooms, Encrypted Gratitude Journal, 
 **Plans:** 4 plans in 2 waves
 
 Plans:
-- [ ] 04-01-PLAN.md — Mood Room Feature (Domain, Data, Presentation, UI)
-- [ ] 04-02-PLAN.md — Encrypted Gratitude Journal (Domain, Data, Presentation, UI)
-- [ ] 04-03-PLAN.md — Reflection Wall & Breathing Room (Domain, Data, Presentation, UI)
+- [x] 04-01-PLAN.md — Mood Room Feature (Domain, Data, Presentation, UI)
+- [x] 04-02-PLAN.md — Encrypted Gratitude Journal (Domain, Data, Presentation, UI)
+- [x] 04-03-PLAN.md — Reflection Wall & Breathing Room (Domain, Data, Presentation, UI)
 - [ ] 04-04-PLAN.md — Mood-Adaptive UI Integration (Theme Engine, Avatar Ring)
 
 ---
@@ -82,10 +82,10 @@ Implement the "Our Bubble" private space for Couple circles with shared gallery,
 **Plans:** 4 plans in 4 waves
 
 Plans:
-- [ ] 05-01-PLAN.md — Couples Foundation & Schema (Domain, Data Models, Migration)
-- [ ] 05-02-PLAN.md — Couples Data Layer & Messaging Pause Integration
-- [ ] 05-03-PLAN.md — Couples Presentation & Real-time Integration
-- [ ] 05-04-PLAN.md — "Our Bubble" UI & Animations (Pulse, Ripple, Timeline, Gallery)
+- [x] 05-01-PLAN.md — Couples Foundation & Schema (Domain, Data Models, Migration)
+- [x] 05-02-PLAN.md — Couples Data Layer & Messaging Pause Integration
+- [x] 05-03-PLAN.md — Couples Presentation & Real-time Integration
+- [x] 05-04-PLAN.md — "Our Bubble" UI & Animations (Pulse, Ripple, Timeline, Gallery)
 
 ---
 
@@ -97,9 +97,10 @@ Implement Family-specific features including Safety Checks, SOS Alerts, Heritage
 **Plans:** 3 plans in 3 waves
 
 Plans:
-- [ ] 06-01-PLAN.md — Family Domain & Data Layers
-- [ ] 06-02-PLAN.md — Family Presentation (BLoC/Cubit)
-- [ ] 06-03-PLAN.md — Family UI (Dashboard, SOS, Heritage, Bedtime Stories)
+- [x] 06-01-PLAN.md — Family Domain & Data Layers
+- [x] 06-02-PLAN.md — Family Presentation (BLoC/Cubit)
+- [x] 06-03-PLAN.md — Family UI (Dashboard, SOS, Heritage, Bedtime Stories)
+
 
 ### Features
 - Family Circle features (FAM-01)
@@ -121,25 +122,71 @@ Plans:
 
 ---
 
-## Phase 7-10: Extended
+## Phase 7: Advanced Wellness & Interaction
 
 ### Goal
-Remaining extended features.
+Implement remaining wellness and engagement features to enhance emotional safety and low-pressure connection.
 
 ### Features
-- Letter Mode
-- Shared Playlists
-- Memories Lane
-- Temperature Check
-- Gentle Reactions expansion
-- + more (see FEATURE_IDEAS.md)
+- Quiet Hours UI & Wind Down scheduling
+- Check-In System (Daily "I'm okay" signal + Watchdog)
+- Temperature Check (Daily Circle mood poll)
+- Kindness Streaks (Private tracking of small acts)
+- Breathing Exercises On Open animation
+- Sunset Mode palette overrides
+
+---
+
+## Phase 8: Extended Couples & Family Spaces
+
+### Goal
+Deepen the niche relationship tools for Couples and Families.
+
+### Features
+- Love Languages Tracker & Weekly Suggestions
+- Date Planner (Collaborative ideas/planned/memories)
+- Private Jokes Vault (Shared chronological inside-joke media)
+- Distance Mode (Local time, extended voice limits for LDR)
+- Reminder Board & Chore Chart (Family task management)
+- Kid Mode & Grandparent Easy View (Simplified UI profiles)
+- Pet Corner (Dedicated pet sub-feed)
+
+---
+
+## Phase 9: Nostalgia, Sharing & Automations
+
+### Goal
+Implement memory retrieval and automated thoughtful interactions.
+
+### Features
+- Memories Lane (Chronological walk through shared moments)
+- Once Upon a Time (Nostalgia notifications)
+- Shared Playlists & Ambient Sound sharing
+- Future Letters (Digital time capsules)
+- Good Morning / Good Night scheduled message logic
+
+---
+
+## Phase 10: System, Security & Polish
+
+### Goal
+Final system-wide features, biometric security, and technical refinement.
+
+### Features
+- Letter Mode UI (Paper-textured thoughtful messages)
+- Safe Space Lock (Biometric gate for specific circles/vaults)
+- Soft Block logic (Invisible content filtering)
+- Accessibility Mode (Enhanced screen reader & high contrast)
+- Whisper Mode (Quiet, small-font UI)
+- Mirror Mode (Self-view during recording)
+- Full Edge Functions deployment for scheduled tasks
 
 ---
 
 ## Version Bumps
 
-- **v1.0**: [1-5] Foundation + Core + Messaging (MVP)
-- **v1.1**: [6-10] Wellness
-- **v1.2**: [11-15] Couples
-- **v1.3**: [16-20] Family
-- **v1.4+**: [21-26+] Extended
+- **v1.0**: [1-6] Core MVP (Foundation + Feed + Wellness + Messaging + Couples + Family)
+- **v1.1**: [7] Advanced Wellness
+- **v1.2**: [8] Extended Spaces
+- **v1.3**: [9] Memories & Automations
+- **v1.4**: [10] System & Polish

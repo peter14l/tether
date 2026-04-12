@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "projectName": "Tether",
+  "phaseModel": "standard",
+  "verification": {
+    "uats": true,
+    "documentation": true,
+    "tests": true
+  },
+  "defaults": {
+    "autoPlan": false,
+    "autoVerify": false,
+    "autoCommit": false
+  },
+  "features": {
+    "qualityGates": true,
+    "codeReview": false,
+    "securityAudit": false
+  }
+}

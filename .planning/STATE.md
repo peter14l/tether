@@ -40,10 +40,14 @@
 | 1: Foundation | Done |
 | 2: Circles & Feed | Done |
 | 3: Messaging | Done |
-| 4: Wellness | In Progress |
-| 5: Couples | Pending |
-| 6: Family | Pending |
-| 7-10: Extended | Pending |
+| 4: Wellness | Done |
+| 5: Couples | Done |
+| 6: Family | Done |
+| 7: Advanced Wellness | Pending |
+| 8: Extended Spaces | Pending |
+| 9: Memories & Automations | Pending |
+| 10: System & Polish | Pending |
+
 
 ---
 
