@@ -42,7 +42,7 @@ class SupabasePresenceRepository implements IPresenceRepository {
       }
       controller.add(mappedState);
     }).subscribe((status, [error]) async {
-      if (status == RealtimeChannelStatus.subscribed) {
+      if (status == RealtimeSubscribeStatus.subscribed) {
         final userId = _client.auth.currentUser?.id;
         if (userId != null) {
           await channel.track({
