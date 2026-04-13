@@ -87,9 +87,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       onPressed: () {
                         context.read<AuthBloc>().add(
                           SignUpRequested(
-                            email: _emailController.text,
+                            email: _emailController.text.trim(),
                             password: _passwordController.text,
-                            username: _usernameController.text,
+                            username: _usernameController.text.trim(),
                             displayName: _displayNameController.text,
                           ),
                         );

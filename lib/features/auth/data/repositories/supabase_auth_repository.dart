@@ -112,15 +112,24 @@ class SupabaseAuthRepository implements IAuthRepository {
       if (session == null) return const Right(null);
 
       final user = session.user;
-      final profileResponse = await _client
-          .from('profiles')
-          .select()
-          .eq('id', user.id)
-          .maybeSingle();
+      
+      // Retry profile fetch a few times
+      for (int i = 0; i < 3; i++) {
+        final profileResponse = await _client
+            .from('profiles')
+            .select()
+            .eq('id', user.id)
+            .maybeSingle();
 
-      if (profileResponse == null) return const Right(null);
+        if (profileResponse != null) {
+          return Right(UserModel.fromJson(profileResponse, user.email ?? ''));
+        }
+        
+        if (i < 2) await Future.delayed(Duration(milliseconds: 500 * (i + 1)));
+      }
 
-      return Right(UserModel.fromJson(profileResponse, user.email ?? ''));
+      // If still no profile after retries, return null
+      return const Right(null);
     } catch (e) {
       return Left(AuthFailure(e.toString()));
     }
@@ -133,19 +142,32 @@ class SupabaseAuthRepository implements IAuthRepository {
       if (session == null) return null;
 
       final user = session.user;
-      try {
-        final profileResponse = await _client
-            .from('profiles')
-            .select()
-            .eq('id', user.id)
-            .maybeSingle();
+      
+      // Try to fetch profile with a simple retry logic to account for database triggers
+      for (int i = 0; i < 3; i++) {
+        try {
+          final profileResponse = await _client
+              .from('profiles')
+              .select()
+              .eq('id', user.id)
+              .maybeSingle();
 
-        if (profileResponse == null) return null;
-
-        return UserModel.fromJson(profileResponse, user.email ?? '');
-      } catch (e) {
-        return null;
+          if (profileResponse != null) {
+            return UserModel.fromJson(profileResponse, user.email ?? '');
+          }
+          
+          // If profile not found, wait a bit and retry (only if we have a session)
+          if (i < 2) await Future.delayed(Duration(milliseconds: 500 * (i + 1)));
+        } catch (e) {
+          if (i == 2) return null;
+          await Future.delayed(Duration(milliseconds: 500 * (i + 1)));
+        }
       }
+
+      // Final fallback: if we have a session but still no profile after retries,
+      // we return null which will trigger Unauthenticated, but the retries
+      // should have given enough time for the trigger or signIn/signUp logic to finish.
+      return null;
     });
   }
 }

@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         context.read<AuthBloc>().add(
                           SignInRequested(
-                            _emailController.text,
+                            _emailController.text.trim(),
                             _passwordController.text,
                           ),
                         );
