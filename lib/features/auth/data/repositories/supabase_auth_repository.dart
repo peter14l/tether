@@ -68,7 +68,20 @@ class SupabaseAuthRepository implements IAuthRepository {
           .from('profiles')
           .select()
           .eq('id', user.id)
-          .single();
+          .maybeSingle();
+
+      if (profileResponse == null) {
+        // Create a basic profile if missing (fallback)
+        final newProfile = {
+          'id': user.id,
+          'username': email.split('@').first,
+          'display_name': email.split('@').first,
+          'created_at': DateTime.now().toIso8601String(),
+          'updated_at': DateTime.now().toIso8601String(),
+        };
+        await _client.from('profiles').insert(newProfile);
+        return Right(UserModel.fromJson(newProfile, email));
+      }
 
       return Right(UserModel.fromJson(profileResponse, email));
     } catch (e) {
@@ -97,7 +110,9 @@ class SupabaseAuthRepository implements IAuthRepository {
           .from('profiles')
           .select()
           .eq('id', user.id)
-          .single();
+          .maybeSingle();
+
+      if (profileResponse == null) return const Right(null);
 
       return Right(UserModel.fromJson(profileResponse, user.email ?? ''));
     } catch (e) {
@@ -117,7 +132,10 @@ class SupabaseAuthRepository implements IAuthRepository {
             .from('profiles')
             .select()
             .eq('id', user.id)
-            .single();
+            .maybeSingle();
+
+        if (profileResponse == null) return null;
+
         return UserModel.fromJson(profileResponse, user.email ?? '');
       } catch (e) {
         return null;
