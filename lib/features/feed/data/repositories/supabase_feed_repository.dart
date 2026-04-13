@@ -30,6 +30,19 @@ class SupabaseFeedRepository implements IFeedRepository {
   }
 
   @override
+  Stream<List<PostEntity>> watchCircleFeed(String circleId) {
+    return _client
+        .from('posts')
+        .stream(primaryKey: ['id'])
+        .eq('circle_id', circleId)
+        .order('created_at', ascending: false)
+        .map((data) => data
+            .where((json) => json['is_soft_deleted'] == false)
+            .map((json) => PostModel.fromJson(json))
+            .toList());
+  }
+
+  @override
   Future<Either<Failure, PostEntity>> createPost(PostEntity post) async {
     try {
       final model = PostModel(

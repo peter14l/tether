@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -9,15 +10,30 @@ import 'feed_state.dart';
 class FeedCubit extends Cubit<FeedState> {
   final IFeedRepository _feedRepository;
   final SupabaseClient _supabaseClient;
+  StreamSubscription<List<PostEntity>>? _feedSubscription;
 
   FeedCubit(this._feedRepository, this._supabaseClient) : super(FeedInitial());
 
   Future<void> loadFeed(String circleId) async {
     emit(FeedLoading());
+    // Initial fetch
     final result = await _feedRepository.getCircleFeed(circleId);
     result.fold(
       (failure) => emit(FeedError(failure.message)),
-      (posts) => emit(FeedLoaded(posts)),
+      (posts) {
+        emit(FeedLoaded(posts));
+        _subscribeToFeed(circleId);
+      },
+    );
+  }
+
+  void _subscribeToFeed(String circleId) {
+    _feedSubscription?.cancel();
+    _feedSubscription = _feedRepository.watchCircleFeed(circleId).listen(
+      (posts) {
+        emit(FeedLoaded(posts));
+      },
+      onError: (e) => emit(FeedError(e.toString())),
     );
   }
 
@@ -54,7 +70,13 @@ class FeedCubit extends Cubit<FeedState> {
     final result = await _feedRepository.addReaction(postId, type);
     result.fold(
       (failure) => emit(FeedError(failure.message)),
-      (_) => loadFeed(circleId),
+      (_) => loadFeed(circleId), // Wait, if stream is active, we don't strictly need to reload the whole feed manually, but it's fine.
     );
+  }
+
+  @override
+  Future<void> close() {
+    _feedSubscription?.cancel();
+    return super.close();
   }
 }
