@@ -19,7 +19,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     _authSubscription = _authRepository.onAuthStateChanged.listen((user) {
       if (user != null) {
         emit(Authenticated(user));
-      } else {
+      } else if (state is! Authenticated) {
+        // Only emit Unauthenticated from the stream when we are NOT already
+        // Authenticated. This prevents a race condition where:
+        //  1. signIn() succeeds and emits Authenticated, then
+        //  2. the onAuthStateChanged stream fires null (profile fetch failed)
+        //     and overwrites Authenticated → Unauthenticated, blocking navigation.
+        // Real sign-outs are handled by _onSignOutRequested which explicitly
+        // emits Unauthenticated before this stream can react.
         emit(Unauthenticated());
       }
     });
