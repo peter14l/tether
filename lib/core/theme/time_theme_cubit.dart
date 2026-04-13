@@ -14,6 +14,9 @@ class TimeThemeCubit extends Cubit<TimeThemeState> {
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
+      // Don't auto-update slot if user has manually overridden dark mode
+      if (state.isDarkModeOverride != null) return;
+
       final newSlot = _calculateSlot();
       if (newSlot != state.slot) {
         emit(TimeThemeState(newSlot));
@@ -21,10 +24,18 @@ class TimeThemeCubit extends Cubit<TimeThemeState> {
     });
   }
 
+  void toggleDarkMode({required bool enabled}) {
+    emit(state.copyWith(isDarkModeOverride: enabled ? true : false));
+  }
+
+  void clearDarkModeOverride() {
+    emit(TimeThemeState(_calculateSlot()));
+  }
+
   static TimeSlot _calculateSlot() {
     final now = DateTime.now();
     final hour = now.hour + (now.minute / 60.0);
-    
+
     // Morning: 5:00 - 11:59
     if (hour >= 5.0 && hour < 12.0) return TimeSlot.morning;
     // Afternoon: 12:00 - 17:29

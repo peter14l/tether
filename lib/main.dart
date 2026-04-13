@@ -36,15 +36,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => getIt<TimeThemeCubit>()),
-      ],
+      providers: [BlocProvider(create: (context) => getIt<TimeThemeCubit>())],
       child: BlocBuilder<TimeThemeCubit, TimeThemeState>(
         builder: (context, state) {
           return MaterialApp.router(
             title: 'Tether',
             debugShowCheckedModeBanner: false,
-            theme: AppTheme.getTheme(state.slot),
+            theme: AppTheme.getTheme(
+              state.slot,
+              isDarkModeOverride: state.isDarkModeOverride,
+            ),
             routerConfig: goRouter,
           );
         },

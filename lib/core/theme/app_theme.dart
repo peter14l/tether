@@ -3,9 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'theme_tokens.dart';
 
 class AppTheme {
-  static ThemeData getTheme(TimeSlot slot) {
-    final tokens = ThemeTokens.getTokens(slot);
-    final isDark = slot == TimeSlot.dusk || slot == TimeSlot.night;
+  static ThemeData getTheme(TimeSlot slot, {bool? isDarkModeOverride}) {
+    final isDark =
+        isDarkModeOverride ?? (slot == TimeSlot.dusk || slot == TimeSlot.night);
+    final tokens = isDark
+        ? (slot == TimeSlot.night ? ThemeTokens.night : ThemeTokens.dusk)
+        : ThemeTokens.getTokens(slot);
 
     return ThemeData(
       useMaterial3: true,
@@ -124,7 +127,10 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: tokens.surfaceContainerLow,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 16,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide: BorderSide(color: tokens.borderDefault.withOpacity(0.18)),
@@ -138,7 +144,9 @@ class AppTheme {
           borderSide: BorderSide(color: tokens.accentPrimary, width: 2),
         ),
         labelStyle: GoogleFonts.plusJakartaSans(color: tokens.textSecondary),
-        hintStyle: GoogleFonts.plusJakartaSans(color: tokens.textSecondary.withOpacity(0.6)),
+        hintStyle: GoogleFonts.plusJakartaSans(
+          color: tokens.textSecondary.withOpacity(0.6),
+        ),
       ),
     );
   }
