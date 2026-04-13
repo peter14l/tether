@@ -234,7 +234,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i454.SupabaseClient>(),
       ),
     );
-    gh.factory<_i363.AuthBloc>(
+    gh.lazySingleton<_i363.AuthBloc>(
       () => _i363.AuthBloc(gh<_i1015.IAuthRepository>()),
     );
     gh.factory<_i553.MoodCubit>(
