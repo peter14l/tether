@@ -47,17 +47,13 @@
 | 8: Extended Spaces | Pending |
 | 9: Memories & Automations | Pending |
 | 10: System & Polish | Pending |
-
-
----
-
-## Workspace
-
-**IDE:** VS Code
-
-**Commands:**
-- `/gsd-plan-phase 1` - Plan Foundation phase
-- `/gsd-map-codebase` - Refresh codebase map
+| 11: Production Hardening | Done |
+| 12: Launch Readiness | Done |
 
 ---
-*Project initialized via /gsd-new-project*
+
+## Accumulated Context
+
+### Roadmap Evolution
+- Phase 11 added: Production Hardening, Real Data Integration, and User Guides
+- Phase 12 added: Launch Readiness (FCM, Crashlytics, DAU, Monetization)

@@ -120,9 +120,9 @@ class _CirclesScreenState extends State<CirclesScreen> {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             child: const Icon(Icons.add),
           ),
-          ),
+        ),
         ),
       ),
-    ));
+    );
   }
 }

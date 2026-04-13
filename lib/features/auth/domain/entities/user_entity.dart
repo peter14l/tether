@@ -12,6 +12,7 @@ class UserEntity extends Equatable {
   final bool isQuiet;
   final DateTime? quietUntil;
   final String? timezone;
+  final String subscriptionTier; // 'free' or 'plus'
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -27,6 +28,7 @@ class UserEntity extends Equatable {
     this.isQuiet = false,
     this.quietUntil,
     this.timezone,
+    this.subscriptionTier = 'free',
     required this.createdAt,
     required this.updatedAt,
   });

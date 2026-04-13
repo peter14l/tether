@@ -1,0 +1,7 @@
+flutter_launcher_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/branding/logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default:21
+  adaptive_icon_background: "#0F0216" # Deep dark purple from logo background
+  adaptive_icon_foreground: "assets/branding/logo.png"

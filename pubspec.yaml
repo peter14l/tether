@@ -1,4 +1,4 @@
-name: app
+name:tether
 description: "A new Flutter project."
 publish_to: 'none' 
 
@@ -27,6 +27,14 @@ dependencies:
   permission_handler: ^11.3.1
   shared_preferences: ^2.5.5
   showcaseview: ^5.0.1
+  firebase_core: ^4.7.0
+  firebase_analytics: ^12.3.0
+  firebase_crashlytics: ^5.2.0
+  firebase_messaging: ^16.2.0
+  in_app_purchase: ^3.2.3
+  razorpay_flutter: ^1.4.4
+  local_auth: ^2.2.0
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -36,7 +44,7 @@ dev_dependencies:
   injectable_generator: ^2.6.2
   mocktail: ^1.0.4
   bloc_test: ^9.1.7
-
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true

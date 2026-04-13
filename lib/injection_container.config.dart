@@ -14,6 +14,9 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i454;
 
+import 'core/notifications/push_notification_service.dart' as _i610;
+import 'core/security/biometric_service.dart' as _i325;
+import 'core/telemetry/telemetry_service.dart' as _i62;
 import 'core/theme/time_theme_cubit.dart' as _i66;
 import 'core/utils/encryption_service.dart' as _i376;
 import 'core/utils/escrow_service.dart' as _i873;
@@ -72,6 +75,10 @@ import 'features/messaging/domain/repositories/messaging_repository.dart'
 import 'features/messaging/presentation/bloc/messaging_cubit.dart' as _i431;
 import 'features/messaging/presentation/bloc/messaging_thread_cubit.dart'
     as _i899;
+import 'features/monetization/data/repositories/billing_repository_impl.dart'
+    as _i1019;
+import 'features/monetization/domain/repositories/billing_repository.dart'
+    as _i917;
 import 'features/mood/data/repositories/supabase_mood_repository.dart' as _i904;
 import 'features/mood/domain/repositories/mood_repository.dart' as _i116;
 import 'features/mood/presentation/bloc/mood_cubit.dart' as _i553;
@@ -102,23 +109,21 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i66.TimeThemeCubit>(() => _i66.TimeThemeCubit());
     gh.lazySingleton<_i376.EncryptionService>(() => _i376.EncryptionService());
     gh.lazySingleton<_i880.KeyDerivation>(() => _i880.KeyDerivation());
-    gh.lazySingleton<_i340.IGalleryRepository>(
-      () => _i14.SupabaseGalleryRepository(
+    gh.lazySingleton<_i325.IBiometricService>(() => _i325.BiometricService());
+    gh.lazySingleton<_i246.IJournalRepository>(
+      () => _i422.SupabaseJournalRepository(
         gh<_i454.SupabaseClient>(),
         gh<_i376.EncryptionService>(),
       ),
     );
-    gh.lazySingleton<_i873.EscrowService>(
-      () => _i873.EscrowService(
-        gh<_i376.EncryptionService>(),
-        gh<_i880.KeyDerivation>(),
+    gh.factory<_i485.JournalCubit>(
+      () => _i485.JournalCubit(
+        gh<_i246.IJournalRepository>(),
+        gh<_i454.SupabaseClient>(),
       ),
     );
-    gh.lazySingleton<_i309.ISettingsRepository>(
-      () => _i68.SharedPrefsSettingsRepository(gh<_i460.SharedPreferences>()),
-    );
-    gh.lazySingleton<_i246.IJournalRepository>(
-      () => _i422.SupabaseJournalRepository(
+    gh.lazySingleton<_i340.IGalleryRepository>(
+      () => _i14.SupabaseGalleryRepository(
         gh<_i454.SupabaseClient>(),
         gh<_i376.EncryptionService>(),
       ),
@@ -129,35 +134,38 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i376.EncryptionService>(),
       ),
     );
+    gh.lazySingleton<_i309.ISettingsRepository>(
+      () => _i68.SharedPrefsSettingsRepository(gh<_i460.SharedPreferences>()),
+    );
+    gh.lazySingleton<_i62.ITelemetryService>(
+      () => _i62.FirebaseTelemetryService(),
+    );
     gh.factory<_i738.ReflectionCubit>(
       () => _i738.ReflectionCubit(
         gh<_i832.IReflectionRepository>(),
         gh<_i454.SupabaseClient>(),
       ),
     );
+    gh.lazySingleton<_i917.IBillingRepository>(
+      () => _i1019.BillingRepositoryImpl(),
+    );
+    gh.lazySingleton<_i331.ICouplesRepository>(
+      () => _i701.SupabaseCouplesRepository(gh<_i454.SupabaseClient>()),
+    );
     gh.lazySingleton<_i133.IBedtimeStoriesRepository>(
       () => _i35.SupabaseBedtimeStoriesRepository(gh<_i454.SupabaseClient>()),
-    );
-    gh.lazySingleton<_i209.IHeritageRepository>(
-      () => _i600.SupabaseHeritageRepository(gh<_i454.SupabaseClient>()),
-    );
-    gh.lazySingleton<_i77.IMessagingRepository>(
-      () => _i540.SupabaseMessagingRepository(gh<_i454.SupabaseClient>()),
-    );
-    gh.lazySingleton<_i1015.IAuthRepository>(
-      () => _i760.SupabaseAuthRepository(gh<_i454.SupabaseClient>()),
     );
     gh.lazySingleton<_i185.IFeedRepository>(
       () => _i409.SupabaseFeedRepository(gh<_i454.SupabaseClient>()),
     );
-    gh.factory<_i400.FeedCubit>(
-      () => _i400.FeedCubit(
-        gh<_i185.IFeedRepository>(),
-        gh<_i454.SupabaseClient>(),
-      ),
+    gh.lazySingleton<_i116.IMoodRepository>(
+      () => _i904.SupabaseMoodRepository(gh<_i454.SupabaseClient>()),
     );
-    gh.lazySingleton<_i358.IPresenceRepository>(
-      () => _i599.SupabasePresenceRepository(gh<_i454.SupabaseClient>()),
+    gh.lazySingleton<_i665.IFamilyRepository>(
+      () => _i660.SupabaseFamilyRepository(gh<_i454.SupabaseClient>()),
+    );
+    gh.lazySingleton<_i77.IMessagingRepository>(
+      () => _i540.SupabaseMessagingRepository(gh<_i454.SupabaseClient>()),
     );
     gh.factory<_i431.MessagingCubit>(
       () => _i431.MessagingCubit(
@@ -165,26 +173,26 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i454.SupabaseClient>(),
       ),
     );
-    gh.lazySingleton<_i333.ICircleRepository>(
-      () => _i759.SupabaseCircleRepository(gh<_i454.SupabaseClient>()),
-    );
-    gh.lazySingleton<_i665.IFamilyRepository>(
-      () => _i660.SupabaseFamilyRepository(gh<_i454.SupabaseClient>()),
+    gh.lazySingleton<_i610.IPushNotificationService>(
+      () => _i610.PushNotificationService(gh<_i454.SupabaseClient>()),
     );
     gh.factory<_i361.PrivateGalleryCubit>(
       () => _i361.PrivateGalleryCubit(gh<_i340.IGalleryRepository>()),
     );
-    gh.lazySingleton<_i331.ICouplesRepository>(
-      () => _i701.SupabaseCouplesRepository(gh<_i454.SupabaseClient>()),
+    gh.lazySingleton<_i209.IHeritageRepository>(
+      () => _i600.SupabaseHeritageRepository(gh<_i454.SupabaseClient>()),
     );
-    gh.factory<_i523.HeritageCubit>(
-      () => _i523.HeritageCubit(
-        gh<_i209.IHeritageRepository>(),
-        gh<_i454.SupabaseClient>(),
+    gh.factory<_i899.MessagingThreadCubit>(
+      () => _i899.MessagingThreadCubit(gh<_i77.IMessagingRepository>()),
+    );
+    gh.lazySingleton<_i1015.IAuthRepository>(
+      () => _i760.SupabaseAuthRepository(gh<_i454.SupabaseClient>()),
+    );
+    gh.lazySingleton<_i873.EscrowService>(
+      () => _i873.EscrowService(
+        gh<_i376.EncryptionService>(),
+        gh<_i880.KeyDerivation>(),
       ),
-    );
-    gh.lazySingleton<_i116.IMoodRepository>(
-      () => _i904.SupabaseMoodRepository(gh<_i454.SupabaseClient>()),
     );
     gh.factory<_i412.FamilySafetyCubit>(
       () => _i412.FamilySafetyCubit(
@@ -192,17 +200,41 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i454.SupabaseClient>(),
       ),
     );
-    gh.factory<_i75.CircleCubit>(
-      () => _i75.CircleCubit(
-        gh<_i333.ICircleRepository>(),
+    gh.factory<_i310.BedtimeStoriesCubit>(
+      () => _i310.BedtimeStoriesCubit(
+        gh<_i133.IBedtimeStoriesRepository>(),
         gh<_i454.SupabaseClient>(),
       ),
+    );
+    gh.lazySingleton<_i358.IPresenceRepository>(
+      () => _i599.SupabasePresenceRepository(gh<_i454.SupabaseClient>()),
     );
     gh.lazySingleton<_i122.IMilestonesRepository>(
       () => _i896.SupabaseMilestonesRepository(gh<_i454.SupabaseClient>()),
     );
+    gh.lazySingleton<_i333.ICircleRepository>(
+      () => _i759.SupabaseCircleRepository(gh<_i454.SupabaseClient>()),
+    );
     gh.factory<_i870.PresenceCubit>(
       () => _i870.PresenceCubit(gh<_i358.IPresenceRepository>()),
+    );
+    gh.factory<_i523.HeritageCubit>(
+      () => _i523.HeritageCubit(
+        gh<_i209.IHeritageRepository>(),
+        gh<_i454.SupabaseClient>(),
+      ),
+    );
+    gh.factory<_i400.FeedCubit>(
+      () => _i400.FeedCubit(
+        gh<_i185.IFeedRepository>(),
+        gh<_i454.SupabaseClient>(),
+      ),
+    );
+    gh.factory<_i553.MoodCubit>(
+      () => _i553.MoodCubit(
+        gh<_i116.IMoodRepository>(),
+        gh<_i454.SupabaseClient>(),
+      ),
     );
     gh.factory<_i375.CoupleBubbleCubit>(
       () => _i375.CoupleBubbleCubit(
@@ -216,32 +248,20 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i454.SupabaseClient>(),
       ),
     );
-    gh.factory<_i485.JournalCubit>(
-      () => _i485.JournalCubit(
-        gh<_i246.IJournalRepository>(),
+    gh.factory<_i75.CircleCubit>(
+      () => _i75.CircleCubit(
+        gh<_i333.ICircleRepository>(),
         gh<_i454.SupabaseClient>(),
+      ),
+    );
+    gh.factory<_i363.AuthBloc>(
+      () => _i363.AuthBloc(
+        gh<_i1015.IAuthRepository>(),
+        gh<_i610.IPushNotificationService>(),
       ),
     );
     gh.factory<_i656.CircleMemberCubit>(
       () => _i656.CircleMemberCubit(gh<_i333.ICircleRepository>()),
-    );
-    gh.factory<_i899.MessagingThreadCubit>(
-      () => _i899.MessagingThreadCubit(gh<_i77.IMessagingRepository>()),
-    );
-    gh.factory<_i310.BedtimeStoriesCubit>(
-      () => _i310.BedtimeStoriesCubit(
-        gh<_i133.IBedtimeStoriesRepository>(),
-        gh<_i454.SupabaseClient>(),
-      ),
-    );
-    gh.lazySingleton<_i363.AuthBloc>(
-      () => _i363.AuthBloc(gh<_i1015.IAuthRepository>()),
-    );
-    gh.factory<_i553.MoodCubit>(
-      () => _i553.MoodCubit(
-        gh<_i116.IMoodRepository>(),
-        gh<_i454.SupabaseClient>(),
-      ),
     );
     return this;
   }

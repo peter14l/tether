@@ -13,11 +13,12 @@ class UserModel extends UserEntity {
     super.isQuiet,
     super.quietUntil,
     super.timezone,
+    super.subscriptionTier = 'free',
     required super.createdAt,
     required super.updatedAt,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json, String email) {
+  factory UserModel.fromJson(Map<String, dynamic> json, String email, {String? tier}) {
     return UserModel(
       id: json['id'] as String,
       email: email,
@@ -30,6 +31,7 @@ class UserModel extends UserEntity {
       isQuiet: json['is_quiet'] as bool? ?? false,
       quietUntil: json['quiet_until'] != null ? DateTime.parse(json['quiet_until'] as String) : null,
       timezone: json['timezone'] as String?,
+      subscriptionTier: tier ?? json['subscription_tier'] as String? ?? 'free',
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
     );
@@ -47,6 +49,7 @@ class UserModel extends UserEntity {
       'is_quiet': isQuiet,
       'quiet_until': quietUntil?.toIso8601String(),
       'timezone': timezone,
+      'subscription_tier': subscriptionTier,
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
     };

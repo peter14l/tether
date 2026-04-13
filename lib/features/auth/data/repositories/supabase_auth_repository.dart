@@ -35,11 +35,6 @@ class SupabaseAuthRepository implements IAuthRepository {
         return const Left(AuthFailure('Sign up failed'));
       }
 
-      // Profile is now created by database trigger. 
-      // We fetch it here if we want to return the full model.
-      // If email confirmation is enabled, we won't have it yet, 
-      // but we can return a skeleton model.
-
       final profile = {
         'id': user.id,
         'username': username,
@@ -77,7 +72,6 @@ class SupabaseAuthRepository implements IAuthRepository {
           .maybeSingle();
 
       if (profileResponse == null) {
-        // Create a basic profile if missing (fallback)
         final newProfile = {
           'id': user.id,
           'username': email.split('@').first,
@@ -86,10 +80,12 @@ class SupabaseAuthRepository implements IAuthRepository {
           'updated_at': DateTime.now().toIso8601String(),
         };
         await _client.from('profiles').insert(newProfile);
-        return Right(UserModel.fromJson(newProfile, email));
+        final tier = await _fetchSubscriptionTier(user.id);
+        return Right(UserModel.fromJson(newProfile, email, tier: tier));
       }
 
-      return Right(UserModel.fromJson(profileResponse, email));
+      final tier = await _fetchSubscriptionTier(user.id);
+      return Right(UserModel.fromJson(profileResponse, email, tier: tier));
     } catch (e) {
       return Left(AuthFailure(e.toString()));
     }
@@ -113,7 +109,6 @@ class SupabaseAuthRepository implements IAuthRepository {
 
       final user = session.user;
       
-      // Retry profile fetch a few times
       for (int i = 0; i < 3; i++) {
         final profileResponse = await _client
             .from('profiles')
@@ -122,13 +117,13 @@ class SupabaseAuthRepository implements IAuthRepository {
             .maybeSingle();
 
         if (profileResponse != null) {
-          return Right(UserModel.fromJson(profileResponse, user.email ?? ''));
+          final tier = await _fetchSubscriptionTier(user.id);
+          return Right(UserModel.fromJson(profileResponse, user.email ?? '', tier: tier));
         }
         
         if (i < 2) await Future.delayed(Duration(milliseconds: 500 * (i + 1)));
       }
 
-      // If still no profile after retries, return null
       return const Right(null);
     } catch (e) {
       return Left(AuthFailure(e.toString()));
@@ -143,7 +138,6 @@ class SupabaseAuthRepository implements IAuthRepository {
 
       final user = session.user;
       
-      // Try to fetch profile with a simple retry logic to account for database triggers
       for (int i = 0; i < 3; i++) {
         try {
           final profileResponse = await _client
@@ -153,21 +147,32 @@ class SupabaseAuthRepository implements IAuthRepository {
               .maybeSingle();
 
           if (profileResponse != null) {
-            return UserModel.fromJson(profileResponse, user.email ?? '');
+            final tier = await _fetchSubscriptionTier(user.id);
+            return UserModel.fromJson(profileResponse, user.email ?? '', tier: tier);
           }
           
-          // If profile not found, wait a bit and retry (only if we have a session)
           if (i < 2) await Future.delayed(Duration(milliseconds: 500 * (i + 1)));
-        } catch (e) {
+        } catch (_) {
           if (i == 2) return null;
           await Future.delayed(Duration(milliseconds: 500 * (i + 1)));
         }
       }
 
-      // Final fallback: if we have a session but still no profile after retries,
-      // we return null which will trigger Unauthenticated, but the retries
-      // should have given enough time for the trigger or signIn/signUp logic to finish.
       return null;
     });
+  }
+
+  Future<String> _fetchSubscriptionTier(String userId) async {
+    try {
+      final subscription = await _client
+          .from('user_subscriptions')
+          .select('tier')
+          .eq('user_id', userId)
+          .maybeSingle();
+
+      return subscription?['tier'] as String? ?? 'free';
+    } catch (_) {
+      return 'free';
+    }
   }
 }

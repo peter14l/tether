@@ -2,34 +2,47 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../../../../core/notifications/push_notification_service.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository _authRepository;
+  final IPushNotificationService _pushService;
   StreamSubscription? _authSubscription;
 
-  AuthBloc(this._authRepository) : super(AuthInitial()) {
+  AuthBloc(this._authRepository, this._pushService) : super(AuthInitial()) {
     on<AuthCheckRequested>(_onAuthCheckRequested);
     on<SignInRequested>(_onSignInRequested);
     on<SignUpRequested>(_onSignUpRequested);
     on<SignOutRequested>(_onSignOutRequested);
+    on<AuthUserChanged>(_onAuthUserChanged);
 
     _authSubscription = _authRepository.onAuthStateChanged.listen((user) {
-      if (user != null) {
-        emit(Authenticated(user));
-      } else if (state is! Authenticated) {
-        // Only emit Unauthenticated from the stream when we are NOT already
-        // Authenticated. This prevents a race condition where:
-        //  1. signIn() succeeds and emits Authenticated, then
-        //  2. the onAuthStateChanged stream fires null (profile fetch failed)
-        //     and overwrites Authenticated → Unauthenticated, blocking navigation.
-        // Real sign-outs are handled by _onSignOutRequested which explicitly
-        // emits Unauthenticated before this stream can react.
-        emit(Unauthenticated());
-      }
+      add(AuthUserChanged(user));
     });
+  }
+
+  Future<void> _onAuthUserChanged(
+    AuthUserChanged event,
+    Emitter<AuthState> emit,
+  ) async {
+    final user = event.user;
+    if (user != null) {
+      emit(Authenticated(user));
+      _pushService.initialize();
+      _pushService.registerToken();
+    } else if (state is! Authenticated) {
+      // Only emit Unauthenticated from the stream when we are NOT already
+      // Authenticated. This prevents a race condition where:
+      //  1. signIn() succeeds and emits Authenticated, then
+      //  2. the onAuthStateChanged stream fires null (profile fetch failed)
+      //     and overwrites Authenticated → Unauthenticated, blocking navigation.
+      // Real sign-outs are handled by _onSignOutRequested which explicitly
+      // emits Unauthenticated before this stream can react.
+      emit(Unauthenticated());
+    }
   }
 
   Future<void> _onAuthCheckRequested(

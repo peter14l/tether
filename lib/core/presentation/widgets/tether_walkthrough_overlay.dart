@@ -8,17 +8,17 @@ class TetherWalkthroughOverlay extends StatelessWidget {
   final Widget child;
 
   const TetherWalkthroughOverlay({
-    Key? key,
+    super.key,
     required this.showcaseKey,
     required this.title,
     required this.description,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Showcase(
       key: showcaseKey,
       title: title,
@@ -28,9 +28,8 @@ class TetherWalkthroughOverlay extends StatelessWidget {
         color: theme.colorScheme.primary,
       ),
       descTextStyle: theme.textTheme.bodyMedium!,
-      showcaseBackgroundColor: theme.colorScheme.surface,
       textColor: theme.colorScheme.onSurface,
-      overlayColor: Colors.black.withOpacity(0.5),
+      overlayColor: Colors.black.withValues(alpha: 0.5),
       child: child,
     );
   }

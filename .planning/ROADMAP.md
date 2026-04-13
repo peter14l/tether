@@ -228,6 +228,18 @@ Plans:
 - [x] 11-02-PLAN.md — Real Data Integration (Feed & Realtime Core)
 - [x] 11-03-PLAN.md — Interactive User Guides (Showcase)
 
+### Phase 12: Launch Readiness (FCM, Crashlytics, DAU, Monetization)
+
+**Goal:** Implement critical infrastructure for commercial launch, including telemetry, push notifications, and payment gateways.
+**Depends on:** Phase 11
+**Plans:** 4/4 plans complete
+
+Plans:
+- [x] 12-01-PLAN.md — Firebase Setup & Telemetry (Crashlytics, DAU)
+- [x] 12-02-PLAN.md — Notifications Infrastructure (FCM + Supabase)
+- [x] 12-03-PLAN.md — Monetization Logic (IAP vs Razorpay)
+- [x] 12-04-PLAN.md — Payments UI & Launch Pipelines
+
 ---
 
 

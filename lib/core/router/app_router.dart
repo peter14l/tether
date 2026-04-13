@@ -15,12 +15,14 @@ import '../../features/family/presentation/screens/family_dashboard_screen.dart'
 import '../../features/family/presentation/screens/heritage_corner_screen.dart';
 import '../../features/family/presentation/screens/bedtime_stories_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
+import '../../features/monetization/presentation/screens/checkout_screen.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/sign_up_screen.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../../features/auth/presentation/bloc/auth_state.dart';
 import '../../injection_container.dart';
 import '../widgets/main_shell.dart';
+import '../widgets/biometric_guard.dart';
 
 final goRouter = GoRouter(
   initialLocation: '/',
@@ -81,6 +83,10 @@ final goRouter = GoRouter(
       builder: (context, state) => const CreateCircleScreen(),
     ),
     GoRoute(
+      path: '/checkout',
+      builder: (context, state) => const CheckoutScreen(),
+    ),
+    GoRoute(
       path: '/messaging/chat/:circleId/:otherUserId',
       builder: (context, state) {
         final circleId = state.pathParameters['circleId']!;
@@ -94,11 +100,15 @@ final goRouter = GoRouter(
     ),
     GoRoute(
       path: '/journal',
-      builder: (context, state) => const JournalScreen(),
+      builder: (context, state) => const BiometricGuard(
+        child: JournalScreen(),
+      ),
     ),
     GoRoute(
       path: '/reflection',
-      builder: (context, state) => const ReflectionWallScreen(),
+      builder: (context, state) => const BiometricGuard(
+        child: ReflectionWallScreen(),
+      ),
     ),
     GoRoute(
       path: '/bubble/:circleId',

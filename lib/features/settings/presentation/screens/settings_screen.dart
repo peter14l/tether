@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/theme/time_theme_cubit.dart';
-import '../../../../core/theme/time_theme_state.dart';
-import '../../../../core/widgets/squircle_avatar.dart';
-import '../../../../core/widgets/whisper_text.dart';
-import '../../../../core/widgets/glass_panel.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tether/core/theme/time_theme_cubit.dart';
+import 'package:tether/core/theme/time_theme_state.dart';
+import 'package:tether/core/widgets/squircle_avatar.dart';
+import 'package:tether/core/widgets/whisper_text.dart';
+import 'package:tether/core/widgets/glass_panel.dart';
+import 'package:tether/core/security/biometric_service.dart';
+import 'package:tether/injection_container.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -15,107 +18,328 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   int _selectedIndex = 0;
+  bool _isViewingSection = false;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final size = MediaQuery.of(context).size;
+    final isMobile = size.width < 700;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: colorScheme.surface.withOpacity(0.8),
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: colorScheme.primary),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'Tether',
-          style: theme.textTheme.headlineMedium?.copyWith(
-            color: colorScheme.primary,
-            fontSize: 24,
+    return PopScope(
+      canPop: !isMobile || !_isViewingSection,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        if (isMobile && _isViewingSection) {
+          setState(() => _isViewingSection = false);
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: colorScheme.surface.withValues(alpha: 0.8),
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(
+              isMobile && _isViewingSection ? Icons.arrow_back : Icons.close,
+              color: colorScheme.primary,
+            ),
+            onPressed: () {
+              if (isMobile && _isViewingSection) {
+                setState(() => _isViewingSection = false);
+              } else {
+                Navigator.pop(context);
+              }
+            },
           ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: SquircleAvatar(
-              imageUrl:
-                  'https://lh3.googleusercontent.com/aida-public/AB6AXuAcJfry8HNWQrKeOk3f7p1H6nXJVmr1ZuBaPuuQXb6xi1iWm--PQLHvBqYu-wupO1_AaoL5WuZnYmsB8fgR5PQyJTHRhZExAB3lAs8SWp-7Y_1Ee5KH_9IgoW8VJzA1YhE2We0IiZEnGfpX5gMr79hJEEW5epeymvaojqgoWJjSJS1ppFbgwsYzb1tC-LwTioHI2Zp2QLm94SLFGcZO0gVUbbbc8YRlcgIHnrowbrHheLQNhzTlF6kbD49F-skJeOgfb9LTP6ISQxGJ',
-              size: 40,
-              borderColor: colorScheme.primary.withOpacity(0.2),
-              borderWidth: 2,
+          title: Text(
+            isMobile && _isViewingSection
+                ? _categories[_selectedIndex].label
+                : 'Settings',
+            style: theme.textTheme.headlineMedium?.copyWith(
+              color: colorScheme.primary,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
             ),
           ),
-        ],
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: SquircleAvatar(
+                imageUrl:
+                    'https://lh3.googleusercontent.com/aida-public/AB6AXuAcJfry8HNWQrKeOk3f7p1H6nXJVmr1ZuBaPuuQXb6xi1iWm--PQLHvBqYu-wupO1_AaoL5WuZnYmsB8fgR5PQyJTHRhZExAB3lAs8SWp-7Y_1Ee5KH_9IgoW8VJzA1YhE2We0IiZEnGfpX5gMr79hJEEW5epeymvaojqgoWJjSJS1ppFbgwsYzb1tC-LwTioHI2Zp2QLm94SLFGcZO0gVUbbbc8YRlcgIHnrowbrHheLQNhzTlF6kbD49F-skJeOgfb9LTP6ISQxGJ',
+                size: 36,
+                borderColor: colorScheme.primary.withValues(alpha: 0.2),
+                borderWidth: 2,
+              ),
+            ),
+          ],
+        ),
+        body: isMobile ? _buildMobileBody(context) : _buildDesktopBody(context),
       ),
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Sidebar
-          Container(
-            width: 200,
-            padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    );
+  }
+
+  Widget _buildUpgradeCard(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Material(
+        color: cs.primary,
+        borderRadius: BorderRadius.circular(16),
+        child: InkWell(
+          onTap: () => context.push('/checkout'),
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    'Sanctuary Settings',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: cs.onPrimary.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(Icons.star_rounded, color: cs.onPrimary, size: 24),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Upgrade to Tether Plus',
+                        style: TextStyle(
+                          color: cs.onPrimary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        'Unlock unlimited circles & more',
+                        style: TextStyle(
+                          color: cs.onPrimary.withValues(alpha: 0.8),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 32),
-                _SidebarItem(
-                  icon: Icons.security,
-                  label: 'Privacy Vault',
-                  isSelected: _selectedIndex == 0,
-                  onTap: () => setState(() => _selectedIndex = 0),
-                ),
-                _SidebarItem(
-                  icon: Icons.notifications,
-                  label: 'Notifications',
-                  isSelected: _selectedIndex == 1,
-                  onTap: () => setState(() => _selectedIndex = 1),
-                ),
-                _SidebarItem(
-                  icon: Icons.favorite,
-                  label: 'Wellness',
-                  isSelected: _selectedIndex == 2,
-                  onTap: () => setState(() => _selectedIndex = 2),
-                ),
-                _SidebarItem(
-                  icon: Icons.lock,
-                  label: 'Safe Space',
-                  isSelected: _selectedIndex == 3,
-                  onTap: () => setState(() => _selectedIndex = 3),
-                ),
+                Icon(Icons.chevron_right, color: cs.onPrimary),
               ],
             ),
           ),
-          // Content
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(48),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _onCategorySelected(int index) async {
+    // Index 3 is "Safe Space"
+    if (index == 3) {
+      final biometricService = getIt<IBiometricService>();
+      final isAvailable = await biometricService.isAvailable();
+      if (isAvailable) {
+        final authenticated = await biometricService.authenticate(
+          localizedReason: 'Please authenticate to access your private Safe Space.',
+        );
+        if (!authenticated) return;
+      }
+    }
+
+    setState(() {
+      _selectedIndex = index;
+      _isViewingSection = true;
+    });
+  }
+
+  Widget _buildMobileBody(BuildContext context) {
+    if (_isViewingSection) {
+      return SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+        child: Column(
+          children: [
+            _buildSelectedSection(),
+            const SizedBox(height: 48),
+            const _ReferenceSheet(),
+          ],
+        ),
+      );
+    }
+
+    return ListView(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: Text(
+            'Sanctuary Settings',
+            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          ),
+        ),
+        _buildUpgradeCard(context),
+        const SizedBox(height: 24),
+        ...List.generate(_categories.length, (index) {
+          final cat = _categories[index];
+          return _MobileCategoryTile(
+            icon: cat.icon,
+            label: cat.label,
+            onTap: () => _onCategorySelected(index),
+          );
+        }),
+      ],
+    );
+  }
+
+  Widget _buildDesktopBody(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Sidebar
+        Container(
+          width: 260,
+          padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
+          decoration: BoxDecoration(
+            border: Border(
+              right: BorderSide(
+                color: Theme.of(context)
+                    .colorScheme
+                    .outlineVariant
+                    .withValues(alpha: 0.5),
+              ),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  'Sanctuary',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(height: 24),
+              _buildUpgradeCard(context),
+              const SizedBox(height: 32),
+              ...List.generate(_categories.length, (index) {
+                final cat = _categories[index];
+                return _SidebarItem(
+                  icon: cat.icon,
+                  label: cat.label,
+                  isSelected: _selectedIndex == index,
+                  onTap: () => _onCategorySelected(index),
+                );
+              }),
+            ],
+          ),
+        ),
+        // Content
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(48),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 800),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (_selectedIndex == 0) _PrivacySection(),
-                  if (_selectedIndex == 1) _NotificationsSection(),
-                  if (_selectedIndex == 2) _WellnessSection(),
-                  if (_selectedIndex == 3) _SafeSpaceSection(),
+                  _buildSelectedSection(),
                   const SizedBox(height: 64),
                   const _ReferenceSheet(),
                 ],
               ),
             ),
           ),
-        ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSelectedSection() {
+    switch (_selectedIndex) {
+      case 0:
+        return const _PrivacySection();
+      case 1:
+        return const _NotificationsSection();
+      case 2:
+        return const _WellnessSection();
+      case 3:
+        return const _SafeSpaceSection();
+      default:
+        return const SizedBox.shrink();
+    }
+  }
+
+  final List<({IconData icon, String label})> _categories = const [
+    (icon: Icons.security, label: 'Privacy Vault'),
+    (icon: Icons.notifications, label: 'Notifications'),
+    (icon: Icons.favorite, label: 'Wellness'),
+    (icon: Icons.lock, label: 'Safe Space'),
+  ];
+}
+
+
+class _MobileCategoryTile extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  const _MobileCategoryTile({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: colorScheme.surfaceContainerLow,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+            ),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: colorScheme.primaryContainer.withValues(alpha: 0.3),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(icon, color: colorScheme.primary),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Icon(
+                Icons.chevron_right,
+                color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
+
 
 class _SidebarItem extends StatelessWidget {
   final IconData icon;
@@ -149,7 +373,7 @@ class _SidebarItem extends StatelessWidget {
               icon,
               color: isSelected
                   ? colorScheme.primary
-                  : colorScheme.onSurface.withOpacity(0.6),
+                  : colorScheme.onSurface.withValues(alpha: 0.6),
             ),
             const SizedBox(width: 12),
             Text(
@@ -157,7 +381,7 @@ class _SidebarItem extends StatelessWidget {
               style: TextStyle(
                 color: isSelected
                     ? colorScheme.onSurface
-                    : colorScheme.onSurface.withOpacity(0.6),
+                    : colorScheme.onSurface.withValues(alpha: 0.6),
               ),
             ),
           ],
@@ -168,6 +392,8 @@ class _SidebarItem extends StatelessWidget {
 }
 
 class _PrivacySection extends StatelessWidget {
+  const _PrivacySection();
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -254,6 +480,8 @@ class _SettingsCard extends StatelessWidget {
 }
 
 class _NotificationsSection extends StatelessWidget {
+  const _NotificationsSection();
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -280,9 +508,9 @@ class _NotificationsSection extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
-            color: colorScheme.error.withOpacity(0.1),
+            color: colorScheme.error.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: colorScheme.error.withOpacity(0.2)),
+            border: Border.all(color: colorScheme.error.withValues(alpha: 0.2)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -339,7 +567,7 @@ class _SwitchRow extends StatelessWidget {
           Switch(
             value: value,
             onChanged: (v) {},
-            activeColor: isCritical ? colorScheme.error : colorScheme.primary,
+            activeThumbColor: isCritical ? colorScheme.error : colorScheme.primary,
           ),
         ],
       ),
@@ -348,10 +576,13 @@ class _SwitchRow extends StatelessWidget {
 }
 
 class _WellnessSection extends StatelessWidget {
+  const _WellnessSection();
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final isMobile = MediaQuery.of(context).size.width < 700;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -367,24 +598,35 @@ class _WellnessSection extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 32),
-        Row(
-          children: [
-            Expanded(
-              child: _WellnessCard(
-                icon: Icons.air,
-                title: 'Guided Breathing',
-                subtitle: 'Haptic pulses for inhalations.',
-                progress: 0.75,
+        if (isMobile) ...[
+          _WellnessCard(
+            icon: Icons.air,
+            title: 'Guided Breathing',
+            subtitle: 'Haptic pulses for inhalations.',
+            progress: 0.75,
+          ),
+          const SizedBox(height: 16),
+          _DarkModeCard(),
+        ] else
+          Row(
+            children: [
+              Expanded(
+                child: _WellnessCard(
+                  icon: Icons.air,
+                  title: 'Guided Breathing',
+                  subtitle: 'Haptic pulses for inhalations.',
+                  progress: 0.75,
+                ),
               ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(child: _DarkModeCard()),
-          ],
-        ),
+              const SizedBox(width: 16),
+              Expanded(child: _DarkModeCard()),
+            ],
+          ),
       ],
     );
   }
 }
+
 
 class _DarkModeCard extends StatelessWidget {
   @override
@@ -398,7 +640,7 @@ class _DarkModeCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: colorScheme.surfaceContainerLow,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: colorScheme.primary.withOpacity(0.2)),
+            border: Border.all(color: colorScheme.primary.withValues(alpha: 0.2)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -462,7 +704,7 @@ class _WellnessCard extends StatelessWidget {
         color: colorScheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(16),
         border: hasSwatches
-            ? Border.all(color: colorScheme.primary.withOpacity(0.2))
+            ? Border.all(color: colorScheme.primary.withValues(alpha: 0.2))
             : null,
       ),
       child: Column(
@@ -507,10 +749,14 @@ class _WellnessCard extends StatelessWidget {
 }
 
 class _SafeSpaceSection extends StatelessWidget {
+  const _SafeSpaceSection();
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+
+    final isMobile = MediaQuery.of(context).size.width < 700;
 
     return Center(
       child: Column(
@@ -526,15 +772,16 @@ class _SafeSpaceSection extends StatelessWidget {
             'Double-layer protection for your most intimate thoughts.',
           ),
           const SizedBox(height: 48),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: isMobile ? 16 : 32,
+            runSpacing: 16,
             children: [
               _FrostedCircle(
                 icon: Icons.face,
                 label: 'Face ID',
                 isSelected: true,
               ),
-              const SizedBox(width: 32),
               _FrostedCircle(
                 icon: Icons.pin,
                 label: 'Fallback',
@@ -568,11 +815,11 @@ class _FrostedCircle extends StatelessWidget {
         width: 120,
         height: 120,
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.03),
+          color: Colors.white.withValues(alpha: 0.03),
           shape: BoxShape.circle,
           border: Border.all(
             color: isSelected
-                ? colorScheme.primary.withOpacity(0.4)
+                ? colorScheme.primary.withValues(alpha: 0.4)
                 : Colors.white10,
           ),
         ),
@@ -596,9 +843,10 @@ class _ReferenceSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final isMobile = MediaQuery.of(context).size.width < 700;
 
     return Container(
-      padding: const EdgeInsets.all(32),
+      padding: EdgeInsets.all(isMobile ? 20 : 32),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerLow,
         borderRadius: BorderRadius.circular(24),
@@ -608,12 +856,16 @@ class _ReferenceSheet extends StatelessWidget {
         children: [
           Text(
             'System Reference Library',
-            style: theme.textTheme.headlineMedium?.copyWith(fontSize: 24),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.headlineMedium?.copyWith(
+              fontSize: isMobile ? 20 : 24,
+            ),
           ),
           const SizedBox(height: 48),
           const WhisperText('INTERACTIVE ELEMENTS', uppercase: true),
           const SizedBox(height: 24),
           Wrap(
+            alignment: WrapAlignment.center,
             spacing: 24,
             runSpacing: 24,
             children: [
