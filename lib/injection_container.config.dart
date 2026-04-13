@@ -18,10 +18,14 @@ import 'core/theme/time_theme_cubit.dart' as _i66;
 import 'core/utils/encryption_service.dart' as _i376;
 import 'core/utils/escrow_service.dart' as _i873;
 import 'core/utils/key_derivation.dart' as _i880;
+import 'features/auth/data/repositories/supabase_auth_repository.dart' as _i760;
+import 'features/auth/domain/repositories/auth_repository.dart' as _i1015;
+import 'features/auth/presentation/bloc/auth_bloc.dart' as _i363;
 import 'features/circles/data/repositories/supabase_circle_repository.dart'
     as _i759;
 import 'features/circles/domain/repositories/circle_repository.dart' as _i333;
 import 'features/circles/presentation/bloc/circle_cubit.dart' as _i75;
+import 'features/circles/presentation/bloc/circle_member_cubit.dart' as _i656;
 import 'features/couples/data/repositories/supabase_couples_repository.dart'
     as _i701;
 import 'features/couples/data/repositories/supabase_gallery_repository.dart'
@@ -66,6 +70,8 @@ import 'features/messaging/data/repositories/supabase_messaging_repository.dart'
 import 'features/messaging/domain/repositories/messaging_repository.dart'
     as _i77;
 import 'features/messaging/presentation/bloc/messaging_cubit.dart' as _i431;
+import 'features/messaging/presentation/bloc/messaging_thread_cubit.dart'
+    as _i899;
 import 'features/mood/data/repositories/supabase_mood_repository.dart' as _i904;
 import 'features/mood/domain/repositories/mood_repository.dart' as _i116;
 import 'features/mood/presentation/bloc/mood_cubit.dart' as _i553;
@@ -137,6 +143,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i77.IMessagingRepository>(
       () => _i540.SupabaseMessagingRepository(gh<_i454.SupabaseClient>()),
+    );
+    gh.lazySingleton<_i1015.IAuthRepository>(
+      () => _i760.SupabaseAuthRepository(gh<_i454.SupabaseClient>()),
     );
     gh.lazySingleton<_i185.IFeedRepository>(
       () => _i409.SupabaseFeedRepository(gh<_i454.SupabaseClient>()),
@@ -213,11 +222,20 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i454.SupabaseClient>(),
       ),
     );
+    gh.factory<_i656.CircleMemberCubit>(
+      () => _i656.CircleMemberCubit(gh<_i333.ICircleRepository>()),
+    );
+    gh.factory<_i899.MessagingThreadCubit>(
+      () => _i899.MessagingThreadCubit(gh<_i77.IMessagingRepository>()),
+    );
     gh.factory<_i310.BedtimeStoriesCubit>(
       () => _i310.BedtimeStoriesCubit(
         gh<_i133.IBedtimeStoriesRepository>(),
         gh<_i454.SupabaseClient>(),
       ),
+    );
+    gh.factory<_i363.AuthBloc>(
+      () => _i363.AuthBloc(gh<_i1015.IAuthRepository>()),
     );
     gh.factory<_i553.MoodCubit>(
       () => _i553.MoodCubit(

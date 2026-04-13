@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#ffd7ef",
+                    "background": "#150b13",
+                    "tertiary-dim": "#eea439",
+                    "surface-container": "#231520",
+                    "outline": "#866e80",
+                    "primary-dim": "#fb7837",
+                    "on-tertiary-fixed-variant": "#623d00",
+                    "on-tertiary-fixed": "#3a2300",
+                    "primary-fixed": "#ffae8a",
+                    "primary-fixed-dim": "#ff996b",
+                    "surface-dim": "#150b13",
+                    "on-tertiary": "#633e00",
+                    "secondary-dim": "#fe8cdf",
+                    "primary-container": "#fe7a39",
+                    "on-primary": "#551c00",
+                    "error": "#ff716c",
+                    "tertiary": "#ffc479",
+                    "on-primary-fixed-variant": "#7a2d00",
+                    "tertiary-fixed-dim": "#eea439",
+                    "error-container": "#8a1a1e",
+                    "on-secondary": "#751363",
+                    "inverse-on-surface": "#5f515b",
+                    "tertiary-fixed": "#feb246",
+                    "on-primary-container": "#421400",
+                    "on-secondary-fixed": "#731263",
+                    "surface-variant": "#32202f",
+                    "inverse-primary": "#a43f00",
+                    "on-error": "#490006",
+                    "secondary-fixed-dim": "#ffc3e9",
+                    "tertiary-container": "#feb246",
+                    "outline-variant": "#574152",
+                    "surface-tint": "#ff915e",
+                    "on-surface": "#fbddf2",
+                    "on-secondary-fixed-variant": "#963481",
+                    "inverse-surface": "#fff7f9",
+                    "on-surface-variant": "#bea3b7",
+                    "surface-container-high": "#2a1a27",
+                    "primary": "#ff915e",
+                    "on-secondary-container": "#ec7dce",
+                    "surface": "#150b13",
+                    "on-background": "#fbddf2",
+                    "surface-container-low": "#1b1019",
+                    "on-tertiary-container": "#563500",
+                    "secondary": "#ffade5",
+                    "surface-container-lowest": "#000000",
+                    "on-error-container": "#ff9993",
+                    "error-dim": "#c94947",
+                    "surface-bright": "#3a2536",
+                    "surface-container-highest": "#32202f",
+                    "secondary-container": "#4c0040",
+                    "on-primary-fixed": "#4a1800"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Plus Jakarta Sans"],
+                    "label": ["Plus Jakarta Sans"],
+                    "serif-ital": ["Playfair Display", "serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+    display: inline-block;
+    line-height: 1;
+    word-wrap: normal;
+    white-space: nowrap
+    }
+.glass-panel {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px)
+    }
+.inner-bloom {
+    box-shadow: inset 0 0 20px rgba(255, 123, 58, 0.1)
+    }
+.paper-texture {
+    background-color: #f5f0e8;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAk8Z71Oys-z27p3eXFh1_lGR6vvnuqj-L4mrnyvktwf0TRmI2EgxO59PC5mWXrdoGlEJ-h-Zjp_IOJpKfRVCdBBfWxmjJmgU5cXo94iwxakoYmOqOisiesqN_gpxDQzJgEYLq7iBI4KH7bkd66W7k4awx3MlsiebgQHLQDgePZCIeQdcSDWkZ9a7nlx2Q5g68DbHJQh-9tkDZb6rBge6jZWSuelXpQiR6ag5X_NyY_0r5t5iASqolyUucwS94Yd_5HtE_NyTzkrcAn)
+    }
+.slow-pulse {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite
+    }
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+        } 50% {
+        opacity: .7;
+        transform: scale(1.05);
+        }
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container/30">
+<!-- Top Navigation Shell -->
+<header class="bg-[#1A1018]/80 backdrop-blur-xl text-[#FF7B3A] font-serif italic text-2xl tracking-tight docked full-width top-0 sticky z-50 flex justify-between items-center px-6 py-4 w-full tonal transition via surface-container-low shift flat with inner-bloom glow">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#FF7B3A] hover:opacity-80 transition-opacity cursor-pointer" data-icon="arrow_back">arrow_back</span>
+<span class="font-serif italic text-2xl text-[#FF7B3A]">Tether</span>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-[#FF7B3A]/20 scale-95 transition-transform duration-300 cursor-pointer">
+<img alt="Profile" data-alt="close-up portrait of a woman with a soft glow and warm orange lighting reflecting like a mood ring on her skin" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTkDtoVs_uI0Q8HCdgF17TdtV6GBtc-fkMd3IlKOJx8BvRvAC-wZPNYmS_MsVAVr08Gw5GcYLezl6J5xHm_bNx8Tgleawbxq59yNqf4jHjMHW0Ncujvuzigs1DlV80064U32S9J-I8gkBvjlreEY1ts4gUF79GM_EvJwUjZ1qtRE34gs-aupEXd4j1ar7lW1SbgiMMnLHwi4wD1bz7iL1GyDBO3QQccUaAi5SoNvhRmFQKOxzktVUmNZ0VhQzm0TSNMGj3_le1ySlI"/>
+</div>
+</header>
+<main class="max-w-2xl mx-auto px-4 py-8 space-y-16 pb-32">
+<!-- DM Thread Section -->
+<section class="space-y-6">
+<div class="flex flex-col gap-4">
+<!-- Receiver Bubble -->
+<div class="flex justify-start max-w-[85%]">
+<div class="bg-primary-container/15 text-on-surface p-4 rounded-2xl rounded-bl-none shadow-sm">
+<p class="text-sm">I was thinking about that letter you sent. It really moved me.</p>
+<span class="text-[10px] opacity-40 mt-1 block">10:42 AM</span>
+</div>
+</div>
+<!-- Voice Note Player (Inline DM) -->
+<div class="flex justify-start max-w-[85%]">
+<div class="bg-surface-container-high p-3 rounded-2xl rounded-bl-none flex items-center gap-4 w-full shadow-lg">
+<div class="relative">
+<img alt="Avatar" class="w-10 h-10 rounded-full" data-alt="circular profile portrait of a smiling woman in warm sunset lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWQABYk17Z8KgDl43epLJBtMye6UYgZiFIaQHqpXw4Qr4tgx7SVZM11ixGFZqradKR0qzndLR1QsCBG3uzgX2unnKBEQ1HOtZnFNBMXvnEghtTk39zEnE9tTnHGu10R8tO1YUhACLsknb6QAOQNuLyd5C2P0a_QakiPtBprOnr4V803HRlzVyxVfeZ8YnzVik_K9NUHQ4LOuOnSCLY0MaOcJ_r6GkzW1mGw5ERWWYZkvCBKcZmVVsCUmP_OrCscRqrmHeWGGIElBSB"/>
+<div class="absolute -bottom-1 -right-1 bg-primary w-4 h-4 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-on-primary" style="font-variation-settings: 'FILL' 1;">mic</span>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<div class="flex-1 h-8 flex items-center gap-0.5">
+<div class="h-4 w-1 bg-primary-dim rounded-full"></div>
+<div class="h-6 w-1 bg-primary rounded-full"></div>
+<div class="h-3 w-1 bg-primary-dim rounded-full"></div>
+<div class="h-5 w-1 bg-primary rounded-full"></div>
+<div class="h-7 w-1 bg-primary rounded-full"></div>
+<div class="h-4 w-1 bg-primary-dim rounded-full"></div>
+<div class="h-2 w-1 bg-outline rounded-full"></div>
+<div class="h-4 w-1 bg-outline rounded-full"></div>
+<div class="h-3 w-1 bg-outline rounded-full"></div>
+</div>
+</div>
+<span class="text-[10px] text-on-surface-variant tracking-wide">🎙️ Voice note · 0:42</span>
+</div>
+</div>
+</div>
+<!-- Sender Bubble -->
+<div class="flex justify-end w-full">
+<div class="bg-[#2D1E28] text-on-surface p-4 rounded-2xl rounded-br-none max-w-[85%] shadow-sm">
+<p class="text-sm">I'm so glad. It took me a long time to find the right words.</p>
+<span class="text-[10px] opacity-40 mt-1 block text-right">10:45 AM</span>
+</div>
+</div>
+</div>
+<!-- Input Bar Area -->
+<div class="space-y-4 pt-4">
+<div class="flex justify-center">
+<div class="bg-surface-container-low px-4 py-1.5 rounded-full border border-outline-variant/20 flex items-center gap-2">
+<div class="w-2 h-2 bg-primary rounded-full slow-pulse"></div>
+<span class="text-[10px] font-semibold tracking-widest uppercase text-on-surface-variant">Slow Chat Mode</span>
+</div>
+</div>
+<div class="flex items-center gap-3 bg-surface-container p-2 rounded-2xl shadow-xl">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">image</span>
+</button>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-sm placeholder:text-on-surface-variant/50" placeholder="Type a reflection..." type="text"/>
+<button class="bg-primary text-on-primary p-2 rounded-xl shadow-[0_0_20px_rgba(251,145,94,0.4)] hover:scale-105 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Anonymous Vent & Post Section -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Anonymous Vent -->
+<div class="bg-surface-container-low p-6 rounded-lg relative overflow-hidden border border-outline-variant/10">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-tertiary/20 to-secondary/20 blur-md"></div>
+<div>
+<p class="text-sm font-medium">Someone in your Circle 🌫️</p>
+<span class="text-[10px] text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded-full">Fades in 24hrs</span>
+</div>
+</div>
+<p class="text-on-surface/80 italic font-light leading-relaxed">
+                    "Sometimes I feel like I'm shouting into a void, but today, the silence felt warm."
+                </p>
+</div>
+<!-- One-Way Post -->
+<div class="bg-surface-variant/30 backdrop-blur-md p-6 rounded-lg relative overflow-hidden">
+<div class="absolute top-0 left-0 h-1 bg-primary w-2/3 shadow-[0_0_10px_#fb915e]"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-bold text-primary tracking-tighter uppercase">One-Way Post</span>
+<span class="text-[10px] text-primary/80">This will fade in 10s</span>
+</div>
+<p class="text-lg font-headline leading-tight">The light through the window at 4 PM is the only thing I need right now.</p>
+</div>
+</section>
+<!-- Letter Arrival Section -->
+<section class="flex flex-col items-center py-12 bg-gradient-to-b from-transparent via-surface-container-low/50 to-transparent">
+<div class="relative w-48 h-32 bg-gradient-to-br from-tertiary-fixed to-primary rounded-lg shadow-2xl flex items-center justify-center mb-8 rotate-3">
+<div class="absolute inset-2 border border-white/20 rounded-sm"></div>
+<div class="w-12 h-12 bg-[#8a1a1e] rounded-full shadow-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary-fixed text-2xl">workspace_premium</span>
+</div>
+</div>
+<div class="text-center space-y-2">
+<h2 class="text-xl font-headline">A letter arrived for you.</h2>
+<p class="font-serif-ital text-primary text-lg">From Julian</p>
+<button class="mt-6 px-8 py-3 bg-surface-container-high text-on-surface rounded-full border border-primary/20 hover:bg-primary/10 transition-all flex items-center gap-2">
+<span>Open slowly</span>
+<span class="material-symbols-outlined text-sm">mail</span>
+</button>
+</div>
+</section>
+<!-- Letter Mode Compose -->
+<section class="paper-texture p-8 md:p-12 rounded-lg shadow-2xl text-black/80 space-y-8">
+<div class="flex justify-between items-center border-b border-black/10 pb-4">
+<span class="font-serif-ital text-xl italic text-black/60">New Letter</span>
+<span class="text-xs uppercase tracking-widest text-black/40">Hand-pressed digital linen</span>
+</div>
+<div class="min-h-[300px]">
+<p class="font-serif-ital text-2xl italic leading-loose text-black/70">
+                    My dearest friend,<br/><br/>
+                    I was thinking of the way the rain sounded on the roof of that little cafe we found last summer. There was a particular kind of peace in that afternoon...
+                </p>
+</div>
+<div class="pt-8 border-t border-black/10 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-black/40">Deliver at</span>
+<span class="text-sm font-medium text-black/70">Tomorrow morning</span>
+</div>
+<button class="px-8 py-3 bg-[#421400] text-[#feb246] rounded-full flex items-center gap-3 shadow-lg hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-bold">Seal &amp; Schedule</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Letter Delivery Picker (Overlay Simulation) -->
+<div class="fixed inset-0 bg-background/80 backdrop-blur-sm z-[60] flex items-end justify-center pointer-events-none opacity-0 translate-y-full transition-all duration-500">
+<div class="w-full max-w-lg bg-surface-container-high rounded-t-xl p-8 pointer-events-auto space-y-6 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+<div class="w-12 h-1.5 bg-outline-variant/30 rounded-full mx-auto"></div>
+<h3 class="text-xl font-headline text-center">When should this arrive?</h3>
+<div class="space-y-3">
+<button class="w-full p-4 bg-surface-container rounded-xl flex justify-between items-center hover:bg-surface-variant transition-colors">
+<span class="font-medium">Tomorrow morning</span>
+<span class="material-symbols-outlined text-primary">wb_twilight</span>
+</button>
+<button class="w-full p-4 bg-surface-container rounded-xl flex justify-between items-center hover:bg-surface-variant transition-colors">
+<span class="font-medium">This weekend</span>
+<span class="material-symbols-outlined text-primary">weekend</span>
+</button>
+<button class="w-full p-4 bg-surface-container rounded-xl flex justify-between items-center hover:bg-surface-variant transition-colors">
+<span class="font-medium">Custom date</span>
+<span class="material-symbols-outlined text-primary">calendar_today</span>
+</button>
+</div>
+<button class="w-full py-4 bg-primary text-on-primary font-bold rounded-xl flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">workspace_premium</span>
+                Seal &amp; Schedule
+            </button>
+</div>
+</div>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-8 pb-8 pt-4 bg-[#1A1018]/80 backdrop-blur-xl docked full-width bottom-0 rounded-t-[32px] shadow-[0_-8px_40px_rgba(255,123,58,0.08)]">
+<div class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+</div>
+<div class="flex items-center justify-center bg-[#FF7B3A]/10 text-[#FF7B3A] rounded-full p-3 shadow-[0_0_20px_rgba(255,123,58,0.3)]">
+<span class="material-symbols-outlined" data-icon="spa" style="font-variation-settings: 'FILL' 1;">spa</span>
+</div>
+<div class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+</div>
+<div class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</div>
+</nav>
+<!-- Slow Chat Mode: Full Screen Overlay -->
+<div class="fixed inset-0 bg-[#1A1018] z-[100] flex flex-col items-center justify-center p-8 hidden">
+<div class="text-center space-y-2 mb-12">
+<h1 class="text-4xl font-headline text-primary">Just talk.</h1>
+<p class="text-on-surface/60 font-light">5 seconds of silence before it sends.</p>
+</div>
+<div class="relative flex items-center justify-center mb-12">
+<!-- Pulsing Rings -->
+<div class="absolute w-64 h-64 bg-primary/20 rounded-full animate-ping"></div>
+<div class="absolute w-48 h-48 bg-primary/30 rounded-full animate-pulse"></div>
+<button class="relative w-32 h-32 bg-primary rounded-full shadow-[0_0_60px_rgba(251,145,94,0.6)] flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'FILL' 1;">mic</span>
+</button>
+</div>
+<div class="w-full max-w-md h-24 flex items-center justify-center gap-1">
+<div class="h-4 w-1.5 bg-primary-container rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+<div class="h-8 w-1.5 bg-primary rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+<div class="h-12 w-1.5 bg-primary rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+<div class="h-16 w-1.5 bg-primary-dim rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+<div class="h-10 w-1.5 bg-primary rounded-full animate-bounce" style="animation-delay: 0.5s"></div>
+<div class="h-6 w-1.5 bg-primary-container rounded-full animate-bounce" style="animation-delay: 0.6s"></div>
+<div class="h-12 w-1.5 bg-primary-dim rounded-full animate-bounce" style="animation-delay: 0.7s"></div>
+<div class="h-4 w-1.5 bg-primary rounded-full animate-bounce" style="animation-delay: 0.8s"></div>
+</div>
+<button class="mt-auto px-8 py-3 rounded-full text-on-surface-variant border border-outline-variant/30">
+            Cancel Reflection
+        </button>
+</div>
+</body></html>

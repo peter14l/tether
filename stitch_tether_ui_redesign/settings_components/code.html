@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tether - Settings Sanctuary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#ffd7ef",
+                        "background": "#0E0C14",
+                        "tertiary-dim": "#eea439",
+                        "surface-container": "#15131C",
+                        "outline": "#866e80",
+                        "primary-dim": "#6B7FD4",
+                        "on-tertiary-fixed-variant": "#623d00",
+                        "on-tertiary-fixed": "#3a2300",
+                        "primary-fixed": "#6B7FD4",
+                        "primary-fixed-dim": "#6B7FD4",
+                        "surface-dim": "#0E0C14",
+                        "on-tertiary": "#633e00",
+                        "secondary-dim": "#fe8cdf",
+                        "primary-container": "#2A2F45",
+                        "on-primary": "#FFFFFF",
+                        "error": "#ff716c",
+                        "tertiary": "#ffc479",
+                        "on-primary-fixed-variant": "#FFFFFF",
+                        "tertiary-fixed-dim": "#eea439",
+                        "error-container": "#8a1a1e",
+                        "on-secondary": "#751363",
+                        "inverse-on-surface": "#5f515b",
+                        "tertiary-fixed": "#feb246",
+                        "on-primary-container": "#6B7FD4",
+                        "on-secondary-fixed": "#731263",
+                        "surface-variant": "#1A1823",
+                        "inverse-primary": "#a43f00",
+                        "on-error": "#490006",
+                        "secondary-fixed-dim": "#ffc3e9",
+                        "tertiary-container": "#feb246",
+                        "outline-variant": "#322E3F",
+                        "surface-tint": "#6B7FD4",
+                        "on-surface": "#fbddf2",
+                        "on-secondary-fixed-variant": "#963481",
+                        "inverse-surface": "#fff7f9",
+                        "on-surface-variant": "#bea3b7",
+                        "surface-container-high": "#1E1B29",
+                        "primary": "#6B7FD4",
+                        "on-secondary-container": "#ec7dce",
+                        "surface": "#0E0C14",
+                        "on-background": "#fbddf2",
+                        "surface-container-low": "#12101A",
+                        "on-tertiary-container": "#563500",
+                        "secondary": "#ffade5",
+                        "surface-container-lowest": "#000000",
+                        "on-error-container": "#ff9993",
+                        "error-dim": "#c94947",
+                        "surface-bright": "#252230",
+                        "surface-container-highest": "#242131",
+                        "secondary-container": "#4c0040",
+                        "on-primary-fixed": "#FFFFFF"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0E0C14; color: #fbddf2; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .glass { backdrop-filter: blur(20px); }
+        .whisper { font-family: 'DM Sans', sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.05em; opacity: 0.85; }
+        .glow-border { border-left: 3px solid #6B7FD4; box-shadow: -8px 0 15px -5px rgba(107, 127, 212, 0.4); }
+        .frosted-circle { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="selection:bg-primary/30 min-h-screen">
+<!-- Top Navigation Anchor -->
+<header class="bg-[#1A1018]/80 backdrop-blur-xl sticky top-0 z-50 flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#FF7B3A] cursor-pointer" data-icon="arrow_back">arrow_back</span>
+<h1 class="font-serif italic text-2xl tracking-tight text-[#FF7B3A]">Tether</h1>
+</div>
+<div class="w-10 h-10 rounded-full border border-[#FF7B3A]/20 p-0.5 overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover rounded-full" data-alt="close-up portrait of a woman with vibrant orange hair and a calm expression in warm cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmf5cRjWvyeF_IPB28VT90uBtFZkThPS81LNrPSsEOGveP6LDWF5FDpydaa7kvjmquIjJ0-fRDg8YOopmwcG064PmC1Bdl8GdRfh-PTaLZlJ7wCF3uQqkTL8lD9wfGkXplDFxV3_NJaaCPYVm0-BGEv1o9LlRyee6_D8CHNseehjoJxiCZ5a7Z6fy6HacOKRTri43c74lYEInDUXlqDTZqkF_GEo1r5LRY5lr9YEnOga4F9mvkiWkLvpwK899-Cb7xygxJIrKYX5wo"/>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-6 pb-32 pt-8">
+<!-- Settings Home Grid -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16">
+<aside class="md:col-span-4 space-y-2">
+<h2 class="font-headline text-3xl mb-6 italic opacity-90">Sanctuary Settings</h2>
+<nav class="space-y-1">
+<div class="glow-border bg-surface-container px-4 py-3 flex items-center gap-4 cursor-pointer">
+<span class="material-symbols-outlined text-primary" data-icon="shield_person">shield_person</span>
+<span class="text-on-surface">Privacy Vault</span>
+</div>
+<div class="px-4 py-3 flex items-center gap-4 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span>Notifications</span>
+</div>
+<div class="px-4 py-3 flex items-center gap-4 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined" data-icon="self_care">self_care</span>
+<span>Wellness</span>
+</div>
+<div class="px-4 py-3 flex items-center gap-4 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+<span>Safe Space</span>
+</div>
+</nav>
+</aside>
+<div class="md:col-span-8 space-y-12">
+<!-- Privacy Section -->
+<div class="space-y-6" id="privacy">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="visibility">visibility</span>
+<h3 class="text-xl font-headline italic">What We Store</h3>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-low p-6 rounded-lg space-y-3">
+<div class="flex justify-between items-start">
+<h4 class="font-semibold text-lg">Your Journal Entries</h4>
+<span class="material-symbols-outlined text-[#4ADE80]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<p class="whisper">Encrypted end-to-end. We'd never betray that. Only you hold the key to these reflections.</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-lg space-y-3">
+<div class="flex justify-between items-start">
+<h4 class="font-semibold text-lg">Mood Patterns</h4>
+<span class="material-symbols-outlined text-[#4ADE80]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<p class="whisper">Local processing only. We use this to adapt the interface theme to your emotional state.</p>
+</div>
+</div>
+</div>
+<!-- Notifications Section -->
+<div class="space-y-6 pt-8 border-t border-outline-variant/20" id="notifications">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="notifications_active">notifications_active</span>
+<h3 class="text-xl font-headline italic">Quiet Presence</h3>
+</div>
+<div class="space-y-2">
+<div class="flex items-center justify-between p-4 bg-surface-container-high rounded-lg">
+<span class="font-medium">Reflection Reminders</span>
+<div class="w-12 h-6 bg-primary-container rounded-full relative flex items-center px-1">
+<div class="w-4 h-4 bg-primary rounded-full shadow-lg translate-x-6"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-high rounded-lg">
+<span class="font-medium">Gratitude Prompts</span>
+<div class="w-12 h-6 bg-outline-variant rounded-full relative flex items-center px-1">
+<div class="w-4 h-4 bg-surface rounded-full shadow-lg"></div>
+</div>
+</div>
+<div class="mt-6 p-6 bg-error-container/20 rounded-xl border border-error/10">
+<h4 class="font-headline italic text-error mb-2">Never silenced (SOS only)</h4>
+<p class="whisper mb-4">When enabled, these alerts bypass Do Not Disturb for critical safety check-ins.</p>
+<div class="flex items-center justify-between bg-black/20 p-3 rounded-lg">
+<span class="text-sm opacity-90">Emergency Contact Alerts</span>
+<div class="w-12 h-6 bg-error rounded-full relative flex items-center px-1">
+<div class="w-4 h-4 bg-white rounded-full shadow-lg translate-x-6"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Wellness Section -->
+<div class="space-y-6 pt-8 border-t border-outline-variant/20" id="wellness">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="breathing_exercises">exercise</span>
+<h3 class="text-xl font-headline italic">Atmospheric Healing</h3>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="p-6 bg-surface-container-low rounded-xl flex flex-col gap-4">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="air">air</span>
+<div>
+<p class="font-medium mb-1">Guided Breathing</p>
+<p class="whisper">Haptic pulses for inhalations.</p>
+</div>
+<div class="w-full h-1.5 bg-outline-variant rounded-full overflow-hidden">
+<div class="w-3/4 h-full bg-primary"></div>
+</div>
+</div>
+<div class="p-6 bg-surface-container-low rounded-xl flex flex-col gap-4 border border-primary/20">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="palette">palette</span>
+<div>
+<p class="font-medium mb-1">Mood-Adaptive UI</p>
+<p class="whisper">Colors shift with your pulse.</p>
+</div>
+<div class="flex gap-2 mt-2">
+<div class="w-4 h-4 rounded-full bg-[#F5F0E8]"></div>
+<div class="w-4 h-4 rounded-full bg-[#FF7B3A]"></div>
+<div class="w-4 h-4 rounded-full bg-[#0E0C14] border border-white/20"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Safe Space Lock -->
+<div class="space-y-8 pt-8 border-t border-outline-variant/20" id="safespace">
+<div class="text-center space-y-4">
+<span class="material-symbols-outlined text-5xl text-primary" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<h3 class="text-2xl font-headline italic">Your Private Sanctum</h3>
+<p class="whisper max-w-xs mx-auto">Double-layer protection for your most intimate thoughts.</p>
+</div>
+<div class="flex justify-center gap-6">
+<div class="frosted-circle w-32 h-32 rounded-full flex flex-col items-center justify-center gap-2 border-primary/40 shadow-[0_0_30px_rgba(107,127,212,0.1)]">
+<span class="material-symbols-outlined text-3xl" data-icon="faceid">face</span>
+<span class="text-[10px] uppercase tracking-widest font-bold">Face ID</span>
+</div>
+<div class="frosted-circle w-32 h-32 rounded-full flex flex-col items-center justify-center gap-2 opacity-40">
+<span class="material-symbols-outlined text-3xl" data-icon="pin">pin</span>
+<span class="text-[10px] uppercase tracking-widest font-bold">Fallback</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Reference Sheet -->
+<section class="bg-surface-container-low rounded-xl p-8 border border-outline-variant/10">
+<h2 class="font-headline text-2xl italic mb-10 text-center">System Reference Library</h2>
+<div class="space-y-16">
+<!-- Buttons & Actions -->
+<div>
+<p class="label-md uppercase tracking-tighter opacity-40 mb-6">Interactive Elements</p>
+<div class="flex flex-wrap gap-8 items-center">
+<button class="bg-gradient-to-br from-primary to-primary-container px-8 py-3 rounded-DEFAULT font-semibold shadow-[0_0_20px_rgba(107,127,212,0.2)]">Primary Pulse</button>
+<button class="border border-outline-variant/30 bg-surface-container-high px-8 py-3 rounded-DEFAULT font-semibold hover:bg-surface-container-highest transition-all">Ghost Action</button>
+<button class="text-primary font-medium hover:opacity-70">Text Whisper</button>
+<div class="flex gap-2">
+<span class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center material-symbols-outlined" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center material-symbols-outlined" data-icon="share">share</span>
+</div>
+</div>
+</div>
+<!-- Inputs & Selectors -->
+<div class="grid md:grid-cols-2 gap-12">
+<div class="space-y-6">
+<p class="label-md uppercase tracking-tighter opacity-40">Inputs</p>
+<div class="relative">
+<input class="w-full bg-surface-container border-b border-outline-variant/20 px-4 py-4 rounded-t-lg focus:outline-none focus:border-primary transition-colors placeholder:text-outline/50" placeholder="Journal your thoughts..." type="text"/>
+<div class="absolute inset-0 bg-primary/5 blur-xl pointer-events-none opacity-0 focus-within:opacity-100 transition-opacity"></div>
+</div>
+<div class="flex gap-2 flex-wrap">
+<span class="bg-primary/20 text-primary border border-primary/20 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest">Morning</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest">Calm</span>
+<span class="bg-surface-variant text-on-surface-variant px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest">Growth</span>
+</div>
+</div>
+<!-- Themes Swatch -->
+<div>
+<p class="label-md uppercase tracking-tighter opacity-40 mb-6">Circadian Cycles</p>
+<div class="grid grid-cols-4 gap-4">
+<div class="aspect-square rounded-lg bg-[#F5F0E8] border border-black/5 flex items-end p-2"><span class="text-[8px] text-black/40 font-bold">5 AM</span></div>
+<div class="aspect-square rounded-lg bg-[#F8F3EC] flex items-end p-2"><span class="text-[8px] text-black/20 font-bold">12 PM</span></div>
+<div class="aspect-square rounded-lg bg-[#1A1018] ring-2 ring-primary flex items-end p-2 shadow-xl shadow-primary/10"><span class="text-[8px] text-primary font-bold">6 PM</span></div>
+<div class="aspect-square rounded-lg bg-[#0E0C14] border border-white/5 flex items-end p-2"><span class="text-[8px] text-white/20 font-bold">9 PM</span></div>
+</div>
+</div>
+</div>
+<!-- Avatars & Status -->
+<div class="flex flex-wrap gap-12 items-center">
+<div class="flex -space-x-4">
+<img alt="Avatar" class="w-16 h-16 rounded-[40%] border-4 border-background object-cover" data-alt="Portrait of a smiling young man in soft natural lighting with blurry green background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApD88oIihsP2mO3IKyMDxm8kdGan6lVBD4djGYSR83-05ve2WRzO0GTPp84Qt-3C1lsweguIzH6yLGJL30TdELkFmLu2Nrdp4inqhMstu4RL64GyE0m5y-Jnjo7O1Pkr_GA3trlurkIjwEaeEK9rGhdyPzHOH8jlNsGzPTo_bAwEGDQ1WADSsP447YV-UZ8eVR0IFQ5pO7kn7mA3qglvQseiG57159cCArEA6QLa2L7xk8Jl8xokGBRfRnNueSDDO4QgaNpKsRnfyX"/>
+<img alt="Avatar" class="w-16 h-16 rounded-[45%] border-4 border-background object-cover" data-alt="close up headshot of a woman with curly hair looking directly into the camera with neutral expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAr-hQBvMzjPe6NR5pe36J0CzF8OXIqo1E8nMxQTCtuzsEtV-VDc5WmRY0wbD1kuiefXxsxBEISK5n8v2teL5EpXLhO0M3xIvZgjk3I-jy2DIi3ZGachsMTV0fwhk1UITZtpYHs8KkbNiaTIoeSwjdBmDm1wLSfpMc4um0DkfN_EIt6az9AJYj1l1jvJxLC9WHrDxl271SuuQF8bOrqAPfB5zaIKrW-ZRcdPmNc5XRMb5a7Fk3PywM3puxQMgtDamHgyJIg0HcU6OzH"/>
+<div class="w-16 h-16 rounded-full border-4 border-background bg-primary-container flex items-center justify-center font-bold text-primary">HB</div>
+</div>
+<div class="bg-surface-container-high px-6 py-4 rounded-xl border border-primary/20 flex items-center gap-4">
+<div class="w-3 h-3 rounded-full bg-primary shadow-[0_0_10px_#6B7FD4]"></div>
+<p class="whisper">Connected: Deep Sleep Protocol Active</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-8 pb-8 pt-4 bg-[#1A1018]/80 backdrop-blur-xl rounded-t-[32px] shadow-[0_-8px_40px_rgba(255,123,58,0.08)] md:hidden">
+<div class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+</div>
+<div class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all">
+<span class="material-symbols-outlined" data-icon="spa">spa</span>
+</div>
+<div class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+</div>
+<div class="flex items-center justify-center bg-[#FF7B3A]/10 text-[#FF7B3A] rounded-full p-3 shadow-[0_0_20px_rgba(255,123,58,0.3)]">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</div>
+</nav>
+</body></html>

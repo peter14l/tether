@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#ffd7ef",
+                    "background": "#150b13",
+                    "tertiary-dim": "#eea439",
+                    "surface-container": "#231520",
+                    "outline": "#866e80",
+                    "primary-dim": "#fb7837",
+                    "on-tertiary-fixed-variant": "#623d00",
+                    "on-tertiary-fixed": "#3a2300",
+                    "primary-fixed": "#ffae8a",
+                    "primary-fixed-dim": "#ff996b",
+                    "surface-dim": "#150b13",
+                    "on-tertiary": "#633e00",
+                    "secondary-dim": "#fe8cdf",
+                    "primary-container": "#fe7a39",
+                    "on-primary": "#551c00",
+                    "error": "#ff716c",
+                    "tertiary": "#ffc479",
+                    "on-primary-fixed-variant": "#7a2d00",
+                    "tertiary-fixed-dim": "#eea439",
+                    "error-container": "#8a1a1e",
+                    "on-secondary": "#751363",
+                    "inverse-on-surface": "#5f515b",
+                    "tertiary-fixed": "#feb246",
+                    "on-primary-container": "#421400",
+                    "on-secondary-fixed": "#731263",
+                    "surface-variant": "#32202f",
+                    "inverse-primary": "#a43f00",
+                    "on-error": "#490006",
+                    "secondary-fixed-dim": "#ffc3e9",
+                    "tertiary-container": "#feb246",
+                    "outline-variant": "#574152",
+                    "surface-tint": "#ff915e",
+                    "on-surface": "#fbddf2",
+                    "on-secondary-fixed-variant": "#963481",
+                    "inverse-surface": "#fff7f9",
+                    "on-surface-variant": "#bea3b7",
+                    "surface-container-high": "#2a1a27",
+                    "primary": "#ff915e",
+                    "on-secondary-container": "#ec7dce",
+                    "surface": "#150b13",
+                    "on-background": "#fbddf2",
+                    "surface-container-low": "#1b1019",
+                    "on-tertiary-container": "#563500",
+                    "secondary": "#ffade5",
+                    "surface-container-lowest": "#000000",
+                    "on-error-container": "#ff9993",
+                    "error-dim": "#c94947",
+                    "surface-bright": "#3a2536",
+                    "surface-container-highest": "#32202f",
+                    "secondary-container": "#4c0040",
+                    "on-primary-fixed": "#4a1800"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Plus Jakarta Sans"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .inner-bloom {
+            box-shadow: inset 0 0 20px rgba(255, 145, 94, 0.1);
+        }
+        .glass-panel {
+            background: rgba(26, 16, 24, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 1.5rem;
+        }
+        .whisper-text {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            opacity: 0.85;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-[#1A1018]/80 backdrop-blur-xl docked full-width top-0 sticky z-50 flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#FF7B3A] text-2xl">arrow_back</span>
+<h1 class="font-serif italic text-2xl tracking-tight text-[#FF7B3A]">Tether</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border-2 border-[#FF7B3A]/20 p-0.5 overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover rounded-full" data-alt="portrait of a woman with a gentle expression, soft warm lighting, cinematic depth of field, vibrant orange tones in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFZi4AMlXlcZsUsGOSehPSf0Hzi7jA-7Xn18nzU-iBOqly34PpcHperzFKdfcYbR6mukDLBTxGTnkazJbNmm4kE9TGC4fec1pnrLesabuJBhrNtk5AehvALUtu1aee1qH3Z2HpW0mFNbJprR0pF9M-n9iyUVljo0gCwibTQ03uk4hMcrJvQ-AlZB0ayG_2wt2dCR9opnUg2LTew9UH032_JtWg4Vs5uZrg2JS1f-v0B5jhR-zf29WmVjUGhPRGYsN164ThQn23shLq"/>
+</div>
+</div>
+</header>
+<main class="max-w-screen-xl mx-auto px-6 py-8 space-y-12">
+<!-- Family Circle Home -->
+<section>
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<span class="whisper-text uppercase mb-1 block">Family Sanctuary</span>
+<h2 class="font-headline text-4xl italic">The Thompson Circle</h2>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary-container px-8 py-4 rounded-lg font-semibold flex items-center gap-3 shadow-[0_0_30px_rgba(255,145,94,0.3)] hover:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    I'm Okay ✓
+                </button>
+</div>
+<!-- Bento Grid Tiles -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<div class="col-span-2 row-span-2 bg-surface-container-low rounded-lg p-6 relative overflow-hidden group">
+<img alt="Family Feed" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-700" data-alt="candid lifestyle photo of a family laughing together in a sun-drenched living room, warm golden hour light, film grain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyGb1jh0c0gaqYh3W6LU02KVKnjDAyy4xQwmz2YCrxhdssjHL_clAqeIjgImkx-9VZMMDQ_ZcUPUsHUq2W_0KPv7LwDJhopooY6SWnKcgWMPhvq7Z3TiwVgnUWT5nsLyZ3Vu2ODcYfUCJD9W7JdvkVx1Ugzy4ZW81JUVdapp2Z4vhuoR3WAIiLhUzJKhIMJQwq73tSeO_u264fsRGQNEceDVFk1i4G22Q5BABNp0MZkYREsoM2lS8NiRiuW9r2_YPSGBpK867bcqWV"/>
+<div class="relative z-10 flex flex-col h-full justify-between">
+<span class="material-symbols-outlined text-primary text-3xl">rss_feed</span>
+<div>
+<h3 class="text-2xl font-headline italic">Recent Feed</h3>
+<p class="text-on-surface-variant whisper-text mt-2">12 new moments shared today</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container rounded-lg p-6 flex flex-col justify-between hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-tertiary">health_and_safety</span>
+<h3 class="font-medium">Safety Check</h3>
+</div>
+<div class="bg-surface-container rounded-lg p-6 flex flex-col justify-between hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-secondary">notifications_active</span>
+<h3 class="font-medium">Reminders</h3>
+</div>
+<div class="bg-surface-container rounded-lg p-6 flex flex-col justify-between hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary">history_edu</span>
+<h3 class="font-medium">Heritage</h3>
+</div>
+<div class="bg-surface-container rounded-lg p-6 flex flex-col justify-between hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-tertiary">location_on</span>
+<h3 class="font-medium">Location</h3>
+</div>
+</div>
+</section>
+<!-- Safety Check Screen (Soft Amber Alert) -->
+<section class="asymmetric-grid">
+<div class="bg-[#2A1A10] border border-[#FFB246]/10 rounded-lg p-8 space-y-6 flex flex-col justify-center">
+<div class="flex items-center gap-4 text-tertiary">
+<span class="material-symbols-outlined text-4xl animate-pulse">warning</span>
+<h3 class="text-2xl font-headline italic">Safety Check Active</h3>
+</div>
+<p class="text-on-surface-variant">Unusual activity detected near the coast. Please confirm your status to reassure the circle.</p>
+<div class="flex gap-4">
+<button class="bg-[#2D4A3E] text-[#86EFAC] px-6 py-3 rounded-DEFAULT font-medium flex items-center gap-2 hover:bg-[#345849] transition-colors">
+<span class="material-symbols-outlined">check</span> I'm Safe ✓
+                    </button>
+<button class="bg-surface-container-highest text-on-surface px-6 py-3 rounded-DEFAULT font-medium">Need Help</button>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-6">
+<h4 class="whisper-text mb-6 uppercase">Circle Status</h4>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary">JD</div>
+<span class="text-sm">Julian (Dad)</span>
+</div>
+<span class="text-[#86EFAC] text-xs font-medium bg-[#86EFAC]/10 px-2 py-1 rounded-full">Safe</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3 opacity-50">
+<div class="w-10 h-10 rounded-full bg-tertiary/20 flex items-center justify-center text-tertiary">MT</div>
+<span class="text-sm">Mia (Teen)</span>
+</div>
+<span class="text-tertiary text-xs font-medium bg-tertiary/10 px-2 py-1 rounded-full">Pending</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Emergency SOS (Pulse Orange) -->
+<section class="flex flex-col items-center py-12 bg-surface-container-lowest rounded-xl relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent"></div>
+<div class="relative z-10 text-center space-y-8">
+<div class="w-48 h-48 rounded-full border-4 border-primary/20 flex items-center justify-center relative">
+<div class="absolute inset-0 rounded-full border-4 border-primary animate-ping opacity-20"></div>
+<div class="w-40 h-40 rounded-full bg-primary/10 flex items-center justify-center shadow-[0_0_50px_rgba(255,145,94,0.4)]">
+<span class="material-symbols-outlined text-primary text-6xl">sos</span>
+</div>
+</div>
+<div class="space-y-2">
+<h3 class="text-3xl font-headline">Send SOS to Family?</h3>
+<p class="text-on-surface-variant max-w-xs mx-auto">This will alert all circle members and share your precise location.</p>
+</div>
+<button class="bg-primary text-on-primary-container px-12 py-5 rounded-full font-bold text-xl shadow-[0_10px_40px_rgba(255,145,94,0.5)] hover:scale-105 transition-transform">
+                    Send Now
+                </button>
+</div>
+</section>
+<!-- Heritage Corner (Gallery/Album) -->
+<section>
+<div class="mb-8">
+<span class="whisper-text uppercase block">Preserving Legacy</span>
+<h2 class="font-headline text-3xl italic">Heritage Corner</h2>
+</div>
+<div class="flex gap-8 overflow-x-auto pb-8 snap-x">
+<div class="flex-none w-72 bg-[#2D2420] p-4 rounded-sm shadow-xl transform -rotate-1 snap-center">
+<div class="aspect-[4/5] bg-black mb-4 overflow-hidden grayscale contrast-125 sepia">
+<img alt="Vintage photo" class="w-full h-full object-cover" data-alt="extreme close-up of a vintage black and white photograph of a woman, visible paper texture, sepia tones, dramatic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwsScKDbxUnKJIthu4KPpoAC3upPXyH7ap7bMqP7mPaXjMa-MbGeZR4-4a1nW1XTO571M2CBYia498rIZYM_9xXZh0j9hAdWhj4ebDOoU83s084DDtKlo0EYfABvplLO6aqk8ytLYOrO3IgjsJ2UiplqeKZuMydgjDoOdVXMYB9Ss2d8hlcybMqolkXCAQBKnQZQ9PxNDdFfKc9nL_YzJKFwQeGOV0Qaj_XAfZxoJeojp16fHBQgwo2A1L_ld8OFvzAfXJOz713Lih"/>
+</div>
+<span class="font-serif italic text-white/40 text-xs">Before I was born</span>
+<h4 class="font-serif text-lg text-white/80 mt-1">Nana’s first piano recital, 1954</h4>
+</div>
+<div class="flex-none w-72 bg-[#2D2420] p-4 rounded-sm shadow-xl transform rotate-2 snap-center">
+<div class="aspect-[4/5] bg-black mb-4 overflow-hidden grayscale contrast-110 sepia-[0.5]">
+<img alt="Old farmhouse" class="w-full h-full object-cover" data-alt="grainy sepia landscape photo of an old wooden farmhouse in a misty field, nostalgia mood, soft focus edges" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAM1nvjyvg3RVPQl1GQqM2hzm9qkbpbIlasCIuaOfL1WJRkT6rc7ayCM_iKoPnA5aKm5aBH4IABbIPaoxtq6rE1gfLhm3XD8XQ5zLp4V2RXxCigR_hz9qRzA0sPXKEntUOA76pUxBDuCnGttuMxYe4EsryJzmSErn-5eyFm2QhpGX8iCffDPjJXb__5Ghx9gYg_VPmzSXzW9Y0CTJLJQRf93a-_JhL-38lbSI5C1GLSR3EUB9S5AlVu2V4lSGBn4PTFRtHDzzFLn-F"/>
+</div>
+<span class="font-serif italic text-white/40 text-xs">Family Roots</span>
+<h4 class="font-serif text-lg text-white/80 mt-1">The old farmhouse in Cork</h4>
+</div>
+<div class="flex-none w-72 bg-[#2D2420] p-4 rounded-sm shadow-xl transform -rotate-2 snap-center">
+<div class="aspect-[4/5] bg-black mb-4 overflow-hidden grayscale sepia-[0.8]">
+<img alt="Wedding photo" class="w-full h-full object-cover" data-alt="vintage wedding photo of a couple in traditional 1920s attire, highly textured paper, faded sepia edges, emotional atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8W7zjZeyeFC0aM3OUbia8f0DJdjeEnwikACpd91_qP0hvnnqUu5IZPR_oJn9KRMYiP5gbhxULwQ81oFX7RbnMw0qXhxGePVNhlyX9RZ2KsrXGGdzU8TL9LykiCHoB8nV6-J6hfSb5KEGliVSdkpkd9foVSQkMcmU-7vGmKvKkHpNSq2vsuDSI7OMriL4VsiuhpNaWT9EbgZpVrx52e_HE1dYQ7p6Sy033pcMoZGkNN1J_VxkYJBf37ZEydno5eZqpJ-aznb4rZC90"/>
+</div>
+<span class="font-serif italic text-white/40 text-xs">Our Origins</span>
+<h4 class="font-serif text-lg text-white/80 mt-1">Grandpa Joe’s Wedding Day</h4>
+</div>
+</div>
+</section>
+<!-- Grandparent Easy View -->
+<section class="bg-surface-container-high rounded-xl p-8 space-y-8">
+<h2 class="text-[28sp] font-headline text-center">Hello, Martha</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<button class="bg-primary-container text-on-primary-container p-12 rounded-lg flex flex-col items-center gap-4 hover:scale-95 transition-transform">
+<span class="material-symbols-outlined text-6xl">groups</span>
+<span class="text-3xl font-bold">See Family</span>
+</button>
+<button class="bg-secondary text-on-secondary p-12 rounded-lg flex flex-col items-center gap-4 hover:scale-95 transition-transform">
+<span class="material-symbols-outlined text-6xl">call</span>
+<span class="text-3xl font-bold">Call Someone</span>
+</button>
+<button class="bg-tertiary text-on-tertiary p-12 rounded-lg flex flex-col items-center gap-4 hover:scale-95 transition-transform">
+<span class="material-symbols-outlined text-6xl">photo_library</span>
+<span class="text-3xl font-bold">New Photo</span>
+</button>
+<button class="bg-[#86EFAC] text-[#064E3B] p-12 rounded-lg flex flex-col items-center gap-4 hover:scale-95 transition-transform">
+<span class="material-symbols-outlined text-6xl">check_circle</span>
+<span class="text-3xl font-bold">I'm Okay</span>
+</button>
+</div>
+</section>
+<!-- Kid Mode (Linen/Terracotta Palette) -->
+<section class="bg-[#F5F0E8] text-[#3a2300] rounded-xl p-8 space-y-6">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-[#fb7837] flex items-center justify-center text-white font-bold text-xl">L</div>
+<h3 class="text-2xl font-headline font-bold">Leo's Garden</h3>
+</div>
+<div class="flex items-center gap-2 bg-white/50 px-4 py-2 rounded-full">
+<span class="text-2xl">🌱</span>
+<span class="font-bold text-xl">24 Seeds</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white rounded-lg p-6 shadow-sm flex flex-col items-center text-center gap-3 border-b-4 border-[#fb7837]/20">
+<span class="material-symbols-outlined text-[#fb7837] text-4xl">video_call</span>
+<p class="font-bold">Talk to Mommy</p>
+</div>
+<div class="bg-white rounded-lg p-6 shadow-sm flex flex-col items-center text-center gap-3 border-b-4 border-[#fb7837]/20">
+<span class="material-symbols-outlined text-[#fb7837] text-4xl">auto_stories</span>
+<p class="font-bold">Bedtime Stories</p>
+</div>
+</div>
+</section>
+<!-- Bedtime Stories (Dark Library) -->
+<section class="bg-surface-container-lowest rounded-xl p-8 border border-white/5">
+<div class="flex justify-between items-center mb-8">
+<h2 class="font-headline text-3xl italic text-primary">Bedtime Stories</h2>
+<button class="bg-surface-container-high text-on-surface px-6 py-3 rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined">mic</span> Record a Story
+                </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+<div class="space-y-6">
+<div class="group cursor-pointer">
+<p class="whisper-text text-tertiary">Read by Grandma Rose</p>
+<h3 class="font-headline text-2xl italic group-hover:text-primary transition-colors">The Owl and the Pussycat</h3>
+</div>
+<div class="group cursor-pointer">
+<p class="whisper-text text-tertiary">Read by Dad</p>
+<h3 class="font-headline text-2xl italic group-hover:text-primary transition-colors">Where the Wild Things Are</h3>
+</div>
+</div>
+<!-- Mini Player -->
+<div class="bg-surface-container-high p-6 rounded-lg flex items-center gap-6">
+<div class="w-20 h-20 bg-primary/20 rounded-DEFAULT flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-4xl">play_circle</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold">Currently Playing</h4>
+<p class="text-sm text-on-surface-variant">The Velveteen Rabbit</p>
+<div class="w-full bg-surface-container mt-3 h-1 rounded-full overflow-hidden">
+<div class="bg-primary w-1/3 h-full"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Reminder Board -->
+<section class="bg-surface-container-low rounded-xl p-8">
+<div class="flex justify-between items-center mb-8">
+<h2 class="font-headline text-2xl italic">Circle To-Do</h2>
+<span class="material-symbols-outlined text-on-surface-variant">more_horiz</span>
+</div>
+<div class="space-y-6">
+<div class="flex items-center justify-between p-4 bg-surface rounded-DEFAULT border-l-4 border-primary">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-outline">radio_button_unchecked</span>
+<span>Pick up Nana's medication</span>
+</div>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container text-[10px] flex items-center justify-center border-2 border-surface">JD</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface rounded-DEFAULT opacity-50">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="line-through">Water the balcony plants</span>
+</div>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container text-[10px] flex items-center justify-center border-2 border-surface">MT</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-8 pb-8 pt-4 bg-[#1A1018]/80 backdrop-blur-xl rounded-t-[32px] shadow-[0_-8px_40px_rgba(255,123,58,0.08)]">
+<div class="flex items-center justify-center bg-[#FF7B3A]/10 text-[#FF7B3A] rounded-full p-3 shadow-[0_0_20px_rgba(255,123,58,0.3)]">
+<span class="material-symbols-outlined">home</span>
+</div>
+<div class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<div class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all">
+<span class="material-symbols-outlined">chat_bubble</span>
+</div>
+<div class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all">
+<span class="material-symbols-outlined">settings</span>
+</div>
+</nav>
+</body></html>

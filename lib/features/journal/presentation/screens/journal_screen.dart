@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../injection_container.dart';
+import '../../../../core/widgets/tether_button.dart';
+import '../../../../core/widgets/tether_card.dart';
+import '../../../../core/widgets/tether_text_field.dart';
 import '../bloc/journal_cubit.dart';
 import '../bloc/journal_state.dart';
 
@@ -29,25 +32,26 @@ class _JournalScreenState extends State<JournalScreen> {
               child: Row(
                 children: [
                   Expanded(
-                    child: TextField(
+                    child: TetherTextField(
                       controller: _contentController,
-                      decoration: const InputDecoration(
-                        hintText: "What are you grateful for today?",
-                        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
-                      ),
+                      hintText: "What are you grateful for today?",
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 12),
                   BlocBuilder<JournalCubit, JournalState>(
                     builder: (context, state) {
-                      return IconButton(
-                        icon: const Icon(Icons.check_circle, size: 32),
+                      return TetherButton(
+                        width: 60,
+                        height: 60,
+                        tooltip: 'Save gratitude entry',
+                        semanticsLabel: 'Save Entry Button',
                         onPressed: () {
                           if (_contentController.text.isNotEmpty) {
                             context.read<JournalCubit>().addEntry(_contentController.text);
                             _contentController.clear();
                           }
                         },
+                        child: const Icon(Icons.check_circle, size: 28),
                       );
                     },
                   ),
@@ -68,9 +72,9 @@ class _JournalScreenState extends State<JournalScreen> {
                       itemCount: state.entries.length,
                       itemBuilder: (context, index) {
                         final entry = state.entries[index];
-                        return Card(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          child: Padding(
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: TetherCard(
                             padding: const EdgeInsets.all(16),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,3 +107,4 @@ class _JournalScreenState extends State<JournalScreen> {
     );
   }
 }
+

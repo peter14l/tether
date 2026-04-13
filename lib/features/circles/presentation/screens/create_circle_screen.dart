@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../injection_container.dart';
+import '../../../../core/widgets/tether_button.dart';
+import '../../../../core/widgets/tether_text_field.dart';
 import '../bloc/circle_cubit.dart';
 import '../bloc/circle_state.dart';
 
@@ -41,21 +43,24 @@ class _CreateCircleScreenState extends State<CreateCircleScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Circle Name', style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: 8),
-                TextField(
+                const SizedBox(height: 12),
+                TetherTextField(
                   controller: _nameController,
-                  decoration: const InputDecoration(
-                    hintText: 'e.g., Sunday Dinners, The Besties',
-                    border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
-                  ),
+                  hintText: 'e.g., Sunday Dinners, The Besties',
                 ),
                 const SizedBox(height: 24),
                 Text('Type', style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
                   value: _selectedType,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      borderSide: BorderSide(color: Theme.of(context).dividerColor.withOpacity(0.1)),
+                    ),
                   ),
                   items: const [
                     DropdownMenuItem(value: 'friends', child: Text('Friends')),
@@ -73,44 +78,39 @@ class _CreateCircleScreenState extends State<CreateCircleScreen> {
                 ),
                 const SizedBox(height: 24),
                 Text('Description (optional)', style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: 8),
-                TextField(
+                const SizedBox(height: 12),
+                TetherTextField(
                   controller: _descriptionController,
-                  decoration: const InputDecoration(
-                    hintText: 'What is this circle for?',
-                    border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
-                  ),
+                  hintText: 'What is this circle for?',
                 ),
                 const SizedBox(height: 48),
-                SizedBox(
-                  width: double.infinity,
-                  child: BlocBuilder<CircleCubit, CircleState>(
-                    builder: (context, state) {
-                      final isLoading = state is CircleLoading;
-                      return ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          backgroundColor: Theme.of(context).colorScheme.primary,
-                          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                        ),
-                        onPressed: isLoading
-                            ? null
-                            : () {
-                                if (_nameController.text.isNotEmpty) {
-                                  context.read<CircleCubit>().createCircle(
-                                        name: _nameController.text,
-                                        type: _selectedType,
-                                        description: _descriptionController.text,
-                                      );
-                                }
-                              },
-                        child: isLoading
-                            ? const CircularProgressIndicator(color: Colors.white)
-                            : const Text('Create Circle', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      );
-                    },
-                  ),
+                BlocBuilder<CircleCubit, CircleState>(
+                  builder: (context, state) {
+                    final isLoading = state is CircleLoading;
+                    return TetherButton(
+                      isFullWidth: true,
+                      onPressed: isLoading
+                          ? null
+                          : () {
+                              if (_nameController.text.isNotEmpty) {
+                                context.read<CircleCubit>().createCircle(
+                                      name: _nameController.text,
+                                      type: _selectedType,
+                                      description: _descriptionController.text,
+                                    );
+                              }
+                            },
+                      tooltip: 'Finalize circle creation',
+                      semanticsLabel: 'Create Circle Button',
+                      child: isLoading
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                            )
+                          : const Text('Create Circle', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    );
+                  },
                 ),
               ],
             ),
@@ -120,3 +120,4 @@ class _CreateCircleScreenState extends State<CreateCircleScreen> {
     );
   }
 }
+

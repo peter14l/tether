@@ -1,0 +1,95 @@
+import 'dart:async';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
+import '../../domain/repositories/auth_repository.dart';
+import 'auth_event.dart';
+import 'auth_state.dart';
+
+@injectable
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final IAuthRepository _authRepository;
+  StreamSubscription? _authSubscription;
+
+  AuthBloc(this._authRepository) : super(AuthInitial()) {
+    on<AuthCheckRequested>(_onAuthCheckRequested);
+    on<SignInRequested>(_onSignInRequested);
+    on<SignUpRequested>(_onSignUpRequested);
+    on<SignOutRequested>(_onSignOutRequested);
+
+    _authSubscription = _authRepository.onAuthStateChanged.listen((user) {
+      if (user != null) {
+        emit(Authenticated(user));
+      } else {
+        emit(Unauthenticated());
+      }
+    });
+  }
+
+  Future<void> _onAuthCheckRequested(
+    AuthCheckRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    final result = await _authRepository.getCurrentUser();
+    result.fold(
+      (failure) => emit(Unauthenticated()),
+      (user) {
+        if (user != null) {
+          emit(Authenticated(user));
+        } else {
+          emit(Unauthenticated());
+        }
+      },
+    );
+  }
+
+  Future<void> _onSignInRequested(
+    SignInRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    final result = await _authRepository.signIn(
+      email: event.email,
+      password: event.password,
+    );
+    result.fold(
+      (failure) => emit(AuthError(failure.message)),
+      (user) => emit(Authenticated(user)),
+    );
+  }
+
+  Future<void> _onSignUpRequested(
+    SignUpRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    final result = await _authRepository.signUp(
+      email: event.email,
+      password: event.password,
+      username: event.username,
+      displayName: event.displayName,
+    );
+    result.fold(
+      (failure) => emit(AuthError(failure.message)),
+      (user) => emit(Authenticated(user)),
+    );
+  }
+
+  Future<void> _onSignOutRequested(
+    SignOutRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    final result = await _authRepository.signOut();
+    result.fold(
+      (failure) => emit(AuthError(failure.message)),
+      (_) => emit(Unauthenticated()),
+    );
+  }
+
+  @override
+  Future<void> close() {
+    _authSubscription?.cancel();
+    return super.close();
+  }
+}

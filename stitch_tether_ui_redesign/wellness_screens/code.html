@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#ffd7ef",
+                    "background": "#150b13",
+                    "tertiary-dim": "#eea439",
+                    "surface-container": "#231520",
+                    "outline": "#866e80",
+                    "primary-dim": "#fb7837",
+                    "on-tertiary-fixed-variant": "#623d00",
+                    "on-tertiary-fixed": "#3a2300",
+                    "primary-fixed": "#ffae8a",
+                    "primary-fixed-dim": "#ff996b",
+                    "surface-dim": "#150b13",
+                    "on-tertiary": "#633e00",
+                    "secondary-dim": "#fe8cdf",
+                    "primary-container": "#fe7a39",
+                    "on-primary": "#551c00",
+                    "error": "#ff716c",
+                    "tertiary": "#ffc479",
+                    "on-primary-fixed-variant": "#7a2d00",
+                    "tertiary-fixed-dim": "#eea439",
+                    "error-container": "#8a1a1e",
+                    "on-secondary": "#751363",
+                    "inverse-on-surface": "#5f515b",
+                    "tertiary-fixed": "#feb246",
+                    "on-primary-container": "#421400",
+                    "on-secondary-fixed": "#731263",
+                    "surface-variant": "#32202f",
+                    "inverse-primary": "#a43f00",
+                    "on-error": "#490006",
+                    "secondary-fixed-dim": "#ffc3e9",
+                    "tertiary-container": "#feb246",
+                    "outline-variant": "#574152",
+                    "surface-tint": "#ff915e",
+                    "on-surface": "#fbddf2",
+                    "on-secondary-fixed-variant": "#963481",
+                    "inverse-surface": "#fff7f9",
+                    "on-surface-variant": "#bea3b7",
+                    "surface-container-high": "#2a1a27",
+                    "primary": "#ff915e",
+                    "on-secondary-container": "#ec7dce",
+                    "surface": "#150b13",
+                    "on-background": "#fbddf2",
+                    "surface-container-low": "#1b1019",
+                    "on-tertiary-container": "#563500",
+                    "secondary": "#ffade5",
+                    "surface-container-lowest": "#000000",
+                    "on-error-container": "#ff9993",
+                    "error-dim": "#c94947",
+                    "surface-bright": "#3a2536",
+                    "surface-container-highest": "#32202f",
+                    "secondary-container": "#4c0040",
+                    "on-primary-fixed": "#4a1800"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Plus Jakarta Sans"],
+                    "label": ["Plus Jakarta Sans"],
+                    "serif": ["Playfair Display", "serif"],
+                    "whisper": ["DM Sans", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .breathing-pulse {
+            animation: pulse-slow 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-slow {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.4); opacity: 0.6; }
+        }
+        .glow-halo {
+            box-shadow: 0 0 60px 10px rgba(255, 123, 58, 0.15);
+        }
+        .glass-panel {
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-[#1A1018]/80 backdrop-blur-xl docked full-width top-0 sticky z-50 flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="text-[#FF7B3A] hover:opacity-80 transition-opacity active:scale-95 duration-300">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-serif italic text-2xl tracking-tight text-[#FF7B3A]">Tether</h1>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant/20 shadow-[0_0_15px_rgba(255,123,58,0.2)]">
+<img class="w-full h-full object-cover" data-alt="portrait of a calm young woman with an orange mood ring aesthetic, soft lighting and warm sunset tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4ViJfVDp2JPaez6z3EKucaculKkzPaaR0re1dEYv-Dwb-aVxukyXdjBtLhwlzft48mxI7WfvHVnZXUmsn7QjvK8vo4SjqyqDtyFKlP1t2u3tqOPG9W7fHOQbmKheJLMBvqAMPbpMKTL1gnONj-nL7GIxXOcZgUJAKlB8TIw1zxuCQ7Zsxvz3OW2HMZ6ePZe_2CrMmTknfT_hGrmi8nmZbCMzQ1poLvNKjnlYlxAEq4y50ZxL_W-Zd-KX9kqU8DzheBHvvoZzvv8mi"/>
+</div>
+</header>
+<main class="min-h-screen pb-32">
+<!-- Breathing Room Section (Dusk Palette) -->
+<section class="relative h-[707px] flex flex-col items-center justify-center overflow-hidden px-8">
+<div class="absolute inset-0 bg-gradient-to-b from-[#1A1018] via-[#2A1A27] to-background pointer-events-none"></div>
+<!-- Expanding Breathing Circle -->
+<div class="absolute flex items-center justify-center">
+<div class="w-64 h-64 bg-primary/20 rounded-full breathing-pulse blur-3xl"></div>
+<div class="w-48 h-48 bg-primary-container/30 rounded-full breathing-pulse blur-2xl delay-700"></div>
+</div>
+<div class="relative z-10 text-center space-y-8">
+<h2 class="text-4xl md:text-5xl font-serif italic text-primary">Take a breath.</h2>
+<p class="font-whisper text-on-surface-variant max-w-xs mx-auto opacity-80 tracking-wide">Inhale the stillness of the dusk.</p>
+<div class="flex flex-wrap justify-center gap-3 mt-12">
+<button class="px-6 py-2 rounded-full bg-surface-container-high border border-outline-variant/18 text-on-surface-variant hover:bg-primary-container/20 hover:text-primary transition-all">
+                        Rain
+                    </button>
+<button class="px-6 py-2 rounded-full bg-primary-container/20 border border-primary/30 text-primary shadow-[0_0_15px_rgba(255,123,58,0.2)]">
+                        White Noise
+                    </button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high border border-outline-variant/18 text-on-surface-variant hover:bg-primary-container/20 hover:text-primary transition-all">
+                        Silence
+                    </button>
+</div>
+</div>
+</section>
+<!-- Digital Hug Confirmation -->
+<section class="px-6 mb-24 flex flex-col items-center">
+<div class="relative w-32 h-32 flex items-center justify-center mb-6">
+<div class="absolute inset-0 bg-primary/20 rounded-full blur-2xl animate-pulse"></div>
+<span class="material-symbols-outlined text-7xl text-primary drop-shadow-[0_0_20px_rgba(255,123,58,0.5)]" style="font-variation-settings: 'FILL' 1;">handshake</span>
+</div>
+<div class="text-center space-y-2">
+<h3 class="text-2xl font-headline font-semibold text-on-surface">Your hug is on its way.</h3>
+<p class="font-whisper text-on-surface-variant">A warm radial pulse sent to your Circle.</p>
+</div>
+</section>
+<!-- Gratitude Journal Home -->
+<section class="px-6 mb-24 max-w-3xl mx-auto">
+<div class="mb-12 space-y-6">
+<div class="p-8 rounded-lg bg-surface-container-low border-l-4 border-tertiary shadow-sm">
+<p class="font-whisper text-tertiary-fixed mb-2 uppercase tracking-[0.2em] text-[10px]">Today's Prompt</p>
+<h2 class="text-3xl font-serif italic text-on-surface">What made you smile today?</h2>
+</div>
+</div>
+<div class="space-y-4">
+<div class="p-6 rounded-lg bg-surface-container-high/50 hover:bg-surface-container-high transition-colors group cursor-pointer">
+<p class="font-serif italic text-xl mb-2 text-on-surface group-hover:text-primary transition-colors">The way the light hit the kitchen table at breakfast...</p>
+<div class="flex justify-between items-center text-xs font-whisper text-on-surface-variant/60 uppercase tracking-widest">
+<span>October 24</span>
+<span class="material-symbols-outlined text-sm">lock</span>
+</div>
+</div>
+<div class="p-6 rounded-lg bg-surface-container-high/50 hover:bg-surface-container-high transition-colors group cursor-pointer">
+<p class="font-serif italic text-xl mb-2 text-on-surface group-hover:text-primary transition-colors">Hearing the distant sound of the rain against the attic window...</p>
+<div class="flex justify-between items-center text-xs font-whisper text-on-surface-variant/60 uppercase tracking-widest">
+<span>October 22</span>
+<span class="material-symbols-outlined text-sm">lock</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Reflection Wall & Memories Lane -->
+<section class="px-6 mb-24 max-w-5xl mx-auto grid md:grid-cols-2 gap-16">
+<!-- Reflection Wall -->
+<div class="space-y-12">
+<div>
+<h3 class="text-sm font-whisper uppercase tracking-[0.3em] text-on-surface-variant mb-4">Reflection Wall</h3>
+<p class="text-3xl font-serif italic text-primary-fixed leading-snug">This is just for you.</p>
+</div>
+<div class="h-[400px] w-full rounded-lg bg-surface-container-low p-8 border border-outline-variant/10 shadow-inner overflow-hidden relative">
+<div class="font-whisper text-on-surface-variant/40 text-lg">Type your quiet thoughts here...</div>
+<div class="absolute bottom-8 right-8">
+<span class="material-symbols-outlined text-primary/30">edit_note</span>
+</div>
+</div>
+</div>
+<!-- Memories Lane -->
+<div class="relative pl-8">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-tertiary-fixed via-tertiary-fixed/40 to-transparent"></div>
+<h3 class="text-sm font-whisper uppercase tracking-[0.3em] text-on-surface-variant mb-12">Memories Lane</h3>
+<div class="space-y-16">
+<div class="relative">
+<div class="absolute -left-[37px] top-1 w-2.5 h-2.5 rounded-full bg-tertiary-fixed glow-halo"></div>
+<span class="font-serif italic text-tertiary-fixed text-lg mb-4 block">October</span>
+<div class="bg-surface-container-high rounded-lg p-1 overflow-hidden shadow-xl rotate-1 group">
+<img class="w-full aspect-square object-cover rounded-md opacity-90 group-hover:opacity-100 transition-opacity" data-alt="soft focus photo of a dried flower pressed between book pages, warm vintage aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXurhkmp97RQCvWe9eY2w4wZMsWBZl_n2bhjX13s_8xsJ9Q23s3bvhJ5ip2wbgdpRzzhJg4DG2YEDME9MpkP1g6xOJR8hjeoNrhiJ8vqTTQhFLWky82hecNecOwcdcOh8JK1NLKw9cxHRa0kg9xYxT5ecMFXD6DWhqvZXzIS1AcLWzgTyVWYg-HgMNAUQEVDf0l82iu0TVlCrQJbT2Rh0Zy-aeVZa4W0vh0wOqbxJlkTrHAInBxvum5KLcK1TMtpOkKwCYO1cVk4Qr"/>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-[37px] top-1 w-2.5 h-2.5 rounded-full bg-tertiary-fixed/40"></div>
+<span class="font-serif italic text-on-surface-variant text-lg mb-4 block">September</span>
+<div class="bg-surface-container-high rounded-lg p-4 border border-outline-variant/10 flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">mic</span>
+<div class="flex-1 h-1 bg-outline-variant/20 rounded-full relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/40 w-1/3"></div>
+</div>
+<span class="text-[10px] font-whisper text-on-surface-variant">0:12</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Once Upon a Time Reveal -->
+<section class="px-6 mb-32 max-w-md mx-auto text-center">
+<div class="relative inline-block p-12 mb-8">
+<div class="absolute inset-0 bg-primary/10 rounded-full blur-3xl scale-125"></div>
+<div class="relative bg-surface-container-high rounded-xl p-8 border border-outline-variant/18 shadow-2xl space-y-6">
+<p class="text-xs uppercase tracking-[0.2em] text-tertiary-fixed">A year ago today</p>
+<p class="font-serif italic text-2xl text-on-surface">"Finally felt the crisp autumn air on the ridge. Peace."</p>
+<div class="flex gap-4">
+<button class="flex-1 py-3 text-xs uppercase tracking-widest bg-primary-container text-on-primary-container rounded-lg font-bold hover:scale-95 transition-transform">Keep this memory</button>
+<button class="flex-1 py-3 text-xs uppercase tracking-widest border border-outline-variant/30 text-on-surface-variant rounded-lg hover:bg-surface-container-low transition-all">Close softly</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Kindness Badges & Summary -->
+<section class="px-6 mb-24 max-w-5xl mx-auto">
+<div class="grid md:grid-cols-3 gap-8">
+<div class="md:col-span-2 grid grid-cols-2 gap-4">
+<div class="p-8 rounded-lg bg-surface-container-low flex flex-col items-center justify-center text-center space-y-4 border border-outline-variant/5 shadow-[0_0_30px_rgba(255,123,58,0.05)]">
+<div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center shadow-[0_0_20px_rgba(255,123,58,0.2)]">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">volunteer_activism</span>
+</div>
+<p class="text-sm font-whisper uppercase tracking-widest text-on-surface">Heart Listener</p>
+</div>
+<div class="p-8 rounded-lg bg-surface-container-low flex flex-col items-center justify-center text-center space-y-4 border border-outline-variant/5">
+<div class="w-16 h-16 rounded-full bg-secondary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-3xl opacity-40">sunny</span>
+</div>
+<p class="text-sm font-whisper uppercase tracking-widest text-on-surface-variant/40">Warm Presence</p>
+</div>
+</div>
+<div class="bg-gradient-to-br from-primary/10 to-transparent p-8 rounded-lg border border-primary/10">
+<h4 class="text-sm font-whisper uppercase tracking-widest mb-6 text-on-surface">Weekly Summary</h4>
+<ul class="space-y-4">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-xs text-primary">circle</span>
+<span class="text-sm font-whisper text-on-surface-variant">3 Connections made</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-xs text-primary">circle</span>
+<span class="text-sm font-whisper text-on-surface-variant">5 Journal entries</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Quiet Hours Wind Down Message -->
+<section class="px-6 pb-24 text-center opacity-60">
+<div class="max-w-xs mx-auto space-y-4">
+<span class="material-symbols-outlined text-on-surface-variant">nights_stay</span>
+<p class="font-whisper text-on-surface-variant tracking-wide">Winding down in 20 mins. The sanctuary is preparing for rest.</p>
+<button class="text-xs uppercase tracking-widest text-primary border-b border-primary/20 pb-1 hover:opacity-80 transition-opacity">Stay a little longer</button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-8 pb-8 pt-4 bg-[#1A1018]/80 backdrop-blur-xl docked full-width bottom-0 rounded-t-[32px] shadow-[0_-8px_40px_rgba(255,123,58,0.08)]">
+<button class="flex items-center justify-center bg-[#FF7B3A]/10 text-[#FF7B3A] rounded-full p-3 shadow-[0_0_20px_rgba(255,123,58,0.3)] active:scale-90 duration-500 ease-out">
+<span class="material-symbols-outlined">home</span>
+</button>
+<button class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all">
+<span class="material-symbols-outlined">spa</span>
+</button>
+<button class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+<button class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</nav>
+</body></html>

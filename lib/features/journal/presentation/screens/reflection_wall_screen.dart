@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../injection_container.dart';
+import '../../../../core/widgets/tether_button.dart';
+import '../../../../core/widgets/tether_card.dart';
+import '../../../../core/widgets/tether_text_field.dart';
 import '../bloc/reflection_cubit.dart';
 import '../bloc/reflection_state.dart';
 
@@ -29,26 +32,27 @@ class _ReflectionWallScreenState extends State<ReflectionWallScreen> {
               child: Row(
                 children: [
                   Expanded(
-                    child: TextField(
+                    child: TetherTextField(
                       controller: _contentController,
                       maxLines: 3,
-                      decoration: const InputDecoration(
-                        hintText: "What's on your mind? (Completely private)",
-                        border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
-                      ),
+                      hintText: "What's on your mind? (Completely private)",
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 12),
                   BlocBuilder<ReflectionCubit, ReflectionState>(
                     builder: (context, state) {
-                      return IconButton(
-                        icon: const Icon(Icons.send, size: 32),
+                      return TetherButton(
+                        width: 60,
+                        height: 60,
+                        tooltip: 'Add reflection',
+                        semanticsLabel: 'Add Reflection Button',
                         onPressed: () {
                           if (_contentController.text.isNotEmpty) {
                             context.read<ReflectionCubit>().addReflection(_contentController.text);
                             _contentController.clear();
                           }
                         },
+                        child: const Icon(Icons.send, size: 24),
                       );
                     },
                   ),
@@ -69,9 +73,9 @@ class _ReflectionWallScreenState extends State<ReflectionWallScreen> {
                       itemCount: state.reflections.length,
                       itemBuilder: (context, index) {
                         final reflection = state.reflections[index];
-                        return Card(
-                          margin: const EdgeInsets.only(bottom: 16),
-                          child: Padding(
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: TetherCard(
                             padding: const EdgeInsets.all(20),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,3 +108,4 @@ class _ReflectionWallScreenState extends State<ReflectionWallScreen> {
     );
   }
 }
+

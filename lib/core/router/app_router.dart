@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/circles/presentation/screens/circles_screen.dart';
@@ -13,28 +14,71 @@ import '../../features/couples/presentation/screens/our_bubble_screen.dart';
 import '../../features/family/presentation/screens/family_dashboard_screen.dart';
 import '../../features/family/presentation/screens/heritage_corner_screen.dart';
 import '../../features/family/presentation/screens/bedtime_stories_screen.dart';
+import '../../features/settings/presentation/screens/settings_screen.dart';
+import '../../features/auth/presentation/screens/login_screen.dart';
+import '../../features/auth/presentation/screens/sign_up_screen.dart';
+import '../../features/auth/presentation/bloc/auth_bloc.dart';
+import '../../features/auth/presentation/bloc/auth_state.dart';
+import '../../injection_container.dart';
+import '../widgets/main_shell.dart';
 
 final goRouter = GoRouter(
   initialLocation: '/',
+  refreshListenable: _AuthRefreshListenable(getIt<AuthBloc>()),
+  redirect: (context, state) {
+    final authState = getIt<AuthBloc>().state;
+    final bool loggingIn = state.matchedLocation == '/login' || state.matchedLocation == '/signup';
+
+    if (authState is Unauthenticated || authState is AuthInitial) {
+      return loggingIn ? null : '/login';
+    }
+
+    if (authState is Authenticated) {
+      if (loggingIn) return '/';
+    }
+
+    return null;
+  },
   routes: [
+    ShellRoute(
+      builder: (context, state, child) => MainShell(child: child),
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const CirclesScreen(),
+        ),
+        GoRoute(
+          path: '/feed/:circleId',
+          builder: (context, state) {
+            final circleId = state.pathParameters['circleId']!;
+            return FeedScreen(circleId: circleId);
+          },
+        ),
+        GoRoute(
+          path: '/messaging',
+          builder: (context, state) => const MessagingScreen(),
+        ),
+        GoRoute(
+          path: '/breathing',
+          builder: (context, state) => const BreathingRoomScreen(),
+        ),
+        GoRoute(
+          path: '/settings',
+          builder: (context, state) => const SettingsScreen(),
+        ),
+      ],
+    ),
     GoRoute(
-      path: '/',
-      builder: (context, state) => const CirclesScreen(),
+      path: '/login',
+      builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: '/signup',
+      builder: (context, state) => const SignUpScreen(),
     ),
     GoRoute(
       path: '/circles/create',
       builder: (context, state) => const CreateCircleScreen(),
-    ),
-    GoRoute(
-      path: '/feed/:circleId',
-      builder: (context, state) {
-        final circleId = state.pathParameters['circleId']!;
-        return FeedScreen(circleId: circleId);
-      },
-    ),
-    GoRoute(
-      path: '/messaging',
-      builder: (context, state) => const MessagingScreen(),
     ),
     GoRoute(
       path: '/messaging/chat/:circleId/:otherUserId',
@@ -55,10 +99,6 @@ final goRouter = GoRouter(
     GoRoute(
       path: '/reflection',
       builder: (context, state) => const ReflectionWallScreen(),
-    ),
-    GoRoute(
-      path: '/breathing',
-      builder: (context, state) => const BreathingRoomScreen(),
     ),
     GoRoute(
       path: '/bubble/:circleId',
@@ -88,24 +128,19 @@ final goRouter = GoRouter(
         return BedtimeStoriesScreen(circleId: circleId);
       },
     ),
-    GoRoute(
-      path: '/login',
-      builder: (context, state) => const PlaceholderScreen(title: 'Login'),
-    ),
   ],
 );
 
-class PlaceholderScreen extends StatelessWidget {
-  final String title;
-  const PlaceholderScreen({super.key, required this.title});
+class _AuthRefreshListenable extends ChangeNotifier {
+  late final StreamSubscription _subscription;
+
+  _AuthRefreshListenable(AuthBloc bloc) {
+    _subscription = bloc.stream.listen((_) => notifyListeners());
+  }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(
-        child: Text('$title Screen Placeholder'),
-      ),
-    );
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
   }
 }

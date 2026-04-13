@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,700;1,700&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#ffd7ef",
+                    "background": "#150b13",
+                    "tertiary-dim": "#eea439",
+                    "surface-container": "#231520",
+                    "outline": "#866e80",
+                    "primary-dim": "#fb7837",
+                    "on-tertiary-fixed-variant": "#623d00",
+                    "on-tertiary-fixed": "#3a2300",
+                    "primary-fixed": "#ffae8a",
+                    "primary-fixed-dim": "#ff996b",
+                    "surface-dim": "#150b13",
+                    "on-tertiary": "#633e00",
+                    "secondary-dim": "#fe8cdf",
+                    "primary-container": "#fe7a39",
+                    "on-primary": "#551c00",
+                    "error": "#ff716c",
+                    "tertiary": "#ffc479",
+                    "on-primary-fixed-variant": "#7a2d00",
+                    "tertiary-fixed-dim": "#eea439",
+                    "error-container": "#8a1a1e",
+                    "on-secondary": "#751363",
+                    "inverse-on-surface": "#5f515b",
+                    "tertiary-fixed": "#feb246",
+                    "on-primary-container": "#421400",
+                    "on-secondary-fixed": "#731263",
+                    "surface-variant": "#32202f",
+                    "inverse-primary": "#a43f00",
+                    "on-error": "#490006",
+                    "secondary-fixed-dim": "#ffc3e9",
+                    "tertiary-container": "#feb246",
+                    "outline-variant": "#574152",
+                    "surface-tint": "#ff915e",
+                    "on-surface": "#fbddf2",
+                    "on-secondary-fixed-variant": "#963481",
+                    "inverse-surface": "#fff7f9",
+                    "on-surface-variant": "#bea3b7",
+                    "surface-container-high": "#2a1a27",
+                    "primary": "#ff915e",
+                    "on-secondary-container": "#ec7dce",
+                    "surface": "#150b13",
+                    "on-background": "#fbddf2",
+                    "surface-container-low": "#1b1019",
+                    "on-tertiary-container": "#563500",
+                    "secondary": "#ffade5",
+                    "surface-container-lowest": "#000000",
+                    "on-error-container": "#ff9993",
+                    "error-dim": "#c94947",
+                    "surface-bright": "#3a2536",
+                    "surface-container-highest": "#32202f",
+                    "secondary-container": "#4c0040",
+                    "on-primary-fixed": "#4a1800"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Plus Jakarta Sans"],
+                    "label": ["Plus Jakarta Sans"],
+                    "serif": ["Noto Serif"],
+                    "sans": ["Plus Jakarta Sans"],
+                    "display": ["Playfair Display"],
+                    "intimate": ["DM Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .connection-line {
+            background: linear-gradient(90deg, #ff915e 0%, #ffade5 100%);
+            box-shadow: 0 0 15px rgba(255, 145, 94, 0.4);
+        }
+        .bento-card {
+            background: rgba(35, 21, 32, 0.4);
+            backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-card:hover {
+            transform: translateY(-4px);
+            background: rgba(50, 32, 47, 0.6);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen pb-32 selection:bg-primary/30">
+<!-- TopAppBar -->
+<header class="bg-[#1A1018]/80 backdrop-blur-xl sticky top-0 z-50 flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#FF7B3A] cursor-pointer hover:opacity-80 transition-opacity scale-95 transition-transform duration-300">arrow_back</span>
+<h1 class="font-serif italic text-2xl tracking-tight text-[#FF7B3A]">Tether</h1>
+</div>
+<div class="relative">
+<div class="w-10 h-10 rounded-full border-2 border-[#FF7B3A] overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="close-up portrait of a woman with orange mood ring light reflecting on her face, soft cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcJfry8HNWQrKeOk3f7p1H6nXJVmr1ZuBaPuuQXb6xi1iWm--PQLHvBqYu-wupO1_AaoL5WuZnYmsB8fgR5PQyJTHRhZExAB3lAs8SWp-7Y_1Ee5KH_9IgoW8VJzA1YhE2We0IiZEnGfpX5gMr79hJEEW5epeymvaojqgoWJjSJS1ppFbgwsYzb1tC-LwTioHI2Zp2QLm94SLFGcZO0gVUbbbc8YRlcgIHnrowbrHheLQNhzTlF6kbD49F-skJeOgfb9LTP6ISQxGJ"/>
+</div>
+</div>
+</header>
+<main class="max-w-2xl mx-auto px-6 py-8 space-y-12">
+<!-- 32. Our Bubble Home -->
+<section class="relative" id="bubble-home">
+<div class="absolute -top-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-[80px]"></div>
+<div class="absolute top-0 -right-24 w-64 h-64 bg-secondary/10 rounded-full blur-[80px]"></div>
+<header class="mb-10 text-center relative z-10">
+<div class="flex justify-center items-center gap-8 mb-6">
+<div class="w-20 h-20 rounded-[2rem] overflow-hidden border-2 border-primary/30 shadow-[0_0_30px_rgba(255,145,94,0.2)] rotate-[-6deg]">
+<img alt="Partner 1" class="w-full h-full object-cover" data-alt="profile photo of a smiling man with warm golden hour lighting and soft bokeh background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNgpfU_NMOMmoBikuoBGqUIZQePbPJaRyNzSTT5VK1IiYmrS8PnDxnu1rtdhEu942lMY1fcaTb22cbrNDZvVNrteX-JYntQz1z4wFyVEQvKg3UH7gRVuBZvzyQbeC9wc0a2e1HU3iea8vO0amD7vpgJJkiyrY3VYXZ7JoxXCT0wzGq4HNuAdxzrK2n3Zs1FTcgvcRpqldx95ZHLUMJRpA_MHJltnjv0DkPodeKWtf8okpFDG8-sDgTRVC_-LzZusZV_7UfSM8UJ2Ns"/>
+</div>
+<div class="w-16 h-1 connection-line rounded-full relative">
+<div class="absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-white rounded-full animate-pulse shadow-[0_0_10px_#fff]"></div>
+</div>
+<div class="w-20 h-20 rounded-[2rem] overflow-hidden border-2 border-secondary/30 shadow-[0_0_30px_rgba(255,173,229,0.2)] rotate-[6deg]">
+<img alt="Partner 2" class="w-full h-full object-cover" data-alt="profile photo of a woman with gentle expression and soft lilac lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBavUan9U-uHAG1PIbJIvhFCIqyfwKQ7eIuwCH9FmEASLiFpd6C3AN7BZeJegVcbQBNyx0qpqD7fzDWUeNQb5q0P7SUCzlhd7fmjMjy7xIYJbs8kv_Yl_bcCW9wLORo3FArCM2cgw4FOJeMj8QBnNsI6ndkSKXmy4Ou2qiDBwslCjyzfAie1VKpfvCG3hJO67_tsejc1fYUS4AN9n9v4KTeivWpxHvnWZk54VjfM-P64raD2q4KAcwksDacqA_8-7c8uyjn181sl_Um"/>
+</div>
+</div>
+<h2 class="text-3xl font-headline font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent italic">Our Bubble Home</h2>
+</header>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<div class="bento-card p-6 rounded-lg flex flex-col items-center justify-center text-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl">photo_library</span>
+<span class="text-sm font-medium tracking-wide">Gallery</span>
+</div>
+<div class="bento-card p-6 rounded-lg flex flex-col items-center justify-center text-center gap-3">
+<span class="material-symbols-outlined text-secondary text-3xl">music_note</span>
+<span class="text-sm font-medium tracking-wide">Song</span>
+</div>
+<div class="bento-card p-6 rounded-lg flex flex-col items-center justify-center text-center gap-3 md:row-span-2">
+<span class="material-symbols-outlined text-tertiary text-4xl">auto_awesome</span>
+<span class="text-sm font-medium tracking-wide">Memories</span>
+</div>
+<div class="bento-card p-6 rounded-lg flex flex-col items-center justify-center text-center gap-3">
+<span class="material-symbols-outlined text-primary-dim text-3xl">mail</span>
+<span class="text-sm font-medium tracking-wide">Letters</span>
+</div>
+<div class="bento-card p-6 rounded-lg flex flex-col items-center justify-center text-center gap-3">
+<span class="material-symbols-outlined text-secondary-dim text-3xl">event_upcoming</span>
+<span class="text-sm font-medium tracking-wide">Date Planner</span>
+</div>
+<div class="bento-card p-6 rounded-lg flex flex-col items-center justify-center text-center gap-3">
+<span class="material-symbols-outlined text-tertiary-dim text-3xl">verified</span>
+<span class="text-sm font-medium tracking-wide">Promises</span>
+</div>
+</div>
+</section>
+<!-- 33. Heartbeat Screen -->
+<section class="surface-container-low rounded-xl p-8 flex flex-col items-center gap-8 relative overflow-hidden" id="heartbeat">
+<div class="absolute inset-0 bg-secondary/5 opacity-50 blur-3xl pointer-events-none"></div>
+<div class="text-center space-y-2">
+<h3 class="text-xl font-headline italic">Pulse of us</h3>
+<p class="text-on-surface-variant font-intimate text-xs tracking-wider opacity-85">SEND A HEARTBEAT 💓</p>
+</div>
+<div class="relative group cursor-pointer">
+<div class="absolute inset-0 bg-secondary/30 blur-2xl rounded-full scale-125 animate-pulse"></div>
+<div class="w-32 h-32 bg-surface-container-highest rounded-full flex items-center justify-center shadow-[inset_0_0_20px_rgba(255,173,229,0.1)] relative z-10">
+<span class="material-symbols-outlined text-secondary text-6xl" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<button class="w-full py-5 rounded-DEFAULT bg-gradient-to-r from-secondary to-on-secondary-container text-on-primary-container font-semibold tracking-wide shadow-[0_0_40px_rgba(236,125,206,0.3)] hover:scale-[1.02] transition-transform">
+                Touch to Connect
+            </button>
+</section>
+<!-- 39. Anniversary Countdown -->
+<section class="surface-container-high rounded-xl p-8 border border-primary/20 shadow-[0_0_50px_rgba(255,145,94,0.1)] text-center">
+<p class="font-intimate text-xs uppercase tracking-[0.2em] mb-4 text-on-surface-variant">Until Our Forever</p>
+<div class="flex justify-center items-end gap-2 mb-6">
+<span class="text-7xl font-display text-primary leading-none">124</span>
+<span class="text-xl font-headline italic text-on-surface-variant mb-2">days left</span>
+</div>
+<div class="flex justify-center -space-x-4">
+<div class="w-14 h-14 rounded-full border-2 border-background overflow-hidden relative z-20">
+<img alt="User 1" class="w-full h-full object-cover" data-alt="profile photo of a man in soft atmospheric light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ1jjdFGCJv1HC6S9Nq7QO1GEdDDLmpR4yu61aa5wp9VlnvDJ2dyn2jEffubYaRBdBKm8FaWixABm1E3_rDIvT5xgX3gi7K55LcpIvWTfI2uYH6FisHR8WcBdWC-0vep8_KOGd27t9-jBaf4_3HynHzhO5zNJRocWSEazVk0251x_4E23Ijqnx3MJzKb7onUyoRMHsW_L8Qf35l5b12Uzh8JkRI9Uq-ve4l6kMpHE79DnhFSt1rmnjWh3VM4N-XHinFIkTFkbt-K8p"/>
+</div>
+<div class="w-14 h-14 rounded-full border-2 border-background overflow-hidden relative z-10">
+<img alt="User 2" class="w-full h-full object-cover" data-alt="profile photo of a woman in soft atmospheric light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB18tp-64f7xOM0qUhQfJrLwt7ZDpeeoWB4R1UX-K3rGWELq7hMKJfbYVESrU3dUOddJtcDrvPvCFAUqoFKQgmzoE881PYNxZJQT__1znuPyfNQvCEcf-M5poUrVw2XJTe32dJ6-6Pkl0kH87XMxh0ptBzuJ4Ib2xoEanmrin9aX5X_J0uheA0EEzjNmffJDSQqZod0Ii_KL7c5-ABXwjhkex0daBYga096RJAsmfNRG1puChMhsvgjObo0Wmayu5UfiFcZXJCru0Js"/>
+</div>
+</div>
+</section>
+<!-- 35. Promise Rings -->
+<section class="text-center py-12">
+<div class="flex justify-center items-center mb-8">
+<div class="w-24 h-24 border-[3px] border-tertiary/60 rounded-full flex items-center justify-center -mr-8 shadow-[0_0_20px_rgba(254,178,70,0.2)]">
+<div class="w-20 h-20 border-[1px] border-tertiary/20 rounded-full"></div>
+</div>
+<div class="w-24 h-24 border-[3px] border-tertiary/60 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(254,178,70,0.2)]">
+<div class="w-20 h-20 border-[1px] border-tertiary/20 rounded-full"></div>
+</div>
+</div>
+<h4 class="text-2xl font-headline italic mb-2">I choose you today 💍</h4>
+<p class="font-intimate text-xs text-on-surface-variant/40 tracking-widest uppercase">Dissolve gently</p>
+</section>
+<!-- 36. Space to Breathe -->
+<section class="bg-[#2A3129] rounded-xl p-8 border border-[#A8C5A0]/10">
+<div class="flex items-center gap-4 mb-6">
+<span class="material-symbols-outlined text-[#A8C5A0]">nature_people</span>
+<h3 class="text-xl font-headline italic text-[#A8C5A0]">Space to Breathe</h3>
+</div>
+<p class="text-on-surface-variant mb-8 italic">"I need space, but I love you"</p>
+<div class="flex gap-3 overflow-x-auto pb-4 scrollbar-hide">
+<button class="px-6 py-3 rounded-full bg-surface-container-low border border-[#A8C5A0]/20 text-xs font-medium whitespace-nowrap">30 mins</button>
+<button class="px-6 py-3 rounded-full bg-[#A8C5A0]/20 border border-[#A8C5A0]/40 text-[#A8C5A0] text-xs font-medium whitespace-nowrap">2 hours</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-low border border-[#A8C5A0]/20 text-xs font-medium whitespace-nowrap">Full Day</button>
+<button class="px-6 py-3 rounded-full bg-surface-container-low border border-[#A8C5A0]/20 text-xs font-medium whitespace-nowrap">Custom</button>
+</div>
+</section>
+<!-- 42. Private Jokes Vault -->
+<section>
+<div class="flex justify-between items-end mb-6 px-2">
+<div>
+<h3 class="text-2xl font-headline italic">Just between us.</h3>
+<p class="text-xs font-intimate opacity-70 mt-1">Our private joke sanctuary</p>
+</div>
+<button class="p-3 bg-surface-container-high rounded-full hover:bg-surface-variant transition-colors group">
+<span class="material-symbols-outlined text-secondary-dim group-hover:rotate-12 transition-transform">emoji_emotions</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="aspect-square bg-surface-container-low rounded-lg p-4 flex flex-col justify-end relative overflow-hidden group">
+<img alt="Joke 1" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform" data-alt="candid close-up of a pug dog making a funny face, soft warm indoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8Sb_escT9NVrPaz2fUjHBE8yv_QGLo7Ojei6ybUFHAHNrSSUORRUG04JOYg6oxZUQ52Fnd03SMoFGrKwOVvIVgljp6wzccdZ3vfxbqFq6qSvEa8szrM4Ci-SuVnXf_yKbjqQyfJfVQApR4jQo5M2wdas65xEL54IgEmj2ORE7X05L9DjQBChV7JITN5Fg_n4FbmSMQ2O0ICohsAQZi5oq5FHwzxwQfj8kIfc4TRmcBF6qczyjw4TnhLg_39G8NNtfpMoQKRDOmTh3"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+<span class="relative z-10 text-xs font-medium">The 'Wait for it' dog...</span>
+</div>
+<div class="aspect-square bg-surface-container-low rounded-lg p-6 flex items-center justify-center text-center italic text-sm text-secondary group cursor-pointer hover:bg-secondary/10 transition-colors">
+                    "Remember the 4am toast catastrophe of 2023?"
+                </div>
+<div class="aspect-[4/3] col-span-2 bg-surface-container-high rounded-lg p-4 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">add_reaction</span>
+</div>
+<p class="text-sm font-medium">Save something 😂</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-8 pb-8 pt-4 bg-[#1A1018]/80 backdrop-blur-xl rounded-t-[32px] shadow-[0_-8px_40px_rgba(255,123,58,0.08)]">
+<a class="flex items-center justify-center bg-[#FF7B3A]/10 text-[#FF7B3A] rounded-full p-3 shadow-[0_0_20px_rgba(255,123,58,0.3)] Active: scale-90 duration-500 ease-out" href="#">
+<span class="material-symbols-outlined">home</span>
+</a>
+<a class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all" href="#">
+<span class="material-symbols-outlined">spa</span>
+</a>
+<a class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+</a>
+<a class="flex items-center justify-center text-white/40 p-3 hover:text-[#FF7B3A]/80 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+</a>
+</nav>
+</body></html>

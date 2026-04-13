@@ -13,60 +13,132 @@ class AppTheme {
       colorScheme: ColorScheme(
         brightness: isDark ? Brightness.dark : Brightness.light,
         primary: tokens.accentPrimary,
-        onPrimary: isDark ? Colors.white : Colors.black,
+        onPrimary: tokens.textOnAccent,
         secondary: tokens.accentSecondary,
-        onSecondary: isDark ? Colors.white : Colors.black,
-        error: Colors.red,
-        onError: Colors.white,
+        onSecondary: tokens.textOnAccent,
+        tertiary: tokens.accentTertiary,
+        onTertiary: tokens.textOnAccent,
+        error: const Color(0xFFFF716C),
+        onError: const Color(0xFF490006),
         surface: tokens.backgroundElevated,
         onSurface: tokens.textPrimary,
-        surfaceContainerLowest: tokens.backgroundPrimary, // Using surfaceContainerLowest for primary background
+        surfaceContainerLowest: tokens.backgroundPrimary,
+        surfaceContainerLow: tokens.surfaceContainerLow,
+        surfaceContainer: tokens.surfaceContainer,
+        surfaceContainerHigh: tokens.surfaceContainerHigh,
+        surfaceContainerHighest: tokens.surfaceContainerHighest,
+        outline: tokens.borderDefault,
+        outlineVariant: tokens.borderDefault.withOpacity(0.18),
       ),
       scaffoldBackgroundColor: tokens.backgroundPrimary,
       textTheme: TextTheme(
-        displayLarge: GoogleFonts.playfairDisplay(
+        displayLarge: GoogleFonts.notoSerif(
+          fontSize: 36,
+          fontWeight: FontWeight.w700,
+          fontStyle: FontStyle.italic,
+          color: tokens.textPrimary,
+          letterSpacing: -0.5,
+        ),
+        headlineLarge: GoogleFonts.notoSerif(
           fontSize: 32,
           fontWeight: FontWeight.w700,
+          fontStyle: FontStyle.italic,
           color: tokens.textPrimary,
         ),
-        headlineMedium: GoogleFonts.playfairDisplay(
+        headlineMedium: GoogleFonts.notoSerif(
           fontSize: 24,
           fontWeight: FontWeight.w600,
+          fontStyle: FontStyle.italic,
           color: tokens.textPrimary,
         ),
-        titleLarge: GoogleFonts.lora(
+        titleLarge: GoogleFonts.plusJakartaSans(
           fontSize: 20,
           fontWeight: FontWeight.w600,
           color: tokens.textPrimary,
         ),
-        bodyLarge: GoogleFonts.dmSans(
-          fontSize: 15,
+        titleMedium: GoogleFonts.plusJakartaSans(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: tokens.textPrimary,
+        ),
+        bodyLarge: GoogleFonts.plusJakartaSans(
+          fontSize: 16,
           fontWeight: FontWeight.w400,
           color: tokens.textPrimary,
         ),
-        bodyMedium: GoogleFonts.dmSans(
-          fontSize: 15,
+        bodyMedium: GoogleFonts.plusJakartaSans(
+          fontSize: 14,
           fontWeight: FontWeight.w400,
           color: tokens.textSecondary,
         ),
+        labelLarge: GoogleFonts.plusJakartaSans(
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          color: tokens.textPrimary,
+          letterSpacing: 0.1,
+        ),
         labelSmall: GoogleFonts.dmSans(
-          fontSize: 11,
-          fontWeight: FontWeight.w500,
-          color: tokens.textSecondary,
+          fontSize: 12,
+          fontWeight: FontWeight.w300,
+          color: tokens.textSecondary.withOpacity(0.85),
+          letterSpacing: 0.05,
         ),
       ),
       cardTheme: CardThemeData(
         color: tokens.backgroundElevated,
-        elevation: isDark ? 4 : 2,
+        elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18),
-          side: BorderSide(color: tokens.borderDefault),
+          side: BorderSide(color: tokens.borderDefault.withOpacity(0.18)),
         ),
       ),
-      buttonTheme: ButtonThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: tokens.accentPrimary,
+          foregroundColor: tokens.textOnAccent,
+          elevation: 0,
+          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+          textStyle: GoogleFonts.plusJakartaSans(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
         ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: tokens.accentPrimary,
+          side: BorderSide(color: tokens.borderDefault.withOpacity(0.3)),
+          padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+          textStyle: GoogleFonts.plusJakartaSans(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: tokens.surfaceContainerLow,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: tokens.borderDefault.withOpacity(0.18)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: tokens.borderDefault.withOpacity(0.18)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(14),
+          borderSide: BorderSide(color: tokens.accentPrimary, width: 2),
+        ),
+        labelStyle: GoogleFonts.plusJakartaSans(color: tokens.textSecondary),
+        hintStyle: GoogleFonts.plusJakartaSans(color: tokens.textSecondary.withOpacity(0.6)),
       ),
     );
   }

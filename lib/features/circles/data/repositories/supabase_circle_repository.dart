@@ -31,6 +31,20 @@ class SupabaseCircleRepository implements ICircleRepository {
   }
 
   @override
+  Future<Either<Failure, List<Map<String, dynamic>>>> getCircleMembers(String circleId) async {
+    try {
+      final response = await _client
+          .from('circle_members')
+          .select('*, profiles(*)')
+          .eq('circle_id', circleId);
+
+      return Right(List<Map<String, dynamic>>.from(response));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, CircleEntity>> createCircle(CircleEntity circle) async {
     try {
       final model = CircleModel(

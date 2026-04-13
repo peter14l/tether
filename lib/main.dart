@@ -6,6 +6,8 @@ import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/time_theme_cubit.dart';
 import 'core/theme/time_theme_state.dart';
+import 'features/auth/presentation/bloc/auth_bloc.dart';
+import 'features/auth/presentation/bloc/auth_event.dart';
 import 'injection_container.dart';
 
 Future<void> main() async {
@@ -20,7 +22,12 @@ Future<void> main() async {
   // Initialize Dependency Injection
   await configureDependencies();
 
-  runApp(const MyApp());
+  runApp(
+    BlocProvider(
+      create: (context) => getIt<AuthBloc>()..add(AuthCheckRequested()),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -28,8 +35,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<TimeThemeCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => getIt<TimeThemeCubit>()),
+      ],
       child: BlocBuilder<TimeThemeCubit, TimeThemeState>(
         builder: (context, state) {
           return MaterialApp.router(

@@ -12,31 +12,82 @@ class ReactionBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
       children: [
-        _ReactionButton(emoji: '🌸', label: 'Warm', onTap: () => onReactionTap('warm')),
-        _ReactionButton(emoji: '🫂', label: 'Comforting', onTap: () => onReactionTap('comforting')),
-        _ReactionButton(emoji: '👁️', label: 'I See You', onTap: () => onReactionTap('i_see_you')),
-        _ReactionButton(emoji: '💙', label: 'Sending Strength', onTap: () => onReactionTap('sending_strength')),
+        _ReactionChip(
+          emoji: '🌸',
+          label: 'Warm',
+          count: 12,
+          onTap: () => onReactionTap('warm'),
+        ),
+        _ReactionChip(
+          emoji: '👁️',
+          label: 'I See You',
+          count: 5,
+          isSelected: true,
+          onTap: () => onReactionTap('i_see_you'),
+        ),
+        _ReactionChip(
+          emoji: '🫂',
+          label: 'Comforting',
+          count: 3,
+          onTap: () => onReactionTap('comforting'),
+        ),
       ],
     );
   }
 }
 
-class _ReactionButton extends StatelessWidget {
+class _ReactionChip extends StatelessWidget {
   final String emoji;
   final String label;
+  final int count;
+  final bool isSelected;
   final VoidCallback onTap;
 
-  const _ReactionButton({required this.emoji, required this.label, required this.onTap});
+  const _ReactionChip({
+    required this.emoji,
+    required this.label,
+    required this.count,
+    this.isSelected = false,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return InkWell(
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-        child: Text(emoji, style: const TextStyle(fontSize: 20)),
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected ? colorScheme.secondaryContainer.withOpacity(0.3) : colorScheme.surfaceContainer,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isSelected ? colorScheme.secondary.withOpacity(0.2) : colorScheme.outlineVariant.withOpacity(0.1),
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('$label $emoji', style: theme.textTheme.labelSmall?.copyWith(
+              color: isSelected ? colorScheme.onSecondaryContainer : colorScheme.onSurfaceVariant,
+              fontWeight: FontWeight.w500,
+            )),
+            const SizedBox(width: 8),
+            Text(
+              '$count',
+              style: theme.textTheme.labelSmall?.copyWith(
+                color: (isSelected ? colorScheme.onSecondaryContainer : colorScheme.onSurfaceVariant).withOpacity(isSelected ? 0.6 : 0.4),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

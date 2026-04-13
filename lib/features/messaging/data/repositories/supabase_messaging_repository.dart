@@ -14,6 +14,38 @@ class SupabaseMessagingRepository implements IMessagingRepository {
   SupabaseMessagingRepository(this._client);
 
   @override
+  Future<Either<Failure, List<MessageEntity>>> getMessageThreads() async {
+    try {
+      final userId = _client.auth.currentUser?.id;
+      if (userId == null) return const Left(AuthFailure('User not logged in'));
+
+      // Fetch unique messages involving the user
+      // Note: This is a simplified approach for getting threads.
+      // In a production app, you might have a 'threads' table or a more complex SQL function.
+      final response = await _client
+          .from('messages')
+          .select()
+          .or('sender_id.eq.$userId,receiver_id.eq.$userId')
+          .order('created_at', ascending: false);
+
+      final List<MessageEntity> allMessages = (response as List).map((json) => MessageModel.fromJson(json)).toList();
+      
+      // Group by other user id
+      final Map<String, MessageEntity> threadsMap = {};
+      for (final msg in allMessages) {
+        final otherId = msg.senderId == userId ? msg.receiverId : msg.senderId;
+        if (!threadsMap.containsKey(otherId)) {
+          threadsMap[otherId] = msg;
+        }
+      }
+
+      return Right(threadsMap.values.toList());
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<MessageEntity>>> getMessages(String receiverId, {String? circleId}) async {
     try {
       final userId = _client.auth.currentUser?.id;
