@@ -22,8 +22,8 @@ class MoodRoom extends StatelessWidget {
                 Text(
                   'YOUR SANCTUARY',
                   style: theme.textTheme.labelSmall?.copyWith(
+                    color: theme.textTheme.labelSmall?.color?.withOpacity(0.6),
                     letterSpacing: 2,
-                    opacity: 0.6,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

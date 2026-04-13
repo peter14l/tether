@@ -196,7 +196,7 @@ class _BentoGrid extends StatelessWidget {
         _BentoCard(icon: Icons.music_note, label: 'Song', color: Colors.pink),
         _BentoCard(icon: Icons.auto_awesome, label: 'Memories', color: Colors.amber, isDouble: true),
         _BentoCard(icon: Icons.mail, label: 'Letters', color: Colors.orangeAccent),
-        _BentoCard(icon: Icons.event_upcoming, label: 'Date Planner', color: Colors.pinkAccent),
+        _BentoCard(icon: Icons.calendar_today, label: 'Date Planner', color: Colors.pinkAccent),
         _BentoCard(icon: Icons.verified, label: 'Promises', color: Colors.amberAccent),
       ],
     );

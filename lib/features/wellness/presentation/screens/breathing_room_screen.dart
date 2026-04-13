@@ -104,7 +104,7 @@ class _BreathingSection extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [colorScheme.surface, colorScheme.surfaceContainerLow, colorScheme.backgroundPrimary],
+          colors: [colorScheme.surface, colorScheme.surfaceContainerLow, colorScheme.surfaceContainerLowest],
         ),
       ),
       child: Stack(

@@ -61,7 +61,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(height: 32),
                 _SidebarItem(
-                  icon: Icons.shield_person,
+                  icon: Icons.security,
                   label: 'Privacy Vault',
                   isSelected: _selectedIndex == 0,
                   onTap: () => setState(() => _selectedIndex = 0),
@@ -73,7 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onTap: () => setState(() => _selectedIndex = 1),
                 ),
                 _SidebarItem(
-                  icon: Icons.self_care,
+                  icon: Icons.favorite,
                   label: 'Wellness',
                   isSelected: _selectedIndex == 2,
                   onTap: () => setState(() => _selectedIndex = 2),
@@ -291,7 +291,7 @@ class _WellnessSection extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(Icons.exercise, color: colorScheme.primary),
+            Icon(Icons.fitness_center, color: colorScheme.primary),
             const SizedBox(width: 12),
             Text('Atmospheric Healing', style: theme.textTheme.headlineMedium?.copyWith(fontSize: 24)),
           ],

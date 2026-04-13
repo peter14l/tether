@@ -7,6 +7,8 @@ class PostEntity extends Equatable {
   final String contentType; // 'text' | 'image' | 'voice' | 'letter' | 'one_way'
   final String? contentText;
   final String? mediaUrl;
+  final String? authorName;
+  final String? authorAvatarUrl;
   final bool isAnonymous;
   final DateTime? deliverAt;
   final Duration? expiresAfter;
@@ -20,6 +22,8 @@ class PostEntity extends Equatable {
     required this.contentType,
     this.contentText,
     this.mediaUrl,
+    this.authorName,
+    this.authorAvatarUrl,
     required this.isAnonymous,
     this.deliverAt,
     this.expiresAfter,
@@ -35,6 +39,8 @@ class PostEntity extends Equatable {
         contentType,
         contentText,
         mediaUrl,
+        authorName,
+        authorAvatarUrl,
         isAnonymous,
         deliverAt,
         expiresAfter,
