@@ -24,6 +24,10 @@ class SupabaseAuthRepository implements IAuthRepository {
       final response = await _client.auth.signUp(
         email: email,
         password: password,
+        data: {
+          'username': username,
+          'display_name': displayName,
+        },
       );
 
       final user = response.user;
@@ -31,7 +35,11 @@ class SupabaseAuthRepository implements IAuthRepository {
         return const Left(AuthFailure('Sign up failed'));
       }
 
-      // Create profile record
+      // Profile is now created by database trigger. 
+      // We fetch it here if we want to return the full model.
+      // If email confirmation is enabled, we won't have it yet, 
+      // but we can return a skeleton model.
+
       final profile = {
         'id': user.id,
         'username': username,
@@ -39,8 +47,6 @@ class SupabaseAuthRepository implements IAuthRepository {
         'created_at': DateTime.now().toIso8601String(),
         'updated_at': DateTime.now().toIso8601String(),
       };
-
-      await _client.from('profiles').insert(profile);
 
       return Right(UserModel.fromJson(profile, email));
     } catch (e) {
