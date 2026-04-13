@@ -6,10 +6,36 @@ import '../../../../core/widgets/squircle_avatar.dart';
 import '../../../../core/widgets/whisper_text.dart';
 import '../bloc/circle_cubit.dart';
 import '../bloc/circle_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
+import '../../../../core/presentation/widgets/tether_walkthrough_overlay.dart';
 import '../widgets/circle_card.dart';
 
-class CirclesScreen extends StatelessWidget {
+class CirclesScreen extends StatefulWidget {
   const CirclesScreen({super.key});
+
+  @override
+  State<CirclesScreen> createState() => _CirclesScreenState();
+}
+
+class _CirclesScreenState extends State<CirclesScreen> {
+  final GlobalKey _fabKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _checkShowcase());
+  }
+
+  Future<void> _checkShowcase() async {
+    final prefs = await SharedPreferences.getInstance();
+    final hasSeen = prefs.getBool('has_seen_circles_guide') ?? false;
+    
+    if (!hasSeen && mounted) {
+      ShowCaseWidget.of(context).startShowCase([_fabKey]);
+      await prefs.setBool('has_seen_circles_guide', true);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +44,8 @@ class CirclesScreen extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => getIt<CircleCubit>()..loadCircles(),
-      child: Scaffold(
+      child: ShowCaseWidget(
+        builder: (context) => Scaffold(
         appBar: AppBar(
           backgroundColor: colorScheme.surface.withOpacity(0.8),
           elevation: 0,
@@ -82,15 +109,20 @@ class CirclesScreen extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => context.push('/circles/create'),
-          backgroundColor: colorScheme.primary,
-          foregroundColor: colorScheme.onPrimary,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          child: const Icon(Icons.add),
+        floatingActionButton: TetherWalkthroughOverlay(
+          showcaseKey: _fabKey,
+          title: 'Your First Circle',
+          description: 'Create a sanctuary for you and your inner circle here.',
+          child: FloatingActionButton(
+            onPressed: () => context.push('/circles/create'),
+            backgroundColor: colorScheme.primary,
+            foregroundColor: colorScheme.onPrimary,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            child: const Icon(Icons.add),
+          ),
+          ),
         ),
       ),
-    );
+    ));
   }
 }
-
