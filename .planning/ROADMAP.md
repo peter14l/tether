@@ -10,7 +10,8 @@
 | 4 | Wellness | Mood Rooms, Check-In, Quiet Hours, Breathing Room | 2 |
 | 5 | Couples | Couples features for Couple Circles | 2 |
 | 6 | Family | Family features for Family Circles | 5 |
-| 7-10 | Extended | Extended features (25+) | 1+ |
+| 7 | Monetization | Subscription infrastructure, feature gating, PPP pricing | 1+ |
+| 8-11 | Extended | Extended features (25+) | 1+ |
 
 ---
 
@@ -125,7 +126,39 @@ Plans:
 
 ---
 
-## Phase 7: Advanced Wellness & Interaction
+## Phase 7: Monetization & Subscription
+
+### Goal
+Implement Tether Plus subscription system with feature gating, PPP-adjusted pricing, and subscription management UI.
+
+**Plans:** 2 plans in 1 wave
+
+Plans:
+- [ ] 07-01-PLAN.md — Subscription Infrastructure (Database schema, Edge Functions, RevenueCat integration)
+- [ ] 07-02-PLAN.md — Subscription UI & Feature Gating (Upgrade prompts, status screen, gating integration)
+
+### Features
+- Subscription tiers (Free, Plus, Family)
+- RevenueCat integration
+- Feature entitlement verification
+- PPP-adjusted pricing display
+- Grace period handling
+
+### Dependencies
+- Phase 1 (Foundation - for Supabase setup)
+- Phase 5 (Couples - for feature gating)
+- Phase 6 (Family - for feature gating)
+
+### Success Criteria
+- [ ] Users can subscribe via in-app purchase
+- [ ] Subscription status persists and is queryable
+- [ ] Feature gating blocks paid features for free users
+- [ ] Upgrade prompts appear on locked features
+- [ ] Grace period extends access 7 days post-expiry
+
+---
+
+## Phase 8: Advanced Wellness & Interaction
 
 ### Goal
 Implement remaining wellness and engagement features to enhance emotional safety and low-pressure connection.
@@ -189,7 +222,8 @@ Final system-wide features, biometric security, and technical refinement.
 ## Version Bumps
 
 - **v1.0**: [1-6] Core MVP (Foundation + Feed + Wellness + Messaging + Couples + Family)
-- **v1.1**: [7] Advanced Wellness
-- **v1.2**: [8] Extended Spaces
-- **v1.3**: [9] Memories & Automations
-- **v1.4**: [10] System & Polish
+- **v1.1**: [7] Monetization & Subscription
+- **v1.2**: [8] Advanced Wellness
+- **v1.3**: [9] Extended Spaces
+- **v1.4**: [10] Memories & Automations
+- **v1.5**: [11] System & Polish
