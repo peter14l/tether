@@ -217,7 +217,19 @@ Final system-wide features, biometric security, and technical refinement.
 - Mirror Mode (Self-view during recording)
 - Full Edge Functions deployment for scheduled tasks
 
+### Phase 11: Production Hardening, Real Data Integration, and User Guides
+
+**Goal:** Move from mock data to production-ready real working data with proper logic, and create interactive user guides for screens.
+**Depends on:** 10
+**Plans:** 3/3 plans complete
+
+Plans:
+- [x] 11-01-PLAN.md — Supabase RLS Hardening (SQL Migration)
+- [x] 11-02-PLAN.md — Real Data Integration (Feed & Realtime Core)
+- [x] 11-03-PLAN.md — Interactive User Guides (Showcase)
+
 ---
+
 
 ## Version Bumps
 
