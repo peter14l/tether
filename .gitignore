@@ -29,3 +29,5 @@ keystore_secrets.txt
 
 # Symbols
 *.dSYM
+
+sentry.properties
