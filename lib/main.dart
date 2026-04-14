@@ -1,19 +1,19 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
+
 import 'core/config/env_config.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/time_theme_cubit.dart';
 import 'core/theme/time_theme_state.dart';
+import 'core/telemetry/telemetry_service.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/bloc/auth_event.dart';
 import 'injection_container.dart';
-
-import 'dart:ui';
-import 'package:firebase_core/firebase_core.dart';
-import 'core/telemetry/telemetry_service.dart';import 'package:sentry_flutter/sentry_flutter.dart';
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,15 +58,15 @@ Future<void> main() async {
       // Setting to 1.0 will profile 100% of sampled transactions:
       options.profilesSampleRate = 1.0;
     },
-    appRunner: () => runApp(SentryWidget(child: 
-    BlocProvider(
-      create: (context) => getIt<AuthBloc>()..add(AuthCheckRequested()),
-      child: const MyApp(),
+    appRunner: () => runApp(
+      SentryWidget(
+        child: BlocProvider(
+          create: (context) => getIt<AuthBloc>()..add(AuthCheckRequested()),
+          child: const MyApp(),
+        ),
+      ),
     ),
-  )),
   );
-  // TODO: Remove this line after sending the first sample event to sentry.
-  await Sentry.captureException(Exception('This is a sample exception.'));
 }
 
 class MyApp extends StatelessWidget {
@@ -75,7 +75,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => getIt<TimeThemeCubit>())],
+      providers: [
+        BlocProvider(create: (context) => getIt<TimeThemeCubit>()),
+      ],
       child: BlocBuilder<TimeThemeCubit, TimeThemeState>(
         builder: (context, state) {
           return MaterialApp.router(
