@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "950324848761",
+    "project_id": "tether-afcaf",
+    "storage_bucket": "tether-afcaf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950324848761:android:f481c549e461508bb34ca8",
+        "android_client_info": {
+          "package_name": "com.tether.app.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEVxzkQ5zpJmR3GZwPpSU-c3UTR6iacmQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
