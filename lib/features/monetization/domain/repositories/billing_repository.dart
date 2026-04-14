@@ -13,11 +13,12 @@ abstract class IBillingRepository {
     required PaymentMethod method,
     String? productId,
   });
-  
+  Future<Either<Failure, void>> purchasePremiumAuto({String? productId});
+
   Stream<CustomerInfo> get customerInfoStream;
   Future<void> showPaywall();
   Future<void> showCustomerCenter();
   Future<bool> isPro();
-  
+
   void dispose();
 }

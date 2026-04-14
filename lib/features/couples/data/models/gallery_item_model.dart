@@ -29,4 +29,15 @@ class GalleryItemModel extends GalleryItemEntity {
       'caption': caption,
     };
   }
+
+  GalleryItemModel copyWith({String? caption}) {
+    return GalleryItemModel(
+      id: id,
+      circleId: circleId,
+      uploadedBy: uploadedBy,
+      storagePath: storagePath,
+      caption: caption ?? this.caption,
+      createdAt: createdAt,
+    );
+  }
 }

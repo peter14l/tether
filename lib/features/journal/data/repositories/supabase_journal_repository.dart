@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/utils/encryption_service.dart';
+import '../../../../core/utils/user_key_manager.dart';
 import '../../domain/entities/journal_entry.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../models/journal_model.dart';
@@ -11,12 +12,13 @@ import '../models/journal_model.dart';
 class SupabaseJournalRepository implements IJournalRepository {
   final SupabaseClient _client;
   final EncryptionService _encryptionService;
+  final UserKeyManager _keyManager;
 
-  // Placeholder 32-byte key for demo purposes. 
-  // In a real app, this would be retrieved from secure storage or escrow.
-  static final List<int> _placeholderKey = List.filled(32, 1);
-
-  SupabaseJournalRepository(this._client, this._encryptionService);
+  SupabaseJournalRepository(
+    this._client,
+    this._encryptionService,
+    this._keyManager,
+  );
 
   @override
   Future<Either<Failure, List<JournalEntryEntity>>> getJournalEntries() async {
@@ -26,13 +28,17 @@ class SupabaseJournalRepository implements IJournalRepository {
           .select()
           .order('created_at', ascending: false);
 
+      final userKey = await _keyManager.getUserKey();
       final List<JournalEntryEntity> entries = [];
       for (final json in (response as List)) {
         final encryptedBlob = json['encrypted_blob'] as String;
-        final decryptedContent = await _encryptionService.decrypt(encryptedBlob, _placeholderKey);
+        final decryptedContent = await _encryptionService.decrypt(
+          encryptedBlob,
+          userKey,
+        );
         entries.add(JournalModel.fromJson(json, decryptedContent));
       }
-      
+
       return Right(entries);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
@@ -40,10 +46,16 @@ class SupabaseJournalRepository implements IJournalRepository {
   }
 
   @override
-  Future<Either<Failure, void>> addJournalEntry(JournalEntryEntity entry) async {
+  Future<Either<Failure, void>> addJournalEntry(
+    JournalEntryEntity entry,
+  ) async {
     try {
-      final encryptedBlob = await _encryptionService.encrypt(entry.content, _placeholderKey);
-      
+      final userKey = await _keyManager.getUserKey();
+      final encryptedBlob = await _encryptionService.encrypt(
+        entry.content,
+        userKey,
+      );
+
       final model = JournalModel(
         id: entry.id,
         userId: entry.userId,
@@ -53,7 +65,9 @@ class SupabaseJournalRepository implements IJournalRepository {
         createdAt: entry.createdAt,
       );
 
-      await _client.from('gratitude_journal').insert(model.toJson(encryptedBlob));
+      await _client
+          .from('gratitude_journal')
+          .insert(model.toJson(encryptedBlob));
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure(e.toString()));

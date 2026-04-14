@@ -10,6 +10,7 @@ import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../../../core/config/env_config.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/utils/installer_source.dart';
 import '../../domain/repositories/billing_repository.dart';
 
 @LazySingleton(as: IBillingRepository)
@@ -24,7 +25,9 @@ class BillingRepositoryImpl implements IBillingRepository {
 
   Future<void> _initRevenueCat() async {
     if (!EnvConfig.isRevenueCatEnabled) {
-      debugPrint('RevenueCat is not configured or using placeholder keys. Skipping initialization.');
+      debugPrint(
+        'RevenueCat is not configured or using placeholder keys. Skipping initialization.',
+      );
       return;
     }
 
@@ -40,12 +43,12 @@ class BillingRepositoryImpl implements IBillingRepository {
         final configuration = PurchasesConfiguration(apiKey);
         await Purchases.configure(configuration);
         _isRcInitialized = true;
-        
+
         // Listen for customer info updates
         Purchases.addCustomerInfoUpdateListener((customerInfo) {
           _customerInfoController.add(customerInfo);
         });
-        
+
         // Get initial customer info
         final customerInfo = await Purchases.getCustomerInfo();
         _customerInfoController.add(customerInfo);
@@ -124,15 +127,28 @@ class BillingRepositoryImpl implements IBillingRepository {
     }
   }
 
-  Future<Either<Failure, void>> _purchaseViaRevenueCat(String? productId) async {
+  @override
+  Future<Either<Failure, void>> purchasePremiumAuto({String? productId}) async {
+    final installerSource = await InstallerSourceDetector.getInstallerSource();
+
+    if (installerSource == InstallerSource.playStore) {
+      return _purchaseViaRevenueCat(productId);
+    } else {
+      return _purchaseViaRazorpay();
+    }
+  }
+
+  Future<Either<Failure, void>> _purchaseViaRevenueCat(
+    String? productId,
+  ) async {
     if (!_isRcInitialized) {
       return const Left(ServerFailure('RevenueCat is not configured.'));
     }
     try {
       final offerings = await Purchases.getOfferings();
-      
+
       Package? packageToBuy;
-      
+
       if (productId != null) {
         // Try to find specific product in current offering
         for (final pkg in offerings.current?.availablePackages ?? []) {
@@ -147,20 +163,27 @@ class BillingRepositoryImpl implements IBillingRepository {
       }
 
       if (packageToBuy == null) {
-        return const Left(ServerFailure('No applicable subscription package found.'));
+        return const Left(
+          ServerFailure('No applicable subscription package found.'),
+        );
       }
 
       final result = await Purchases.purchasePackage(packageToBuy);
       final customerInfo = result.customerInfo;
       _customerInfoController.add(customerInfo);
-      
+
       // Check if entitlement 'Oasis Pro' is active
-      final isEntitled = customerInfo.entitlements.all['Oasis Pro']?.isActive ?? false;
-      
+      final isEntitled =
+          customerInfo.entitlements.all['Oasis Pro']?.isActive ?? false;
+
       if (isEntitled) {
         return const Right(null);
       } else {
-        return const Left(ServerFailure('Subscription not activated. Please check your payment method.'));
+        return const Left(
+          ServerFailure(
+            'Subscription not activated. Please check your payment method.',
+          ),
+        );
       }
     } on PlatformException catch (e) {
       final errorCode = PurchasesErrorHelper.getErrorCode(e);
@@ -181,20 +204,30 @@ class BillingRepositoryImpl implements IBillingRepository {
 
     final completer = Completer<Either<Failure, void>>();
 
-    _razorpay!.on(Razorpay.EVENT_PAYMENT_SUCCESS, (PaymentSuccessResponse response) {
+    _razorpay!.on(Razorpay.EVENT_PAYMENT_SUCCESS, (
+      PaymentSuccessResponse response,
+    ) {
       completer.complete(const Right(null));
     });
 
-    _razorpay!.on(Razorpay.EVENT_PAYMENT_ERROR, (PaymentFailureResponse response) {
-      completer.complete(Left(ServerFailure(response.message ?? 'Razorpay payment failed.')));
+    _razorpay!.on(Razorpay.EVENT_PAYMENT_ERROR, (
+      PaymentFailureResponse response,
+    ) {
+      completer.complete(
+        Left(ServerFailure(response.message ?? 'Razorpay payment failed.')),
+      );
     });
 
-    _razorpay!.on(Razorpay.EVENT_EXTERNAL_WALLET, (ExternalWalletResponse response) {
+    _razorpay!.on(Razorpay.EVENT_EXTERNAL_WALLET, (
+      ExternalWalletResponse response,
+    ) {
       completer.complete(const Right(null));
     });
 
     final options = {
-      'key': EnvConfig.razorpayKeyId.isNotEmpty ? EnvConfig.razorpayKeyId : 'YOUR_RAZORPAY_KEY_ID',
+      'key': EnvConfig.razorpayKeyId.isNotEmpty
+          ? EnvConfig.razorpayKeyId
+          : 'YOUR_RAZORPAY_KEY_ID',
       'amount': 49900,
       'name': 'Oasis Pro',
       'description': 'Monthly Premium Subscription',

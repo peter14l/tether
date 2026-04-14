@@ -16,11 +16,13 @@ import 'package:supabase_flutter/supabase_flutter.dart' as _i454;
 
 import 'core/notifications/push_notification_service.dart' as _i610;
 import 'core/security/biometric_service.dart' as _i325;
+import 'core/subscription/subscription_service.dart' as _i1021;
 import 'core/telemetry/telemetry_service.dart' as _i62;
 import 'core/theme/time_theme_cubit.dart' as _i66;
 import 'core/utils/encryption_service.dart' as _i376;
 import 'core/utils/escrow_service.dart' as _i873;
 import 'core/utils/key_derivation.dart' as _i880;
+import 'core/utils/user_key_manager.dart' as _i120;
 import 'features/auth/data/repositories/supabase_auth_repository.dart' as _i760;
 import 'features/auth/domain/repositories/auth_repository.dart' as _i1015;
 import 'features/auth/presentation/bloc/auth_bloc.dart' as _i363;
@@ -160,53 +162,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i376.EncryptionService>(() => _i376.EncryptionService());
     gh.lazySingleton<_i880.KeyDerivation>(() => _i880.KeyDerivation());
     gh.lazySingleton<_i325.IBiometricService>(() => _i325.BiometricService());
-    gh.lazySingleton<_i246.IJournalRepository>(
-      () => _i422.SupabaseJournalRepository(
-        gh<_i454.SupabaseClient>(),
-        gh<_i376.EncryptionService>(),
-      ),
-    );
-    gh.factory<_i485.JournalCubit>(
-      () => _i485.JournalCubit(
-        gh<_i246.IJournalRepository>(),
-        gh<_i454.SupabaseClient>(),
-      ),
-    );
-    gh.lazySingleton<_i162.IFutureLetterRepository>(
-      () => _i3.SupabaseLetterRepository(
-        gh<_i454.SupabaseClient>(),
-        gh<_i376.EncryptionService>(),
-      ),
-    );
-    gh.lazySingleton<_i342.IVaultRepository>(
-      () => _i289.SupabaseVaultRepository(
-        gh<_i454.SupabaseClient>(),
-        gh<_i376.EncryptionService>(),
-      ),
-    );
-    gh.lazySingleton<_i340.IGalleryRepository>(
-      () => _i14.SupabaseGalleryRepository(
-        gh<_i454.SupabaseClient>(),
-        gh<_i376.EncryptionService>(),
-      ),
-    );
-    gh.lazySingleton<_i832.IReflectionRepository>(
-      () => _i742.SupabaseReflectionRepository(
-        gh<_i454.SupabaseClient>(),
-        gh<_i376.EncryptionService>(),
-      ),
-    );
     gh.lazySingleton<_i309.ISettingsRepository>(
       () => _i68.SharedPrefsSettingsRepository(gh<_i460.SharedPreferences>()),
     );
+    gh.singleton<_i1021.ISubscriptionService>(
+      () => _i1021.SubscriptionService(gh<_i454.SupabaseClient>()),
+    );
     gh.lazySingleton<_i62.ITelemetryService>(
       () => _i62.FirebaseTelemetryService(),
-    );
-    gh.factory<_i738.ReflectionCubit>(
-      () => _i738.ReflectionCubit(
-        gh<_i832.IReflectionRepository>(),
-        gh<_i454.SupabaseClient>(),
-      ),
     );
     gh.lazySingleton<_i917.IBillingRepository>(
       () => _i1019.BillingRepositoryImpl(),
@@ -238,6 +201,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i454.SupabaseClient>(),
       ),
     );
+    gh.lazySingleton<_i120.UserKeyManager>(
+      () => _i120.UserKeyManager(
+        gh<_i880.KeyDerivation>(),
+        gh<_i454.SupabaseClient>(),
+      ),
+    );
     gh.lazySingleton<_i610.IPushNotificationService>(
       () => _i610.PushNotificationService(gh<_i454.SupabaseClient>()),
     );
@@ -247,17 +216,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i146.IWellnessRepository>(
       () => _i694.SupabaseWellnessRepository(gh<_i454.SupabaseClient>()),
     );
-    gh.factory<_i361.PrivateGalleryCubit>(
-      () => _i361.PrivateGalleryCubit(gh<_i340.IGalleryRepository>()),
-    );
     gh.lazySingleton<_i209.IHeritageRepository>(
       () => _i600.SupabaseHeritageRepository(gh<_i454.SupabaseClient>()),
     );
     gh.factory<_i899.MessagingThreadCubit>(
       () => _i899.MessagingThreadCubit(gh<_i77.IMessagingRepository>()),
-    );
-    gh.lazySingleton<_i1015.IAuthRepository>(
-      () => _i760.SupabaseAuthRepository(gh<_i454.SupabaseClient>()),
     );
     gh.lazySingleton<_i873.EscrowService>(
       () => _i873.EscrowService(
@@ -276,12 +239,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i722.IPlaylistRepository>(
       () => _i1022.SupabasePlaylistRepository(gh<_i454.SupabaseClient>()),
-    );
-    gh.factory<_i412.FamilySafetyCubit>(
-      () => _i412.FamilySafetyCubit(
-        gh<_i665.IFamilyRepository>(),
-        gh<_i454.SupabaseClient>(),
-      ),
     );
     gh.factory<_i310.BedtimeStoriesCubit>(
       () => _i310.BedtimeStoriesCubit(
@@ -325,16 +282,24 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i454.SupabaseClient>(),
       ),
     );
+    gh.factory<_i412.FamilySafetyCubit>(
+      () => _i412.FamilySafetyCubit(
+        gh<_i665.IFamilyRepository>(),
+        gh<_i454.SupabaseClient>(),
+        gh<_i1021.ISubscriptionService>(),
+      ),
+    );
     gh.factory<_i553.MoodCubit>(
       () => _i553.MoodCubit(
         gh<_i116.IMoodRepository>(),
         gh<_i454.SupabaseClient>(),
       ),
     );
-    gh.factory<_i375.CoupleBubbleCubit>(
-      () => _i375.CoupleBubbleCubit(
-        gh<_i331.ICouplesRepository>(),
+    gh.lazySingleton<_i342.IVaultRepository>(
+      () => _i289.SupabaseVaultRepository(
         gh<_i454.SupabaseClient>(),
+        gh<_i376.EncryptionService>(),
+        gh<_i120.UserKeyManager>(),
       ),
     );
     gh.factory<_i177.SpaceToBreatheCubit>(
@@ -343,10 +308,52 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i454.SupabaseClient>(),
       ),
     );
+    gh.lazySingleton<_i246.IJournalRepository>(
+      () => _i422.SupabaseJournalRepository(
+        gh<_i454.SupabaseClient>(),
+        gh<_i376.EncryptionService>(),
+        gh<_i120.UserKeyManager>(),
+      ),
+    );
+    gh.lazySingleton<_i162.IFutureLetterRepository>(
+      () => _i3.SupabaseLetterRepository(
+        gh<_i454.SupabaseClient>(),
+        gh<_i376.EncryptionService>(),
+        gh<_i120.UserKeyManager>(),
+      ),
+    );
+    gh.lazySingleton<_i832.IReflectionRepository>(
+      () => _i742.SupabaseReflectionRepository(
+        gh<_i454.SupabaseClient>(),
+        gh<_i376.EncryptionService>(),
+        gh<_i120.UserKeyManager>(),
+      ),
+    );
+    gh.lazySingleton<_i340.IGalleryRepository>(
+      () => _i14.SupabaseGalleryRepository(
+        gh<_i454.SupabaseClient>(),
+        gh<_i376.EncryptionService>(),
+        gh<_i120.UserKeyManager>(),
+      ),
+    );
+    gh.factory<_i375.CoupleBubbleCubit>(
+      () => _i375.CoupleBubbleCubit(
+        gh<_i331.ICouplesRepository>(),
+        gh<_i454.SupabaseClient>(),
+        gh<_i1021.ISubscriptionService>(),
+      ),
+    );
+    gh.lazySingleton<_i1015.IAuthRepository>(
+      () => _i760.SupabaseAuthRepository(
+        gh<_i454.SupabaseClient>(),
+        gh<_i120.UserKeyManager>(),
+      ),
+    );
     gh.factory<_i75.CircleCubit>(
       () => _i75.CircleCubit(
         gh<_i333.ICircleRepository>(),
         gh<_i454.SupabaseClient>(),
+        gh<_i1021.ISubscriptionService>(),
       ),
     );
     gh.lazySingleton<_i363.AuthBloc>(
@@ -355,8 +362,23 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i610.IPushNotificationService>(),
       ),
     );
+    gh.factory<_i361.PrivateGalleryCubit>(
+      () => _i361.PrivateGalleryCubit(gh<_i340.IGalleryRepository>()),
+    );
     gh.factory<_i656.CircleMemberCubit>(
       () => _i656.CircleMemberCubit(gh<_i333.ICircleRepository>()),
+    );
+    gh.factory<_i485.JournalCubit>(
+      () => _i485.JournalCubit(
+        gh<_i246.IJournalRepository>(),
+        gh<_i454.SupabaseClient>(),
+      ),
+    );
+    gh.factory<_i738.ReflectionCubit>(
+      () => _i738.ReflectionCubit(
+        gh<_i832.IReflectionRepository>(),
+        gh<_i454.SupabaseClient>(),
+      ),
     );
     return this;
   }

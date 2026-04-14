@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/utils/encryption_service.dart';
+import '../../../../core/utils/user_key_manager.dart';
 import '../../domain/entities/gallery_item.dart';
 import '../../domain/repositories/gallery_repository.dart';
 import '../models/gallery_item_model.dart';
@@ -12,13 +13,18 @@ import '../models/gallery_item_model.dart';
 class SupabaseGalleryRepository implements IGalleryRepository {
   final SupabaseClient _client;
   final EncryptionService _encryptionService;
+  final UserKeyManager _keyManager;
 
-  static final List<int> _placeholderKey = List.filled(32, 3); // Different key for gallery
-
-  SupabaseGalleryRepository(this._client, this._encryptionService);
+  SupabaseGalleryRepository(
+    this._client,
+    this._encryptionService,
+    this._keyManager,
+  );
 
   @override
-  Future<Either<Failure, List<GalleryItemEntity>>> getGalleryItems(String circleId) async {
+  Future<Either<Failure, List<GalleryItemEntity>>> getGalleryItems(
+    String circleId,
+  ) async {
     try {
       final response = await _client
           .from('private_gallery')
@@ -26,16 +32,21 @@ class SupabaseGalleryRepository implements IGalleryRepository {
           .eq('circle_id', circleId)
           .order('created_at', ascending: false);
 
+      final userKey = await _keyManager.getUserKey();
       final List<GalleryItemEntity> items = [];
       for (final json in (response as List)) {
         String? decryptedCaption;
         if (json['caption'] != null) {
-          decryptedCaption = await _encryptionService.decrypt(json['caption'] as String, _placeholderKey);
+          decryptedCaption = await _encryptionService.decrypt(
+            json['caption'] as String,
+            userKey,
+          );
         }
-        final item = GalleryItemModel.fromJson(json);
-        items.add(item.copyWithCaption(decryptedCaption));
+        items.add(
+          GalleryItemModel.fromJson(json).copyWith(caption: decryptedCaption),
+        );
       }
-      
+
       return Right(items);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
@@ -43,19 +54,24 @@ class SupabaseGalleryRepository implements IGalleryRepository {
   }
 
   @override
-  Future<Either<Failure, void>> uploadGalleryItem(String circleId, File file, String? caption) async {
+  Future<Either<Failure, void>> uploadGalleryItem(
+    String circleId,
+    File file,
+    String? caption,
+  ) async {
     try {
       final userId = _client.auth.currentUser?.id;
       if (userId == null) return const Left(AuthFailure('User not logged in'));
 
       final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
       final storagePath = 'private-gallery/$circleId/$fileName';
-      
+
       await _client.storage.from('private-gallery').upload(storagePath, file);
 
       String? encryptedCaption;
       if (caption != null) {
-        encryptedCaption = await _encryptionService.encrypt(caption, _placeholderKey);
+        final userKey = await _keyManager.getUserKey();
+        encryptedCaption = await _encryptionService.encrypt(caption, userKey);
       }
 
       final model = GalleryItemModel(
@@ -72,19 +88,5 @@ class SupabaseGalleryRepository implements IGalleryRepository {
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
-  }
-}
-
-// Extension to allow copying with decrypted caption since entities are immutable
-extension on GalleryItemEntity {
-  GalleryItemEntity copyWithCaption(String? newCaption) {
-    return GalleryItemEntity(
-      id: this.id,
-      circleId: circleId,
-      uploadedBy: uploadedBy,
-      storagePath: storagePath,
-      caption: newCaption,
-      createdAt: createdAt,
-    );
   }
 }

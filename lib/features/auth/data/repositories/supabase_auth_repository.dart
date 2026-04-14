@@ -4,6 +4,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/utils/user_key_manager.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../../../injection_container.dart';
@@ -13,8 +14,9 @@ import '../models/user_model.dart';
 @LazySingleton(as: IAuthRepository)
 class SupabaseAuthRepository implements IAuthRepository {
   final SupabaseClient _client;
+  final UserKeyManager _keyManager;
 
-  SupabaseAuthRepository(this._client);
+  SupabaseAuthRepository(this._client, this._keyManager);
 
   @override
   Future<Either<Failure, UserEntity>> signUp({
@@ -27,16 +29,15 @@ class SupabaseAuthRepository implements IAuthRepository {
       final response = await _client.auth.signUp(
         email: email,
         password: password,
-        data: {
-          'username': username,
-          'display_name': displayName,
-        },
+        data: {'username': username, 'display_name': displayName},
       );
 
       final user = response.user;
       if (user == null) {
         return const Left(AuthFailure('Sign up failed'));
       }
+
+      await _keyManager.generateAndStoreKey();
 
       final profile = {
         'id': user.id,
@@ -70,6 +71,10 @@ class SupabaseAuthRepository implements IAuthRepository {
         return const Left(AuthFailure('Sign in failed'));
       }
 
+      if (!await _keyManager.hasUserKey()) {
+        await _keyManager.generateAndStoreKey();
+      }
+
       final profileResponse = await _client
           .from('profiles')
           .select()
@@ -90,9 +95,15 @@ class SupabaseAuthRepository implements IAuthRepository {
 
       final tier = await _fetchSubscriptionTier(user.id);
       unawaited(getIt<IBillingRepository>().identify(user.id));
-      
-      final userModel = UserModel.fromJson(profileResponse ?? newProfile, email, tier: tier);
-      debugPrint('SupabaseAuthRepository: Handled user model for ${userModel.id}');
+
+      final userModel = UserModel.fromJson(
+        profileResponse ?? newProfile,
+        email,
+        tier: tier,
+      );
+      debugPrint(
+        'SupabaseAuthRepository: Handled user model for ${userModel.id}',
+      );
       return Right(userModel);
     } catch (e) {
       debugPrint('SupabaseAuthRepository: Error during signIn: $e');
@@ -118,7 +129,7 @@ class SupabaseAuthRepository implements IAuthRepository {
       if (session == null) return const Right(null);
 
       final user = session.user;
-      
+
       for (int i = 0; i < 3; i++) {
         final profileResponse = await _client
             .from('profiles')
@@ -129,9 +140,11 @@ class SupabaseAuthRepository implements IAuthRepository {
         if (profileResponse != null) {
           final tier = await _fetchSubscriptionTier(user.id);
           unawaited(getIt<IBillingRepository>().identify(user.id));
-          return Right(UserModel.fromJson(profileResponse, user.email ?? '', tier: tier));
+          return Right(
+            UserModel.fromJson(profileResponse, user.email ?? '', tier: tier),
+          );
         }
-        
+
         if (i < 2) await Future.delayed(Duration(milliseconds: 500 * (i + 1)));
       }
 
@@ -148,7 +161,7 @@ class SupabaseAuthRepository implements IAuthRepository {
       if (session == null) return null;
 
       final user = session.user;
-      
+
       for (int i = 0; i < 3; i++) {
         try {
           final profileResponse = await _client
@@ -160,10 +173,15 @@ class SupabaseAuthRepository implements IAuthRepository {
           if (profileResponse != null) {
             final tier = await _fetchSubscriptionTier(user.id);
             unawaited(getIt<IBillingRepository>().identify(user.id));
-            return UserModel.fromJson(profileResponse, user.email ?? '', tier: tier);
+            return UserModel.fromJson(
+              profileResponse,
+              user.email ?? '',
+              tier: tier,
+            );
           }
-          
-          if (i < 2) await Future.delayed(Duration(milliseconds: 500 * (i + 1)));
+
+          if (i < 2)
+            await Future.delayed(Duration(milliseconds: 500 * (i + 1)));
         } catch (_) {
           if (i == 2) return null;
           await Future.delayed(Duration(milliseconds: 500 * (i + 1)));

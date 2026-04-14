@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../core/error/failures.dart';
 import '../../../../core/utils/encryption_service.dart';
+import '../../../../core/utils/user_key_manager.dart';
 import '../../domain/entities/vault_item.dart';
 import '../../domain/repositories/vault_repository.dart';
 import '../models/vault_item_model.dart';
@@ -11,23 +12,33 @@ import '../models/vault_item_model.dart';
 class SupabaseVaultRepository implements IVaultRepository {
   final SupabaseClient _client;
   final EncryptionService _encryptionService;
-  static final List<int> _placeholderKey = List.filled(32, 4);
+  final UserKeyManager _keyManager;
 
-  SupabaseVaultRepository(this._client, this._encryptionService);
+  SupabaseVaultRepository(
+    this._client,
+    this._encryptionService,
+    this._keyManager,
+  );
 
   @override
-  Future<Either<Failure, List<VaultItemEntity>>> getVaultItems(String circleId) async {
+  Future<Either<Failure, List<VaultItemEntity>>> getVaultItems(
+    String circleId,
+  ) async {
     try {
       final response = await _client
-          .from('reflection_wall') // Using reflection_wall as a generic encrypted vault for now
+          .from('reflection_wall')
           .select()
           .eq('circle_id', circleId)
           .order('created_at', ascending: false);
 
+      final userKey = await _keyManager.getUserKey();
       final List<VaultItemEntity> results = [];
       for (final json in (response as List)) {
         final encryptedBlob = json['encrypted_blob'] as String;
-        final decryptedContent = await _encryptionService.decrypt(encryptedBlob, _placeholderKey);
+        final decryptedContent = await _encryptionService.decrypt(
+          encryptedBlob,
+          userKey,
+        );
         results.add(VaultItemModel.fromJson(json, decryptedContent));
       }
       return Right(results);
@@ -39,7 +50,11 @@ class SupabaseVaultRepository implements IVaultRepository {
   @override
   Future<Either<Failure, void>> addVaultItem(VaultItemEntity item) async {
     try {
-      final encryptedBlob = await _encryptionService.encrypt(item.content, _placeholderKey);
+      final userKey = await _keyManager.getUserKey();
+      final encryptedBlob = await _encryptionService.encrypt(
+        item.content,
+        userKey,
+      );
       final model = VaultItemModel(
         id: item.id,
         userId: item.userId,
@@ -73,10 +88,14 @@ class SupabaseVaultRepository implements IVaultRepository {
         .stream(primaryKey: ['id'])
         .eq('circle_id', circleId)
         .asyncMap((data) async {
+          final userKey = await _keyManager.getUserKey();
           final List<VaultItemEntity> results = [];
           for (final json in data) {
             final encryptedBlob = json['encrypted_blob'] as String;
-            final decryptedContent = await _encryptionService.decrypt(encryptedBlob, _placeholderKey);
+            final decryptedContent = await _encryptionService.decrypt(
+              encryptedBlob,
+              userKey,
+            );
             results.add(VaultItemModel.fromJson(json, decryptedContent));
           }
           return results;
