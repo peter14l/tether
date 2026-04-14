@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
 import '../../../../core/subscription/subscription_service.dart';
 import '../../../../core/subscription/pricing_display.dart';
 import '../../../../core/widgets/glass_panel.dart';
@@ -62,7 +63,7 @@ class SubscriptionScreen extends StatelessWidget {
                   _buildProBenefits(context),
                   const SizedBox(height: 48),
                   TetherButton(
-                    onPressed: () => Purchases.showManageSubscriptions(),
+                    onPressed: () => RevenueCatUI.presentCustomerCenter(),
                     style: TetherButtonStyle.secondary,
                     isFullWidth: true,
                     child: const Text('Manage Subscription'),

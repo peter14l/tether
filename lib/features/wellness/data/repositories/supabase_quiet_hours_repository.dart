@@ -41,7 +41,7 @@ class SupabaseQuietHoursRepository implements IQuietHoursRepository {
         startTime: quietHours.startTime,
         endTime: quietHours.endTime,
         windDownStart: quietHours.windDownStart,
-        days_active: quietHours.daysActive,
+        daysActive: quietHours.daysActive,
       );
       await _client.from('quiet_hours').upsert(model.toJson());
       return const Right(null);
