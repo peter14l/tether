@@ -143,7 +143,7 @@ class SubscriptionScreen extends StatelessWidget {
   Widget _buildProBenefits(BuildContext context) {
     return Column(
       children: const [
-        _BenefitRow(icon: Icons.unlimited_usage, label: 'Unlimited Circles'),
+        _BenefitRow(icon: Icons.all_inclusive, label: 'Unlimited Circles'),
         _BenefitRow(icon: Icons.favorite, label: 'Full Couples Features'),
         _BenefitRow(icon: Icons.family_restroom, label: 'Advanced Family Safety'),
         _BenefitRow(icon: Icons.mic, label: 'Voice Notes & Slow Chat'),
@@ -155,7 +155,7 @@ class SubscriptionScreen extends StatelessWidget {
   Future<void> _purchase(String productId) async {
     try {
       final offerings = await Purchases.getOfferings();
-      final package = offerings.current?.all.values
+      final package = offerings.all.values
           .expand((o) => o.availablePackages)
           .firstWhere((p) => p.storeProduct.identifier == productId);
       

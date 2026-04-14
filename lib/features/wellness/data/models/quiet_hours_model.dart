@@ -2,14 +2,22 @@ import '../../domain/entities/quiet_hours.dart';
 
 class QuietHoursModel extends QuietHoursEntity {
   const QuietHoursModel({
-    required super.id,
-    required super.userId,
-    super.enabled = false,
-    required super.startTime,
-    required super.endTime,
-    super.windDownStart,
-    required super.days_active,
-  }) : super(daysActive: days_active);
+    required String id,
+    required String userId,
+    bool enabled = false,
+    required String startTime,
+    required String endTime,
+    String? windDownStart,
+    required List<String> daysActive,
+  }) : super(
+          id: id,
+          userId: userId,
+          enabled: enabled,
+          startTime: startTime,
+          endTime: endTime,
+          windDownStart: windDownStart,
+          daysActive: daysActive,
+        );
 
   factory QuietHoursModel.fromJson(Map<String, dynamic> json) {
     return QuietHoursModel(
@@ -19,7 +27,7 @@ class QuietHoursModel extends QuietHoursEntity {
       startTime: json['start_time'] as String,
       endTime: json['end_time'] as String,
       windDownStart: json['wind_down_start'] as String?,
-      days_active: (json['days_active'] as List).cast<String>(),
+      daysActive: (json['days_active'] as List).cast<String>(),
     );
   }
 

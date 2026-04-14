@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/widgets/squircle_avatar.dart';
 import '../../../../core/widgets/whisper_text.dart';
+import '../../../../core/widgets/tether_card.dart';
 import '../../domain/entities/post_entity.dart';
 import 'reaction_bar.dart';
 

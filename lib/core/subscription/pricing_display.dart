@@ -5,7 +5,7 @@ class PricingDisplay {
   static Future<String> getFormattedPrice(String productId) async {
     try {
       final offerings = await Purchases.getOfferings();
-      final package = offerings.current?.all.values
+      final package = offerings.all.values
           .expand((offering) => offering.availablePackages)
           .firstWhere((p) => p.storeProduct.identifier == productId);
       

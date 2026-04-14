@@ -47,7 +47,7 @@ class _FeedScreenState extends State<FeedScreen> {
               title: Row(
                 children: [
                   IconButton(
-                    onPressed: () => context.pop(),
+                    onPressed: () => Navigator.pop(context),
                     icon: Icon(Icons.arrow_back, color: colorScheme.primary),
                   ),
                   const SizedBox(width: 8),
@@ -103,7 +103,7 @@ class _FeedScreenState extends State<FeedScreen> {
                       'Chronological Feed',
                       style: theme.textTheme.headlineSmall?.copyWith(
                         fontStyle: FontStyle.italic,
-                        opacity: 0.8,
+                        color: colorScheme.onSurface.withOpacity(0.8),
                       ),
                     ),
                     const SizedBox(height: 24),
@@ -135,8 +135,7 @@ class _FeedScreenState extends State<FeedScreen> {
                       ),
                     ),
                   );
-                }
- else if (state is FeedError) {
+                } else if (state is FeedError) {
                   return SliverFillRemaining(
                     child: Center(child: Text('Error: ${state.message}')),
                   );
@@ -210,4 +209,3 @@ class _GentleNudge extends StatelessWidget {
     );
   }
 }
-

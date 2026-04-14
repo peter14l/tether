@@ -19,7 +19,7 @@ class PresenceCircles extends StatelessWidget {
           style: theme.textTheme.displaySmall?.copyWith(
             fontStyle: FontStyle.italic,
             fontSize: 24,
-            opacity: 0.8,
+            color: colorScheme.onSurface.withOpacity(0.8),
           ),
         ),
         const SizedBox(height: 24),

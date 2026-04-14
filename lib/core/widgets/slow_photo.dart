@@ -10,6 +10,7 @@ class SlowPhoto extends StatelessWidget {
   final double? height;
   final BoxFit fit;
   final BorderRadius? borderRadius;
+  final double opacity;
 
   const SlowPhoto({
     super.key,
@@ -18,6 +19,7 @@ class SlowPhoto extends StatelessWidget {
     this.height,
     this.fit = BoxFit.cover,
     this.borderRadius,
+    this.opacity = 1.0,
   });
 
   @override
@@ -26,50 +28,53 @@ class SlowPhoto extends StatelessWidget {
       builder: (context, state) {
         final tokens = ThemeTokens.getTokens(state.slot);
 
-        return Container(
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-            color: tokens.backgroundSecondary,
-            borderRadius: borderRadius ?? BorderRadius.circular(12),
-          ),
-          child: ClipRRect(
-            borderRadius: borderRadius ?? BorderRadius.circular(12),
-            child: Image.network(
-              imageUrl,
-              width: width,
-              height: height,
-              fit: fit,
-              frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-                if (wasSynchronouslyLoaded) return child;
-                return AnimatedOpacity(
-                  opacity: frame == null ? 0 : 1,
-                  duration: const Duration(milliseconds: 600),
-                  curve: Curves.easeIn,
-                  child: child,
-                );
-              },
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Center(
-                  child: CircularProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                        : null,
-                    strokeWidth: 2,
-                    color: tokens.accentPrimary.withOpacity(0.5),
-                  ),
-                );
-              },
-              errorBuilder: (context, error, stackTrace) {
-                return Center(
-                  child: Icon(
-                    Icons.broken_image_outlined,
-                    color: tokens.textSecondary.withOpacity(0.5),
-                  ),
-                );
-              },
+        return Opacity(
+          opacity: opacity,
+          child: Container(
+            width: width,
+            height: height,
+            decoration: BoxDecoration(
+              color: tokens.backgroundSecondary,
+              borderRadius: borderRadius ?? BorderRadius.circular(12),
+            ),
+            child: ClipRRect(
+              borderRadius: borderRadius ?? BorderRadius.circular(12),
+              child: Image.network(
+                imageUrl,
+                width: width,
+                height: height,
+                fit: fit,
+                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                  if (wasSynchronouslyLoaded) return child;
+                  return AnimatedOpacity(
+                    opacity: frame == null ? 0 : 1,
+                    duration: const Duration(milliseconds: 600),
+                    curve: Curves.easeIn,
+                    child: child,
+                  );
+                },
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                      strokeWidth: 2,
+                      color: tokens.accentPrimary.withOpacity(0.5),
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Center(
+                    child: Icon(
+                      Icons.broken_image_outlined,
+                      color: tokens.textSecondary.withOpacity(0.5),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         );
