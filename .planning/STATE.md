@@ -43,12 +43,16 @@
 | 4: Wellness | Done |
 | 5: Couples | Done |
 | 6: Family | Done |
-| 7: Advanced Wellness | Pending |
+| 7: Monetization | Done |
+| 8: Advanced Wellness | Pending |
 | 8: Extended Spaces | Pending |
 | 9: Memories & Automations | Pending |
 | 10: System & Polish | Pending |
 | 11: Production Hardening | Done |
 | 12: Launch Readiness | Done |
+| 13-01: UI Redesign (Core Loop) | Done |
+| 13-02: UI Redesign (Extended Features) | Done |
+| 13-03: UI Redesign (Final Polish) | Done |
 
 ---
 
@@ -57,3 +61,6 @@
 ### Roadmap Evolution
 - Phase 11 added: Production Hardening, Real Data Integration, and User Guides
 - Phase 12 added: Launch Readiness (FCM, Crashlytics, DAU, Monetization)
+- Phase 13-01 added: Linen Ember UI Redesign (Core Loop Implementation)
+- Phase 13-02 added: Linen Ember UI Redesign (Extended Features: Wellness, Couples, Family, Settings)
+- Phase 13-03 added: Linen Ember UI Redesign (Final Polish: Chat, Forms, Global Nav)

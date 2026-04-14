@@ -11,11 +11,13 @@ class CircleMemberModel extends CircleMemberEntity {
 
   factory CircleMemberModel.fromJson(Map<String, dynamic> json) {
     return CircleMemberModel(
-      id: json['id'] as String,
-      circleId: json['circle_id'] as String,
-      userId: json['user_id'] as String,
-      role: json['role'] as String,
-      joinedAt: DateTime.parse(json['joined_at'] as String),
+      id: json['id'] as String? ?? '',
+      circleId: json['circle_id'] as String? ?? '',
+      userId: json['user_id'] as String? ?? '',
+      role: json['role'] as String? ?? 'member',
+      joinedAt: json['joined_at'] != null 
+          ? DateTime.parse(json['joined_at'] as String) 
+          : DateTime.now(),
     );
   }
 

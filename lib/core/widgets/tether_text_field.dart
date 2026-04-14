@@ -95,17 +95,17 @@ class _TetherTextFieldState extends State<TetherTextField> {
               prefixIcon: widget.prefixIcon,
               suffixIcon: widget.suffixIcon,
               filled: true,
-              fillColor: tokens.backgroundSecondary,
+              fillColor: tokens.surfaceContainerLow,
               contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-              border: OutlineInputBorder(
+              border: UnderlineInputBorder(
                 borderRadius: BorderRadius.circular(14),
-                borderSide: BorderSide(color: tokens.borderDefault),
+                borderSide: BorderSide(color: tokens.borderDefault.withOpacity(0.18)),
               ),
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: UnderlineInputBorder(
                 borderRadius: BorderRadius.circular(14),
-                borderSide: BorderSide(color: tokens.borderDefault),
+                borderSide: BorderSide(color: tokens.borderDefault.withOpacity(0.18)),
               ),
-              focusedBorder: OutlineInputBorder(
+              focusedBorder: UnderlineInputBorder(
                 borderRadius: BorderRadius.circular(14),
                 borderSide: BorderSide(color: tokens.accentPrimary, width: 2),
               ),

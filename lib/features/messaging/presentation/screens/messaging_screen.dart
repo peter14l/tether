@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../injection_container.dart';
+import '../../../../core/widgets/squircle_avatar.dart';
+import '../../../../core/widgets/whisper_text.dart';
+import '../../../../core/widgets/glass_panel.dart';
 import '../bloc/messaging_thread_cubit.dart';
 import '../bloc/messaging_thread_state.dart';
 
@@ -11,13 +14,31 @@ class MessagingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final currentUserId = getIt<SupabaseClient>().auth.currentUser?.id;
 
     return BlocProvider(
       create: (context) => getIt<MessagingThreadCubit>()..loadThreads(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Messages', style: Theme.of(context).textTheme.headlineMedium),
+          backgroundColor: colorScheme.surface.withOpacity(0.01),
+          elevation: 0,
+          flexibleSpace: ClipRect(
+            child: BackdropFilter(
+              filter: ColorFilter.mode(colorScheme.surface.withOpacity(0.8), BlendMode.srcOver),
+              child: Container(color: Colors.transparent),
+            ),
+          ),
+          title: Text(
+            'Messages',
+            style: theme.textTheme.headlineMedium?.copyWith(
+              color: colorScheme.primary,
+              fontStyle: FontStyle.italic,
+              fontSize: 24,
+              letterSpacing: -0.5,
+            ),
+          ),
         ),
         body: BlocBuilder<MessagingThreadCubit, MessagingThreadState>(
           builder: (context, state) {
@@ -28,25 +49,65 @@ class MessagingScreen extends StatelessWidget {
                 return const Center(child: Text('No messages yet.'));
               }
               return ListView.builder(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.fromLTRB(24, 16, 32, 100),
                 itemCount: state.threads.length,
                 itemBuilder: (context, index) {
                   final thread = state.threads[index];
                   final otherUserId = thread.senderId == currentUserId ? thread.receiverId : thread.senderId;
                   
-                  return Card(
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
-                        child: const Icon(Icons.person),
-                      ),
-                      title: Text(otherUserId, style: Theme.of(context).textTheme.titleLarge), // Simplified for now
-                      subtitle: Text(
-                        thread.contentText ?? 'Media message',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: InkWell(
                       onTap: () => context.push('/messaging/chat/${thread.circleId ?? 'direct'}/$otherUserId'),
+                      borderRadius: BorderRadius.circular(18),
+                      child: GlassPanel(
+                        padding: EdgeInsets.zero,
+                        opacity: 0.1,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Row(
+                            children: [
+                              const SquircleAvatar(
+                                imageUrl: 'https://via.placeholder.com/150', // Placeholder
+                                size: 56,
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Someone Close', // Simplified name for now
+                                      style: theme.textTheme.titleMedium?.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    WhisperText(
+                                      thread.contentText ?? 'Media message',
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              if (true) // Simulation of unread
+                                Container(
+                                  width: 8,
+                                  height: 8,
+                                  decoration: BoxDecoration(
+                                    color: colorScheme.primary,
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: colorScheme.primary.withOpacity(0.4),
+                                        blurRadius: 8,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   );
                 },

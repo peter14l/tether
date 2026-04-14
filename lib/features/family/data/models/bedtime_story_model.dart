@@ -13,13 +13,15 @@ class BedtimeStoryModel extends BedtimeStoryEntity {
 
   factory BedtimeStoryModel.fromJson(Map<String, dynamic> json) {
     return BedtimeStoryModel(
-      id: json['id'] as String,
-      circleId: json['circle_id'] as String,
-      recordedBy: json['recorded_by'] as String,
+      id: json['id'] as String? ?? '',
+      circleId: json['circle_id'] as String? ?? '',
+      recordedBy: json['recorded_by'] as String? ?? '',
       title: json['title'] as String?,
-      storagePath: json['storage_path'] as String,
-      durationSecs: json['duration_secs'] as int,
-      createdAt: DateTime.parse(json['created_at'] as String),
+      storagePath: json['storage_path'] as String? ?? '',
+      durationSecs: json['duration_secs'] as int? ?? 0,
+      createdAt: json['created_at'] != null 
+          ? DateTime.parse(json['created_at'] as String) 
+          : DateTime.now(),
     );
   }
 

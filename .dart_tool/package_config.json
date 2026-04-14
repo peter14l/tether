@@ -542,30 +542,6 @@
       "languageVersion": "3.0"
     },
     {
-      "name": "in_app_purchase",
-      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/in_app_purchase-3.2.3",
-      "packageUri": "lib/",
-      "languageVersion": "3.5"
-    },
-    {
-      "name": "in_app_purchase_android",
-      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/in_app_purchase_android-0.4.0+10",
-      "packageUri": "lib/",
-      "languageVersion": "3.9"
-    },
-    {
-      "name": "in_app_purchase_platform_interface",
-      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/in_app_purchase_platform_interface-1.4.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.1"
-    },
-    {
-      "name": "in_app_purchase_storekit",
-      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/in_app_purchase_storekit-0.4.8+1",
-      "packageUri": "lib/",
-      "languageVersion": "3.9"
-    },
-    {
       "name": "injectable",
       "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/injectable-2.6.0",
       "packageUri": "lib/",
@@ -900,6 +876,18 @@
       "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/pubspec_parse-1.5.0",
       "packageUri": "lib/",
       "languageVersion": "3.6"
+    },
+    {
+      "name": "purchases_flutter",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/purchases_flutter-9.16.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "purchases_ui_flutter",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/purchases_ui_flutter-9.16.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
     },
     {
       "name": "razorpay_flutter",

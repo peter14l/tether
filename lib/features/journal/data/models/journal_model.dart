@@ -12,12 +12,16 @@ class JournalModel extends JournalEntryEntity {
 
   factory JournalModel.fromJson(Map<String, dynamic> json, String decryptedContent) {
     return JournalModel(
-      id: json['id'] as String,
-      userId: json['user_id'] as String,
+      id: json['id'] as String? ?? '',
+      userId: json['user_id'] as String? ?? '',
       content: decryptedContent,
-      date: DateTime.parse(json['date'] as String),
+      date: json['date'] != null 
+          ? DateTime.parse(json['date'] as String) 
+          : DateTime.now(),
       circleId: json['shared_with_circle_id'] as String?,
-      createdAt: DateTime.parse(json['created_at'] as String),
+      createdAt: json['created_at'] != null 
+          ? DateTime.parse(json['created_at'] as String) 
+          : DateTime.now(),
     );
   }
 

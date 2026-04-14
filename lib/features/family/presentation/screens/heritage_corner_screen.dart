@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../../injection_container.dart';
 import '../bloc/heritage_cubit.dart';
 import '../bloc/heritage_state.dart';
@@ -39,7 +41,9 @@ class HeritageCornerScreen extends StatelessWidget {
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        const Placeholder(), // Image placeholder
+                        item.mediaUrl.startsWith('http') 
+                          ? Image.network(item.mediaUrl, fit: BoxFit.cover)
+                          : const Placeholder(),
                         Positioned(
                           bottom: 0,
                           left: 0,
@@ -62,13 +66,103 @@ class HeritageCornerScreen extends StatelessWidget {
             return const SizedBox();
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // Mock upload
-          },
-          child: const Icon(Icons.add_a_photo),
+        floatingActionButton: Builder(
+          builder: (context) => FloatingActionButton(
+            onPressed: () => _showUploadDialog(context),
+            child: const Icon(Icons.add_a_photo),
+          ),
         ),
       ),
+    );
+  }
+
+  void _showUploadDialog(BuildContext context) async {
+    final picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      if (context.mounted) {
+        showDialog(
+          context: context,
+          builder: (dialogContext) => _UploadHeritageDialog(
+            imageFile: File(image.path),
+            onUpload: (file, caption, era) {
+              context.read<HeritageCubit>().uploadItem(
+                circleId: circleId,
+                file: file,
+                caption: caption,
+                eraLabel: era,
+              );
+            },
+          ),
+        );
+      }
+    }
+  }
+}
+
+class _UploadHeritageDialog extends StatefulWidget {
+  final File imageFile;
+  final Function(File file, String caption, String era) onUpload;
+
+  const _UploadHeritageDialog({
+    required this.imageFile,
+    required this.onUpload,
+  });
+
+  @override
+  State<_UploadHeritageDialog> createState() => _UploadHeritageDialogState();
+}
+
+class _UploadHeritageDialogState extends State<_UploadHeritageDialog> {
+  final _captionController = TextEditingController();
+  final _eraController = TextEditingController();
+
+  @override
+  void dispose() {
+    _captionController.dispose();
+    _eraController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Add to Heritage'),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.file(widget.imageFile, height: 150),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _captionController,
+              decoration: const InputDecoration(labelText: 'Caption (optional)'),
+            ),
+            TextField(
+              controller: _eraController,
+              decoration: const InputDecoration(labelText: 'Era (e.g. 1970s)'),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Cancel'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            widget.onUpload(
+              widget.imageFile,
+              _captionController.text,
+              _eraController.text,
+            );
+            Navigator.pop(context);
+          },
+          child: const Text('Upload'),
+        ),
+      ],
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -89,8 +90,12 @@ class SupabaseAuthRepository implements IAuthRepository {
 
       final tier = await _fetchSubscriptionTier(user.id);
       unawaited(getIt<IBillingRepository>().identify(user.id));
-      return Right(UserModel.fromJson(profileResponse ?? newProfile, email, tier: tier));
+      
+      final userModel = UserModel.fromJson(profileResponse ?? newProfile, email, tier: tier);
+      debugPrint('SupabaseAuthRepository: Handled user model for ${userModel.id}');
+      return Right(userModel);
     } catch (e) {
+      debugPrint('SupabaseAuthRepository: Error during signIn: $e');
       return Left(AuthFailure(e.toString()));
     }
   }

@@ -18,7 +18,11 @@ class PushNotificationService implements IPushNotificationService {
 
   @override
   Future<void> initialize() async {
-    if (!_isFirebaseInit) return;
+    if (!_isFirebaseInit) {
+      debugPrint('PUSH NOTIFICATIONS: Firebase not initialized. Push notifications will be disabled. '
+                 'Please add google-services.json (Android) or GoogleService-Info.plist (iOS) to enable.');
+      return;
+    }
     
     try {
       final messaging = FirebaseMessaging.instance;
@@ -34,8 +38,8 @@ class PushNotificationService implements IPushNotificationService {
           _uploadToken(token);
         });
       }
-    } catch (_) {
-      // Swallow exceptions to prevent initialization crashes without FCM configured
+    } catch (e) {
+      debugPrint('PUSH NOTIFICATIONS: Error during initialization: $e');
     }
   }
 

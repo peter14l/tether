@@ -14,14 +14,16 @@ class HeritageItemModel extends HeritageItemEntity {
 
   factory HeritageItemModel.fromJson(Map<String, dynamic> json) {
     return HeritageItemModel(
-      id: json['id'] as String,
-      circleId: json['circle_id'] as String,
-      uploadedBy: json['uploaded_by'] as String,
-      mediaUrl: json['media_url'] as String,
+      id: json['id'] as String? ?? '',
+      circleId: json['circle_id'] as String? ?? '',
+      uploadedBy: json['uploaded_by'] as String? ?? '',
+      mediaUrl: json['media_url'] as String? ?? '',
       caption: json['caption'] as String?,
       eraLabel: json['era_label'] as String?,
       tags: List<String>.from(json['tags'] ?? []),
-      createdAt: DateTime.parse(json['created_at'] as String),
+      createdAt: json['created_at'] != null 
+          ? DateTime.parse(json['created_at'] as String) 
+          : DateTime.now(),
     );
   }
 

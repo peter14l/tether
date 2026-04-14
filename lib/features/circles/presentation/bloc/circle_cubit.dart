@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../../../core/subscription/subscription_service.dart';
 import '../../domain/entities/circle_entity.dart';
 import '../../domain/repositories/circle_repository.dart';
 import 'circle_state.dart';
@@ -9,8 +10,13 @@ import 'circle_state.dart';
 class CircleCubit extends Cubit<CircleState> {
   final ICircleRepository _circleRepository;
   final SupabaseClient _supabaseClient;
+  final ISubscriptionService _subscriptionService;
 
-  CircleCubit(this._circleRepository, this._supabaseClient) : super(CircleInitial());
+  CircleCubit(
+    this._circleRepository,
+    this._supabaseClient,
+    this._subscriptionService,
+  ) : super(CircleInitial());
 
   Future<void> loadCircles() async {
     emit(CircleLoading());
@@ -33,25 +39,19 @@ class CircleCubit extends Cubit<CircleState> {
       return;
     }
 
-    // Fetch current circles to check limit
-    final circlesResponse = await _supabaseClient
-        .from('circles')
-        .select('id')
-        .eq('created_by', userId);
+    final isEntitled = await _subscriptionService.checkEntitlement('unlimited_circles');
     
-    final count = (circlesResponse as List).length;
-
-    final subscriptionResponse = await _supabaseClient
-        .from('user_subscriptions')
-        .select('tier')
-        .eq('user_id', userId)
-        .maybeSingle();
-    
-    final tier = subscriptionResponse?['tier'] as String? ?? 'free';
-
-    if (tier == 'free' && count >= 3) {
-      emit(const CircleError('Free tier limit reached. Please upgrade to Tether Plus to create more circles.'));
-      return;
+    if (!isEntitled) {
+      final circlesResponse = await _supabaseClient
+          .from('circles')
+          .select('id')
+          .eq('created_by', userId);
+      
+      final count = (circlesResponse as List).length;
+      if (count >= 1) {
+        emit(const CircleError('Free tier is limited to 1 circle. Please upgrade to Tether Plus for unlimited sanctuaries.'));
+        return;
+      }
     }
 
     final newCircle = CircleEntity(

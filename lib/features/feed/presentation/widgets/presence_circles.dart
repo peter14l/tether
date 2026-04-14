@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/widgets/squircle_avatar.dart';
+import '../../../../core/widgets/glass_panel.dart';
+import '../../../../core/widgets/whisper_text.dart';
 
 class PresenceCircles extends StatelessWidget {
   const PresenceCircles({super.key});
@@ -14,12 +16,13 @@ class PresenceCircles extends StatelessWidget {
       children: [
         Text(
           'Close Circles',
-          style: theme.textTheme.headlineMedium?.copyWith(
-            fontSize: 20,
-            color: colorScheme.onSurface.withOpacity(0.8),
+          style: theme.textTheme.displaySmall?.copyWith(
+            fontStyle: FontStyle.italic,
+            fontSize: 24,
+            opacity: 0.8,
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 24),
         _CircleCard(
           title: 'The Inner Well',
           imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDLCSujWULcaARJ8g69gTIYKoa17noLEssoD7_UbNDN1RANXB030w7wJt8vcLHumA2ZaZyC0wodjattd7xj3dfhv5OUmUKdyDV2ZCZldUhSfhzRhRVS6cZo22VHFi-BBGddgxNAWoDk_Rw4RqJkIgZoE1nyu-rcDw8EA2-2JRlqiIi5hcLrI4jNHS5PO5U8ogjOrS39he_tgXotVaGUorDpvWxis4yRtpngrqbsVD_dORApjpZBm8hi2pma4heMtLaxWbUFN5sOQZod',
@@ -30,7 +33,7 @@ class PresenceCircles extends StatelessWidget {
             colorScheme.tertiary,
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 16),
         _CircleCard(
           title: 'Soft Quiet',
           imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAh01RNSSag3G37cbfzbr8WN6pg_qEOBeDRHEkviLxsPEkLd8_WTqB-EazocHW4tWCrJKWc97O1W1N1jY_qiZYvSF8CkDcC3zR2_YRoSGSJ3vaRAADOr0efKkRUvavZnJ1b28hQPWc47Bgs9VDyfnz6C045DATjr2EsSL_Uyy-vmTixe67__5ZxdW45UEZ2E-dbGVaQi9Rg8WLzhAulxtwp_XQyYQC6XrbG5tgu7wPazlSS1BSua0x6PKvYsALi7fHdk7YDinh4OL5P',
@@ -65,13 +68,9 @@ class _CircleCard extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return Container(
+    return GlassPanel(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: colorScheme.surface.withOpacity(0.4),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: colorScheme.outlineVariant.withOpacity(0.1)),
-      ),
+      opacity: 0.1,
       child: Row(
         children: [
           Stack(
@@ -80,30 +79,36 @@ class _CircleCard extends StatelessWidget {
               SquircleAvatar(
                 imageUrl: imageUrl,
                 size: 56,
-                borderColor: isOnline ? colorScheme.primary : colorScheme.outlineVariant.withOpacity(0.3),
-                borderWidth: 2,
+                borderColor: isOnline ? colorScheme.primary.withOpacity(0.2) : null,
+                borderWidth: isOnline ? 2 : 0,
               ),
               if (isOnline)
                 Positioned(
-                  bottom: -4,
-                  right: -4,
+                  bottom: -2,
+                  right: -2,
                   child: Container(
-                    width: 16,
-                    height: 16,
+                    width: 14,
+                    height: 14,
                     decoration: BoxDecoration(
                       color: colorScheme.primary,
                       shape: BoxShape.circle,
                       border: Border.all(color: colorScheme.surface, width: 2),
+                      boxShadow: [
+                        BoxShadow(
+                          color: colorScheme.primary.withOpacity(0.4),
+                          blurRadius: 6,
+                        ),
+                      ],
                     ),
                   ),
                 ),
               if (icon != null)
                 Positioned(
-                  bottom: -4,
-                  right: -4,
+                  bottom: -2,
+                  right: -2,
                   child: Container(
-                    width: 20,
-                    height: 20,
+                    width: 18,
+                    height: 18,
                     decoration: BoxDecoration(
                       color: colorScheme.surfaceContainerLow,
                       shape: BoxShape.circle,
@@ -114,20 +119,23 @@ class _CircleCard extends StatelessWidget {
                 ),
             ],
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 20),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: theme.textTheme.headlineMedium?.copyWith(fontSize: 18),
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    fontStyle: FontStyle.italic,
+                    fontSize: 18,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Row(
                   children: statusColors.map((color) {
                     return Container(
-                      margin: const EdgeInsets.only(right: 4),
+                      margin: const EdgeInsets.only(right: 6),
                       width: 8,
                       height: 8,
                       decoration: BoxDecoration(
@@ -140,7 +148,10 @@ class _CircleCard extends StatelessWidget {
               ],
             ),
           ),
-          Icon(Icons.chevron_right, color: colorScheme.onSurfaceVariant.withOpacity(0.4)),
+          Icon(
+            Icons.chevron_right, 
+            color: colorScheme.onSurfaceVariant.withOpacity(0.3),
+          ),
         ],
       ),
     );

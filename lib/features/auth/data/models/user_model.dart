@@ -20,10 +20,10 @@ class UserModel extends UserEntity {
 
   factory UserModel.fromJson(Map<String, dynamic> json, String email, {String? tier}) {
     return UserModel(
-      id: json['id'] as String,
+      id: json['id'] as String? ?? '',
       email: email,
-      username: json['username'] as String,
-      displayName: json['display_name'] as String,
+      username: json['username'] as String? ?? email.split('@').first,
+      displayName: json['display_name'] as String? ?? email.split('@').first,
       avatarUrl: json['avatar_url'] as String?,
       bio: json['bio'] as String?,
       pronouns: json['pronouns'] as String?,
@@ -32,8 +32,12 @@ class UserModel extends UserEntity {
       quietUntil: json['quiet_until'] != null ? DateTime.parse(json['quiet_until'] as String) : null,
       timezone: json['timezone'] as String?,
       subscriptionTier: tier ?? json['subscription_tier'] as String? ?? 'free',
-      createdAt: DateTime.parse(json['created_at'] as String),
-      updatedAt: DateTime.parse(json['updated_at'] as String),
+      createdAt: json['created_at'] != null 
+        ? DateTime.parse(json['created_at'] as String) 
+        : DateTime.now(),
+      updatedAt: json['updated_at'] != null 
+        ? DateTime.parse(json['updated_at'] as String) 
+        : DateTime.now(),
     );
   }
 

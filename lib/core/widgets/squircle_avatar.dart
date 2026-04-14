@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'slow_photo.dart';
 
 class SquircleAvatar extends StatelessWidget {
   final String imageUrl;
@@ -28,21 +29,19 @@ class SquircleAvatar extends StatelessWidget {
         boxShadow: [
           if (borderColor != null)
             BoxShadow(
-              color: borderColor!.withOpacity(0.3),
-              blurRadius: 10,
+              color: borderColor!.withOpacity(0.1),
+              blurRadius: 15,
               spreadRadius: 2,
             ),
         ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(size * 0.35),
-        child: Image.network(
-          imageUrl,
+        child: SlowPhoto(
+          imageUrl: imageUrl,
+          width: size,
+          height: size,
           fit: BoxFit.cover,
-          errorBuilder: (context, error, stackTrace) => Container(
-            color: Theme.of(context).colorScheme.surfaceContainerHighest,
-            child: const Icon(Icons.person),
-          ),
         ),
       ),
     );

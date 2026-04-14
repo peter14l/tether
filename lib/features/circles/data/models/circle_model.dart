@@ -16,16 +16,20 @@ class CircleModel extends CircleEntity {
 
   factory CircleModel.fromJson(Map<String, dynamic> json) {
     return CircleModel(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      circleType: json['circle_type'] as String,
-      createdBy: json['created_by'] as String,
+      id: json['id'] as String? ?? '',
+      name: json['name'] as String? ?? 'Unknown',
+      circleType: json['circle_type'] as String? ?? 'Unknown',
+      createdBy: json['created_by'] as String? ?? '',
       avatarUrl: json['avatar_url'] as String?,
       description: json['description'] as String?,
-      comfortRadius: json['comfort_radius'] as String,
-      isEncrypted: json['is_encrypted'] as bool,
-      createdAt: DateTime.parse(json['created_at'] as String),
-      updatedAt: DateTime.parse(json['updated_at'] as String),
+      comfortRadius: json['comfort_radius'] as String? ?? 'inner',
+      isEncrypted: json['is_encrypted'] as bool? ?? true,
+      createdAt: json['created_at'] != null 
+          ? DateTime.parse(json['created_at'] as String) 
+          : DateTime.now(),
+      updatedAt: json['updated_at'] != null 
+          ? DateTime.parse(json['updated_at'] as String) 
+          : DateTime.now(),
     );
   }
 

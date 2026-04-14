@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/widgets/glass_panel.dart';
 import '../../../../core/widgets/whisper_text.dart';
+import '../../../../core/widgets/squircle_avatar.dart';
 
 class TemperatureCheck extends StatelessWidget {
   const TemperatureCheck({super.key});
@@ -12,9 +13,7 @@ class TemperatureCheck extends StatelessWidget {
 
     return GlassPanel(
       padding: const EdgeInsets.all(24),
-      border: Border(
-        left: BorderSide(color: colorScheme.secondary, width: 4),
-      ),
+      opacity: 0.1,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -26,23 +25,25 @@ class TemperatureCheck extends StatelessWidget {
                 children: [
                   Text(
                     'Temperature Check',
-                    style: theme.textTheme.headlineMedium?.copyWith(fontSize: 20),
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontStyle: FontStyle.italic,
+                      fontSize: 20,
+                    ),
                   ),
                   const SizedBox(height: 4),
-                  WhisperText(
+                  const WhisperText(
                     'How are we all actually doing right now?',
-                    fontSize: 13,
                   ),
                 ],
               ),
               Icon(
                 Icons.thermostat,
-                size: 40,
-                color: colorScheme.onSurface.withOpacity(0.1),
+                size: 32,
+                color: colorScheme.secondary.withOpacity(0.4),
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 32),
           _MemberStatus(
             avatars: const [
               'https://lh3.googleusercontent.com/aida-public/AB6AXuD_jM2NQheNMKfJQatIhoWh5GEt3llpbhlvKfR4KsmjIJ5fMISmkH_OfyFEGhdpzy3W8YTjaNLQEg-vuSJYO-LdfnARnu43uYWrTn-uxgdYZXjmgV64AgepKwp7WsvmRvBRHD6PUm1-1xvZEuMfgiqa4By5L-AKKKD_PXu-MVZqAFsje6DOFfhJ8z0IqbJ_r3oPWU9qEhr221spRqUFmTJKHHo_qt7APzB1t4U58kxFlGYQaoQ4WZZ5nUEdyse3xEEKpGrHXNnj5SYW',
@@ -54,7 +55,7 @@ class TemperatureCheck extends StatelessWidget {
             filledDots: 2,
             accentColor: colorScheme.secondary,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           _MemberStatus(
             avatars: const [
               'https://lh3.googleusercontent.com/aida-public/AB6AXuCjj6e-ZnkN8HnBwYW7F-zRWpyP5Z3OrdNpOHFuRU6LwV6A1U34Jh7txxSYoJJcVXUX7s5qIFX215a1QyPckH7T-SWFYHLgbA3ImilrDb2CWfPz4EY6KFvmeDgDGzwHKDtdbC6eV_fWnAYFuHq-I4EpO8WVWDckPcXa7rWwYpeWkzIHRYc11pKzWhk2RVQSMHWl_qSOKELto67tV-GysiGPtEGlMyUM6TdeIRc8Mi4c5lbhnPQ0vK727nAtnlDEQHnAl7vNtYaTG44D',
@@ -99,30 +100,31 @@ class _MemberStatus extends StatelessWidget {
             for (int i = 0; i < avatars.length; i++)
               Transform.translate(
                 offset: Offset(i * -12.0, 0),
-                child: CircleAvatar(
-                  radius: 20,
-                  backgroundColor: colorScheme.surface,
-                  child: CircleAvatar(
-                    radius: 18,
-                    backgroundImage: NetworkImage(avatars[i]),
-                  ),
+                child: SquircleAvatar(
+                  imageUrl: avatars[i],
+                  size: 40,
+                  borderColor: colorScheme.surface,
+                  borderWidth: 2,
                 ),
               ),
             if (extraCount > 0)
               Transform.translate(
                 offset: Offset(avatars.length * -12.0, 0),
-                child: CircleAvatar(
-                  radius: 20,
-                  backgroundColor: colorScheme.surface,
-                  child: CircleAvatar(
-                    radius: 18,
-                    backgroundColor: colorScheme.secondaryContainer,
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: colorScheme.surfaceContainerHigh,
+                    borderRadius: BorderRadius.circular(40 * 0.35),
+                    border: Border.all(color: colorScheme.surface, width: 2),
+                  ),
+                  child: Center(
                     child: Text(
                       '+$extraCount',
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 12,
                         fontWeight: FontWeight.bold,
-                        color: colorScheme.onSecondaryContainer,
+                        color: colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ),
@@ -130,24 +132,22 @@ class _MemberStatus extends StatelessWidget {
               ),
           ],
         ),
-        Container(
+        GlassPanel(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          decoration: BoxDecoration(
-            color: colorScheme.surfaceContainerHigh,
-            borderRadius: BorderRadius.circular(24),
-          ),
+          opacity: 0.1,
+          borderRadius: BorderRadius.circular(24),
           child: Row(
             children: [
               Text(emoji, style: const TextStyle(fontSize: 18)),
-              const SizedBox(width: 8),
+              const SizedBox(width: 12),
               Row(
                 children: List.generate(dots, (index) {
                   return Container(
-                    margin: const EdgeInsets.only(left: 4),
+                    margin: const EdgeInsets.only(left: 6),
                     width: 6,
                     height: 6,
                     decoration: BoxDecoration(
-                      color: index < filledDots ? accentColor : accentColor.withOpacity(0.3),
+                      color: index < filledDots ? accentColor : accentColor.withOpacity(0.2),
                       shape: BoxShape.circle,
                     ),
                   );

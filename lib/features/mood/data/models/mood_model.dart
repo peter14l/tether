@@ -12,12 +12,14 @@ class MoodModel extends MoodStatusEntity {
 
   factory MoodModel.fromJson(Map<String, dynamic> json) {
     return MoodModel(
-      id: json['id'] as String,
-      userId: json['user_id'] as String,
-      status: _parseMoodType(json['status'] as String),
+      id: json['id'] as String? ?? '',
+      userId: json['user_id'] as String? ?? '',
+      status: _parseMoodType(json['status'] as String? ?? 'happy'),
       label: json['label'] as String?,
       colorKey: json['color_key'] as String?,
-      updatedAt: DateTime.parse(json['updated_at'] as String),
+      updatedAt: json['updated_at'] != null 
+          ? DateTime.parse(json['updated_at'] as String) 
+          : DateTime.now(),
     );
   }
 

@@ -19,14 +19,17 @@ class TetherBottomNavBar extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
           child: Container(
             decoration: BoxDecoration(
-              color: colorScheme.surface.withOpacity(0.8),
+              color: colorScheme.surface.withOpacity(0.7),
               borderRadius: BorderRadius.circular(32),
-              border: Border.all(color: colorScheme.outlineVariant.withOpacity(0.1)),
+              border: Border.all(
+                color: colorScheme.outlineVariant.withOpacity(0.18),
+                width: 1,
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: colorScheme.primary.withOpacity(0.08),
+                  color: colorScheme.primary.withOpacity(0.06),
                   blurRadius: 40,
-                  offset: const Offset(0, -8),
+                  offset: const Offset(0, -4),
                 ),
               ],
             ),
@@ -34,22 +37,26 @@ class TetherBottomNavBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _NavBarItem(
-                  icon: Icons.home,
+                  icon: Icons.home_outlined,
+                  activeIcon: Icons.home_rounded,
                   isSelected: location == '/' || location.startsWith('/feed'),
                   onTap: () => context.go('/'),
                 ),
                 _NavBarItem(
-                  icon: Icons.spa,
+                  icon: Icons.spa_outlined,
+                  activeIcon: Icons.spa_rounded,
                   isSelected: location == '/breathing',
                   onTap: () => context.go('/breathing'),
                 ),
                 _NavBarItem(
-                  icon: Icons.chat_bubble,
+                  icon: Icons.chat_bubble_outline_rounded,
+                  activeIcon: Icons.chat_bubble_rounded,
                   isSelected: location.startsWith('/messaging'),
                   onTap: () => context.go('/messaging'),
                 ),
                 _NavBarItem(
-                  icon: Icons.settings,
+                  icon: Icons.settings_outlined,
+                  activeIcon: Icons.settings_rounded,
                   isSelected: location == '/settings',
                   onTap: () => context.go('/settings'),
                 ),
@@ -64,10 +71,16 @@ class TetherBottomNavBar extends StatelessWidget {
 
 class _NavBarItem extends StatelessWidget {
   final IconData icon;
+  final IconData activeIcon;
   final bool isSelected;
   final VoidCallback onTap;
 
-  const _NavBarItem({required this.icon, required this.isSelected, required this.onTap});
+  const _NavBarItem({
+    required this.icon,
+    required this.activeIcon,
+    required this.isSelected,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -76,22 +89,23 @@ class _NavBarItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(24),
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: isSelected ? colorScheme.primary.withOpacity(0.1) : Colors.transparent,
+          color: isSelected ? colorScheme.primary.withOpacity(0.12) : Colors.transparent,
           shape: BoxShape.circle,
           boxShadow: isSelected ? [
             BoxShadow(
-              color: colorScheme.primary.withOpacity(0.3),
+              color: colorScheme.primary.withOpacity(0.2),
               blurRadius: 20,
             )
           ] : null,
         ),
         child: Icon(
-          icon,
+          isSelected ? activeIcon : icon,
           color: isSelected ? colorScheme.primary : colorScheme.onSurface.withOpacity(0.4),
-          size: 28,
+          size: 26,
         ),
       ),
     );

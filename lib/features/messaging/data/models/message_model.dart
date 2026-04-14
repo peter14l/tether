@@ -16,16 +16,18 @@ class MessageModel extends MessageEntity {
 
   factory MessageModel.fromJson(Map<String, dynamic> json) {
     return MessageModel(
-      id: json['id'] as String,
-      senderId: json['sender_id'] as String,
-      receiverId: json['receiver_id'] as String,
+      id: json['id'] as String? ?? '',
+      senderId: json['sender_id'] as String? ?? '',
+      receiverId: json['receiver_id'] as String? ?? '',
       circleId: json['circle_id'] as String?,
-      contentType: json['content_type'] as String,
+      contentType: json['content_type'] as String? ?? 'text',
       contentText: json['content_text'] as String?,
       mediaUrl: json['media_url'] as String?,
-      isRead: json['is_read'] as bool,
+      isRead: json['is_read'] as bool? ?? false,
       readAt: json['read_at'] != null ? DateTime.parse(json['read_at'] as String) : null,
-      createdAt: DateTime.parse(json['created_at'] as String),
+      createdAt: json['created_at'] != null 
+          ? DateTime.parse(json['created_at'] as String) 
+          : DateTime.now(),
     );
   }
 

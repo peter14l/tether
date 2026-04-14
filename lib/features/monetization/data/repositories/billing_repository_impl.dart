@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
@@ -14,6 +15,7 @@ import '../../domain/repositories/billing_repository.dart';
 @LazySingleton(as: IBillingRepository)
 class BillingRepositoryImpl implements IBillingRepository {
   Razorpay? _razorpay;
+  bool _isRcInitialized = false;
   final _customerInfoController = StreamController<CustomerInfo>.broadcast();
 
   BillingRepositoryImpl() {
@@ -21,6 +23,11 @@ class BillingRepositoryImpl implements IBillingRepository {
   }
 
   Future<void> _initRevenueCat() async {
+    if (!EnvConfig.isRevenueCatEnabled) {
+      debugPrint('RevenueCat is not configured or using placeholder keys. Skipping initialization.');
+      return;
+    }
+
     try {
       String apiKey = '';
       if (Platform.isAndroid) {
@@ -32,6 +39,7 @@ class BillingRepositoryImpl implements IBillingRepository {
       if (apiKey.isNotEmpty) {
         final configuration = PurchasesConfiguration(apiKey);
         await Purchases.configure(configuration);
+        _isRcInitialized = true;
         
         // Listen for customer info updates
         Purchases.addCustomerInfoUpdateListener((customerInfo) {
@@ -43,7 +51,8 @@ class BillingRepositoryImpl implements IBillingRepository {
         _customerInfoController.add(customerInfo);
       }
     } catch (e) {
-      // Log error but don't crash
+      _isRcInitialized = false;
+      debugPrint('Error initializing RevenueCat: $e');
     }
   }
 
@@ -52,6 +61,7 @@ class BillingRepositoryImpl implements IBillingRepository {
 
   @override
   Future<void> identify(String userId) async {
+    if (!_isRcInitialized) return;
     try {
       final customerInfo = await Purchases.logIn(userId);
       _customerInfoController.add(customerInfo.customerInfo);
@@ -60,6 +70,7 @@ class BillingRepositoryImpl implements IBillingRepository {
 
   @override
   Future<void> reset() async {
+    if (!_isRcInitialized) return;
     try {
       final customerInfo = await Purchases.logOut();
       _customerInfoController.add(customerInfo);
@@ -68,6 +79,7 @@ class BillingRepositoryImpl implements IBillingRepository {
 
   @override
   Future<bool> isPro() async {
+    if (!_isRcInitialized) return false;
     try {
       final customerInfo = await Purchases.getCustomerInfo();
       return customerInfo.entitlements.all['Oasis Pro']?.isActive ?? false;
@@ -78,6 +90,7 @@ class BillingRepositoryImpl implements IBillingRepository {
 
   @override
   Future<void> showPaywall() async {
+    if (!_isRcInitialized) return;
     try {
       await RevenueCatUI.presentPaywall();
     } catch (e) {
@@ -87,6 +100,7 @@ class BillingRepositoryImpl implements IBillingRepository {
 
   @override
   Future<void> showCustomerCenter() async {
+    if (!_isRcInitialized) return;
     try {
       await RevenueCatUI.presentCustomerCenter();
     } catch (e) {
@@ -111,6 +125,9 @@ class BillingRepositoryImpl implements IBillingRepository {
   }
 
   Future<Either<Failure, void>> _purchaseViaRevenueCat(String? productId) async {
+    if (!_isRcInitialized) {
+      return const Left(ServerFailure('RevenueCat is not configured.'));
+    }
     try {
       final offerings = await Purchases.getOfferings();
       
@@ -157,6 +174,9 @@ class BillingRepositoryImpl implements IBillingRepository {
   }
 
   Future<Either<Failure, void>> _purchaseViaRazorpay() async {
+    if (!EnvConfig.isRazorpayEnabled) {
+      return const Left(ServerFailure('Razorpay is not configured.'));
+    }
     _razorpay ??= Razorpay();
 
     final completer = Completer<Either<Failure, void>>();

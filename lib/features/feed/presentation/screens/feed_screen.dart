@@ -5,6 +5,7 @@ import '../../../../core/widgets/squircle_avatar.dart';
 import '../../../../core/widgets/whisper_text.dart';
 import '../bloc/feed_cubit.dart';
 import '../bloc/feed_state.dart';
+import '../../../../core/widgets/tether_button.dart';
 import '../widgets/post_card.dart';
 import '../widgets/mood_room.dart';
 import '../widgets/presence_circles.dart';
@@ -35,43 +36,61 @@ class _FeedScreenState extends State<FeedScreen> {
             SliverAppBar(
               floating: true,
               pinned: true,
-              backgroundColor: colorScheme.surface.withOpacity(0.8),
+              backgroundColor: colorScheme.surface.withOpacity(0.01),
               surfaceTintColor: Colors.transparent,
-              flexibleSpace: Container(
-                decoration: BoxDecoration(
-                  color: colorScheme.surface.withOpacity(0.8),
+              flexibleSpace: ClipRect(
+                child: BackdropFilter(
+                  filter: ColorFilter.mode(colorScheme.surface.withOpacity(0.8), BlendMode.srcOver),
+                  child: Container(color: Colors.transparent),
                 ),
               ),
               title: Row(
                 children: [
-                  Icon(Icons.arrow_back, color: colorScheme.primary),
-                  const SizedBox(width: 12),
+                  IconButton(
+                    onPressed: () => context.pop(),
+                    icon: Icon(Icons.arrow_back, color: colorScheme.primary),
+                  ),
+                  const SizedBox(width: 8),
                   Text(
                     'Tether',
                     style: theme.textTheme.headlineMedium?.copyWith(
                       color: colorScheme.primary,
+                      fontStyle: FontStyle.italic,
                       fontSize: 24,
+                      letterSpacing: -0.5,
                     ),
                   ),
                 ],
               ),
               actions: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 16),
+                  padding: const EdgeInsets.only(right: 24),
                   child: SquircleAvatar(
-                    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDJ9rFr9LPlleeY2t7kg-bS3Fc6GVOsLt1yzhBvdMSgfmJyQ00we0ri8OGZg8o1uvM6lnSV8FsmvKV4CGEKXsqBaTOh_vT27mmfp3ihpNS0IlS0yTq_xlJw6iDk4ObtxfsUyiKJGywBq3r5qDTYmBQmwVYPbBBIZ8-f9YXFoUPazhKrPpuTWPv3R_XRkgpf2n747ITcTSVO3wDUUBYSn10raMF_VoFPlUHZYj9snOP5Pj4KBOmyPUxL13rwoIRDLZpjD7jWI4MoF4LC',
+                    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAcJfry8HNWQrKeOk3f7p1H6nXJVmr1ZuBaPuuQXb6xi1iWm--PQLHvBqYu-wupO1_AaoL5WuZnYmsB8fgR5PQyJTHRhZExAB3lAs8SWp-7Y_1Ee5KH_9IgoW8VJzA1YhE2We0IiZEnGfpX5gMr79hJEEW5epeymvaojqgoWJjSJS1ppFbgwsYzb1tC-LwTioHI2Zp2QLm94SLFGcZO0gVUbbbc8YRlcgIHnrowbrHheLQNhzTlF6kbD49F-skJeOgfb9LTP6ISQxGJ',
                     size: 40,
-                    borderColor: colorScheme.primary.withOpacity(0.3),
+                    borderColor: colorScheme.primary.withOpacity(0.2),
                     borderWidth: 2,
                   ),
                 ),
               ],
             ),
             SliverPadding(
-              padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
+              padding: const EdgeInsets.fromLTRB(24, 32, 32, 0),
               sliver: SliverToBoxAdapter(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const WhisperText('YOUR SANCTUARY'),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Mood Room',
+                      style: theme.textTheme.displaySmall?.copyWith(
+                        fontStyle: FontStyle.italic,
+                        fontSize: 28,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
                     const MoodRoom(),
                     const SizedBox(height: 48),
                     const PresenceCircles(),
@@ -79,7 +98,15 @@ class _FeedScreenState extends State<FeedScreen> {
                     const TemperatureCheck(),
                     const SizedBox(height: 48),
                     _GentleNudge(),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 48),
+                    Text(
+                      'Chronological Feed',
+                      style: theme.textTheme.headlineSmall?.copyWith(
+                        fontStyle: FontStyle.italic,
+                        opacity: 0.8,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
                   ],
                 ),
               ),
@@ -92,7 +119,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   );
                 } else if (state is FeedLoaded) {
                   return SliverPadding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    padding: const EdgeInsets.fromLTRB(24, 0, 32, 0),
                     sliver: SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
@@ -108,7 +135,8 @@ class _FeedScreenState extends State<FeedScreen> {
                       ),
                     ),
                   );
-                } else if (state is FeedError) {
+                }
+ else if (state is FeedError) {
                   return SliverFillRemaining(
                     child: Center(child: Text('Error: ${state.message}')),
                   );
@@ -119,17 +147,15 @@ class _FeedScreenState extends State<FeedScreen> {
             const SliverToBoxAdapter(child: SizedBox(height: 120)),
           ],
         ),
-        floatingActionButton: FloatingActionButton.large(
+        floatingActionButton: TetherButton(
           onPressed: () {},
-          backgroundColor: colorScheme.primary,
-          foregroundColor: colorScheme.onPrimary,
-          shape: const CircleBorder(),
-          elevation: 8,
+          isHighPriority: true,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.auto_awesome, size: 32),
-              const SizedBox(height: 4),
+              const Icon(Icons.auto_awesome, size: 28),
+              const SizedBox(height: 2),
               Text(
                 'CALM',
                 style: theme.textTheme.labelSmall?.copyWith(

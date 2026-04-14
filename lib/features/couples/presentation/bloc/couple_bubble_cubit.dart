@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../../../core/subscription/subscription_service.dart';
 import '../../domain/entities/couple_bubble.dart';
 import '../../domain/entities/digital_hug.dart';
 import '../../domain/entities/heartbeat.dart';
@@ -12,13 +13,25 @@ import 'couple_bubble_state.dart';
 class CoupleBubbleCubit extends Cubit<CoupleBubbleState> {
   final ICouplesRepository _couplesRepository;
   final SupabaseClient _supabaseClient;
+  final ISubscriptionService _subscriptionService;
   StreamSubscription? _hugsSubscription;
   StreamSubscription? _heartbeatsSubscription;
 
-  CoupleBubbleCubit(this._couplesRepository, this._supabaseClient) : super(CoupleBubbleInitial());
+  CoupleBubbleCubit(
+    this._couplesRepository,
+    this._supabaseClient,
+    this._subscriptionService,
+  ) : super(CoupleBubbleInitial());
 
   Future<void> loadBubble(String circleId) async {
     emit(CoupleBubbleLoading());
+
+    final isEntitled = await _subscriptionService.checkEntitlement('couples_features');
+    if (!isEntitled) {
+      emit(const CoupleBubbleError('Tether Plus required to access Couple Bubbles.'));
+      return;
+    }
+
     final result = await _couplesRepository.getCoupleBubble(circleId);
     result.fold(
       (failure) => emit(CoupleBubbleError(failure.message)),

@@ -13,13 +13,15 @@ class FamilySafetyCheckModel extends FamilySafetyCheckEntity {
 
   factory FamilySafetyCheckModel.fromJson(Map<String, dynamic> json) {
     return FamilySafetyCheckModel(
-      id: json['id'] as String,
-      circleId: json['circle_id'] as String,
-      triggeredBy: json['triggered_by'] as String,
+      id: json['id'] as String? ?? '',
+      circleId: json['circle_id'] as String? ?? '',
+      triggeredBy: json['triggered_by'] as String? ?? '',
       respondedAt: json['responded_at'] != null ? DateTime.parse(json['responded_at'] as String) : null,
       timeoutMinutes: json['timeout_minutes'] as int? ?? 30,
-      status: json['status'] as String,
-      createdAt: DateTime.parse(json['created_at'] as String),
+      status: json['status'] as String? ?? 'pending',
+      createdAt: json['created_at'] != null 
+          ? DateTime.parse(json['created_at'] as String) 
+          : DateTime.now(),
     );
   }
 

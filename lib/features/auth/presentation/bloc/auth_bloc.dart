@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/repositories/auth_repository.dart';
@@ -6,7 +7,7 @@ import '../../../../core/notifications/push_notification_service.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
-@injectable
+@lazySingleton
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository _authRepository;
   final IPushNotificationService _pushService;
@@ -67,14 +68,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     SignInRequested event,
     Emitter<AuthState> emit,
   ) async {
+    debugPrint('AuthBloc: SignInRequested for ${event.email}');
     emit(AuthLoading());
     final result = await _authRepository.signIn(
       email: event.email,
       password: event.password,
     );
     result.fold(
-      (failure) => emit(AuthError(failure.message)),
-      (user) => emit(Authenticated(user)),
+      (failure) {
+        debugPrint('AuthBloc: SignIn Failed: ${failure.message}');
+        emit(AuthError(failure.message));
+      },
+      (user) {
+        debugPrint('AuthBloc: SignIn Success for ${user.id}');
+        emit(Authenticated(user));
+      },
     );
   }
 

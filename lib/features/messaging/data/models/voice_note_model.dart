@@ -13,13 +13,15 @@ class VoiceNoteModel extends VoiceNoteEntity {
 
   factory VoiceNoteModel.fromJson(Map<String, dynamic> json) {
     return VoiceNoteModel(
-      id: json['id'] as String,
-      circleId: json['circle_id'] as String,
-      senderId: json['sender_id'] as String,
-      storagePath: json['storage_path'] as String,
-      durationSecs: json['duration_secs'] as int,
-      isSlowChat: json['is_slow_chat'] as bool,
-      createdAt: DateTime.parse(json['created_at'] as String),
+      id: json['id'] as String? ?? '',
+      circleId: json['circle_id'] as String? ?? '',
+      senderId: json['sender_id'] as String? ?? '',
+      storagePath: json['storage_path'] as String? ?? '',
+      durationSecs: json['duration_secs'] as int? ?? 0,
+      isSlowChat: json['is_slow_chat'] as bool? ?? false,
+      createdAt: json['created_at'] != null 
+          ? DateTime.parse(json['created_at'] as String) 
+          : DateTime.now(),
     );
   }
 

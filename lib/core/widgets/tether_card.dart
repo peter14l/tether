@@ -38,39 +38,35 @@ class TetherCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: backgroundColor ?? tokens.backgroundElevated,
             borderRadius: borderRadius ?? BorderRadius.circular(18),
-            border: Border.all(color: tokens.borderDefault),
-            boxShadow: shadows ?? (isDark ? [] : [
+            boxShadow: shadows ?? [
+              // Outer Halo
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                blurRadius: 10,
+                color: tokens.textPrimary.withOpacity(0.06),
+                blurRadius: 40,
                 offset: const Offset(0, 4),
               ),
-            ]),
+              // Inner Bloom (Simulated with a second shadow or can be done with gradient)
+              BoxShadow(
+                color: tokens.accentPrimary.withOpacity(0.1),
+                blurRadius: 20,
+                spreadRadius: -5,
+              ),
+            ],
           ),
           child: ClipRRect(
             borderRadius: borderRadius ?? BorderRadius.circular(18),
             child: Stack(
               children: [
-                // Inner glow for Dusk
-                if (isDusk)
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: 2,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            tokens.accentPrimary.withOpacity(0.4),
-                            tokens.accentPrimary.withOpacity(0),
-                          ],
-                        ),
-                      ),
+                // Inner Bloom Overlay (more precise than shadow for inner)
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: borderRadius ?? BorderRadius.circular(18),
+                    border: Border.all(
+                      color: tokens.accentPrimary.withOpacity(0.05),
+                      width: 2,
                     ),
                   ),
+                ),
                 Padding(
                   padding: padding ?? const EdgeInsets.all(16),
                   child: child,

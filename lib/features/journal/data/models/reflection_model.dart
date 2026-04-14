@@ -10,10 +10,12 @@ class ReflectionModel extends ReflectionEntity {
 
   factory ReflectionModel.fromJson(Map<String, dynamic> json, String decryptedContent) {
     return ReflectionModel(
-      id: json['id'] as String,
-      userId: json['user_id'] as String,
+      id: json['id'] as String? ?? '',
+      userId: json['user_id'] as String? ?? '',
       content: decryptedContent,
-      createdAt: DateTime.parse(json['created_at'] as String),
+      createdAt: json['created_at'] != null 
+          ? DateTime.parse(json['created_at'] as String) 
+          : DateTime.now(),
     );
   }
 

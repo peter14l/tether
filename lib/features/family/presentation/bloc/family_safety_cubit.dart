@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../../../core/subscription/subscription_service.dart';
 import '../../domain/entities/sos_alert.dart';
 import '../../domain/repositories/family_repository.dart';
 import 'family_safety_state.dart';
@@ -10,21 +12,57 @@ import 'family_safety_state.dart';
 class FamilySafetyCubit extends Cubit<FamilySafetyState> {
   final IFamilyRepository _familyRepository;
   final SupabaseClient _supabaseClient;
+  final ISubscriptionService _subscriptionService;
   StreamSubscription? _sosSubscription;
 
-  FamilySafetyCubit(this._familyRepository, this._supabaseClient) : super(const FamilySafetyState());
+  FamilySafetyCubit(
+    this._familyRepository, 
+    this._supabaseClient,
+    this._subscriptionService,
+  ) : super(const FamilySafetyState());
 
-  Future<void> triggerSos(String circleId, {double? lat, double? lng}) async {
+  Future<void> triggerSos(String circleId) async {
     final userId = _supabaseClient.auth.currentUser?.id;
     if (userId == null) return;
 
+    final isEntitled = await _subscriptionService.checkEntitlement('family_features');
+    if (!isEntitled) {
+      emit(state.copyWith(errorMessage: 'Tether Plus or Family required for SOS alerts.'));
+      return;
+    }
+
     emit(state.copyWith(isSendingSos: true));
+
+    double? lat;
+    double? lng;
+    double? accuracy;
+
+    try {
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
+
+      if (permission == LocationPermission.always || permission == LocationPermission.whileInUse) {
+        final position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high,
+          timeLimit: const Duration(seconds: 10),
+        );
+        lat = position.latitude;
+        lng = position.longitude;
+        accuracy = position.accuracy;
+      }
+    } catch (e) {
+      // If location fails, we still send SOS but without coordinates
+    }
+
     final alert = SosAlertEntity(
       id: '',
       userId: userId,
       circleId: circleId,
       lat: lat,
       lng: lng,
+      accuracy: accuracy,
       sentAt: DateTime.now(),
     );
 

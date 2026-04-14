@@ -13,8 +13,8 @@ class GlassPanel extends StatelessWidget {
   const GlassPanel({
     super.key,
     required this.child,
-    this.blur = 24.0,
-    this.opacity = 0.6,
+    this.blur = 20.0,
+    this.opacity = 0.4,
     this.borderRadius,
     this.color,
     this.border,
@@ -23,6 +23,7 @@ class GlassPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ClipRRect(
       borderRadius: borderRadius ?? BorderRadius.circular(18),
       child: BackdropFilter(
@@ -30,9 +31,12 @@ class GlassPanel extends StatelessWidget {
         child: Container(
           padding: padding,
           decoration: BoxDecoration(
-            color: (color ?? Theme.of(context).colorScheme.surface).withOpacity(opacity),
+            color: (color ?? theme.colorScheme.surface).withOpacity(opacity),
             borderRadius: borderRadius ?? BorderRadius.circular(18),
-            border: border ?? Border.all(color: Theme.of(context).colorScheme.outlineVariant),
+            border: border ?? Border.all(
+              color: theme.colorScheme.outlineVariant.withOpacity(0.18),
+              width: 1,
+            ),
           ),
           child: child,
         ),

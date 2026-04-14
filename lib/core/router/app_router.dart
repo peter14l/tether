@@ -15,6 +15,7 @@ import '../../features/family/presentation/screens/family_dashboard_screen.dart'
 import '../../features/family/presentation/screens/heritage_corner_screen.dart';
 import '../../features/family/presentation/screens/bedtime_stories_screen.dart';
 import '../../features/settings/presentation/screens/settings_screen.dart';
+import '../../features/settings/presentation/screens/subscription_screen.dart';
 import '../../features/monetization/presentation/screens/checkout_screen.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/sign_up_screen.dart';
@@ -31,12 +32,21 @@ final goRouter = GoRouter(
     final authState = getIt<AuthBloc>().state;
     final bool loggingIn = state.matchedLocation == '/login' || state.matchedLocation == '/signup';
 
+    debugPrint('AppRouter: Redirect check - location: ${state.matchedLocation}, authState: ${authState.runtimeType}');
+
     if (authState is Unauthenticated || authState is AuthInitial) {
-      return loggingIn ? null : '/login';
+      if (!loggingIn) {
+        debugPrint('AppRouter: Redirecting to /login');
+        return '/login';
+      }
+      return null;
     }
 
     if (authState is Authenticated) {
-      if (loggingIn) return '/';
+      if (loggingIn) {
+        debugPrint('AppRouter: Redirecting to / (Authenticated)');
+        return '/';
+      }
     }
 
     return null;
@@ -85,6 +95,10 @@ final goRouter = GoRouter(
     GoRoute(
       path: '/checkout',
       builder: (context, state) => const CheckoutScreen(),
+    ),
+    GoRoute(
+      path: '/subscription',
+      builder: (context, state) => const SubscriptionScreen(),
     ),
     GoRoute(
       path: '/messaging/chat/:circleId/:otherUserId',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/widgets/glass_panel.dart';
+import '../../../../core/widgets/whisper_text.dart';
 
 class MoodRoom extends StatelessWidget {
   const MoodRoom({super.key});
@@ -19,27 +20,22 @@ class MoodRoom extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'YOUR SANCTUARY',
-                  style: theme.textTheme.labelSmall?.copyWith(
-                    color: theme.textTheme.labelSmall?.color?.withOpacity(0.6),
-                    letterSpacing: 2,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
+                const WhisperText('YOUR SANCTUARY'),
+                const SizedBox(height: 8),
                 Text(
                   'Mood Room',
-                  style: theme.textTheme.headlineLarge?.copyWith(fontSize: 28),
+                  style: theme.textTheme.displaySmall?.copyWith(
+                    fontStyle: FontStyle.italic,
+                    fontSize: 28,
+                    letterSpacing: -0.5,
+                  ),
                 ),
               ],
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: colorScheme.surfaceContainerLow,
-                borderRadius: BorderRadius.circular(20),
-              ),
+            GlassPanel(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              opacity: 0.1,
+              borderRadius: BorderRadius.circular(20),
               child: Row(
                 children: [
                   Container(
@@ -51,10 +47,7 @@ class MoodRoom extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Text(
-                    'Feed is chronological ✓',
-                    style: theme.textTheme.labelSmall?.copyWith(fontSize: 10),
-                  ),
+                  const WhisperText('Feed is chronological ✓'),
                 ],
               ),
             ),
@@ -65,8 +58,8 @@ class MoodRoom extends StatelessWidget {
           crossAxisCount: 2,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
           childAspectRatio: 1.2,
           children: [
             _MoodButton(
@@ -113,21 +106,29 @@ class _MoodButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     return GlassPanel(
-      opacity: isSelected ? 0.4 : 0.2,
-      border: isSelected ? Border.all(color: color, width: 2) : null,
+      opacity: isSelected ? 0.15 : 0.05,
+      border: isSelected ? Border.all(color: color.withOpacity(0.4), width: 2) : null,
       child: InkWell(
         onTap: () {},
+        borderRadius: BorderRadius.circular(18),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, color: color, size: 28),
+            Icon(
+              icon, 
+              color: isSelected ? color : color.withOpacity(0.6), 
+              size: 32,
+            ),
             const SizedBox(height: 12),
             Text(
               label,
-              style: theme.textTheme.labelLarge?.copyWith(fontSize: 13),
+              style: theme.textTheme.labelLarge?.copyWith(
+                fontSize: 14,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                color: isSelected ? theme.colorScheme.onSurface : theme.colorScheme.onSurface.withOpacity(0.7),
+              ),
               textAlign: TextAlign.center,
             ),
           ],

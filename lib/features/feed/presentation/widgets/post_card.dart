@@ -79,46 +79,45 @@ class PostCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: colorScheme.surfaceContainerLow,
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16),
-              ),
-              border: Border(
-                left: BorderSide(
-                  color: colorScheme.primary.withOpacity(0.2),
-                  width: 2,
+          TetherCard(
+            padding: EdgeInsets.zero,
+            backgroundColor: colorScheme.surfaceContainerLow.withOpacity(0.5),
+            child: Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                border: Border(
+                  left: BorderSide(
+                    color: colorScheme.primary.withOpacity(0.18),
+                    width: 3,
+                  ),
                 ),
               ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (post.contentType == 'text' && post.contentText != null)
-                  Text(
-                    post.contentText!,
-                    style: theme.textTheme.bodyLarge?.copyWith(
-                      height: 1.6,
-                      color: colorScheme.onSurface.withOpacity(0.9),
-                    ),
-                  ),
-                if (post.contentType == 'image' && post.mediaUrl != null)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 12),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.network(
-                        post.mediaUrl!,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (post.contentType == 'text' && post.contentText != null)
+                    Text(
+                      post.contentText!,
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        height: 1.6,
+                        color: colorScheme.onSurface.withOpacity(0.9),
+                        fontSize: 16,
                       ),
                     ),
-                  ),
-              ],
+                  if (post.contentType == 'image' && post.mediaUrl != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(14),
+                        child: Image.network(
+                          post.mediaUrl!,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 16),
