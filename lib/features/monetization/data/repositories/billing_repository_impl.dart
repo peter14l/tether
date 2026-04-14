@@ -1,40 +1,96 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:injectable/injectable.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:purchases_ui_flutter/purchases_ui_flutter.dart';
+
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import '../../../../core/config/env_config.dart';
 import '../../../../core/error/failures.dart';
 import '../../domain/repositories/billing_repository.dart';
 
 @LazySingleton(as: IBillingRepository)
 class BillingRepositoryImpl implements IBillingRepository {
   Razorpay? _razorpay;
-  StreamSubscription<List<PurchaseDetails>>? _iapSubscription;
-
-  Completer<Either<Failure, void>>? _pendingCompleter;
+  final _customerInfoController = StreamController<CustomerInfo>.broadcast();
 
   BillingRepositoryImpl() {
-    _initIAP();
+    _initRevenueCat();
   }
 
-  void _initIAP() {
-    final purchaseStream = InAppPurchase.instance.purchaseStream;
-    _iapSubscription = purchaseStream.listen(_handlePurchaseUpdate);
-  }
-
-  void _handlePurchaseUpdate(List<PurchaseDetails> purchases) {
-    for (final purchase in purchases) {
-      if (purchase.status == PurchaseStatus.purchased ||
-          purchase.status == PurchaseStatus.restored) {
-        InAppPurchase.instance.completePurchase(purchase);
-        _pendingCompleter?.complete(const Right(null));
-        _pendingCompleter = null;
-      } else if (purchase.status == PurchaseStatus.error) {
-        _pendingCompleter?.complete(
-          Left(ServerFailure(purchase.error?.message ?? 'Purchase failed')),
-        );
-        _pendingCompleter = null;
+  Future<void> _initRevenueCat() async {
+    try {
+      String apiKey = '';
+      if (Platform.isAndroid) {
+        apiKey = EnvConfig.revenueCatAndroidApiKey;
+      } else if (Platform.isIOS) {
+        apiKey = EnvConfig.revenueCatIosApiKey;
       }
+
+      if (apiKey.isNotEmpty) {
+        final configuration = PurchasesConfiguration(apiKey);
+        await Purchases.configure(configuration);
+        
+        // Listen for customer info updates
+        Purchases.addCustomerInfoUpdateListener((customerInfo) {
+          _customerInfoController.add(customerInfo);
+        });
+        
+        // Get initial customer info
+        final customerInfo = await Purchases.getCustomerInfo();
+        _customerInfoController.add(customerInfo);
+      }
+    } catch (e) {
+      // Log error but don't crash
+    }
+  }
+
+  @override
+  Stream<CustomerInfo> get customerInfoStream => _customerInfoController.stream;
+
+  @override
+  Future<void> identify(String userId) async {
+    try {
+      final customerInfo = await Purchases.logIn(userId);
+      _customerInfoController.add(customerInfo.customerInfo);
+    } catch (_) {}
+  }
+
+  @override
+  Future<void> reset() async {
+    try {
+      final customerInfo = await Purchases.logOut();
+      _customerInfoController.add(customerInfo);
+    } catch (_) {}
+  }
+
+  @override
+  Future<bool> isPro() async {
+    try {
+      final customerInfo = await Purchases.getCustomerInfo();
+      return customerInfo.entitlements.all['Oasis Pro']?.isActive ?? false;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  @override
+  Future<void> showPaywall() async {
+    try {
+      await RevenueCatUI.presentPaywall();
+    } catch (e) {
+      // Handle or log error
+    }
+  }
+
+  @override
+  Future<void> showCustomerCenter() async {
+    try {
+      await RevenueCatUI.presentCustomerCenter();
+    } catch (e) {
+      // Handle or log error
     }
   }
 
@@ -47,36 +103,57 @@ class BillingRepositoryImpl implements IBillingRepository {
       if (method == PaymentMethod.razorpay) {
         return _purchaseViaRazorpay();
       } else {
-        return _purchaseViaIAP(productId ?? 'tether_plus_monthly');
+        return _purchaseViaRevenueCat(productId);
       }
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
   }
 
-  Future<Either<Failure, void>> _purchaseViaIAP(String productId) async {
-    final available = await InAppPurchase.instance.isAvailable();
-    if (!available) {
-      return const Left(ServerFailure('In-App Purchase not available on this device.'));
+  Future<Either<Failure, void>> _purchaseViaRevenueCat(String? productId) async {
+    try {
+      final offerings = await Purchases.getOfferings();
+      
+      Package? packageToBuy;
+      
+      if (productId != null) {
+        // Try to find specific product in current offering
+        for (final pkg in offerings.current?.availablePackages ?? []) {
+          if (pkg.storeProduct.identifier == productId) {
+            packageToBuy = pkg;
+            break;
+          }
+        }
+      } else {
+        // Default to monthly package in current offering
+        packageToBuy = offerings.current?.monthly;
+      }
+
+      if (packageToBuy == null) {
+        return const Left(ServerFailure('No applicable subscription package found.'));
+      }
+
+      final result = await Purchases.purchasePackage(packageToBuy);
+      final customerInfo = result.customerInfo;
+      _customerInfoController.add(customerInfo);
+      
+      // Check if entitlement 'Oasis Pro' is active
+      final isEntitled = customerInfo.entitlements.all['Oasis Pro']?.isActive ?? false;
+      
+      if (isEntitled) {
+        return const Right(null);
+      } else {
+        return const Left(ServerFailure('Subscription not activated. Please check your payment method.'));
+      }
+    } on PlatformException catch (e) {
+      final errorCode = PurchasesErrorHelper.getErrorCode(e);
+      if (errorCode == PurchasesErrorCode.purchaseCancelledError) {
+        return const Left(AuthFailure('Purchase cancelled by user.'));
+      }
+      return Left(ServerFailure(e.message ?? 'RevenueCat purchase failed.'));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
     }
-
-    final response = await InAppPurchase.instance.queryProductDetails({productId});
-    if (response.notFoundIDs.isNotEmpty || response.productDetails.isEmpty) {
-      return Left(ServerFailure('Product "$productId" not found in store.'));
-    }
-
-    final purchaseParam = PurchaseParam(
-      productDetails: response.productDetails.first,
-    );
-
-    _pendingCompleter = Completer<Either<Failure, void>>();
-    await InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
-
-    // Await result from stream listener with a timeout
-    return _pendingCompleter!.future.timeout(
-      const Duration(minutes: 2),
-      onTimeout: () => const Left(ServerFailure('Purchase timed out. Please try again.')),
-    );
   }
 
   Future<Either<Failure, void>> _purchaseViaRazorpay() async {
@@ -93,13 +170,13 @@ class BillingRepositoryImpl implements IBillingRepository {
     });
 
     _razorpay!.on(Razorpay.EVENT_EXTERNAL_WALLET, (ExternalWalletResponse response) {
-      completer.complete(const Right(null)); // treat external wallet as success
+      completer.complete(const Right(null));
     });
 
     final options = {
-      'key': 'YOUR_RAZORPAY_KEY_ID', // Replace with actual key from env
-      'amount': 49900, // Amount in paise (₹499)
-      'name': 'Tether Plus',
+      'key': EnvConfig.razorpayKeyId.isNotEmpty ? EnvConfig.razorpayKeyId : 'YOUR_RAZORPAY_KEY_ID',
+      'amount': 49900,
+      'name': 'Oasis Pro',
       'description': 'Monthly Premium Subscription',
       'prefill': {'contact': '', 'email': ''},
     };
@@ -110,7 +187,7 @@ class BillingRepositoryImpl implements IBillingRepository {
 
   @override
   void dispose() {
-    _iapSubscription?.cancel();
     _razorpay?.clear();
+    _customerInfoController.close();
   }
 }

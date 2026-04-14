@@ -8,6 +8,11 @@ import 'package:tether/core/widgets/whisper_text.dart';
 import 'package:tether/core/widgets/glass_panel.dart';
 import 'package:tether/core/security/biometric_service.dart';
 import 'package:tether/injection_container.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:tether/features/monetization/domain/repositories/billing_repository.dart';
+import 'package:tether/features/monetization/domain/repositories/billing_method.dart';
+import 'package:tether/core/error/failures.dart';
+import 'package:fpdart/fpdart.dart' hide State;
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -88,7 +93,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         color: cs.primary,
         borderRadius: BorderRadius.circular(16),
         child: InkWell(
-          onTap: () => context.push('/checkout'),
+          onTap: () => getIt<IBillingRepository>().showPaywall(),
           borderRadius: BorderRadius.circular(16),
           child: Padding(
             padding: const EdgeInsets.all(16),
@@ -108,7 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Upgrade to Tether Plus',
+                        'Upgrade to Oasis Pro',
                         style: TextStyle(
                           color: cs.onPrimary,
                           fontWeight: FontWeight.bold,
@@ -116,10 +121,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                       ),
                       const SizedBox(height: 2),
-                      Text(
+                      const Text(
                         'Unlock unlimited circles & more',
                         style: TextStyle(
-                          color: cs.onPrimary.withValues(alpha: 0.8),
+                          color: Colors.white70,
                           fontSize: 12,
                         ),
                       ),
@@ -266,6 +271,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return const _WellnessSection();
       case 3:
         return const _SafeSpaceSection();
+      case 4:
+        return const _SubscriptionSection();
       default:
         return const SizedBox.shrink();
     }
@@ -276,6 +283,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     (icon: Icons.notifications, label: 'Notifications'),
     (icon: Icons.favorite, label: 'Wellness'),
     (icon: Icons.lock, label: 'Safe Space'),
+    (icon: Icons.card_membership, label: 'Subscription'),
   ];
 }
 
@@ -885,6 +893,94 @@ class _ReferenceSheet extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _SubscriptionSection extends StatelessWidget {
+  const _SubscriptionSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Icons.card_membership, color: colorScheme.primary),
+            const SizedBox(width: 12),
+            Text(
+              'Oasis Pro',
+              style: theme.textTheme.headlineMedium?.copyWith(fontSize: 24),
+            ),
+          ],
+        ),
+        const SizedBox(height: 32),
+        StreamBuilder<CustomerInfo>(
+          stream: getIt<IBillingRepository>().customerInfoStream,
+          builder: (context, snapshot) {
+            final isPro = snapshot.data?.entitlements.all['Oasis Pro']?.isActive ?? false;
+            
+            return Column(
+              children: [
+                _SettingsCard(
+                  title: isPro ? 'Premium Active' : 'Basic Member',
+                  description: isPro 
+                    ? 'You have full access to all Sanctuary features. Thank you for your support!'
+                    : 'Upgrade to Oasis Pro to unlock unlimited circles, advanced wellness insights, and more.',
+                  icon: isPro ? Icons.verified_rounded : Icons.info_outline,
+                  iconColor: isPro ? Colors.amber : colorScheme.primary,
+                ),
+                const SizedBox(height: 24),
+                if (isPro) ...[
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(56),
+                    ),
+                    onPressed: () => getIt<IBillingRepository>().showCustomerCenter(),
+                    icon: const Icon(Icons.settings_outlined),
+                    label: const Text('Manage Subscription'),
+                  ),
+                ] else ...[
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(56),
+                      backgroundColor: colorScheme.primary,
+                      foregroundColor: colorScheme.onPrimary,
+                    ),
+                    onPressed: () => getIt<IBillingRepository>().showPaywall(),
+                    icon: const Icon(Icons.star_rounded),
+                    label: const Text('Upgrade to Pro'),
+                  ),
+                ],
+                const SizedBox(height: 16),
+                TextButton(
+                  onPressed: () async {
+                    try {
+                      await Purchases.restorePurchases();
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Purchases restored successfully')),
+                        );
+                      }
+                    } catch (e) {
+                       if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Failed to restore purchases')),
+                        );
+                      }
+                    }
+                  },
+                  child: const WhisperText('Restore Purchases'),
+                ),
+              ],
+            );
+          },
+        ),
+      ],
     );
   }
 }

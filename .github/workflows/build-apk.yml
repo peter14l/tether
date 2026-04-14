@@ -41,7 +41,9 @@ jobs:
             --dart-define=RAZORPAY_KEY_ID=${{ secrets.RAZORPAY_KEY_ID }} \
             --dart-define=RAZORPAY_KEY_SECRET=${{ secrets.RAZORPAY_KEY_SECRET }} \
             --dart-define=SENTRY_DSN=${{ secrets.SENTRY_DSN }} \
-            --dart-define=APP_ENV=production
+            --dart-define=APP_ENV=production \
+            --dart-define=REVENUECAT_ANDROID_KEY=${{ secrets.REVENUECAT_ANDROID_KEY }} \
+            --dart-define=REVENUECAT_IOS_KEY=${{ secrets.REVENUECAT_IOS_KEY }}
 
       - name: Sign APKs
         uses: r0adkll/sign-android-release@v1

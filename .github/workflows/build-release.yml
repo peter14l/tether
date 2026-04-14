@@ -74,6 +74,8 @@ jobs:
           echo "RAZORPAY_KEY_SECRET=$RAZORPAY_KEY_SECRET" >> .env
           echo "SENTRY_DSN=$SENTRY_DSN" >> .env
           echo "APP_ENV=$APP_ENV" >> .env
+          echo "REVENUECAT_ANDROID_KEY=${{ secrets.REVENUECAT_ANDROID_KEY }}" >> .env
+          echo "REVENUECAT_IOS_KEY=${{ secrets.REVENUECAT_IOS_KEY }}" >> .env
 
       - name: Decode Android Keystore
         env:

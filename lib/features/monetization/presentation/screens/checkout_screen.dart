@@ -60,94 +60,44 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     return Scaffold(
       backgroundColor: cs.surfaceContainerLowest,
       appBar: AppBar(
-        title: const Text('Tether Plus'),
+        title: const Text('Oasis Pro'),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
       ),
-      body: SafeArea(
+      body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Hero section
-              _HeroSection(cs: cs, tt: tt),
-
-              const SizedBox(height: 32),
-
-              // Feature pills
-              _FeatureList(cs: cs),
-
-              const Spacer(),
-
-              // Pricing
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: cs.surfaceContainer,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: cs.outline.withOpacity(0.2)),
-                ),
-                child: Column(
-                  children: [
-                    Text(
-                      '₹499 / month',
-                      style: tt.headlineMedium?.copyWith(
-                        color: cs.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Cancel anytime · No hidden fees',
-                      style: tt.bodySmall?.copyWith(color: cs.onSurface.withOpacity(0.6)),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              // Primary: App Store / Google Play button
-              _PaymentButton(
-                label: 'Pay via App Store / Google Play',
-                sublabel: 'Managed by Apple or Google',
-                icon: Icons.shop_outlined,
-                isPrimary: true,
-                isLoading: _isLoading && _selectedMethod == PaymentMethod.native,
-                disabled: _isLoading,
-                onTap: () => _handlePurchase(PaymentMethod.native),
-                cs: cs,
-                tt: tt,
-              ),
-
-              const SizedBox(height: 12),
-
-              // Alternative: Razorpay
-              _PaymentButton(
-                label: 'Alternative Checkout',
-                sublabel: 'Pay with UPI, Cards, Net Banking via Razorpay',
-                icon: Icons.payment_outlined,
-                isPrimary: false,
-                isLoading: _isLoading && _selectedMethod == PaymentMethod.razorpay,
-                disabled: _isLoading,
-                onTap: () => _handlePurchase(PaymentMethod.razorpay),
-                cs: cs,
-                tt: tt,
-              ),
-
-              const SizedBox(height: 20),
-
+              Icon(Icons.star_rounded, size: 80, color: cs.primary),
+              const SizedBox(height: 24),
               Text(
-                'By subscribing, you agree to our Terms of Service and Privacy Policy.',
-                textAlign: TextAlign.center,
-                style: tt.bodySmall?.copyWith(
-                  color: cs.onSurface.withOpacity(0.45),
-                ),
+                'Unlock Oasis Pro',
+                style: tt.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
               ),
-
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
+              Text(
+                'Get unlimited circles, advanced wellness tracking, and custom sanctuary themes.',
+                textAlign: TextAlign.center,
+                style: tt.bodyLarge?.copyWith(color: cs.onSurfaceVariant),
+              ),
+              const SizedBox(height: 48),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(56),
+                  backgroundColor: cs.primary,
+                  foregroundColor: cs.onPrimary,
+                ),
+                onPressed: () => GetIt.I<IBillingRepository>().showPaywall(),
+                child: const Text('View Plans'),
+              ),
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Maybe Later'),
+              ),
             ],
           ),
         ),

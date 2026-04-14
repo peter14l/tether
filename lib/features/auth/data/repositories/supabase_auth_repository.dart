@@ -5,6 +5,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../core/error/failures.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../../../../injection_container.dart';
+import '../../../monetization/domain/repositories/billing_repository.dart';
 import '../models/user_model.dart';
 
 @LazySingleton(as: IAuthRepository)
@@ -43,7 +45,9 @@ class SupabaseAuthRepository implements IAuthRepository {
         'updated_at': DateTime.now().toIso8601String(),
       };
 
-      return Right(UserModel.fromJson(profile, email));
+      final userEntity = UserModel.fromJson(profile, email);
+      unawaited(getIt<IBillingRepository>().identify(user.id));
+      return Right(userEntity);
     } catch (e) {
       return Left(AuthFailure(e.toString()));
     }
@@ -71,8 +75,9 @@ class SupabaseAuthRepository implements IAuthRepository {
           .eq('id', user.id)
           .maybeSingle();
 
+      dynamic newProfile;
       if (profileResponse == null) {
-        final newProfile = {
+        newProfile = {
           'id': user.id,
           'username': email.split('@').first,
           'display_name': email.split('@').first,
@@ -80,12 +85,11 @@ class SupabaseAuthRepository implements IAuthRepository {
           'updated_at': DateTime.now().toIso8601String(),
         };
         await _client.from('profiles').insert(newProfile);
-        final tier = await _fetchSubscriptionTier(user.id);
-        return Right(UserModel.fromJson(newProfile, email, tier: tier));
       }
 
       final tier = await _fetchSubscriptionTier(user.id);
-      return Right(UserModel.fromJson(profileResponse, email, tier: tier));
+      unawaited(getIt<IBillingRepository>().identify(user.id));
+      return Right(UserModel.fromJson(profileResponse ?? newProfile, email, tier: tier));
     } catch (e) {
       return Left(AuthFailure(e.toString()));
     }
@@ -95,6 +99,7 @@ class SupabaseAuthRepository implements IAuthRepository {
   Future<Either<Failure, void>> signOut() async {
     try {
       await _client.auth.signOut();
+      unawaited(getIt<IBillingRepository>().reset());
       return const Right(null);
     } catch (e) {
       return Left(AuthFailure(e.toString()));
@@ -118,6 +123,7 @@ class SupabaseAuthRepository implements IAuthRepository {
 
         if (profileResponse != null) {
           final tier = await _fetchSubscriptionTier(user.id);
+          unawaited(getIt<IBillingRepository>().identify(user.id));
           return Right(UserModel.fromJson(profileResponse, user.email ?? '', tier: tier));
         }
         
@@ -148,6 +154,7 @@ class SupabaseAuthRepository implements IAuthRepository {
 
           if (profileResponse != null) {
             final tier = await _fetchSubscriptionTier(user.id);
+            unawaited(getIt<IBillingRepository>().identify(user.id));
             return UserModel.fromJson(profileResponse, user.email ?? '', tier: tier);
           }
           
