@@ -4,20 +4,36 @@ import 'package:flutter/foundation.dart';
 class EnvConfig {
   static String get _rawSupabaseUrl =>
       const String.fromEnvironment('SUPABASE_URL');
-  static String get supabaseUrl => _rawSupabaseUrl.isEmpty
-      ? 'https://uqkkhpunwuvkwaqdqqtw.supabase.co'
-      : _rawSupabaseUrl;
+  static String get supabaseUrl {
+    if (_rawSupabaseUrl.isEmpty) {
+      throw Exception(
+        'SUPABASE_URL is required. Set via --dart-define=SUPABASE_URL=...',
+      );
+    }
+    return _rawSupabaseUrl;
+  }
 
   static String get _rawSupabaseKey =>
       const String.fromEnvironment('SUPABASE_PUBLISHABLE_KEY');
-  static String get supabasePublishableKey => _rawSupabaseKey.isEmpty
-      ? 'sb_publishable_NB5BNnLb-yw5MXgYxsgHEg_PNVb1vU'
-      : _rawSupabaseKey;
+  static String get supabasePublishableKey {
+    if (_rawSupabaseKey.isEmpty) {
+      throw Exception(
+        'SUPABASE_PUBLISHABLE_KEY is required. Set via --dart-define=SUPABASE_PUBLISHABLE_KEY=...',
+      );
+    }
+    return _rawSupabaseKey;
+  }
 
   static String get _rawRazorpayId =>
       const String.fromEnvironment('RAZORPAY_KEY_ID');
-  static String get razorpayKeyId =>
-      _rawRazorpayId.isEmpty ? '' : _rawRazorpayId;
+  static String get razorpayKeyId {
+    if (_rawRazorpayId.isEmpty) {
+      throw Exception(
+        'RAZORPAY_KEY_ID is required. Set via --dart-define=RAZORPAY_KEY_ID=...',
+      );
+    }
+    return _rawRazorpayId;
+  }
 
   static String get _rawRazorpaySecret =>
       const String.fromEnvironment('RAZORPAY_KEY_SECRET');
@@ -32,12 +48,25 @@ class EnvConfig {
 
   static String get _rawRcAndroid =>
       const String.fromEnvironment('REVENUECAT_ANDROID_KEY');
-  static String get revenueCatAndroidApiKey =>
-      _rawRcAndroid.isEmpty ? '' : _rawRcAndroid;
+  static String get revenueCatAndroidApiKey {
+    if (_rawRcAndroid.isEmpty) {
+      throw Exception(
+        'REVENUECAT_ANDROID_KEY is required. Set via --dart-define=REVENUECAT_ANDROID_KEY=...',
+      );
+    }
+    return _rawRcAndroid;
+  }
 
   static String get _rawRcIos =>
       const String.fromEnvironment('REVENUECAT_IOS_KEY');
-  static String get revenueCatIosApiKey => _rawRcIos.isEmpty ? '' : _rawRcIos;
+  static String get revenueCatIosApiKey {
+    if (_rawRcIos.isEmpty) {
+      throw Exception(
+        'REVENUECAT_IOS_KEY is required. Set via --dart-define=REVENUECAT_IOS_KEY=...',
+      );
+    }
+    return _rawRcIos;
+  }
 
   static bool get isRevenueCatEnabled {
     final key = kIsWeb

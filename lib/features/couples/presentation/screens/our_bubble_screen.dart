@@ -30,8 +30,14 @@ class _OurBubbleScreenState extends State<OurBubbleScreen> {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => getIt<CoupleBubbleCubit>()..loadBubble(widget.circleId)),
-        BlocProvider(create: (context) => getIt<CircleMemberCubit>()..loadMembers(widget.circleId)),
+        BlocProvider(
+          create: (context) =>
+              getIt<CoupleBubbleCubit>()..loadBubble(widget.circleId),
+        ),
+        BlocProvider(
+          create: (context) =>
+              getIt<CircleMemberCubit>()..loadMembers(widget.circleId),
+        ),
       ],
       child: Scaffold(
         body: Stack(
@@ -70,7 +76,10 @@ class _OurBubbleScreenState extends State<OurBubbleScreen> {
                   surfaceTintColor: Colors.transparent,
                   flexibleSpace: ClipRect(
                     child: BackdropFilter(
-                      filter: ColorFilter.mode(colorScheme.surface.withOpacity(0.8), BlendMode.srcOver),
+                      filter: ColorFilter.mode(
+                        colorScheme.surface.withOpacity(0.8),
+                        BlendMode.srcOver,
+                      ),
                       child: Container(color: Colors.transparent),
                     ),
                   ),
@@ -91,7 +100,8 @@ class _OurBubbleScreenState extends State<OurBubbleScreen> {
                     Padding(
                       padding: const EdgeInsets.only(right: 24),
                       child: SquircleAvatar(
-                        imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAcJfry8HNWQrKeOk3f7p1H6nXJVmr1ZuBaPuuQXb6xi1iWm--PQLHvBqYu-wupO1_AaoL5WuZnYmsB8fgR5PQyJTHRhZExAB3lAs8SWp-7Y_1Ee5KH_9IgoW8VJzA1YhE2We0IiZEnGfpX5gMr79hJEEW5epeymvaojqgoWJjSJS1ppFbgwsYzb1tC-LwTioHI2Zp2QLm94SLFGcZO0gVUbbbc8YRlcgIHnrowbrHheLQNhzTlF6kbD49F-skJeOgfb9LTP6ISQxGJ',
+                        imageUrl:
+                            'https://lh3.googleusercontent.com/aida-public/AB6AXuAcJfry8HNWQrKeOk3f7p1H6nXJVmr1ZuBaPuuQXb6xi1iWm--PQLHvBqYu-wupO1_AaoL5WuZnYmsB8fgR5PQyJTHRhZExAB3lAs8SWp-7Y_1Ee5KH_9IgoW8VJzA1YhE2We0IiZEnGfpX5gMr79hJEEW5epeymvaojqgoWJjSJS1ppFbgwsYzb1tC-LwTioHI2Zp2QLm94SLFGcZO0gVUbbbc8YRlcgIHnrowbrHheLQNhzTlF6kbD49F-skJeOgfb9LTP6ISQxGJ',
                         size: 40,
                         borderColor: colorScheme.primary.withOpacity(0.2),
                         borderWidth: 2,
@@ -144,7 +154,8 @@ class _PartnerConnectionHeader extends StatelessWidget {
             Transform.rotate(
               angle: -0.1, // ~ -6 degrees
               child: SquircleAvatar(
-                imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDNgpfU_NMOMmoBikuoBGqUIZQePbPJaRyNzSTT5VK1IiYmrS8PnDxnu1rtdhEu942lMY1fcaTb22cbrNDZvVNrteX-JYntQz1z4wFyVEQvKg3UH7gRVuBZvzyQbeC9wc0a2e1HU3iea8vO0amD7vpgJJkiyrY3VYXZ7JoxXCT0wzGq4HNuAdxzrK2n3Zs1FTcgvcRpqldx95ZHLUMJRpA_MHJltnjv0DkPodeKWtf8okpFDG8-sDgTRVC_-LzZusZV_7UfSM8UJ2Ns',
+                imageUrl:
+                    'https://lh3.googleusercontent.com/aida-public/AB6AXuDNgpfU_NMOMmoBikuoBGqUIZQePbPJaRyNzSTT5VK1IiYmrS8PnDxnu1rtdhEu942lMY1fcaTb22cbrNDZvVNrteX-JYntQz1z4wFyVEQvKg3UH7gRVuBZvzyQbeC9wc0a2e1HU3iea8vO0amD7vpgJJkiyrY3VYXZ7JoxXCT0wzGq4HNuAdxzrK2n3Zs1FTcgvcRpqldx95ZHLUMJRpA_MHJltnjv0DkPodeKWtf8okpFDG8-sDgTRVC_-LzZusZV_7UfSM8UJ2Ns',
                 size: 80,
                 borderColor: colorScheme.primary.withOpacity(0.3),
                 borderWidth: 3,
@@ -173,9 +184,7 @@ class _PartnerConnectionHeader extends StatelessWidget {
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(color: Colors.white, blurRadius: 8),
-                    ],
+                    boxShadow: [BoxShadow(color: Colors.white, blurRadius: 8)],
                   ),
                 ),
               ),
@@ -184,7 +193,8 @@ class _PartnerConnectionHeader extends StatelessWidget {
             Transform.rotate(
               angle: 0.1, // ~ 6 degrees
               child: SquircleAvatar(
-                imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBavUan9U-uHAG1PIbJIvhFCIqyfwKQ7eIuwCH9FmEASLiFpd6C3AN7BZeJegVcbQBNyx0qpqD7fzDWUeNQb5q0P7SUCzlhd7fmjMjy7xIYJbs8kv_Yl_bcCW9wLORo3FArCM2cgw4FOJeMj8QBnNsI6ndkSKXmy4Ou2qiDBwslCjyzfAie1VKpfvCG3hJO67_tsejc1fYUS4AN9n9v4KTeivWpxHvnWZk54VjfM-P64raD2q4KAcwksDacqA_8-7c8uyjn181sl_Um',
+                imageUrl:
+                    'https://lh3.googleusercontent.com/aida-public/AB6AXuBavUan9U-uHAG1PIbJIvhFCIqyfwKQ7eIuwCH9FmEASLiFpd6C3AN7BZeJegVcbQBNyx0qpqD7fzDWUeNQb5q0P7SUCzlhd7fmjMjy7xIYJbs8kv_Yl_bcCW9wLORo3FArCM2cgw4FOJeMj8QBnNsI6ndkSKXmy4Ou2qiDBwslCjyzfAie1VKpfvCG3hJO67_tsejc1fYUS4AN9n9v4KTeivWpxHvnWZk54VjfM-P64raD2q4KAcwksDacqA_8-7c8uyjn181sl_Um',
                 size: 80,
                 borderColor: colorScheme.secondary.withOpacity(0.3),
                 borderWidth: 3,
@@ -223,12 +233,37 @@ class _BentoGrid extends StatelessWidget {
       mainAxisSpacing: 16,
       crossAxisSpacing: 16,
       children: [
-        const _BentoCard(icon: Icons.photo_library_outlined, label: 'Gallery', color: Colors.orange),
-        const _BentoCard(icon: Icons.music_note_outlined, label: 'Song', color: Colors.pink),
-        const _BentoCard(icon: Icons.auto_awesome_outlined, label: 'Memories', color: Colors.amber, isDouble: true),
-        const _BentoCard(icon: Icons.mail_outline, label: 'Letters', color: Colors.orangeAccent),
-        const _BentoCard(icon: Icons.calendar_today_outlined, label: 'Planner', color: Colors.pinkAccent),
-        const _BentoCard(icon: Icons.verified_outlined, label: 'Promises', color: Colors.amberAccent),
+        const _BentoCard(
+          icon: Icons.photo_library_outlined,
+          label: 'Gallery',
+          color: Colors.orange,
+        ),
+        const _BentoCard(
+          icon: Icons.music_note_outlined,
+          label: 'Song',
+          color: Colors.pink,
+        ),
+        const _BentoCard(
+          icon: Icons.auto_awesome_outlined,
+          label: 'Memories',
+          color: Colors.amber,
+          isDouble: true,
+        ),
+        const _BentoCard(
+          icon: Icons.mail_outline,
+          label: 'Letters',
+          color: Colors.orangeAccent,
+        ),
+        const _BentoCard(
+          icon: Icons.calendar_today_outlined,
+          label: 'Planner',
+          color: Colors.pinkAccent,
+        ),
+        const _BentoCard(
+          icon: Icons.verified_outlined,
+          label: 'Promises',
+          color: Colors.amberAccent,
+        ),
       ],
     );
   }
@@ -241,9 +276,9 @@ class _BentoCard extends StatelessWidget {
   final bool isDouble;
 
   const _BentoCard({
-    required this.icon, 
-    required this.label, 
-    required this.color, 
+    required this.icon,
+    required this.label,
+    required this.color,
     this.isDouble = false,
   });
 
@@ -257,19 +292,15 @@ class _BentoCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon, 
-              color: color.withOpacity(0.8), 
-              size: isDouble ? 36 : 28,
-            ),
+            Icon(icon, color: color.withOpacity(0.8), size: isDouble ? 36 : 28),
             const SizedBox(height: 12),
             Text(
-              label, 
+              label,
               style: const TextStyle(
-                fontSize: 12, 
+                fontSize: 12,
                 fontWeight: FontWeight.w500,
                 letterSpacing: 0.2,
-              ), 
+              ),
               textAlign: TextAlign.center,
             ),
           ],
@@ -293,7 +324,7 @@ class _HeartbeatSection extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Pulse of us', 
+            'Pulse of us',
             style: theme.textTheme.headlineSmall?.copyWith(
               fontStyle: FontStyle.italic,
             ),
@@ -326,8 +357,8 @@ class _HeartbeatSection extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
-                  Icons.favorite_outlined, 
-                  color: colorScheme.secondary, 
+                  Icons.favorite_outlined,
+                  color: colorScheme.secondary,
                   size: 56,
                 ),
               ),
@@ -378,7 +409,7 @@ class _AnniversaryCountdown extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: Text(
-                  'days left', 
+                  'days left',
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontStyle: FontStyle.italic,
                     color: colorScheme.onSurfaceVariant.withOpacity(0.6),
@@ -395,7 +426,8 @@ class _AnniversaryCountdown extends StatelessWidget {
                 Transform.translate(
                   offset: Offset(i * -16.0, 0),
                   child: SquircleAvatar(
-                    imageUrl: 'https://via.placeholder.com/150',
+                    imageUrl:
+                        'https://ui-avatars.com/api/?name=Partner&background=6366f1&color=fff&size=150',
                     size: 56,
                     borderColor: colorScheme.surface,
                     borderWidth: 3,
@@ -428,7 +460,7 @@ class _PromiseRings extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: colorScheme.tertiary.withOpacity(0.3), 
+                  color: colorScheme.tertiary.withOpacity(0.3),
                   width: 4,
                 ),
               ),
@@ -441,7 +473,7 @@ class _PromiseRings extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: colorScheme.tertiary.withOpacity(0.3), 
+                    color: colorScheme.tertiary.withOpacity(0.3),
                     width: 4,
                   ),
                 ),
@@ -451,7 +483,7 @@ class _PromiseRings extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         Text(
-          'I choose you today 💍', 
+          'I choose you today 💍',
           style: theme.textTheme.headlineSmall?.copyWith(
             fontStyle: FontStyle.italic,
           ),
@@ -482,10 +514,10 @@ class _SpaceToBreathe extends StatelessWidget {
               Icon(Icons.nature_people_outlined, color: Color(0xFFA8C5A0)),
               SizedBox(width: 12),
               Text(
-                'Space to Breathe', 
+                'Space to Breathe',
                 style: TextStyle(
-                  color: Color(0xFFA8C5A0), 
-                  fontSize: 20, 
+                  color: Color(0xFFA8C5A0),
+                  fontSize: 20,
                   fontStyle: FontStyle.italic,
                   fontWeight: FontWeight.w600,
                 ),
@@ -493,10 +525,7 @@ class _SpaceToBreathe extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 24),
-          const WhisperText(
-            '"I need space, but I love you"', 
-            fontSize: 14,
-          ),
+          const WhisperText('"I need space, but I love you"', fontSize: 14),
           const SizedBox(height: 32),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -527,7 +556,9 @@ class _SpaceChip extends StatelessWidget {
       margin: const EdgeInsets.only(right: 12),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       decoration: BoxDecoration(
-        color: isSelected ? const Color(0xFFA8C5A0).withOpacity(0.15) : Colors.transparent,
+        color: isSelected
+            ? const Color(0xFFA8C5A0).withOpacity(0.15)
+            : Colors.transparent,
         borderRadius: BorderRadius.circular(32),
         border: Border.all(
           color: const Color(0xFFA8C5A0).withOpacity(isSelected ? 0.4 : 0.15),
@@ -535,9 +566,9 @@ class _SpaceChip extends StatelessWidget {
         ),
       ),
       child: Text(
-        label, 
+        label,
         style: const TextStyle(
-          color: Colors.white70, 
+          color: Colors.white70,
           fontSize: 13,
           fontWeight: FontWeight.w500,
         ),
@@ -564,7 +595,7 @@ class _PrivateJokesVault extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Just between us.', 
+                  'Just between us.',
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontStyle: FontStyle.italic,
                     fontSize: 24,
@@ -578,7 +609,10 @@ class _PrivateJokesVault extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               opacity: 0.1,
               borderRadius: BorderRadius.circular(32),
-              child: Icon(Icons.emoji_emotions_outlined, color: colorScheme.secondary),
+              child: Icon(
+                Icons.emoji_emotions_outlined,
+                color: colorScheme.secondary,
+              ),
             ),
           ],
         ),
@@ -597,7 +631,8 @@ class _PrivateJokesVault extends StatelessWidget {
                 fit: StackFit.expand,
                 children: [
                   const SlowPhoto(
-                    imageUrl: 'https://via.placeholder.com/300', 
+                    imageUrl:
+                        'https://images.unsplash.com/photo-1516571748831-5d81767e0441?w=300&h=300&fit=crop',
                     opacity: 0.4,
                   ),
                   Positioned(
@@ -605,7 +640,7 @@ class _PrivateJokesVault extends StatelessWidget {
                     left: 16,
                     right: 16,
                     child: Text(
-                      "The 'Wait for it' dog...", 
+                      "The 'Wait for it' dog...",
                       style: theme.textTheme.labelLarge?.copyWith(fontSize: 12),
                     ),
                   ),
@@ -619,8 +654,8 @@ class _PrivateJokesVault extends StatelessWidget {
                 child: Text(
                   '"Remember the 4am toast catastrophe of 2023?"',
                   style: TextStyle(
-                    fontStyle: FontStyle.italic, 
-                    fontSize: 14, 
+                    fontStyle: FontStyle.italic,
+                    fontSize: 14,
                     color: Colors.pinkAccent,
                     height: 1.5,
                   ),
@@ -634,4 +669,3 @@ class _PrivateJokesVault extends StatelessWidget {
     );
   }
 }
-

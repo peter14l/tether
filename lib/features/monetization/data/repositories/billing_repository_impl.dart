@@ -68,7 +68,9 @@ class BillingRepositoryImpl implements IBillingRepository {
     try {
       final customerInfo = await Purchases.logIn(userId);
       _customerInfoController.add(customerInfo.customerInfo);
-    } catch (_) {}
+    } catch (e) {
+      debugPrint('RevenueCat identify error: $e');
+    }
   }
 
   @override
@@ -77,7 +79,9 @@ class BillingRepositoryImpl implements IBillingRepository {
     try {
       final customerInfo = await Purchases.logOut();
       _customerInfoController.add(customerInfo);
-    } catch (_) {}
+    } catch (e) {
+      debugPrint('RevenueCat reset error: $e');
+    }
   }
 
   @override
@@ -86,7 +90,8 @@ class BillingRepositoryImpl implements IBillingRepository {
     try {
       final customerInfo = await Purchases.getCustomerInfo();
       return customerInfo.entitlements.all['Oasis Pro']?.isActive ?? false;
-    } catch (_) {
+    } catch (e) {
+      debugPrint('RevenueCat isPro error: $e');
       return false;
     }
   }
@@ -225,9 +230,7 @@ class BillingRepositoryImpl implements IBillingRepository {
     });
 
     final options = {
-      'key': EnvConfig.razorpayKeyId.isNotEmpty
-          ? EnvConfig.razorpayKeyId
-          : 'YOUR_RAZORPAY_KEY_ID',
+      'key': EnvConfig.razorpayKeyId,
       'amount': 49900,
       'name': 'Oasis Pro',
       'description': 'Monthly Premium Subscription',

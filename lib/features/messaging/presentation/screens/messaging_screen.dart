@@ -26,7 +26,10 @@ class MessagingScreen extends StatelessWidget {
           elevation: 0,
           flexibleSpace: ClipRect(
             child: BackdropFilter(
-              filter: ColorFilter.mode(colorScheme.surface.withOpacity(0.8), BlendMode.srcOver),
+              filter: ColorFilter.mode(
+                colorScheme.surface.withOpacity(0.8),
+                BlendMode.srcOver,
+              ),
               child: Container(color: Colors.transparent),
             ),
           ),
@@ -53,12 +56,16 @@ class MessagingScreen extends StatelessWidget {
                 itemCount: state.threads.length,
                 itemBuilder: (context, index) {
                   final thread = state.threads[index];
-                  final otherUserId = thread.senderId == currentUserId ? thread.receiverId : thread.senderId;
-                  
+                  final otherUserId = thread.senderId == currentUserId
+                      ? thread.receiverId
+                      : thread.senderId;
+
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: InkWell(
-                      onTap: () => context.push('/messaging/chat/${thread.circleId ?? 'direct'}/$otherUserId'),
+                      onTap: () => context.push(
+                        '/messaging/chat/${thread.circleId ?? 'direct'}/$otherUserId',
+                      ),
                       borderRadius: BorderRadius.circular(18),
                       child: GlassPanel(
                         padding: EdgeInsets.zero,
@@ -68,7 +75,8 @@ class MessagingScreen extends StatelessWidget {
                           child: Row(
                             children: [
                               const SquircleAvatar(
-                                imageUrl: 'https://via.placeholder.com/150', // Placeholder
+                                imageUrl:
+                                    'https://ui-avatars.com/api/?name=Tether&background=6366f1&color=fff&size=150', // Placeholder
                                 size: 56,
                               ),
                               const SizedBox(width: 16),
@@ -78,9 +86,10 @@ class MessagingScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       'Someone Close', // Simplified name for now
-                                      style: theme.textTheme.titleMedium?.copyWith(
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
                                     const SizedBox(height: 4),
                                     WhisperText(
@@ -98,7 +107,9 @@ class MessagingScreen extends StatelessWidget {
                                     shape: BoxShape.circle,
                                     boxShadow: [
                                       BoxShadow(
-                                        color: colorScheme.primary.withOpacity(0.4),
+                                        color: colorScheme.primary.withOpacity(
+                                          0.4,
+                                        ),
                                         blurRadius: 8,
                                       ),
                                     ],

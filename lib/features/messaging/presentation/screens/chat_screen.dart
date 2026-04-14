@@ -34,7 +34,9 @@ class _ChatScreenState extends State<ChatScreen> {
     final colorScheme = theme.colorScheme;
 
     return BlocProvider(
-      create: (context) => getIt<MessagingCubit>()..loadMessages(widget.otherUserId, circleId: widget.circleId),
+      create: (context) =>
+          getIt<MessagingCubit>()
+            ..loadMessages(widget.otherUserId, circleId: widget.circleId),
       child: Scaffold(
         body: Stack(
           children: [
@@ -50,12 +52,18 @@ class _ChatScreenState extends State<ChatScreen> {
                         surfaceTintColor: Colors.transparent,
                         flexibleSpace: ClipRect(
                           child: BackdropFilter(
-                            filter: ColorFilter.mode(colorScheme.surface.withOpacity(0.8), BlendMode.srcOver),
+                            filter: ColorFilter.mode(
+                              colorScheme.surface.withOpacity(0.8),
+                              BlendMode.srcOver,
+                            ),
                             child: Container(color: Colors.transparent),
                           ),
                         ),
                         leading: IconButton(
-                          icon: Icon(Icons.arrow_back, color: colorScheme.primary),
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: colorScheme.primary,
+                          ),
                           onPressed: () => Navigator.pop(context),
                         ),
                         title: Text(
@@ -71,7 +79,8 @@ class _ChatScreenState extends State<ChatScreen> {
                           Padding(
                             padding: const EdgeInsets.only(right: 24),
                             child: SquircleAvatar(
-                              imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAcJfry8HNWQrKeOk3f7p1H6nXJVmr1ZuBaPuuQXb6xi1iWm--PQLHvBqYu-wupO1_AaoL5WuZnYmsB8fgR5PQyJTHRhZExAB3lAs8SWp-7Y_1Ee5KH_9IgoW8VJzA1YhE2We0IiZEnGfpX5gMr79hJEEW5epeymvaojqgoWJjSJS1ppFbgwsYzb1tC-LwTioHI2Zp2QLm94SLFGcZO0gVUbbbc8YRlcgIHnrowbrHheLQNhzTlF6kbD49F-skJeOgfb9LTP6ISQxGJ',
+                              imageUrl:
+                                  'https://lh3.googleusercontent.com/aida-public/AB6AXuAcJfry8HNWQrKeOk3f7p1H6nXJVmr1ZuBaPuuQXb6xi1iWm--PQLHvBqYu-wupO1_AaoL5WuZnYmsB8fgR5PQyJTHRhZExAB3lAs8SWp-7Y_1Ee5KH_9IgoW8VJzA1YhE2We0IiZEnGfpX5gMr79hJEEW5epeymvaojqgoWJjSJS1ppFbgwsYzb1tC-LwTioHI2Zp2QLm94SLFGcZO0gVUbbbc8YRlcgIHnrowbrHheLQNhzTlF6kbD49F-skJeOgfb9LTP6ISQxGJ',
                               size: 40,
                               borderColor: colorScheme.primary.withOpacity(0.2),
                               borderWidth: 2,
@@ -127,7 +136,9 @@ class _ChatScreenState extends State<ChatScreen> {
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.8),
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width * 0.8,
+        ),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: colorScheme.primaryContainer.withOpacity(0.12),
@@ -140,10 +151,7 @@ class _ChatScreenState extends State<ChatScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              text, 
-              style: const TextStyle(fontSize: 15, height: 1.5),
-            ),
+            Text(text, style: const TextStyle(fontSize: 15, height: 1.5)),
             const SizedBox(height: 8),
             WhisperText(time),
           ],
@@ -157,7 +165,9 @@ class _ChatScreenState extends State<ChatScreen> {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.8),
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width * 0.8,
+        ),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: colorScheme.surfaceContainerHigh.withOpacity(0.5),
@@ -170,10 +180,7 @@ class _ChatScreenState extends State<ChatScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(
-              text, 
-              style: const TextStyle(fontSize: 15, height: 1.5),
-            ),
+            Text(text, style: const TextStyle(fontSize: 15, height: 1.5)),
             const SizedBox(height: 8),
             WhisperText(time),
           ],
@@ -197,7 +204,8 @@ class _ChatScreenState extends State<ChatScreen> {
           child: Row(
             children: [
               const SquircleAvatar(
-                imageUrl: 'https://via.placeholder.com/150',
+                imageUrl:
+                    'https://ui-avatars.com/api/?name=Circle&background=6366f1&color=fff&size=150',
                 size: 48,
               ),
               const SizedBox(width: 16),
@@ -207,7 +215,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.play_circle_filled_outlined, color: colorScheme.primary, size: 32),
+                        Icon(
+                          Icons.play_circle_filled_outlined,
+                          color: colorScheme.primary,
+                          size: 32,
+                        ),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Row(
@@ -217,7 +229,11 @@ class _ChatScreenState extends State<ChatScreen> {
                                 width: 3,
                                 height: 12 + (index % 4) * 8.0,
                                 decoration: BoxDecoration(
-                                  color: index < 7 ? colorScheme.primary : colorScheme.outlineVariant.withOpacity(0.3),
+                                  color: index < 7
+                                      ? colorScheme.primary
+                                      : colorScheme.outlineVariant.withOpacity(
+                                          0.3,
+                                        ),
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                               );
@@ -250,7 +266,9 @@ class _ChatScreenState extends State<ChatScreen> {
           decoration: BoxDecoration(
             color: colorScheme.surface.withOpacity(0.8),
             border: Border(
-              top: BorderSide(color: colorScheme.outlineVariant.withOpacity(0.12)),
+              top: BorderSide(
+                color: colorScheme.outlineVariant.withOpacity(0.12),
+              ),
             ),
           ),
           child: Column(
@@ -259,11 +277,17 @@ class _ChatScreenState extends State<ChatScreen> {
               GestureDetector(
                 onTap: () => setState(() => _isSlowChat = !_isSlowChat),
                 child: GlassPanel(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
                   opacity: _isSlowChat ? 0.15 : 0.05,
                   borderRadius: BorderRadius.circular(20),
-                  border: _isSlowChat 
-                      ? Border.all(color: colorScheme.primary.withOpacity(0.3), width: 1.5)
+                  border: _isSlowChat
+                      ? Border.all(
+                          color: colorScheme.primary.withOpacity(0.3),
+                          width: 1.5,
+                        )
                       : null,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -272,16 +296,23 @@ class _ChatScreenState extends State<ChatScreen> {
                         width: 8,
                         height: 8,
                         decoration: BoxDecoration(
-                          color: _isSlowChat ? colorScheme.primary : colorScheme.onSurfaceVariant.withOpacity(0.4), 
+                          color: _isSlowChat
+                              ? colorScheme.primary
+                              : colorScheme.onSurfaceVariant.withOpacity(0.4),
                           shape: BoxShape.circle,
-                          boxShadow: _isSlowChat ? [
-                            BoxShadow(color: colorScheme.primary.withOpacity(0.4), blurRadius: 8),
-                          ] : null,
+                          boxShadow: _isSlowChat
+                              ? [
+                                  BoxShadow(
+                                    color: colorScheme.primary.withOpacity(0.4),
+                                    blurRadius: 8,
+                                  ),
+                                ]
+                              : null,
                         ),
                       ),
                       const SizedBox(width: 10),
                       WhisperText(
-                        'SLOW CHAT MODE', 
+                        'SLOW CHAT MODE',
                         color: _isSlowChat ? colorScheme.primary : null,
                       ),
                     ],
@@ -295,12 +326,19 @@ class _ChatScreenState extends State<ChatScreen> {
                     padding: const EdgeInsets.all(10),
                     opacity: 0.05,
                     borderRadius: BorderRadius.circular(32),
-                    child: Icon(Icons.mic_none_outlined, color: colorScheme.primary, size: 24),
+                    child: Icon(
+                      Icons.mic_none_outlined,
+                      color: colorScheme.primary,
+                      size: 24,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: colorScheme.surfaceContainerLow.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(28),
@@ -363,7 +401,10 @@ class _AnonymousVent extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(48 * 0.35),
                   boxShadow: [
-                    BoxShadow(color: colorScheme.tertiary.withOpacity(0.2), blurRadius: 15),
+                    BoxShadow(
+                      color: colorScheme.tertiary.withOpacity(0.2),
+                      blurRadius: 15,
+                    ),
                   ],
                 ),
               ),
@@ -372,8 +413,10 @@ class _AnonymousVent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Someone in your Circle 🌫️', 
-                    style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                    'Someone in your Circle 🌫️',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   const WhisperText('Fades in 24hrs'),
@@ -385,7 +428,7 @@ class _AnonymousVent extends StatelessWidget {
           Text(
             '"Sometimes I feel like I\'m shouting into a void, but today, the silence felt warm."',
             style: theme.textTheme.bodyLarge?.copyWith(
-              fontStyle: FontStyle.italic, 
+              fontStyle: FontStyle.italic,
               color: colorScheme.onSurface.withOpacity(0.85),
               height: 1.6,
             ),
@@ -418,7 +461,10 @@ class _OneWayPost extends StatelessWidget {
               decoration: BoxDecoration(
                 color: colorScheme.primary,
                 boxShadow: [
-                  BoxShadow(color: colorScheme.primary.withOpacity(0.4), blurRadius: 10),
+                  BoxShadow(
+                    color: colorScheme.primary.withOpacity(0.4),
+                    blurRadius: 10,
+                  ),
                 ],
               ),
             ),
@@ -433,7 +479,7 @@ class _OneWayPost extends StatelessWidget {
                   children: [
                     const WhisperText('ONE-WAY POST'),
                     WhisperText(
-                      'Fades in 10s', 
+                      'Fades in 10s',
                       color: colorScheme.primary.withOpacity(0.8),
                     ),
                   ],
@@ -480,7 +526,7 @@ class _LetterArrival extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: colorScheme.tertiary.withOpacity(0.3), 
+                  color: colorScheme.tertiary.withOpacity(0.3),
                   blurRadius: 40,
                   offset: const Offset(0, 10),
                 ),
@@ -491,19 +537,25 @@ class _LetterArrival extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 opacity: 0.2,
                 borderRadius: BorderRadius.circular(32),
-                child: Icon(Icons.workspace_premium_outlined, color: colorScheme.onPrimary, size: 28),
+                child: Icon(
+                  Icons.workspace_premium_outlined,
+                  color: colorScheme.onPrimary,
+                  size: 28,
+                ),
               ),
             ),
           ),
         ),
         const SizedBox(height: 32),
         Text(
-          'A letter arrived for you.', 
-          style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+          'A letter arrived for you.',
+          style: theme.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 8),
         Text(
-          'From Julian', 
+          'From Julian',
           style: theme.textTheme.displaySmall?.copyWith(
             color: colorScheme.primary,
             fontStyle: FontStyle.italic,

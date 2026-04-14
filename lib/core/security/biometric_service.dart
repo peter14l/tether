@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart';
@@ -15,9 +16,11 @@ class BiometricService implements IBiometricService {
   Future<bool> isAvailable() async {
     try {
       final bool canAuthenticateWithBiometrics = await _auth.canCheckBiometrics;
-      final bool canAuthenticate = canAuthenticateWithBiometrics || await _auth.isDeviceSupported();
+      final bool canAuthenticate =
+          canAuthenticateWithBiometrics || await _auth.isDeviceSupported();
       return canAuthenticate;
     } catch (e) {
+      debugPrint('Biometric available error: $e');
       return false;
     }
   }
@@ -33,10 +36,11 @@ class BiometricService implements IBiometricService {
         ),
       );
       return didAuthenticate;
-    } on PlatformException catch (_) {
-      // In production, we'd log this through ITelemetryService
+    } on PlatformException catch (e) {
+      debugPrint('Biometric PlatformException: $e');
       return false;
-    } catch (_) {
+    } catch (e) {
+      debugPrint('Biometric error: $e');
       return false;
     }
   }

@@ -9,11 +9,7 @@ class PostCard extends StatelessWidget {
   final PostEntity post;
   final Function(String) onReactionTap;
 
-  const PostCard({
-    super.key,
-    required this.post,
-    required this.onReactionTap,
-  });
+  const PostCard({super.key, required this.post, required this.onReactionTap});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +29,9 @@ class PostCard extends StatelessWidget {
                   Stack(
                     children: [
                       SquircleAvatar(
-                        imageUrl: post.authorAvatarUrl ?? 'https://via.placeholder.com/150',
+                        imageUrl:
+                            post.authorAvatarUrl ??
+                            'https://ui-avatars.com/api/?name=User&background=6366f1&color=fff&size=150',
                         size: 48,
                         borderColor: colorScheme.primary,
                         borderWidth: 2,
@@ -47,7 +45,10 @@ class PostCard extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: colorScheme.primary,
                             shape: BoxShape.circle,
-                            border: Border.all(color: colorScheme.surface, width: 2),
+                            border: Border.all(
+                              color: colorScheme.surface,
+                              width: 2,
+                            ),
                           ),
                         ),
                       ),
@@ -58,24 +59,25 @@ class PostCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        post.authorName ?? (post.isAnonymous ? 'Anonymous' : 'Someone Close'),
+                        post.authorName ??
+                            (post.isAnonymous ? 'Anonymous' : 'Someone Close'),
                         style: theme.textTheme.headlineMedium?.copyWith(
                           fontSize: 16,
                           height: 1,
                         ),
                       ),
                       const SizedBox(height: 4),
-                      WhisperText(
-                        _formatDate(post.createdAt),
-                        fontSize: 11,
-                      ),
+                      WhisperText(_formatDate(post.createdAt), fontSize: 11),
                     ],
                   ),
                 ],
               ),
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.more_vert, color: colorScheme.onSurfaceVariant.withOpacity(0.4)),
+                icon: Icon(
+                  Icons.more_vert,
+                  color: colorScheme.onSurfaceVariant.withOpacity(0.4),
+                ),
               ),
             ],
           ),
@@ -122,10 +124,7 @@ class PostCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          ReactionBar(
-            postId: post.id,
-            onReactionTap: onReactionTap,
-          ),
+          ReactionBar(postId: post.id, onReactionTap: onReactionTap),
         ],
       ),
     );
@@ -139,4 +138,3 @@ class PostCard extends StatelessWidget {
     return '${date.day}/${date.month}';
   }
 }
-

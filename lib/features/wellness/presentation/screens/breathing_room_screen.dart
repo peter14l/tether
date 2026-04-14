@@ -14,7 +14,8 @@ class BreathingRoomScreen extends StatefulWidget {
   State<BreathingRoomScreen> createState() => _BreathingRoomScreenState();
 }
 
-class _BreathingRoomScreenState extends State<BreathingRoomScreen> with SingleTickerProviderStateMixin {
+class _BreathingRoomScreenState extends State<BreathingRoomScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _breathingController;
   late Animation<double> _breathingAnimation;
   late Animation<double> _opacityAnimation;
@@ -26,9 +27,12 @@ class _BreathingRoomScreenState extends State<BreathingRoomScreen> with SingleTi
       vsync: this,
       duration: const Duration(seconds: 8),
     )..repeat(reverse: true);
-    
+
     _breathingAnimation = Tween<double>(begin: 1.0, end: 1.4).animate(
-      CurvedAnimation(parent: _breathingController, curve: const Cubic(0.4, 0, 0.6, 1)),
+      CurvedAnimation(
+        parent: _breathingController,
+        curve: const Cubic(0.4, 0, 0.6, 1),
+      ),
     );
 
     _opacityAnimation = Tween<double>(begin: 0.3, end: 0.6).animate(
@@ -57,7 +61,10 @@ class _BreathingRoomScreenState extends State<BreathingRoomScreen> with SingleTi
             surfaceTintColor: Colors.transparent,
             flexibleSpace: ClipRect(
               child: BackdropFilter(
-                filter: ColorFilter.mode(colorScheme.surface.withOpacity(0.8), BlendMode.srcOver),
+                filter: ColorFilter.mode(
+                  colorScheme.surface.withOpacity(0.8),
+                  BlendMode.srcOver,
+                ),
                 child: Container(color: Colors.transparent),
               ),
             ),
@@ -78,7 +85,8 @@ class _BreathingRoomScreenState extends State<BreathingRoomScreen> with SingleTi
               Padding(
                 padding: const EdgeInsets.only(right: 24),
                 child: SquircleAvatar(
-                  imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAcJfry8HNWQrKeOk3f7p1H6nXJVmr1ZuBaPuuQXb6xi1iWm--PQLHvBqYu-wupO1_AaoL5WuZnYmsB8fgR5PQyJTHRhZExAB3lAs8SWp-7Y_1Ee5KH_9IgoW8VJzA1YhE2We0IiZEnGfpX5gMr79hJEEW5epeymvaojqgoWJjSJS1ppFbgwsYzb1tC-LwTioHI2Zp2QLm94SLFGcZO0gVUbbbc8YRlcgIHnrowbrHheLQNhzTlF6kbD49F-skJeOgfb9LTP6ISQxGJ',
+                  imageUrl:
+                      'https://lh3.googleusercontent.com/aida-public/AB6AXuAcJfry8HNWQrKeOk3f7p1H6nXJVmr1ZuBaPuuQXb6xi1iWm--PQLHvBqYu-wupO1_AaoL5WuZnYmsB8fgR5PQyJTHRhZExAB3lAs8SWp-7Y_1Ee5KH_9IgoW8VJzA1YhE2We0IiZEnGfpX5gMr79hJEEW5epeymvaojqgoWJjSJS1ppFbgwsYzb1tC-LwTioHI2Zp2QLm94SLFGcZO0gVUbbbc8YRlcgIHnrowbrHheLQNhzTlF6kbD49F-skJeOgfb9LTP6ISQxGJ',
                   size: 40,
                   borderColor: colorScheme.primary.withOpacity(0.2),
                   borderWidth: 2,
@@ -118,7 +126,7 @@ class _BreathingRoomScreenState extends State<BreathingRoomScreen> with SingleTi
 class _BreathingSection extends StatelessWidget {
   final Animation<double> animation;
   final Animation<double> opacityAnimation;
-  
+
   const _BreathingSection({
     required this.animation,
     required this.opacityAnimation,
@@ -180,7 +188,9 @@ class _BreathingSection extends StatelessWidget {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: colorScheme.primaryContainer.withOpacity(0.3),
+                            color: colorScheme.primaryContainer.withOpacity(
+                              0.3,
+                            ),
                             blurRadius: 60,
                             spreadRadius: 10,
                           ),
@@ -236,18 +246,20 @@ class _SoundChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    
+
     return GlassPanel(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       opacity: isSelected ? 0.2 : 0.05,
       borderRadius: BorderRadius.circular(32),
-      border: isSelected 
+      border: isSelected
           ? Border.all(color: colorScheme.primary.withOpacity(0.3), width: 1.5)
           : null,
       child: Text(
         label,
         style: TextStyle(
-          color: isSelected ? colorScheme.primary : colorScheme.onSurfaceVariant,
+          color: isSelected
+              ? colorScheme.primary
+              : colorScheme.onSurfaceVariant,
           fontSize: 13,
           fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
         ),
@@ -284,15 +296,15 @@ class _DigitalHugSection extends StatelessWidget {
               ),
             ),
             Icon(
-              Icons.volunteer_activism_outlined, 
-              color: colorScheme.primary, 
+              Icons.volunteer_activism_outlined,
+              color: colorScheme.primary,
               size: 56,
             ),
           ],
         ),
         const SizedBox(height: 24),
         Text(
-          'Your hug is on its way.', 
+          'Your hug is on its way.',
           style: theme.textTheme.headlineSmall?.copyWith(
             fontStyle: FontStyle.italic,
             fontWeight: FontWeight.w600,
@@ -327,7 +339,7 @@ class _GratitudeJournal extends StatelessWidget {
                 const WhisperText('TODAY\'S PROMPT'),
                 const SizedBox(height: 12),
                 Text(
-                  'What made you smile today?', 
+                  'What made you smile today?',
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontStyle: FontStyle.italic,
                     fontSize: 24,
@@ -343,7 +355,8 @@ class _GratitudeJournal extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           const _GratitudeEntry(
-            text: 'Hearing the distant sound of the rain against the attic window...',
+            text:
+                'Hearing the distant sound of the rain against the attic window...',
             date: 'October 22',
           ),
         ],
@@ -369,7 +382,7 @@ class _GratitudeEntry extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            text, 
+            text,
             style: theme.textTheme.titleMedium?.copyWith(
               fontStyle: FontStyle.italic,
               fontSize: 18,
@@ -382,8 +395,8 @@ class _GratitudeEntry extends StatelessWidget {
             children: [
               WhisperText(date),
               Icon(
-                Icons.lock_outline, 
-                size: 16, 
+                Icons.lock_outline,
+                size: 16,
                 color: colorScheme.onSurfaceVariant.withOpacity(0.3),
               ),
             ],
@@ -410,7 +423,7 @@ class _ReflectionAndMemories extends StatelessWidget {
           const WhisperText('REFLECTION WALL'),
           const SizedBox(height: 16),
           Text(
-            'This is just for you.', 
+            'This is just for you.',
             style: theme.textTheme.headlineSmall?.copyWith(
               fontStyle: FontStyle.italic,
               color: colorScheme.primary,
@@ -443,7 +456,8 @@ class _ReflectionAndMemories extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: const SlowPhoto(
-                imageUrl: 'https://via.placeholder.com/400x300', 
+                imageUrl:
+                    'https://images.unsplash.com/photo-1507400492013-16286576f50b?w=400&h=300&fit=crop',
                 height: 240,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -532,7 +546,10 @@ class _KindnessBadges extends StatelessWidget {
                       color: colorScheme.primary.withOpacity(0.1),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(Icons.favorite_outline, color: colorScheme.primary),
+                    child: Icon(
+                      Icons.favorite_outline,
+                      color: colorScheme.primary,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   const WhisperText('HEART LISTENER'),
@@ -553,7 +570,10 @@ class _KindnessBadges extends StatelessWidget {
                       color: colorScheme.secondary.withOpacity(0.1),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(Icons.wb_sunny_outlined, color: colorScheme.secondary),
+                    child: Icon(
+                      Icons.wb_sunny_outlined,
+                      color: colorScheme.secondary,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   const WhisperText('WARM PRESENCE'),
@@ -576,13 +596,13 @@ class _QuietHours extends StatelessWidget {
     return Column(
       children: [
         Icon(
-          Icons.nights_stay_outlined, 
+          Icons.nights_stay_outlined,
           color: colorScheme.onSurfaceVariant.withOpacity(0.4),
           size: 32,
         ),
         const SizedBox(height: 16),
         const WhisperText(
-          'Winding down in 20 mins.\nThe sanctuary is preparing for rest.', 
+          'Winding down in 20 mins.\nThe sanctuary is preparing for rest.',
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 8),

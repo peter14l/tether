@@ -37,20 +37,28 @@ Future<void> main() async {
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
     try {
-      getIt<ITelemetryService>().logError(details.exception, details.stack ?? StackTrace.empty);
-    } catch (_) {}
+      getIt<ITelemetryService>().logError(
+        details.exception,
+        details.stack ?? StackTrace.empty,
+      );
+    } catch (e) {
+      debugPrint('Telemetry error: $e');
+    }
   };
 
   PlatformDispatcher.instance.onError = (error, stack) {
     try {
       getIt<ITelemetryService>().logError(error, stack);
-    } catch (_) {}
+    } catch (e) {
+      debugPrint('Telemetry error: $e');
+    }
     return true;
   };
 
   await SentryFlutter.init(
     (options) {
-      options.dsn = 'https://bc1753eb3948e1640ebca0654b5a7bce@o4511214683881472.ingest.us.sentry.io/4511214685388800';
+      options.dsn =
+          'https://bc1753eb3948e1640ebca0654b5a7bce@o4511214683881472.ingest.us.sentry.io/4511214685388800';
       // Set tracesSampleRate to 1.0 to capture 100% of transactions for tracing.
       // We recommend adjusting this value in production.
       options.tracesSampleRate = 1.0;
@@ -75,9 +83,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => getIt<TimeThemeCubit>()),
-      ],
+      providers: [BlocProvider(create: (context) => getIt<TimeThemeCubit>())],
       child: BlocBuilder<TimeThemeCubit, TimeThemeState>(
         builder: (context, state) {
           return MaterialApp.router(

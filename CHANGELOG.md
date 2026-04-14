@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `UserKeyManager` service for secure key management
 - `purchasePremiumAuto()` method for auto-detecting payment provider based on installer source
 - Installer source detection via native Android method channel
+- Tests for installer detection and billing auto-flow
 
 ### Changed
 - **`EnvConfig`**: Removed app-wide encryption keys, now per-user only
@@ -23,16 +24,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `SupabaseGalleryRepository`
   - `SupabaseAuthRepository`
 - Payment flow: Auto-selects Razorpay (APK) or RevenueCat (Play Store)
+- Error handling: `catch (_) {}` replaced with `catch (e) { debugPrint(...) }`
+
+### Fixed (Critical)
+- Hardcoded Supabase credentials: Now throws exception if env vars missing
+- Placeholder Razorpay key: Removed fallback, fails fast if not configured
+- Silent error swallowing: Added proper error logging
+- Placeholder images: Replaced via.placeholder.com with Unsplash/UI Avatars
 
 ### Removed
 - Encryption keys from environment config
 - Shared placeholder `_placeholderKey` from all repositories
+- via.placeholder.com image URLs
 
 ## Security
 - Encryption keys are now generated per-user on signup
 - Keys stored in device's `FlutterSecureStorage` (encrypted, device-bound)
 - Keys never leave the device
 - Each user's data is encrypted with their unique key
+- App fails fast if required env vars missing
 
 ## Payment Flow (Auto-Guarded)
 ```
@@ -45,6 +55,12 @@ Install source detected →
 - Native Android implementation via `MainActivity.kt`
 - Method channel: `com.oasis/installer`
 - Returns package name of installer (e.g., `com.android.vending` for Play Store)
+
+## Placeholder Images Replaced
+- Avatar placeholders → UI Avatars (initials-based)
+- Heritage photos → Unsplash (family-themed)
+- Breathing room → Unsplash (calm/nature)
+- Couples bubble → Unsplash (romantic)
 
 ---
 

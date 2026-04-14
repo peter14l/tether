@@ -26,8 +26,15 @@ class FamilyDashboardScreen extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => getIt<FamilySafetyCubit>()..listenToSosAlerts(circleId)..loadSafetyChecks(circleId)),
-        BlocProvider(create: (context) => getIt<CircleMemberCubit>()..loadMembers(circleId)),
+        BlocProvider(
+          create: (context) => getIt<FamilySafetyCubit>()
+            ..listenToSosAlerts(circleId)
+            ..loadSafetyChecks(circleId),
+        ),
+        BlocProvider(
+          create: (context) =>
+              getIt<CircleMemberCubit>()..loadMembers(circleId),
+        ),
       ],
       child: Scaffold(
         body: Stack(
@@ -41,7 +48,10 @@ class FamilyDashboardScreen extends StatelessWidget {
                   surfaceTintColor: Colors.transparent,
                   flexibleSpace: ClipRect(
                     child: BackdropFilter(
-                      filter: ColorFilter.mode(colorScheme.surface.withOpacity(0.8), BlendMode.srcOver),
+                      filter: ColorFilter.mode(
+                        colorScheme.surface.withOpacity(0.8),
+                        BlendMode.srcOver,
+                      ),
                       child: Container(color: Colors.transparent),
                     ),
                   ),
@@ -62,7 +72,8 @@ class FamilyDashboardScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 24),
                       child: SquircleAvatar(
-                        imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAFZi4AMlXlcZsUsGOSehPSf0Hzi7jA-7Xn18nzU-iBOqly34PpcHperzFKdfcYbR6mukDLBTxGTnkazJbNmm4kE9TGC4fec1pnrLesabuJBhrNtk5AehvALUtu1aee1qH3Z2HpW0mFNbJprR0pF9M-n9iyUVljo0gCwibTQ03uk4hMcrJvQ-AlZB0ayG_2wt2dCR9opnUg2LTew9UH032_JtWg4Vs5uZrg2JS1f-v0B5jhR-zf29WmVjUGhPRGYsN164ThQn23shLq',
+                        imageUrl:
+                            'https://lh3.googleusercontent.com/aida-public/AB6AXuAFZi4AMlXlcZsUsGOSehPSf0Hzi7jA-7Xn18nzU-iBOqly34PpcHperzFKdfcYbR6mukDLBTxGTnkazJbNmm4kE9TGC4fec1pnrLesabuJBhrNtk5AehvALUtu1aee1qH3Z2HpW0mFNbJprR0pF9M-n9iyUVljo0gCwibTQ03uk4hMcrJvQ-AlZB0ayG_2wt2dCR9opnUg2LTew9UH032_JtWg4Vs5uZrg2JS1f-v0B5jhR-zf29WmVjUGhPRGYsN164ThQn23shLq',
                         size: 40,
                         borderColor: colorScheme.primary.withOpacity(0.2),
                         borderWidth: 2,
@@ -86,7 +97,7 @@ class FamilyDashboardScreen extends StatelessWidget {
                                 const WhisperText('FAMILY SANCTUARY'),
                                 const SizedBox(height: 8),
                                 Text(
-                                  'The Thompson Circle', 
+                                  'The Thompson Circle',
                                   style: theme.textTheme.displaySmall?.copyWith(
                                     fontStyle: FontStyle.italic,
                                     fontSize: 32,
@@ -165,7 +176,8 @@ class _FamilyBentoGrid extends StatelessWidget {
           icon: Icons.rss_feed_outlined,
           title: 'Recent Feed',
           subtitle: '12 new moments shared today',
-          imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAyGb1jh0c0gaqYh3W6LU02KVKnjDAyy4xQwmz2YCrxhdssjHL_clAqeIjgImkx-9VZMMDQ_ZcUPUsHUq2W_0KPv7LwDJhopooY6SWnKcgWMPhvq7Z3TiwVgnUWT5nsLyZ3Vu2ODcYfUCJD9W7JdvkVx1Ugzy4ZW81JUVdapp2Z4vhuoR3WAIiLhUzJKhIMJQwq73tSeO_u264fsRGQNEceDVFk1i4G22Q5BABNp0MZkYREsoM2lS8NiRiuW9r2_YPSGBpK867bcqWV',
+          imageUrl:
+              'https://lh3.googleusercontent.com/aida-public/AB6AXuAyGb1jh0c0gaqYh3W6LU02KVKnjDAyy4xQwmz2YCrxhdssjHL_clAqeIjgImkx-9VZMMDQ_ZcUPUsHUq2W_0KPv7LwDJhopooY6SWnKcgWMPhvq7Z3TiwVgnUWT5nsLyZ3Vu2ODcYfUCJD9W7JdvkVx1Ugzy4ZW81JUVdapp2Z4vhuoR3WAIiLhUzJKhIMJQwq73tSeO_u264fsRGQNEceDVFk1i4G22Q5BABNp0MZkYREsoM2lS8NiRiuW9r2_YPSGBpK867bcqWV',
           onTap: () {},
         ),
         // Small Tiles
@@ -245,18 +257,24 @@ class _SafetyCheckSection extends StatelessWidget {
 
     return TetherCard(
       padding: const EdgeInsets.all(32),
-      backgroundColor: const Color(0xFF2A1A10).withOpacity(0.6), // Dark warm earth
+      backgroundColor: const Color(
+        0xFF2A1A10,
+      ).withOpacity(0.6), // Dark warm earth
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(Icons.warning_amber_rounded, color: colorScheme.tertiary, size: 32),
+              Icon(
+                Icons.warning_amber_rounded,
+                color: colorScheme.tertiary,
+                size: 32,
+              ),
               const SizedBox(width: 16),
               Text(
-                'Safety Check Active', 
+                'Safety Check Active',
                 style: theme.textTheme.headlineSmall?.copyWith(
-                  fontSize: 20, 
+                  fontSize: 20,
                   fontStyle: FontStyle.italic,
                   color: colorScheme.tertiary,
                 ),
@@ -323,7 +341,7 @@ class _EmergencySOS extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: colorScheme.primary.withOpacity(0.15), 
+                    color: colorScheme.primary.withOpacity(0.15),
                     width: 2,
                   ),
                 ),
@@ -357,7 +375,7 @@ class _EmergencySOS extends StatelessWidget {
           ),
           const SizedBox(height: 32),
           Text(
-            'Send SOS to Family?', 
+            'Send SOS to Family?',
             style: theme.textTheme.headlineSmall?.copyWith(
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.bold,
@@ -367,7 +385,8 @@ class _EmergencySOS extends StatelessWidget {
           const WhisperText('This will alert all circle members instantly'),
           const SizedBox(height: 40),
           TetherButton(
-            onPressed: () => context.read<FamilySafetyCubit>().triggerSos(circleId),
+            onPressed: () =>
+                context.read<FamilySafetyCubit>().triggerSos(circleId),
             isHighPriority: true,
             width: 240,
             child: const Text('Send Now'),
@@ -391,7 +410,7 @@ class _HeritageCornerPreview extends StatelessWidget {
         const WhisperText('PRESERVING LEGACY'),
         const SizedBox(height: 12),
         Text(
-          'Heritage Corner', 
+          'Heritage Corner',
           style: theme.textTheme.displaySmall?.copyWith(
             fontStyle: FontStyle.italic,
             fontSize: 28,
@@ -401,17 +420,26 @@ class _HeritageCornerPreview extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: const [
+            children: [
               _HeritageCard(
-                title: 'Nana’s first piano recital, 1954',
+                title: 'Nana\'s first piano recital, 1954',
                 subtitle: 'Before I was born',
-                imageUrl: 'https://via.placeholder.com/300x400',
+                imageUrl:
+                    'https://images.unsplash.com/photo-1520523839897-bb8f274b018?w=300&h=400&fit=crop',
                 rotation: -0.02,
               ),
               _HeritageCard(
                 title: 'The old farmhouse in Cork',
                 subtitle: 'Family Roots',
-                imageUrl: 'https://via.placeholder.com/300x400',
+                imageUrl:
+                    'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=300&h=400&fit=crop',
+                rotation: 0.04,
+              ),
+              _HeritageCard(
+                title: 'The old farmhouse in Cork',
+                subtitle: 'Family Roots',
+                imageUrl:
+                    'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=300&h=400&fit=crop',
                 rotation: 0.04,
               ),
             ],
@@ -438,7 +466,7 @@ class _HeritageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Transform.rotate(
       angle: rotation,
       child: Container(
@@ -449,8 +477,8 @@ class _HeritageCard extends StatelessWidget {
           color: const Color(0xFF2D2420),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.4), 
-              blurRadius: 30, 
+              color: Colors.black.withOpacity(0.4),
+              blurRadius: 30,
               offset: const Offset(0, 15),
             ),
           ],
@@ -464,10 +492,26 @@ class _HeritageCard extends StatelessWidget {
                 decoration: const BoxDecoration(color: Colors.black),
                 child: ColorFiltered(
                   colorFilter: const ColorFilter.matrix([
-                    0.393, 0.769, 0.189, 0, 0,
-                    0.349, 0.686, 0.168, 0, 0,
-                    0.272, 0.534, 0.131, 0, 0,
-                    0, 0, 0, 1, 0,
+                    0.393,
+                    0.769,
+                    0.189,
+                    0,
+                    0,
+                    0.349,
+                    0.686,
+                    0.168,
+                    0,
+                    0,
+                    0.272,
+                    0.534,
+                    0.131,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
                   ]), // Sepia filter
                   child: SlowPhoto(imageUrl: imageUrl, fit: BoxFit.cover),
                 ),
@@ -477,7 +521,7 @@ class _HeritageCard extends StatelessWidget {
             WhisperText(subtitle.toUpperCase()),
             const SizedBox(height: 8),
             Text(
-              title, 
+              title,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontStyle: FontStyle.italic,
                 color: Colors.white.withOpacity(0.85),
@@ -505,7 +549,7 @@ class _GrandparentEasyView extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Hello, Martha', 
+            'Hello, Martha',
             style: theme.textTheme.displaySmall?.copyWith(
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.bold,
@@ -520,23 +564,23 @@ class _GrandparentEasyView extends StatelessWidget {
             crossAxisSpacing: 20,
             children: [
               _EasyButton(
-                icon: Icons.groups_outlined, 
-                label: 'See Family', 
+                icon: Icons.groups_outlined,
+                label: 'See Family',
                 color: colorScheme.primaryContainer.withOpacity(0.8),
               ),
               _EasyButton(
-                icon: Icons.call_outlined, 
-                label: 'Call Someone', 
+                icon: Icons.call_outlined,
+                label: 'Call Someone',
                 color: colorScheme.secondary.withOpacity(0.8),
               ),
               _EasyButton(
-                icon: Icons.photo_library_outlined, 
-                label: 'New Photo', 
+                icon: Icons.photo_library_outlined,
+                label: 'New Photo',
                 color: colorScheme.tertiary.withOpacity(0.8),
               ),
               _EasyButton(
-                icon: Icons.check_circle_outline, 
-                label: "I'm Okay", 
+                icon: Icons.check_circle_outline,
+                label: "I'm Okay",
                 color: const Color(0xFF86EFAC).withOpacity(0.8),
               ),
             ],
@@ -552,7 +596,11 @@ class _EasyButton extends StatelessWidget {
   final String label;
   final Color color;
 
-  const _EasyButton({required this.icon, required this.label, required this.color});
+  const _EasyButton({
+    required this.icon,
+    required this.label,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -574,10 +622,10 @@ class _EasyButton extends StatelessWidget {
           Icon(icon, size: 48, color: Colors.black87),
           const SizedBox(height: 16),
           Text(
-            label, 
+            label,
             style: const TextStyle(
-              fontWeight: FontWeight.bold, 
-              fontSize: 16, 
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
               color: Colors.black87,
             ),
           ),

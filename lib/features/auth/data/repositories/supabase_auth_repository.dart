@@ -182,7 +182,8 @@ class SupabaseAuthRepository implements IAuthRepository {
 
           if (i < 2)
             await Future.delayed(Duration(milliseconds: 500 * (i + 1)));
-        } catch (_) {
+        } catch (e) {
+          debugPrint('Auth state change error: $e');
           if (i == 2) return null;
           await Future.delayed(Duration(milliseconds: 500 * (i + 1)));
         }
@@ -201,7 +202,8 @@ class SupabaseAuthRepository implements IAuthRepository {
           .maybeSingle();
 
       return subscription?['tier'] as String? ?? 'free';
-    } catch (_) {
+    } catch (e) {
+      debugPrint('Fetch subscription tier error: $e');
       return 'free';
     }
   }
