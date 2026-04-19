@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
+import '../../../../core/widgets/tether_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -58,30 +59,30 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 32),
                 if (state is AuthLoading)
                   const CircularProgressIndicator()
-                else
+                else ...[
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                      ),
+                    child: TetherButton(
                       onPressed: () {
                         context.read<AuthBloc>().add(
-                          SignInRequested(
-                            _emailController.text.trim(),
-                            _passwordController.text,
-                          ),
-                        );
+                              LoginRequested(
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                              ),
+                            );
                       },
                       child: const Text('Login'),
                     ),
                   ),
-                const SizedBox(height: 24),
-                TextButton(
-                  onPressed: () => context.push('/signup'),
-                  child: const Text("Don't have an account? Sign Up"),
-                ),
+                  const SizedBox(height: 16),
+                  Center(
+                    child: TetherButton(
+                      style: TetherButtonStyle.secondary,
+                      onPressed: () => context.go('/signup'),
+                      child: const Text("Don't have an account? Sign Up"),
+                    ),
+                  ),
+                ],
               ],
             ),
           );

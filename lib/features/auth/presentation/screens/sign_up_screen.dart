@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../bloc/auth_bloc.dart';
 import '../bloc/auth_event.dart';
 import '../bloc/auth_state.dart';
+import '../../../../core/widgets/tether_button.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -76,32 +77,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(height: 32),
                 if (state is AuthLoading)
                   const CircularProgressIndicator()
-                else
+                else ...[
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                      ),
+                    child: TetherButton(
                       onPressed: () {
                         context.read<AuthBloc>().add(
-                          SignUpRequested(
-                            email: _emailController.text.trim(),
-                            password: _passwordController.text,
-                            username: _usernameController.text.trim(),
-                            displayName: _displayNameController.text,
-                          ),
-                        );
+                              SignUpRequested(
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                                username: _usernameController.text,
+                                displayName: _displayNameController.text,
+                              ),
+                            );
                       },
                       child: const Text('Sign Up'),
                     ),
                   ),
-                const SizedBox(height: 24),
-                TextButton(
-                  onPressed: () => context.pop(),
-                  child: const Text("Already have an account? Login"),
-                ),
+                  const SizedBox(height: 16),
+                  Center(
+                    child: TetherButton(
+                      style: TetherButtonStyle.secondary,
+                      onPressed: () => context.go('/login'),
+                      child: const Text('Already have an account? Login'),
+                    ),
+                  ),
+                ],
               ],
             ),
           );
