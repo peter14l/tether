@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/circles/presentation/screens/circles_screen.dart';
 import '../../features/circles/presentation/screens/create_circle_screen.dart';
-import '../../features/feed/presentation/screens/feed_screen.dart';
 import '../../features/messaging/presentation/screens/messaging_screen.dart';
 import '../../features/messaging/presentation/screens/chat_screen.dart';
 import '../../features/messaging/presentation/screens/new_message_screen.dart';
@@ -25,8 +24,6 @@ import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/sign_up_screen.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../../features/auth/presentation/bloc/auth_state.dart';
-import '../../features/feed/presentation/screens/compose_post_screen.dart';
-import '../../features/feed/presentation/screens/home_feed_screen.dart';
 import '../../features/onboarding/presentation/pages/onboarding_screen.dart';
 import '../../injection_container.dart';
 import '../widgets/main_shell.dart';
@@ -75,13 +72,6 @@ final goRouter = GoRouter(
           builder: (context, state) => const CirclesScreen(),
         ),
         GoRoute(
-          path: '/feed/:circleId',
-          builder: (context, state) {
-            final circleId = state.pathParameters['circleId']!;
-            return FeedScreen(circleId: circleId);
-          },
-        ),
-        GoRoute(
           path: '/messaging',
           name: 'messaging',
           builder: (context, state) => const MessagingScreen(),
@@ -119,10 +109,6 @@ final goRouter = GoRouter(
           builder: (context, state) => const SettingsScreen(),
         ),
       ],
-    ),
-    GoRoute(
-      path: '/compose',
-      builder: (context, state) => const ComposePostScreen(),
     ),
     GoRoute(
       path: '/login',

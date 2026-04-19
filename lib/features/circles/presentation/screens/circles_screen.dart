@@ -143,7 +143,6 @@ class _CirclesScreenState extends State<CirclesScreen> {
                               child: CircleCard(
                                 key: index == 0 ? _circleCardKey : null,
                                 circle: circle,
-                                onTap: () => context.push('/feed/${circle.id}'),
                                 onDelete: () {
                                   showDialog(
                                     context: context,

@@ -10,13 +10,11 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
 class CircleCard extends StatelessWidget {
   final CircleEntity circle;
-  final VoidCallback onTap;
   final VoidCallback? onDelete;
 
   const CircleCard({
     super.key,
     required this.circle,
-    required this.onTap,
     this.onDelete,
   });
 
@@ -32,7 +30,7 @@ class CircleCard extends StatelessWidget {
           } else if (type == 'family' || type == 'inlaw') {
             context.push('/family/${circle.id}');
           } else {
-            context.push('/feed/${circle.id}');
+            context.push('/messaging');
           }
         },
         borderRadius: BorderRadius.circular(18),
