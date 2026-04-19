@@ -329,7 +329,7 @@ class _SafetyCheckSection extends StatelessWidget {
                     child: TetherButton(
                       onPressed: () => context
                           .read<FamilySafetyCubit>()
-                          .respondToSafetyCheck(check.id, 'safe'),
+                          .respondToSafetyCheck(circleId, check.id, 'safe'),
                       backgroundColor: const Color(0xFF2D4A3E),
                       foregroundColor: const Color(0xFF86EFAC),
                       child: Row(
@@ -347,7 +347,7 @@ class _SafetyCheckSection extends StatelessWidget {
                     child: TetherButton(
                       onPressed: () => context
                           .read<FamilySafetyCubit>()
-                          .respondToSafetyCheck(check.id, 'escalated'),
+                          .respondToSafetyCheck(circleId, check.id, 'escalated'),
                       style: TetherButtonStyle.secondary,
                       child: const Text('Need Help'),
                     ),

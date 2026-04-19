@@ -107,7 +107,7 @@ class _OurBubbleScreenState extends State<OurBubbleScreen> {
                             avatarUrl = member['avatar_url'];
                           }
                           return SquircleAvatar(
-                            imageUrl: avatarUrl,
+                            imageUrl: avatarUrl ?? '',
                             size: 40,
                             borderColor: colorScheme.primary.withOpacity(0.2),
                             borderWidth: 2,
@@ -162,7 +162,7 @@ class _PartnerConnectionHeader extends StatelessWidget {
                 Transform.rotate(
                   angle: -0.1, // ~ -6 degrees
                   child: SquircleAvatar(
-                    imageUrl: avatar1,
+                    imageUrl: avatar1 ?? '',
                     size: 80,
                     borderColor: colorScheme.primary.withOpacity(0.3),
                     borderWidth: 3,
@@ -191,9 +191,7 @@ class _PartnerConnectionHeader extends StatelessWidget {
                       decoration: const BoxDecoration(
                         color: Colors.white,
                         shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(color: Colors.white, blurRadius: 8)
-                        ],
+                        boxShadow: [BoxShadow(color: Colors.white, blurRadius: 8)],
                       ),
                     ),
                   ),
@@ -202,7 +200,7 @@ class _PartnerConnectionHeader extends StatelessWidget {
                 Transform.rotate(
                   angle: 0.1, // ~ 6 degrees
                   child: SquircleAvatar(
-                    imageUrl: avatar2,
+                    imageUrl: avatar2 ?? '',
                     size: 80,
                     borderColor: colorScheme.secondary.withOpacity(0.3),
                     borderWidth: 3,
