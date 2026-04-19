@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import '../../../../injection_container.dart';
 import '../../../../core/widgets/squircle_avatar.dart';
 import '../../../../core/widgets/whisper_text.dart';
@@ -10,17 +9,12 @@ import '../../../../core/widgets/tether_button.dart';
 import '../../../../core/widgets/tether_card.dart';
 import '../../../../core/widgets/slow_photo.dart';
 import '../../../circles/presentation/bloc/circle_member_cubit.dart';
-import '../../../circles/presentation/bloc/circle_member_state.dart';
 import '../../../circles/presentation/bloc/circle_cubit.dart';
 import '../../../circles/presentation/bloc/circle_state.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
-import '../../../wellness/presentation/bloc/check_in_cubit.dart';
-import '../../../wellness/presentation/bloc/check_in_state.dart';
 import '../bloc/family_safety_cubit.dart';
 import '../bloc/family_safety_state.dart';
-import '../bloc/heritage_cubit.dart';
-import '../bloc/heritage_state.dart';
 import '../widgets/sos_alert_overlay.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
@@ -90,209 +84,164 @@ class _FamilyDashboardScreenState extends State<FamilyDashboardScreen> {
         BlocProvider(
           create: (context) => getIt<CircleCubit>()..loadCircles(),
         ),
-        BlocProvider(
-          create: (context) => getIt<CheckInCubit>(),
-        ),
       ],
-      child: BlocListener<CheckInCubit, CheckInState>(
-        listener: (context, state) {
-          if (state is CheckInSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Successfully checked in! ✓')),
-            );
-          } else if (state is CheckInError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Check-in failed: ${state.message}')),
-            );
-          }
-        },
-        child: Scaffold(
-          body: Stack(
-            children: [
-              CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    floating: true,
-                    pinned: true,
-                    backgroundColor: colorScheme.surface.withOpacity(0.01),
-                    surfaceTintColor: Colors.transparent,
-                    flexibleSpace: ClipRect(
-                      child: BackdropFilter(
-                        filter: ColorFilter.mode(
-                          colorScheme.surface.withOpacity(0.8),
-                          BlendMode.srcOver,
-                        ),
-                        child: Container(color: Colors.transparent),
+      child: Scaffold(
+        body: Stack(
+          children: [
+            CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  floating: true,
+                  pinned: true,
+                  backgroundColor: colorScheme.surface.withValues(alpha: 0.01),
+                  surfaceTintColor: Colors.transparent,
+                  flexibleSpace: ClipRect(
+                    child: BackdropFilter(
+                      filter: ColorFilter.mode(
+                        colorScheme.surface.withValues(alpha: 0.8),
+                        BlendMode.srcOver,
                       ),
-                    ),
-                    title: Text(
-                      'Tether',
-                      style: theme.textTheme.headlineMedium?.copyWith(
-                        color: colorScheme.primary,
-                        fontStyle: FontStyle.italic,
-                        fontSize: 24,
-                        letterSpacing: -0.5,
-                      ),
-                    ),
-                    actions: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 24),
-                        child: BlocBuilder<AuthBloc, AuthState>(
-                          builder: (context, state) {
-                            String? imageUrl;
-                            if (state is Authenticated) {
-                              imageUrl = state.user.avatarUrl;
-                            }
-                            return SquircleAvatar(
-                              imageUrl: imageUrl ?? '',
-                              size: 40,
-                              borderColor: colorScheme.primary.withOpacity(0.2),
-                              borderWidth: 2,
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  SliverPadding(
-                    padding: const EdgeInsets.fromLTRB(24, 32, 24, 100),
-                    sliver: SliverToBoxAdapter(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const WhisperText('FAMILY SANCTUARY'),
-                                  const SizedBox(height: 8),
-                                  BlocBuilder<CircleCubit, CircleState>(
-                                    builder: (context, state) {
-                                      String name = 'Loading Circle...';
-                                      if (state is CircleLoaded) {
-                                        final circle = state.circles.firstWhere(
-                                          (c) => c.id == widget.circleId,
-                                          orElse: () => state.circles.first,
-                                        );
-                                        name = circle.name;
-                                      }
-                                      return Text(
-                                        name,
-                                        style: theme.textTheme.displaySmall
-                                            ?.copyWith(
-                                          fontStyle: FontStyle.italic,
-                                          fontSize: 32,
-                                          letterSpacing: -1,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
-                              BlocBuilder<CheckInCubit, CheckInState>(
-                                builder: (context, state) {
-                                  return TetherButton(
-                                    onPressed: state is CheckInLoading
-                                        ? null
-                                        : () => context
-                                            .read<CheckInCubit>()
-                                            .submitCheckIn(widget.circleId),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        if (state is CheckInLoading)
-                                          const SizedBox(
-                                            width: 14,
-                                            height: 14,
-                                            child: CircularProgressIndicator(
-                                                strokeWidth: 2),
-                                          )
-                                        else
-                                          const Icon(
-                                              FluentIcons.checkmark_circle_24_regular,
-                                              size: 18),
-                                        const SizedBox(width: 8),
-                                        const Text("I'm Okay ✓"),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 48),
-                          _FamilyBentoGrid(
-                            key: _bentoGridKey,
-                            circleId: widget.circleId,
-                            memoryKey: _memoryTileKey,
-                            safetyKey: _safetyTileKey,
-                            voiceKey: _voiceNoteTileKey,
-                            customiseKey: _customiseGridKey,
-                          ),
-                          const SizedBox(height: 48),
-                          _SafetyCheckSection(circleId: widget.circleId),
-                          const SizedBox(height: 64),
-                          _EmergencySOS(circleId: widget.circleId),
-                          const SizedBox(height: 64),
-                          const _HeritageCornerPreview(),
-                          const SizedBox(height: 64),
-                          const _GrandparentEasyView(),
-                        ],
-                      ),
+                      child: Container(color: Colors.transparent),
                     ),
                   ),
-                ],
-              ),
-              if (_showOverlay)
-                FeatureOnboardingOverlay(
-                  steps: [
-                    OnboardingStep(
-                      targetKey: _bentoGridKey,
-                      title: 'Welcome to the Family Bento',
-                      body: "Each tile is a living widget — memories, voice notes, check-ins, shared calendars. Everything your family shares, organised into one beautiful, modular view.",
+                  title: Text(
+                    'Tether',
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      color: colorScheme.primary,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 24,
+                      letterSpacing: -0.5,
                     ),
-                    OnboardingStep(
-                      targetKey: _memoryTileKey,
-                      title: 'Shared Memories',
-                      body: "Any family member can drop a photo, a voice clip, or a 'little win' here. Over time, it becomes your family's living album — built together, one moment at a time.",
-                    ),
-                    OnboardingStep(
-                      targetKey: _safetyTileKey,
-                      title: 'Gentle Check-Ins',
-                      body: "A simple 'I'm okay' check-in — not tracking, not surveillance. Just the quiet comfort of knowing everyone in your family is doing alright today.",
-                    ),
-                    OnboardingStep(
-                      targetKey: _voiceNoteTileKey,
-                      title: 'Family Voice Notes',
-                      body: "Drop a voice note for the whole family. It renders as a warm, organic waveform — not a cold audio bar. Because voice carries what text simply can't.",
-                    ),
-                    OnboardingStep(
-                      targetKey: _customiseGridKey,
-                      title: 'Make It Yours',
-                      body: "Add new tiles, remove what you don't use, and rearrange until the Bento fits how your family actually lives. There's no default that works for everyone.",
+                  ),
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 24),
+                      child: BlocBuilder<AuthBloc, AuthState>(
+                        builder: (context, state) {
+                          String? imageUrl;
+                          if (state is Authenticated) {
+                            imageUrl = state.user.avatarUrl;
+                          }
+                          return SquircleAvatar(
+                            imageUrl: imageUrl ?? '',
+                            size: 40,
+                            borderColor: colorScheme.primary.withValues(alpha: 0.2),
+                            borderWidth: 2,
+                          );
+                        },
+                      ),
                     ),
                   ],
-                  onComplete: _markOnboardingComplete,
-                  onSkip: _markOnboardingComplete,
                 ),
-              BlocBuilder<FamilySafetyCubit, FamilySafetyState>(
-                builder: (context, state) {
-                  if (state.activeAlerts.isNotEmpty) {
-                    return SosAlertOverlay(
-                      alert: state.activeAlerts.first,
-                      onResolve: () {
-                        context.read<FamilySafetyCubit>().resolveSos(state.activeAlerts.first.id);
-                      },
-                    );
-                  }
-                  return const SizedBox();
-                },
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(24, 32, 24, 100),
+                  sliver: SliverToBoxAdapter(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const WhisperText('FAMILY SANCTUARY'),
+                                const SizedBox(height: 8),
+                                BlocBuilder<CircleCubit, CircleState>(
+                                  builder: (context, state) {
+                                    String name = 'Loading Circle...';
+                                    if (state is CircleLoaded) {
+                                      final circle = state.circles.firstWhere(
+                                        (c) => c.id == widget.circleId,
+                                        orElse: () => state.circles.first,
+                                      );
+                                      name = circle.name;
+                                    }
+                                    return Text(
+                                      name,
+                                      style: theme.textTheme.displaySmall
+                                          ?.copyWith(
+                                        fontStyle: FontStyle.italic,
+                                        fontSize: 32,
+                                        letterSpacing: -1,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 48),
+                        _FamilyBentoGrid(
+                          key: _bentoGridKey,
+                          circleId: widget.circleId,
+                          memoryKey: _memoryTileKey,
+                          safetyKey: _safetyTileKey,
+                          voiceKey: _voiceNoteTileKey,
+                          customiseKey: _customiseGridKey,
+                        ),
+                        const SizedBox(height: 48),
+                        _SafetyCheckSection(circleId: widget.circleId),
+                        const SizedBox(height: 64),
+                        _EmergencySOS(circleId: widget.circleId),
+                        const SizedBox(height: 64),
+                        const _HeritageCornerPreview(),
+                        const SizedBox(height: 64),
+                        const _GrandparentEasyView(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            if (_showOverlay)
+              FeatureOnboardingOverlay(
+                steps: [
+                  OnboardingStep(
+                    targetKey: _bentoGridKey,
+                    title: 'Welcome to the Family Bento',
+                    body: "Each tile is a living widget — memories, voice notes, check-ins, shared calendars. Everything your family shares, organised into one beautiful, modular view.",
+                  ),
+                  OnboardingStep(
+                    targetKey: _memoryTileKey,
+                    title: 'Shared Memories',
+                    body: "Any family member can drop a photo, a voice clip, or a 'little win' here. Over time, it becomes your family's living album — built together, one moment at a time.",
+                  ),
+                  OnboardingStep(
+                    targetKey: _safetyTileKey,
+                    title: 'Gentle Check-Ins',
+                    body: "A simple 'I'm okay' check-in — not tracking, not surveillance. Just the quiet comfort of knowing everyone in your family is doing alright today.",
+                  ),
+                  OnboardingStep(
+                    targetKey: _voiceNoteTileKey,
+                    title: 'Family Voice Notes',
+                    body: "Drop a voice note for the whole family. It renders as a warm, organic waveform — not a cold audio bar. Because voice carries what text simply can't.",
+                  ),
+                  OnboardingStep(
+                    targetKey: _customiseGridKey,
+                    title: 'Make It Yours',
+                    body: "Add new tiles, remove what you don't use, and rearrange until the Bento fits how your family actually lives. There's no default that works for everyone.",
+                  ),
+                ],
+                onComplete: _markOnboardingComplete,
+                onSkip: _markOnboardingComplete,
               ),
-            ],
-          ),
+            BlocBuilder<FamilySafetyCubit, FamilySafetyState>(
+              builder: (context, state) {
+                if (state.activeAlerts.isNotEmpty) {
+                  return SosAlertOverlay(
+                    alert: state.activeAlerts.first,
+                    onResolve: () {
+                      context.read<FamilySafetyCubit>().resolveSos(state.activeAlerts.first.id);
+                    },
+                  );
+                }
+                return const SizedBox();
+              },
+            ),
+          ],
         ),
       ),
     );
@@ -327,7 +276,6 @@ class _FamilyBentoGrid extends StatelessWidget {
         childAspectRatio: 1,
       ),
       children: [
-        // Large Tile: Recent Feed
         _BentoTile(
           key: memoryKey,
           columnSpan: 2,
@@ -336,7 +284,6 @@ class _FamilyBentoGrid extends StatelessWidget {
           title: 'Recent Feed',
           onTap: () {},
         ),
-        // Small Tiles
         _BentoTile(
           key: safetyKey,
           columnSpan: 2,
@@ -404,7 +351,7 @@ class _BentoTile extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, color: colorScheme.primary.withOpacity(0.7), size: 24),
+              Icon(icon, color: colorScheme.primary.withValues(alpha: 0.7), size: 24),
               const SizedBox(height: 8),
               Text(
                 title,
@@ -421,9 +368,6 @@ class _BentoTile extends StatelessWidget {
     );
   }
 }
-
-// Re-implementing _FamilyBentoGrid with StaggeredGrid would be better, but let's stick to simple grid tiles for now.
-// I'll update the GridView to use a different approach.
 
 class _SafetyCheckSection extends StatelessWidget {
   final String circleId;
@@ -446,7 +390,7 @@ class _SafetyCheckSection extends StatelessWidget {
           padding: const EdgeInsets.all(32),
           backgroundColor: const Color(
             0xFF2A1A10,
-          ).withOpacity(0.6), // Dark warm earth
+          ).withValues(alpha: 0.6), // Dark warm earth
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -534,7 +478,7 @@ class _EmergencySOS extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: colorScheme.primary.withOpacity(0.15),
+                    color: colorScheme.primary.withValues(alpha: 0.15),
                     width: 2,
                   ),
                 ),
@@ -544,10 +488,10 @@ class _EmergencySOS extends StatelessWidget {
                 height: 160,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: colorScheme.primary.withOpacity(0.05),
+                  color: colorScheme.primary.withValues(alpha: 0.05),
                   boxShadow: [
                     BoxShadow(
-                      color: colorScheme.primary.withOpacity(0.1),
+                      color: colorScheme.primary.withValues(alpha: 0.1),
                       blurRadius: 40,
                     ),
                   ],
@@ -670,7 +614,7 @@ class _HeritageCard extends StatelessWidget {
           color: const Color(0xFF2D2420),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.4),
+              color: Colors.black.withValues(alpha: 0.4),
               blurRadius: 30,
               offset: const Offset(0, 15),
             ),
@@ -717,7 +661,7 @@ class _HeritageCard extends StatelessWidget {
               title,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontStyle: FontStyle.italic,
-                color: Colors.white.withOpacity(0.85),
+                color: Colors.white.withValues(alpha: 0.85),
                 height: 1.4,
               ),
             ),
@@ -759,22 +703,22 @@ class _GrandparentEasyView extends StatelessWidget {
               _EasyButton(
                 icon: FluentIcons.people_community_24_regular,
                 label: 'See Family',
-                color: colorScheme.primaryContainer.withOpacity(0.8),
+                color: colorScheme.primaryContainer.withValues(alpha: 0.8),
               ),
               _EasyButton(
                 icon: FluentIcons.call_24_regular,
                 label: 'Call Someone',
-                color: colorScheme.secondary.withOpacity(0.8),
+                color: colorScheme.secondary.withValues(alpha: 0.8),
               ),
               _EasyButton(
                 icon: FluentIcons.image_24_regular,
                 label: 'New Photo',
-                color: colorScheme.tertiary.withOpacity(0.8),
+                color: colorScheme.tertiary.withValues(alpha: 0.8),
               ),
               _EasyButton(
                 icon: FluentIcons.checkmark_circle_24_regular,
                 label: "I'm Okay",
-                color: const Color(0xFF86EFAC).withOpacity(0.8),
+                color: const Color(0xFF86EFAC).withValues(alpha: 0.8),
               ),
             ],
           ),
@@ -803,7 +747,7 @@ class _EasyButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: color.withOpacity(0.3),
+            color: color.withValues(alpha: 0.3),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),

@@ -25,7 +25,7 @@ class MessageBubble extends StatelessWidget {
           decoration: BoxDecoration(
             color: isMe 
               ? theme.colorScheme.primary 
-              : theme.colorScheme.secondary.withOpacity(0.1),
+              : theme.colorScheme.secondary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.only(
               topLeft: const Radius.circular(16),
               topRight: const Radius.circular(16),
@@ -36,14 +36,14 @@ class MessageBubble extends StatelessWidget {
           child: Column(
             crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
-              if (message.contentType == 'text' && message.contentText != null)
+              if (message.messageType == 'text' && message.encryptedText != null)
                 Text(
-                  message.contentText!,
+                  message.encryptedText!,
                   style: theme.textTheme.bodyLarge?.copyWith(
                     color: isMe ? theme.colorScheme.onPrimary : theme.colorScheme.onSurface,
                   ),
                 ),
-              if (message.contentType == 'voice')
+              if (message.messageType == 'voice' || message.messageType == 'audio')
                 const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -56,7 +56,7 @@ class MessageBubble extends StatelessWidget {
               Text(
                 _formatTime(message.createdAt),
                 style: theme.textTheme.labelSmall?.copyWith(
-                  color: (isMe ? theme.colorScheme.onPrimary : theme.colorScheme.onSurface).withOpacity(0.6),
+                  color: (isMe ? theme.colorScheme.onPrimary : theme.colorScheme.onSurface).withValues(alpha: 0.6),
                   fontSize: 10,
                 ),
               ),

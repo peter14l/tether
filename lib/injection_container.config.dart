@@ -28,10 +28,6 @@ import 'core/utils/user_key_manager.dart' as _i120;
 import 'features/auth/data/repositories/supabase_auth_repository.dart' as _i760;
 import 'features/auth/domain/repositories/auth_repository.dart' as _i1015;
 import 'features/auth/presentation/bloc/auth_bloc.dart' as _i363;
-import 'features/calendar/data/repositories/supabase_calendar_repository.dart'
-    as _i592;
-import 'features/calendar/domain/repositories/calendar_repository.dart'
-    as _i392;
 import 'features/circles/data/repositories/supabase_circle_repository.dart'
     as _i759;
 import 'features/circles/domain/repositories/circle_repository.dart' as _i333;
@@ -79,22 +75,6 @@ import 'features/family/domain/repositories/heritage_repository.dart' as _i209;
 import 'features/family/presentation/bloc/bedtime_stories_cubit.dart' as _i310;
 import 'features/family/presentation/bloc/family_safety_cubit.dart' as _i412;
 import 'features/family/presentation/bloc/heritage_cubit.dart' as _i523;
-import 'features/feed/data/repositories/supabase_feed_repository.dart' as _i409;
-import 'features/feed/domain/repositories/feed_repository.dart' as _i185;
-import 'features/feed/presentation/bloc/feed_cubit.dart' as _i400;
-import 'features/journal/data/repositories/supabase_journal_repository.dart'
-    as _i422;
-import 'features/journal/data/repositories/supabase_reflection_repository.dart'
-    as _i742;
-import 'features/journal/domain/repositories/journal_repository.dart' as _i246;
-import 'features/journal/domain/repositories/reflection_repository.dart'
-    as _i832;
-import 'features/journal/presentation/bloc/journal_cubit.dart' as _i485;
-import 'features/journal/presentation/bloc/reflection_cubit.dart' as _i738;
-import 'features/memories/data/repositories/supabase_memories_repository.dart'
-    as _i491;
-import 'features/memories/domain/repositories/memories_repository.dart'
-    as _i993;
 import 'features/messaging/data/repositories/supabase_letter_repository.dart'
     as _i3;
 import 'features/messaging/data/repositories/supabase_messaging_repository.dart'
@@ -111,45 +91,11 @@ import 'features/monetization/data/repositories/billing_repository_impl.dart'
     as _i1019;
 import 'features/monetization/domain/repositories/billing_repository.dart'
     as _i917;
-import 'features/mood/data/repositories/supabase_mood_repository.dart' as _i904;
-import 'features/mood/data/repositories/supabase_temperature_check_repository.dart'
-    as _i50;
-import 'features/mood/domain/repositories/mood_repository.dart' as _i116;
-import 'features/mood/domain/repositories/temperature_check_repository.dart'
-    as _i149;
-import 'features/mood/presentation/bloc/mood_cubit.dart' as _i553;
 import 'features/settings/data/repositories/shared_prefs_settings_repository.dart'
     as _i68;
 import 'features/settings/domain/repositories/settings_repository.dart'
     as _i309;
 import 'features/settings/presentation/bloc/settings_cubit.dart' as _i235;
-import 'features/vault/data/repositories/supabase_vault_repository.dart'
-    as _i289;
-import 'features/vault/domain/repositories/vault_repository.dart' as _i342;
-import 'features/wellness/data/repositories/supabase_check_in_repository.dart'
-    as _i160;
-import 'features/wellness/data/repositories/supabase_playlist_repository.dart'
-    as _i1022;
-import 'features/wellness/data/repositories/supabase_presence_repository.dart'
-    as _i599;
-import 'features/wellness/data/repositories/supabase_quiet_hours_repository.dart'
-    as _i604;
-import 'features/wellness/data/repositories/supabase_wellness_repository.dart'
-    as _i694;
-import 'features/wellness/domain/repositories/check_in_repository.dart'
-    as _i878;
-import 'features/wellness/domain/repositories/playlist_repository.dart'
-    as _i722;
-import 'features/wellness/domain/repositories/presence_repository.dart'
-    as _i358;
-import 'features/wellness/domain/repositories/quiet_hours_repository.dart'
-    as _i769;
-import 'features/wellness/domain/repositories/wellness_repository.dart'
-    as _i146;
-import 'features/wellness/presentation/bloc/check_in_cubit.dart' as _i427;
-import 'features/wellness/presentation/bloc/playlist_cubit.dart' as _i297;
-import 'features/wellness/presentation/bloc/presence_cubit.dart' as _i870;
-import 'features/wellness/presentation/bloc/wellness_cubit.dart' as _i404;
 import 'injection_container.dart' as _i809;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -193,12 +139,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i921.IFavorCouponRepository>(
       () => _i201.SupabaseFavorCouponRepository(gh<_i454.SupabaseClient>()),
     );
-    gh.lazySingleton<_i185.IFeedRepository>(
-      () => _i409.SupabaseFeedRepository(gh<_i454.SupabaseClient>()),
-    );
-    gh.lazySingleton<_i116.IMoodRepository>(
-      () => _i904.SupabaseMoodRepository(gh<_i454.SupabaseClient>()),
-    );
     gh.lazySingleton<_i665.IFamilyRepository>(
       () => _i660.SupabaseFamilyRepository(gh<_i454.SupabaseClient>()),
     );
@@ -210,12 +150,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i610.IPushNotificationService>(
       () => _i610.PushNotificationService(gh<_i454.SupabaseClient>()),
-    );
-    gh.lazySingleton<_i993.IMemoriesRepository>(
-      () => _i491.SupabaseMemoriesRepository(gh<_i454.SupabaseClient>()),
-    );
-    gh.lazySingleton<_i146.IWellnessRepository>(
-      () => _i694.SupabaseWellnessRepository(gh<_i454.SupabaseClient>()),
     );
     gh.lazySingleton<_i209.IHeritageRepository>(
       () => _i600.SupabaseHeritageRepository(gh<_i454.SupabaseClient>()),
@@ -232,32 +166,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i683.IFamilyRitualRepository>(
       () => _i505.SupabaseFamilyRitualRepository(gh<_i454.SupabaseClient>()),
     );
-    gh.lazySingleton<_i878.ICheckInRepository>(
-      () => _i160.SupabaseCheckInRepository(gh<_i454.SupabaseClient>()),
-    );
-    gh.lazySingleton<_i722.IPlaylistRepository>(
-      () => _i1022.SupabasePlaylistRepository(gh<_i454.SupabaseClient>()),
-    );
     gh.factory<_i310.BedtimeStoriesCubit>(
       () => _i310.BedtimeStoriesCubit(
         gh<_i133.IBedtimeStoriesRepository>(),
         gh<_i454.SupabaseClient>(),
       ),
     );
-    gh.lazySingleton<_i358.IPresenceRepository>(
-      () => _i599.SupabasePresenceRepository(gh<_i454.SupabaseClient>()),
-    );
-    gh.lazySingleton<_i149.ITemperatureCheckRepository>(
-      () => _i50.SupabaseTemperatureCheckRepository(gh<_i454.SupabaseClient>()),
-    );
     gh.lazySingleton<_i524.IChoreRepository>(
       () => _i995.SupabaseChoreRepository(gh<_i454.SupabaseClient>()),
-    );
-    gh.lazySingleton<_i769.IQuietHoursRepository>(
-      () => _i604.SupabaseQuietHoursRepository(gh<_i454.SupabaseClient>()),
-    );
-    gh.lazySingleton<_i392.ICalendarRepository>(
-      () => _i592.SupabaseCalendarRepository(gh<_i454.SupabaseClient>()),
     );
     gh.lazySingleton<_i122.IMilestonesRepository>(
       () => _i896.SupabaseMilestonesRepository(gh<_i454.SupabaseClient>()),
@@ -265,18 +181,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i333.ICircleRepository>(
       () => _i759.SupabaseCircleRepository(gh<_i454.SupabaseClient>()),
     );
-    gh.factory<_i870.PresenceCubit>(
-      () => _i870.PresenceCubit(gh<_i358.IPresenceRepository>()),
-    );
     gh.factory<_i523.HeritageCubit>(
       () => _i523.HeritageCubit(
         gh<_i209.IHeritageRepository>(),
-        gh<_i454.SupabaseClient>(),
-      ),
-    );
-    gh.factory<_i400.FeedCubit>(
-      () => _i400.FeedCubit(
-        gh<_i185.IFeedRepository>(),
         gh<_i454.SupabaseClient>(),
       ),
     );
@@ -287,30 +194,10 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i1021.ISubscriptionService>(),
       ),
     );
-    gh.factory<_i553.MoodCubit>(
-      () => _i553.MoodCubit(
-        gh<_i116.IMoodRepository>(),
-        gh<_i454.SupabaseClient>(),
-      ),
-    );
-    gh.lazySingleton<_i342.IVaultRepository>(
-      () => _i289.SupabaseVaultRepository(
-        gh<_i454.SupabaseClient>(),
-        gh<_i376.EncryptionService>(),
-        gh<_i120.UserKeyManager>(),
-      ),
-    );
     gh.factory<_i177.SpaceToBreatheCubit>(
       () => _i177.SpaceToBreatheCubit(
         gh<_i331.ICouplesRepository>(),
         gh<_i454.SupabaseClient>(),
-      ),
-    );
-    gh.lazySingleton<_i246.IJournalRepository>(
-      () => _i422.SupabaseJournalRepository(
-        gh<_i454.SupabaseClient>(),
-        gh<_i376.EncryptionService>(),
-        gh<_i120.UserKeyManager>(),
       ),
     );
     gh.lazySingleton<_i162.IFutureLetterRepository>(
@@ -326,16 +213,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i120.UserKeyManager>(),
         gh<_i376.EncryptionService>(),
       ),
-    );
-    gh.lazySingleton<_i832.IReflectionRepository>(
-      () => _i742.SupabaseReflectionRepository(
-        gh<_i454.SupabaseClient>(),
-        gh<_i376.EncryptionService>(),
-        gh<_i120.UserKeyManager>(),
-      ),
-    );
-    gh.factory<_i297.PlaylistCubit>(
-      () => _i297.PlaylistCubit(gh<_i722.IPlaylistRepository>()),
     );
     gh.lazySingleton<_i340.IGalleryRepository>(
       () => _i14.SupabaseGalleryRepository(
@@ -357,12 +234,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i120.UserKeyManager>(),
       ),
     );
-    gh.factory<_i404.WellnessCubit>(
-      () => _i404.WellnessCubit(
-        gh<_i146.IWellnessRepository>(),
-        gh<_i454.SupabaseClient>(),
-      ),
-    );
     gh.factory<_i75.CircleCubit>(
       () => _i75.CircleCubit(
         gh<_i333.ICircleRepository>(),
@@ -375,12 +246,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i454.SupabaseClient>(),
         gh<_i1003.IE2EEService>(),
         gh<_i175.R2StorageService>(),
-      ),
-    );
-    gh.factory<_i427.CheckInCubit>(
-      () => _i427.CheckInCubit(
-        gh<_i878.ICheckInRepository>(),
-        gh<_i454.SupabaseClient>(),
       ),
     );
     gh.factory<_i361.PrivateGalleryCubit>(
@@ -398,18 +263,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i656.CircleMemberCubit>(
       () => _i656.CircleMemberCubit(gh<_i333.ICircleRepository>()),
-    );
-    gh.factory<_i485.JournalCubit>(
-      () => _i485.JournalCubit(
-        gh<_i246.IJournalRepository>(),
-        gh<_i454.SupabaseClient>(),
-      ),
-    );
-    gh.factory<_i738.ReflectionCubit>(
-      () => _i738.ReflectionCubit(
-        gh<_i832.IReflectionRepository>(),
-        gh<_i454.SupabaseClient>(),
-      ),
     );
     gh.factory<_i235.SettingsCubit>(
       () => _i235.SettingsCubit(

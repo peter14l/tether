@@ -5,17 +5,21 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:app/core/error/failures.dart';
-import 'package:app/features/auth/domain/entities/user_entity.dart';
-import 'package:app/features/auth/domain/repositories/auth_repository.dart';
-import 'package:app/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:app/features/auth/presentation/bloc/auth_event.dart';
-import 'package:app/features/auth/presentation/bloc/auth_state.dart';
+import 'package:tether/core/error/failures.dart';
+import 'package:tether/features/auth/domain/entities/user_entity.dart';
+import 'package:tether/features/auth/domain/repositories/auth_repository.dart';
+import 'package:tether/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:tether/features/auth/presentation/bloc/auth_event.dart';
+import 'package:tether/features/auth/presentation/bloc/auth_state.dart';
+import 'package:tether/core/notifications/push_notification_service.dart';
+import 'package:tether/core/security/e2ee_service.dart';
 
 // ---------------------------------------------------------------------------
 // Mocks
 // ---------------------------------------------------------------------------
 class MockAuthRepository extends Mock implements IAuthRepository {}
+class MockPushNotificationService extends Mock implements IPushNotificationService {}
+class MockE2EEService extends Mock implements IE2EEService {}
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -31,12 +35,21 @@ UserEntity fakeUser() => UserEntity(
 
 void main() {
   late MockAuthRepository mockRepo;
+  late MockPushNotificationService mockPush;
+  late MockE2EEService mockE2ee;
 
   setUp(() {
     mockRepo = MockAuthRepository();
+    mockPush = MockPushNotificationService();
+    mockE2ee = MockE2EEService();
+    
     // Default: stream never emits (no spurious events)
     when(() => mockRepo.onAuthStateChanged)
         .thenAnswer((_) => const Stream.empty());
+        
+    when(() => mockPush.initialize()).thenAnswer((_) async => {});
+    when(() => mockPush.registerToken()).thenAnswer((_) async => {});
+    when(() => mockE2ee.initializeKeys()).thenAnswer((_) async => {});
   });
 
   // -------------------------------------------------------------------------
@@ -54,7 +67,7 @@ void main() {
             password: any(named: 'password'),
           ),
         ).thenAnswer((_) async => Right(fakeUser()));
-        return AuthBloc(mockRepo);
+        return AuthBloc(mockRepo, mockPush, mockE2ee);
       },
       act: (bloc) =>
           bloc.add(const SignInRequested('test@example.com', 'secret')),
@@ -78,7 +91,7 @@ void main() {
           ),
         ).thenAnswer(
             (_) async => const Left(AuthFailure('Invalid credentials')));
-        return AuthBloc(mockRepo);
+        return AuthBloc(mockRepo, mockPush, mockE2ee);
       },
       act: (bloc) =>
           bloc.add(const SignInRequested('bad@example.com', 'wrong')),
@@ -112,7 +125,7 @@ void main() {
           ),
         ).thenAnswer((_) async => Right(fakeUser()));
 
-        final bloc = AuthBloc(mockRepo);
+        final bloc = AuthBloc(mockRepo, mockPush, mockE2ee);
 
         // Collect states
         final states = <AuthState>[];
@@ -173,7 +186,7 @@ void main() {
           ),
         ).thenAnswer((_) async => Right(fakeUser()));
 
-        final bloc = AuthBloc(mockRepo);
+        final bloc = AuthBloc(mockRepo, mockPush, mockE2ee);
 
         bloc.add(const SignInRequested('test@example.com', 'secret'));
         await Future.delayed(const Duration(milliseconds: 100));
@@ -210,7 +223,7 @@ void main() {
       build: () {
         when(() => mockRepo.getCurrentUser())
             .thenAnswer((_) async => const Right(null));
-        return AuthBloc(mockRepo);
+        return AuthBloc(mockRepo, mockPush, mockE2ee);
       },
       act: (bloc) => bloc.add(AuthCheckRequested()),
       expect: () => [isA<AuthLoading>(), isA<Unauthenticated>()],
@@ -221,7 +234,7 @@ void main() {
       build: () {
         when(() => mockRepo.getCurrentUser())
             .thenAnswer((_) async => Right(fakeUser()));
-        return AuthBloc(mockRepo);
+        return AuthBloc(mockRepo, mockPush, mockE2ee);
       },
       act: (bloc) => bloc.add(AuthCheckRequested()),
       expect: () => [isA<AuthLoading>(), isA<Authenticated>()],

@@ -10,14 +10,11 @@ class TetherBottomNavBar extends StatelessWidget {
     if (location == '/' || location.startsWith('/messaging')) {
       return 0;
     }
-    if (location.startsWith('/breathing')) {
+    if (location.startsWith('/circles')) {
       return 1;
     }
-    if (location.startsWith('/circles')) {
-      return 2;
-    }
     if (location.startsWith('/settings')) {
-      return 3;
+      return 2;
     }
     return 0;
   }
@@ -28,12 +25,9 @@ class TetherBottomNavBar extends StatelessWidget {
         context.go('/');
         break;
       case 1:
-        context.go('/breathing');
-        break;
-      case 2:
         context.go('/circles');
         break;
-      case 3:
+      case 2:
         context.go('/settings');
         break;
     }
@@ -44,7 +38,7 @@ class TetherBottomNavBar extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
-      height: 100,
+      height: 80,
       decoration: BoxDecoration(
         color: colorScheme.surface,
         boxShadow: [
@@ -70,11 +64,6 @@ class TetherBottomNavBar extends StatelessWidget {
             icon: Icon(FluentIcons.chat_24_regular),
             activeIcon: Icon(FluentIcons.chat_24_filled),
             label: 'Messages',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(FluentIcons.leaf_two_24_regular),
-            activeIcon: Icon(FluentIcons.leaf_two_24_filled),
-            label: 'Sanctuary',
           ),
           BottomNavigationBarItem(
             icon: Icon(FluentIcons.people_24_regular),

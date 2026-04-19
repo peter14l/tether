@@ -9,10 +9,6 @@ import '../../features/messaging/presentation/screens/chat_screen.dart';
 import '../../features/messaging/presentation/screens/new_message_screen.dart';
 import '../../features/messaging/presentation/bloc/user_search_cubit.dart';
 import '../../features/messaging/presentation/bloc/messaging_cubit.dart';
-import '../../features/mood/presentation/screens/mood_selection_screen.dart';
-import '../../features/journal/presentation/screens/journal_screen.dart';
-import '../../features/journal/presentation/screens/reflection_wall_screen.dart';
-import '../../features/wellness/presentation/screens/wellness_screen.dart';
 import '../../features/couples/presentation/screens/our_bubble_screen.dart';
 import '../../features/family/presentation/screens/family_dashboard_screen.dart';
 import '../../features/family/presentation/screens/heritage_corner_screen.dart';
@@ -27,7 +23,6 @@ import '../../features/auth/presentation/bloc/auth_state.dart';
 import '../../features/onboarding/presentation/pages/onboarding_screen.dart';
 import '../../injection_container.dart';
 import '../widgets/main_shell.dart';
-import '../widgets/biometric_guard.dart';
 
 final goRouter = GoRouter(
   initialLocation: '/',
@@ -96,14 +91,6 @@ final goRouter = GoRouter(
             );
           },
         ),
-
-        GoRoute(
-          path: '/breathing',
-          builder: (context, state) {
-            final circleId = state.uri.queryParameters['circleId'];
-            return WellnessScreen(initialCircleId: circleId);
-          },
-        ),
         GoRoute(
           path: '/settings',
           builder: (context, state) => const SettingsScreen(),
@@ -129,22 +116,6 @@ final goRouter = GoRouter(
     GoRoute(
       path: '/subscription',
       builder: (context, state) => const SubscriptionScreen(),
-    ),
-    GoRoute(
-      path: '/mood',
-      builder: (context, state) => const MoodSelectionScreen(),
-    ),
-    GoRoute(
-      path: '/journal',
-      builder: (context, state) => const BiometricGuard(
-        child: JournalScreen(),
-      ),
-    ),
-    GoRoute(
-      path: '/reflection',
-      builder: (context, state) => const BiometricGuard(
-        child: ReflectionWallScreen(),
-      ),
     ),
     GoRoute(
       path: '/bubble/:circleId',
@@ -190,4 +161,3 @@ class _AuthRefreshListenable extends ChangeNotifier {
     super.dispose();
   }
 }
-
