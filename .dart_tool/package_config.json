@@ -260,6 +260,12 @@
       "languageVersion": "3.9"
     },
     {
+      "name": "dbus",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/dbus-0.7.12",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "diff_match_patch",
       "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/diff_match_patch-0.4.1",
       "packageUri": "lib/",
@@ -420,6 +426,30 @@
       "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/flutter_lints-6.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.8"
+    },
+    {
+      "name": "flutter_local_notifications",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/flutter_local_notifications-21.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
+      "name": "flutter_local_notifications_linux",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/flutter_local_notifications_linux-8.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
+      "name": "flutter_local_notifications_platform_interface",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/flutter_local_notifications_platform_interface-11.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
+      "name": "flutter_local_notifications_windows",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/flutter_local_notifications_windows-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
     },
     {
       "name": "flutter_plugin_android_lifecycle",
@@ -1278,6 +1308,12 @@
       "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/test_core-0.6.16",
       "packageUri": "lib/",
       "languageVersion": "3.7"
+    },
+    {
+      "name": "timezone",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/timezone-0.11.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
     },
     {
       "name": "typed_data",

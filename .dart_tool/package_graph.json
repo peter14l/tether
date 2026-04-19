@@ -18,6 +18,7 @@
         "flutter",
         "flutter_bloc",
         "flutter_dotenv",
+        "flutter_local_notifications",
         "flutter_secure_storage",
         "fpdart",
         "geolocator",
@@ -175,6 +176,18 @@
         "properties",
         "system_info2",
         "yaml"
+      ]
+    },
+    {
+      "name": "flutter_local_notifications",
+      "version": "21.0.0",
+      "dependencies": [
+        "clock",
+        "flutter",
+        "flutter_local_notifications_linux",
+        "flutter_local_notifications_platform_interface",
+        "flutter_local_notifications_windows",
+        "timezone"
       ]
     },
     {
@@ -986,6 +999,21 @@
       "name": "injector",
       "version": "3.0.0",
       "dependencies": []
+    },
+    {
+      "name": "timezone",
+      "version": "0.11.0",
+      "dependencies": [
+        "http",
+        "path"
+      ]
+    },
+    {
+      "name": "flutter_local_notifications_platform_interface",
+      "version": "11.0.0",
+      "dependencies": [
+        "plugin_platform_interface"
+      ]
     },
     {
       "name": "image_picker_windows",
@@ -2268,6 +2296,40 @@
       "dependencies": [
         "collection",
         "convert"
+      ]
+    },
+    {
+      "name": "flutter_local_notifications_windows",
+      "version": "3.0.0",
+      "dependencies": [
+        "ffi",
+        "flutter",
+        "flutter_local_notifications_platform_interface",
+        "meta",
+        "timezone",
+        "xml"
+      ]
+    },
+    {
+      "name": "flutter_local_notifications_linux",
+      "version": "8.0.0",
+      "dependencies": [
+        "dbus",
+        "ffi",
+        "flutter",
+        "flutter_local_notifications_platform_interface",
+        "path",
+        "xdg_directories"
+      ]
+    },
+    {
+      "name": "dbus",
+      "version": "0.7.12",
+      "dependencies": [
+        "args",
+        "ffi",
+        "meta",
+        "xml"
       ]
     }
   ],
