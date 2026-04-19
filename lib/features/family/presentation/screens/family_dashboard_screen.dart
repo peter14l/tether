@@ -15,6 +15,8 @@ import '../../../circles/presentation/bloc/circle_cubit.dart';
 import '../../../circles/presentation/bloc/circle_state.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
+import '../../../wellness/presentation/bloc/check_in_cubit.dart';
+import '../../../wellness/presentation/bloc/check_in_state.dart';
 import '../bloc/family_safety_cubit.dart';
 import '../bloc/family_safety_state.dart';
 import '../bloc/heritage_cubit.dart';
@@ -44,138 +46,167 @@ class FamilyDashboardScreen extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<CircleCubit>()..loadCircles(),
         ),
+        BlocProvider(
+          create: (context) => getIt<CheckInCubit>(),
+        ),
       ],
-      child: Scaffold(
-        body: Stack(
-          children: [
-            CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  floating: true,
-                  pinned: true,
-                  backgroundColor: colorScheme.surface.withOpacity(0.01),
-                  surfaceTintColor: Colors.transparent,
-                  flexibleSpace: ClipRect(
-                    child: BackdropFilter(
-                      filter: ColorFilter.mode(
-                        colorScheme.surface.withOpacity(0.8),
-                        BlendMode.srcOver,
-                      ),
-                      child: Container(color: Colors.transparent),
-                    ),
-                  ),
-                  leading: IconButton(
-                    icon: Icon(Icons.arrow_back, color: colorScheme.primary),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  title: Text(
-                    'Tether',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      color: colorScheme.primary,
-                      fontStyle: FontStyle.italic,
-                      fontSize: 24,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                  actions: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 24),
-                      child: BlocBuilder<AuthBloc, AuthState>(
-                        builder: (context, state) {
-                          String? imageUrl;
-                          if (state is Authenticated) {
-                            imageUrl = state.user.avatarUrl;
-                          }
-                          return SquircleAvatar(
-                            imageUrl: imageUrl ?? '',
-                            size: 40,
-                            borderColor: colorScheme.primary.withOpacity(0.2),
-                            borderWidth: 2,
-                          );
-                        },
+      child: BlocListener<CheckInCubit, CheckInState>(
+        listener: (context, state) {
+          if (state is CheckInSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Successfully checked in! ✓')),
+            );
+          } else if (state is CheckInError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Check-in failed: ${state.message}')),
+            );
+          }
+        },
+        child: Scaffold(
+          body: Stack(
+            children: [
+              CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    floating: true,
+                    pinned: true,
+                    backgroundColor: colorScheme.surface.withOpacity(0.01),
+                    surfaceTintColor: Colors.transparent,
+                    flexibleSpace: ClipRect(
+                      child: BackdropFilter(
+                        filter: ColorFilter.mode(
+                          colorScheme.surface.withOpacity(0.8),
+                          BlendMode.srcOver,
+                        ),
+                        child: Container(color: Colors.transparent),
                       ),
                     ),
-                  ],
-                ),
-                SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(24, 32, 32, 100),
-                  sliver: SliverToBoxAdapter(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const WhisperText('FAMILY SANCTUARY'),
-                                const SizedBox(height: 8),
-                                BlocBuilder<CircleCubit, CircleState>(
-                                  builder: (context, state) {
-                                    String name = 'Loading Circle...';
-                                    if (state is CircleLoaded) {
-                                      final circle = state.circles.firstWhere(
-                                        (c) => c.id == circleId,
-                                        orElse: () => state.circles.first,
+                    title: Text(
+                      'Tether',
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                        color: colorScheme.primary,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 24,
+                        letterSpacing: -0.5,
+                      ),
+                    ),                    actions: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 24),
+                        child: BlocBuilder<AuthBloc, AuthState>(
+                          builder: (context, state) {
+                            String? imageUrl;
+                            if (state is Authenticated) {
+                              imageUrl = state.user.avatarUrl;
+                            }
+                            return SquircleAvatar(
+                              imageUrl: imageUrl ?? '',
+                              size: 40,
+                              borderColor: colorScheme.primary.withOpacity(0.2),
+                              borderWidth: 2,
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  SliverPadding(
+                    padding: const EdgeInsets.fromLTRB(24, 32, 24, 100),
+                    sliver: SliverToBoxAdapter(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const WhisperText('FAMILY SANCTUARY'),
+                                  const SizedBox(height: 8),
+                                  BlocBuilder<CircleCubit, CircleState>(
+                                    builder: (context, state) {
+                                      String name = 'Loading Circle...';
+                                      if (state is CircleLoaded) {
+                                        final circle = state.circles.firstWhere(
+                                          (c) => c.id == circleId,
+                                          orElse: () => state.circles.first,
+                                        );
+                                        name = circle.name;
+                                      }
+                                      return Text(
+                                        name,
+                                        style: theme.textTheme.displaySmall
+                                            ?.copyWith(
+                                          fontStyle: FontStyle.italic,
+                                          fontSize: 32,
+                                          letterSpacing: -1,
+                                        ),
                                       );
-                                      name = circle.name;
-                                    }
-                                    return Text(
-                                      name,
-                                      style: theme.textTheme.displaySmall
-                                          ?.copyWith(
-                                        fontStyle: FontStyle.italic,
-                                        fontSize: 32,
-                                        letterSpacing: -1,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                            TetherButton(
-                              onPressed: () {},
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: const [
-                                  Icon(Icons.check_circle_outline, size: 18),
-                                  SizedBox(width: 8),
-                                  Text("I'm Okay ✓"),
+                                    },
+                                  ),
                                 ],
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 48),
-                        _FamilyBentoGrid(circleId: circleId),
-                        const SizedBox(height: 48),
-                        _SafetyCheckSection(circleId: circleId),
-                        const SizedBox(height: 64),
-                        _EmergencySOS(circleId: circleId),
-                        const SizedBox(height: 64),
-                        const _HeritageCornerPreview(),
-                        const SizedBox(height: 64),
-                        const _GrandparentEasyView(),
-                      ],
+                              BlocBuilder<CheckInCubit, CheckInState>(
+                                builder: (context, state) {
+                                  return TetherButton(
+                                    onPressed: state is CheckInLoading
+                                        ? null
+                                        : () => context
+                                            .read<CheckInCubit>()
+                                            .submitCheckIn(circleId),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        if (state is CheckInLoading)
+                                          const SizedBox(
+                                            width: 14,
+                                            height: 14,
+                                            child: CircularProgressIndicator(
+                                                strokeWidth: 2),
+                                          )
+                                        else
+                                          const Icon(
+                                              Icons.check_circle_outline,
+                                              size: 18),
+                                        const SizedBox(width: 8),
+                                        const Text("I'm Okay ✓"),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 48),
+                          _FamilyBentoGrid(circleId: circleId),
+                          const SizedBox(height: 48),
+                          _SafetyCheckSection(circleId: circleId),
+                          const SizedBox(height: 64),
+                          _EmergencySOS(circleId: circleId),
+                          const SizedBox(height: 64),
+                          const _HeritageCornerPreview(),
+                          const SizedBox(height: 64),
+                          const _GrandparentEasyView(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            BlocBuilder<FamilySafetyCubit, FamilySafetyState>(
-              builder: (context, state) {
-                if (state.activeAlerts.isNotEmpty) {
-                  return SosAlertOverlay(
-                    alert: state.activeAlerts.first,
-                    onResolve: () {},
-                  );
-                }
-                return const SizedBox();
-              },
-            ),
-          ],
+                ],
+              ),
+              BlocBuilder<FamilySafetyCubit, FamilySafetyState>(
+                builder: (context, state) {
+                  if (state.activeAlerts.isNotEmpty) {
+                    return SosAlertOverlay(
+                      alert: state.activeAlerts.first,
+                      onResolve: () {},
+                    );
+                  }
+                  return const SizedBox();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -262,11 +293,29 @@ class _BentoTile extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final theme = Theme.of(context);
 
-    return GridTile(
-      child: Container(
-        // This is a bit of a hack for GridView.count, in a real bento grid we'd use StaggeredGrid
-        // But for this wave we'll simulate it with a specific childAspectRatio if needed.
-        // For now, we'll just use simple containers in the grid.
+    return GlassPanel(
+      opacity: 0.05,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(18),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: colorScheme.primary.withOpacity(0.7), size: 24),
+              const SizedBox(height: 8),
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.labelMedium?.copyWith(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

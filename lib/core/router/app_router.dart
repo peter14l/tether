@@ -9,7 +9,7 @@ import '../../features/messaging/presentation/screens/chat_screen.dart';
 import '../../features/mood/presentation/screens/mood_selection_screen.dart';
 import '../../features/journal/presentation/screens/journal_screen.dart';
 import '../../features/journal/presentation/screens/reflection_wall_screen.dart';
-import '../../features/wellness/presentation/screens/breathing_room_screen.dart';
+import '../../features/wellness/presentation/screens/wellness_screen.dart';
 import '../../features/couples/presentation/screens/our_bubble_screen.dart';
 import '../../features/family/presentation/screens/family_dashboard_screen.dart';
 import '../../features/family/presentation/screens/heritage_corner_screen.dart';
@@ -72,7 +72,7 @@ final goRouter = GoRouter(
         ),
         GoRoute(
           path: '/breathing',
-          builder: (context, state) => const BreathingRoomScreen(),
+          builder: (context, state) => const WellnessScreen(),
         ),
         GoRoute(
           path: '/settings',
@@ -168,3 +168,4 @@ class _AuthRefreshListenable extends ChangeNotifier {
     super.dispose();
   }
 }
+

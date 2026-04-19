@@ -120,6 +120,7 @@ import 'features/settings/data/repositories/shared_prefs_settings_repository.dar
     as _i68;
 import 'features/settings/domain/repositories/settings_repository.dart'
     as _i309;
+import 'features/settings/presentation/bloc/settings_cubit.dart' as _i235;
 import 'features/vault/data/repositories/supabase_vault_repository.dart'
     as _i289;
 import 'features/vault/domain/repositories/vault_repository.dart' as _i342;
@@ -143,7 +144,10 @@ import 'features/wellness/domain/repositories/quiet_hours_repository.dart'
     as _i769;
 import 'features/wellness/domain/repositories/wellness_repository.dart'
     as _i146;
+import 'features/wellness/presentation/bloc/check_in_cubit.dart' as _i427;
+import 'features/wellness/presentation/bloc/playlist_cubit.dart' as _i297;
 import 'features/wellness/presentation/bloc/presence_cubit.dart' as _i870;
+import 'features/wellness/presentation/bloc/wellness_cubit.dart' as _i404;
 import 'injection_container.dart' as _i809;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -325,6 +329,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i120.UserKeyManager>(),
       ),
     );
+    gh.factory<_i297.PlaylistCubit>(
+      () => _i297.PlaylistCubit(gh<_i722.IPlaylistRepository>()),
+    );
     gh.lazySingleton<_i340.IGalleryRepository>(
       () => _i14.SupabaseGalleryRepository(
         gh<_i454.SupabaseClient>(),
@@ -357,11 +364,23 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i454.SupabaseClient>(),
       ),
     );
+    gh.factory<_i404.WellnessCubit>(
+      () => _i404.WellnessCubit(
+        gh<_i146.IWellnessRepository>(),
+        gh<_i454.SupabaseClient>(),
+      ),
+    );
     gh.factory<_i75.CircleCubit>(
       () => _i75.CircleCubit(
         gh<_i333.ICircleRepository>(),
         gh<_i454.SupabaseClient>(),
         gh<_i1021.ISubscriptionService>(),
+      ),
+    );
+    gh.factory<_i427.CheckInCubit>(
+      () => _i427.CheckInCubit(
+        gh<_i878.ICheckInRepository>(),
+        gh<_i454.SupabaseClient>(),
       ),
     );
     gh.factory<_i361.PrivateGalleryCubit>(
@@ -390,6 +409,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i738.ReflectionCubit(
         gh<_i832.IReflectionRepository>(),
         gh<_i454.SupabaseClient>(),
+      ),
+    );
+    gh.factory<_i235.SettingsCubit>(
+      () => _i235.SettingsCubit(
+        gh<_i1015.IAuthRepository>(),
+        gh<_i309.ISettingsRepository>(),
       ),
     );
     return this;

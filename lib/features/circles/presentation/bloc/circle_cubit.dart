@@ -31,6 +31,7 @@ class CircleCubit extends Cubit<CircleState> {
     required String name,
     required String type,
     String? description,
+    String? avatarUrl,
   }) async {
     emit(CircleLoading());
     final userId = _supabaseClient.auth.currentUser?.id;
@@ -60,6 +61,7 @@ class CircleCubit extends Cubit<CircleState> {
       circleType: type,
       createdBy: userId,
       description: description,
+      avatarUrl: avatarUrl,
       comfortRadius: 'inner', // Default
       isEncrypted: true,
       createdAt: DateTime.now(),

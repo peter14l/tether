@@ -7,6 +7,8 @@ import '../../../../core/widgets/squircle_avatar.dart';
 import '../../../../core/widgets/glass_panel.dart';
 import '../../../circles/presentation/bloc/circle_member_cubit.dart';
 import '../../../circles/presentation/bloc/circle_member_state.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../auth/presentation/bloc/auth_state.dart';
 import '../bloc/couple_bubble_cubit.dart';
 import '../bloc/couple_bubble_state.dart';
 
@@ -79,10 +81,6 @@ class _OurBubbleScreenState extends State<OurBubbleScreen> {
                       child: Container(color: Colors.transparent),
                     ),
                   ),
-                  leading: IconButton(
-                    icon: Icon(Icons.arrow_back, color: colorScheme.primary),
-                    onPressed: () => Navigator.pop(context),
-                  ),
                   title: Text(
                     'Tether',
                     style: theme.textTheme.headlineMedium?.copyWith(
@@ -95,19 +93,14 @@ class _OurBubbleScreenState extends State<OurBubbleScreen> {
                   actions: [
                     Padding(
                       padding: const EdgeInsets.only(right: 24),
-                      child: BlocBuilder<CircleMemberCubit, CircleMemberState>(
+                      child: BlocBuilder<AuthBloc, AuthState>(
                         builder: (context, state) {
-                          String? avatarUrl;
-                          if (state is CircleMemberLoaded) {
-                            final currentUser = Supabase.instance.client.auth.currentUser;
-                            final member = state.members.firstWhere(
-                              (m) => m['user_id'] == currentUser?.id,
-                              orElse: () => {},
-                            );
-                            avatarUrl = member['avatar_url'];
+                          String? imageUrl;
+                          if (state is Authenticated) {
+                            imageUrl = state.user.avatarUrl;
                           }
                           return SquircleAvatar(
-                            imageUrl: avatarUrl ?? '',
+                            imageUrl: imageUrl ?? '',
                             size: 40,
                             borderColor: colorScheme.primary.withOpacity(0.2),
                             borderWidth: 2,
@@ -118,7 +111,7 @@ class _OurBubbleScreenState extends State<OurBubbleScreen> {
                   ],
                 ),
                 SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(24, 32, 32, 100),
+                  padding: const EdgeInsets.fromLTRB(24, 32, 24, 100),
                   sliver: SliverToBoxAdapter(
                     child: Column(
                       children: [
@@ -148,10 +141,22 @@ class _PartnerConnectionHeader extends StatelessWidget {
       builder: (context, state) {
         String? avatar1;
         String? avatar2;
+        String partnerName = 'Partner';
 
         if (state is CircleMemberLoaded && state.members.length >= 2) {
-          avatar1 = state.members[0]['avatar_url'];
-          avatar2 = state.members[1]['avatar_url'];
+          final currentUser = Supabase.instance.client.auth.currentUser;
+          final userMember = state.members.firstWhere(
+            (m) => m['user_id'] == currentUser?.id,
+            orElse: () => state.members[0],
+          );
+          final partnerMember = state.members.firstWhere(
+            (m) => m['user_id'] != currentUser?.id,
+            orElse: () => state.members[1],
+          );
+
+          avatar1 = userMember['profiles']?['avatar_url'];
+          avatar2 = partnerMember['profiles']?['avatar_url'];
+          partnerName = partnerMember['profiles']?['display_name'] ?? 'Partner';
         }
 
         return Column(
@@ -160,7 +165,7 @@ class _PartnerConnectionHeader extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Transform.rotate(
-                  angle: -0.1, // ~ -6 degrees
+                  angle: -0.1,
                   child: SquircleAvatar(
                     imageUrl: avatar1 ?? '',
                     size: 80,
@@ -191,14 +196,16 @@ class _PartnerConnectionHeader extends StatelessWidget {
                       decoration: const BoxDecoration(
                         color: Colors.white,
                         shape: BoxShape.circle,
-                        boxShadow: [BoxShadow(color: Colors.white, blurRadius: 8)],
+                        boxShadow: [
+                          BoxShadow(color: Colors.white, blurRadius: 8)
+                        ],
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Transform.rotate(
-                  angle: 0.1, // ~ 6 degrees
+                  angle: 0.1,
                   child: SquircleAvatar(
                     imageUrl: avatar2 ?? '',
                     size: 80,
@@ -214,7 +221,7 @@ class _PartnerConnectionHeader extends StatelessWidget {
                 colors: [colorScheme.primary, colorScheme.secondary],
               ).createShader(bounds),
               child: Text(
-                'Our Bubble Home',
+                'Us & $partnerName',
                 style: theme.textTheme.displaySmall?.copyWith(
                   color: Colors.white,
                   fontStyle: FontStyle.italic,

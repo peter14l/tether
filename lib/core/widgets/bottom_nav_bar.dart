@@ -91,21 +91,24 @@ class _NavBarItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(24),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
+        width: 44,
+        height: 44,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: isSelected ? colorScheme.primary.withOpacity(0.12) : Colors.transparent,
+          color: isSelected ? colorScheme.primary.withOpacity(0.08) : Colors.transparent,
           shape: BoxShape.circle,
           boxShadow: isSelected ? [
             BoxShadow(
-              color: colorScheme.primary.withOpacity(0.2),
-              blurRadius: 20,
+              color: colorScheme.primary.withOpacity(0.12),
+              blurRadius: 12,
+              spreadRadius: 2,
             )
           ] : null,
         ),
         child: Icon(
           isSelected ? activeIcon : icon,
           color: isSelected ? colorScheme.primary : colorScheme.onSurface.withOpacity(0.4),
-          size: 22,
+          size: 24,
         ),
       ),
     );

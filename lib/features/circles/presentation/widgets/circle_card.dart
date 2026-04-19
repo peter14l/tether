@@ -20,7 +20,16 @@ class CircleCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: InkWell(
-        onTap: onTap,
+        onTap: () {
+          final type = circle.circleType.toLowerCase();
+          if (type == 'couple') {
+            context.push('/bubble/${circle.id}');
+          } else if (type == 'family' || type == 'inlaw') {
+            context.push('/family/${circle.id}');
+          } else {
+            context.push('/feed/${circle.id}');
+          }
+        },
         borderRadius: BorderRadius.circular(18),
         child: GlassPanel(
           padding: EdgeInsets.zero,

@@ -19,6 +19,7 @@ class CreateCircleScreen extends StatefulWidget {
 class _CreateCircleScreenState extends State<CreateCircleScreen> {
   final _nameController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final _avatarUrlController = TextEditingController();
   String _selectedType = 'friends';
 
   @override
@@ -67,7 +68,7 @@ class _CreateCircleScreenState extends State<CreateCircleScreen> {
                 ),
               ),
               SliverPadding(
-                padding: const EdgeInsets.fromLTRB(24, 32, 32, 100),
+                padding: const EdgeInsets.fromLTRB(24, 32, 24, 100),
                 sliver: SliverToBoxAdapter(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,6 +95,19 @@ class _CreateCircleScreenState extends State<CreateCircleScreen> {
                       TetherTextField(
                         controller: _nameController,
                         hintText: 'e.g., Sunday Dinners, The Besties',
+                      ),
+                      const SizedBox(height: 32),
+                      Text(
+                        'Circle Image URL (optional)', 
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      TetherTextField(
+                        controller: _avatarUrlController,
+                        hintText: 'https://example.com/image.png',
                       ),
                       const SizedBox(height: 32),
                       Text(
@@ -165,6 +179,7 @@ class _CreateCircleScreenState extends State<CreateCircleScreen> {
                                             name: _nameController.text,
                                             type: _selectedType,
                                             description: _descriptionController.text,
+                                            avatarUrl: _avatarUrlController.text.isEmpty ? null : _avatarUrlController.text,
                                           );
                                     }
                                   },

@@ -155,6 +155,26 @@ class SupabaseAuthRepository implements IAuthRepository {
   }
 
   @override
+  Future<Either<Failure, void>> updateProfile(UserEntity user) async {
+    try {
+      final updates = {
+        'username': user.username,
+        'display_name': user.displayName,
+        'avatar_url': user.avatarUrl,
+        'bio': user.bio,
+        'pronouns': user.pronouns,
+        'timezone': user.timezone,
+        'updated_at': DateTime.now().toIso8601String(),
+      };
+
+      await _client.from('profiles').update(updates).eq('id', user.id);
+      return const Right(null);
+    } catch (e) {
+      return Left(AuthFailure(e.toString()));
+    }
+  }
+
+  @override
   Stream<UserEntity?> get onAuthStateChanged {
     return _client.auth.onAuthStateChange.asyncMap((event) async {
       final session = event.session;

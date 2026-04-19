@@ -52,7 +52,7 @@ class MessagingScreen extends StatelessWidget {
                 return const Center(child: Text('No messages yet.'));
               }
               return ListView.builder(
-                padding: const EdgeInsets.fromLTRB(24, 16, 32, 100),
+                padding: const EdgeInsets.fromLTRB(24, 16, 24, 100),
                 itemCount: state.threads.length,
                 itemBuilder: (context, index) {
                   final thread = state.threads[index];

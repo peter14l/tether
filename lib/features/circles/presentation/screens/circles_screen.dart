@@ -68,17 +68,25 @@ class _CirclesScreenState extends State<CirclesScreen> {
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 24),
-              child: SquircleAvatar(
-                imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAcJfry8HNWQrKeOk3f7p1H6nXJVmr1ZuBaPuuQXb6xi1iWm--PQLHvBqYu-wupO1_AaoL5WuZnYmsB8fgR5PQyJTHRhZExAB3lAs8SWp-7Y_1Ee5KH_9IgoW8VJzA1YhE2We0IiZEnGfpX5gMr79hJEEW5epeymvaojqgoWJjSJS1ppFbgwsYzb1tC-LwTioHI2Zp2QLm94SLFGcZO0gVUbbbc8YRlcgIHnrowbrHheLQNhzTlF6kbD49F-skJeOgfb9LTP6ISQxGJ',
-                size: 40,
-                borderColor: colorScheme.primary.withOpacity(0.2),
-                borderWidth: 2,
+              child: BlocBuilder<AuthBloc, AuthState>(
+                builder: (context, state) {
+                  String? imageUrl;
+                  if (state is Authenticated) {
+                    imageUrl = state.user.avatarUrl;
+                  }
+                  return SquircleAvatar(
+                    imageUrl: imageUrl ?? '',
+                    size: 40,
+                    borderColor: colorScheme.primary.withOpacity(0.2),
+                    borderWidth: 2,
+                  );
+                },
               ),
             ),
           ],
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(24, 32, 32, 100), // Asymmetrical right padding
+          padding: const EdgeInsets.fromLTRB(24, 32, 24, 100),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -92,6 +100,7 @@ class _CirclesScreenState extends State<CirclesScreen> {
                   letterSpacing: -1,
                 ),
               ),
+              const SizedBox(height: 32),
               BlocBuilder<CircleCubit, CircleState>(
                 builder: (context, state) {
                   if (state is CircleLoading) {
@@ -124,14 +133,18 @@ class _CirclesScreenState extends State<CirclesScreen> {
             ],
           ),
         ),
-        floatingActionButton: TetherWalkthroughOverlay(
-          showcaseKey: _fabKey,
-          title: 'Your First Circle',
-          description: 'Create a sanctuary for you and your inner circle here.',
-          child: TetherButton(
-            onPressed: () => context.push('/circles/create'),
-            isHighPriority: true,
-            child: const Icon(Icons.add),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 90),
+          child: TetherWalkthroughOverlay(
+            showcaseKey: _fabKey,
+            title: 'Your First Circle',
+            description: 'Create a sanctuary for you and your inner circle here.',
+            child: TetherButton(
+              onPressed: () => context.push('/circles/create'),
+              isHighPriority: true,
+              child: const Icon(Icons.add),
+            ),
           ),
         ),
         ),

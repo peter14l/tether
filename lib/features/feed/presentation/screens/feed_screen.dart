@@ -42,38 +42,37 @@ class _FeedScreenState extends State<FeedScreen> {
                   child: Container(color: Colors.transparent),
                 ),
               ),
-              title: Row(
-                children: [
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: Icon(Icons.arrow_back, color: colorScheme.primary),
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Tether',
-                    style: theme.textTheme.headlineMedium?.copyWith(
-                      color: colorScheme.primary,
-                      fontStyle: FontStyle.italic,
-                      fontSize: 24,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                ],
+              title: Text(
+                'Tether',
+                style: theme.textTheme.headlineMedium?.copyWith(
+                  color: colorScheme.primary,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 24,
+                  letterSpacing: -0.5,
+                ),
               ),
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 24),
-                  child: SquircleAvatar(
-                    imageUrl: '',
-                    size: 40,
-                    borderColor: colorScheme.primary.withOpacity(0.2),
-                    borderWidth: 2,
+                  child: BlocBuilder<AuthBloc, AuthState>(
+                    builder: (context, state) {
+                      String? imageUrl;
+                      if (state is Authenticated) {
+                        imageUrl = state.user.avatarUrl;
+                      }
+                      return SquircleAvatar(
+                        imageUrl: imageUrl ?? '',
+                        size: 40,
+                        borderColor: colorScheme.primary.withOpacity(0.2),
+                        borderWidth: 2,
+                      );
+                    },
                   ),
                 ),
               ],
             ),
             SliverPadding(
-              padding: const EdgeInsets.fromLTRB(24, 32, 32, 0),
+              padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
               sliver: SliverToBoxAdapter(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +103,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   );
                 } else if (state is FeedLoaded) {
                   return SliverPadding(
-                    padding: const EdgeInsets.fromLTRB(24, 0, 32, 0),
+                    padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
                     sliver: SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (context, index) {
