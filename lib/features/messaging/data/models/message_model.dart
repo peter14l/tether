@@ -43,4 +43,30 @@ class MessageModel extends MessageEntity {
       'read_at': readAt?.toIso8601String(),
     };
   }
+
+  MessageModel copyWith({
+    String? id,
+    String? senderId,
+    String? receiverId,
+    String? circleId,
+    String? contentType,
+    String? contentText,
+    String? mediaUrl,
+    bool? isRead,
+    DateTime? readAt,
+    DateTime? createdAt,
+  }) {
+    return MessageModel(
+      id: id ?? this.id,
+      senderId: senderId ?? this.senderId,
+      receiverId: receiverId ?? this.receiverId,
+      circleId: circleId ?? this.circleId,
+      contentType: contentType ?? this.contentType,
+      contentText: contentText ?? this.contentText,
+      mediaUrl: mediaUrl ?? this.mediaUrl,
+      isRead: isRead ?? this.isRead,
+      readAt: readAt ?? this.readAt,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
 }

@@ -70,7 +70,7 @@ class PushNotificationService implements IPushNotificationService {
         );
 
         await _localNotifications.initialize(
-          initializationSettings,
+          settings: initializationSettings,
           onDidReceiveNotificationResponse: (details) {
             _handleNotificationClick(details.payload);
           },
@@ -129,10 +129,10 @@ class PushNotificationService implements IPushNotificationService {
 
     if (notification != null) {
       _localNotifications.show(
-        notification.hashCode,
-        notification.title,
-        notification.body,
-        NotificationDetails(
+        id: notification.hashCode,
+        title: notification.title,
+        body: notification.body,
+        notificationDetails: NotificationDetails(
           android: AndroidNotificationDetails(
             channel.id,
             channel.name,
