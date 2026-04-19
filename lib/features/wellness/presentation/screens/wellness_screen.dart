@@ -19,7 +19,6 @@ import '../../../circles/domain/entities/circle_entity.dart';
 import '../bloc/check_in_cubit.dart';
 import '../bloc/check_in_state.dart';
 import '../bloc/wellness_cubit.dart';
-import '../bloc/wellness_state.dart';
 import '../bloc/playlist_cubit.dart';
 import '../../domain/entities/shared_playlist.dart';
 import '../../../../core/theme/time_theme_cubit.dart';
