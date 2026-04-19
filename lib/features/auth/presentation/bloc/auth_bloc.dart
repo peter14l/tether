@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../../../core/notifications/push_notification_service.dart';
+import '../../../../core/security/e2ee_service.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
@@ -11,9 +12,10 @@ import 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository _authRepository;
   final IPushNotificationService _pushService;
+  final IE2EEService _e2eeService;
   StreamSubscription? _authSubscription;
 
-  AuthBloc(this._authRepository, this._pushService) : super(AuthInitial()) {
+  AuthBloc(this._authRepository, this._pushService, this._e2eeService) : super(AuthInitial()) {
     on<AuthCheckRequested>(_onAuthCheckRequested);
     on<SignInRequested>(_onSignInRequested);
     on<SignUpRequested>(_onSignUpRequested);
@@ -34,6 +36,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(Authenticated(user));
       _pushService.initialize();
       _pushService.registerToken();
+      await _e2eeService.initializeKeys();
     } else if (state is! Authenticated) {
       // Only emit Unauthenticated from the stream when we are NOT already
       // Authenticated. This prevents a race condition where:

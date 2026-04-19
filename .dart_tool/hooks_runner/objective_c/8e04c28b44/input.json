@@ -13,9 +13,9 @@
     },
     "linking_enabled": false
   },
-  "out_dir_shared": "D:\\tether\\.dart_tool\\hooks_runner\\shared\\objective_c\\build\\",
-  "out_file": "D:\\tether\\.dart_tool\\hooks_runner\\objective_c\\8e04c28b44\\output.json",
+  "out_dir_shared": "F:\\tether\\.dart_tool\\hooks_runner\\shared\\objective_c\\build\\",
+  "out_file": "F:\\tether\\.dart_tool\\hooks_runner\\objective_c\\8e04c28b44\\output.json",
   "package_name": "objective_c",
-  "package_root": "C:\\Users\\MAYUKH MALLICK\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\objective_c-9.3.0\\",
+  "package_root": "F:\\DevCaches\\Pub\\Cache\\hosted\\pub.dev\\objective_c-9.3.0\\",
   "user_defines": {}
 }

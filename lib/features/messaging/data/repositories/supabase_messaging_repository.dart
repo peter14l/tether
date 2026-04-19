@@ -6,12 +6,14 @@ import '../../../../core/error/failures.dart';
 import '../../domain/entities/message_entity.dart';
 import '../../domain/repositories/messaging_repository.dart';
 import '../models/message_model.dart';
+import '../../../../core/security/e2ee_service.dart';
 
 @LazySingleton(as: IMessagingRepository)
 class SupabaseMessagingRepository implements IMessagingRepository {
   final SupabaseClient _client;
+  final IE2EEService _e2eeService;
 
-  SupabaseMessagingRepository(this._client);
+  SupabaseMessagingRepository(this._client, this._e2eeService);
 
   @override
   Future<Either<Failure, List<MessageEntity>>> getMessageThreads() async {
@@ -19,18 +21,23 @@ class SupabaseMessagingRepository implements IMessagingRepository {
       final userId = _client.auth.currentUser?.id;
       if (userId == null) return const Left(AuthFailure('User not logged in'));
 
-      // Fetch unique messages involving the user
-      // Note: This is a simplified approach for getting threads.
-      // In a production app, you might have a 'threads' table or a more complex SQL function.
       final response = await _client
           .from('messages')
           .select()
           .or('sender_id.eq.$userId,receiver_id.eq.$userId')
           .order('created_at', ascending: false);
 
-      final List<MessageEntity> allMessages = (response as List).map((json) => MessageModel.fromJson(json)).toList();
+      final List<MessageEntity> allMessages = [];
+      for (final json in (response as List)) {
+        var model = MessageModel.fromJson(json);
+        if (model.contentText != null && model.contentText!.isNotEmpty) {
+           final otherId = model.senderId == userId ? model.receiverId : model.senderId;
+           final decryptedText = await _e2eeService.decryptMessage(model.contentText!, otherId);
+           model = model.copyWith(contentText: decryptedText) as MessageModel;
+        }
+        allMessages.add(model);
+      }
       
-      // Group by other user id
       final Map<String, MessageEntity> threadsMap = {};
       for (final msg in allMessages) {
         final otherId = msg.senderId == userId ? msg.receiverId : msg.senderId;
@@ -60,7 +67,18 @@ class SupabaseMessagingRepository implements IMessagingRepository {
       }
 
       final response = await query.order('created_at', ascending: true);
-      final messages = (response as List).map((json) => MessageModel.fromJson(json)).toList();
+      
+      final List<MessageEntity> messages = [];
+      for (final json in (response as List)) {
+        var model = MessageModel.fromJson(json);
+        if (model.contentText != null && model.contentText!.isNotEmpty) {
+           final otherId = model.senderId == userId ? model.receiverId : model.senderId;
+           final decryptedText = await _e2eeService.decryptMessage(model.contentText!, otherId);
+           model = model.copyWith(contentText: decryptedText) as MessageModel;
+        }
+        messages.add(model);
+      }
+      
       return Right(messages);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
@@ -70,7 +88,9 @@ class SupabaseMessagingRepository implements IMessagingRepository {
   @override
   Future<Either<Failure, MessageEntity>> sendMessage(MessageEntity message) async {
     try {
-      // Check for Space to Breathe if circleId is present
+      final userId = _client.auth.currentUser?.id;
+      if (userId == null) return const Left(AuthFailure('User not logged in'));
+
       if (message.circleId != null) {
         final bubbleResponse = await _client
             .from('couple_bubble')
@@ -83,13 +103,19 @@ class SupabaseMessagingRepository implements IMessagingRepository {
         }
       }
 
+      String? encryptedText;
+      if (message.contentText != null && message.contentText!.isNotEmpty) {
+        final otherId = message.senderId == userId ? message.receiverId : message.senderId;
+        encryptedText = await _e2eeService.encryptMessage(message.contentText!, otherId);
+      }
+
       final model = MessageModel(
         id: message.id,
         senderId: message.senderId,
         receiverId: message.receiverId,
         circleId: message.circleId,
         contentType: message.contentType,
-        contentText: message.contentText,
+        contentText: encryptedText ?? message.contentText,
         mediaUrl: message.mediaUrl,
         isRead: message.isRead,
         readAt: message.readAt,
@@ -102,7 +128,12 @@ class SupabaseMessagingRepository implements IMessagingRepository {
           .select()
           .single();
 
-      return Right(MessageModel.fromJson(response));
+      var savedModel = MessageModel.fromJson(response);
+      if (message.contentText != null && message.contentText!.isNotEmpty) {
+         savedModel = savedModel.copyWith(contentText: message.contentText) as MessageModel;
+      }
+
+      return Right(savedModel);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
@@ -116,15 +147,23 @@ class SupabaseMessagingRepository implements IMessagingRepository {
     var filter = circleId != null 
       ? 'circle_id=eq.$circleId' 
       : 'sender_id=eq.$userId,receiver_id=eq.$receiverId';
-    
-    // Note: Supabase Realtime complex filters are limited. 
-    // In a real app, you might use a broader filter and filter locally, or use a function.
-    // For simplicity, we'll filter by circleId or just the current pair.
 
     return _client
         .from('messages')
         .stream(primaryKey: ['id'])
-        .map((data) => data.map((json) => MessageModel.fromJson(json)).toList());
+        .asyncMap((data) async {
+          final List<MessageEntity> messages = [];
+          for (final json in data) {
+            var model = MessageModel.fromJson(json);
+            if (model.contentText != null && model.contentText!.isNotEmpty) {
+               final otherId = model.senderId == userId ? model.receiverId : model.senderId;
+               final decryptedText = await _e2eeService.decryptMessage(model.contentText!, otherId);
+               model = model.copyWith(contentText: decryptedText) as MessageModel;
+            }
+            messages.add(model);
+          }
+          return messages;
+        });
   }
 
   @override

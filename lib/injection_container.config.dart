@@ -16,6 +16,7 @@ import 'package:supabase_flutter/supabase_flutter.dart' as _i454;
 
 import 'core/notifications/push_notification_service.dart' as _i610;
 import 'core/security/biometric_service.dart' as _i325;
+import 'core/security/e2ee_service.dart' as _i1003;
 import 'core/subscription/subscription_service.dart' as _i1021;
 import 'core/telemetry/telemetry_service.dart' as _i62;
 import 'core/theme/time_theme_cubit.dart' as _i66;
@@ -192,15 +193,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i665.IFamilyRepository>(
       () => _i660.SupabaseFamilyRepository(gh<_i454.SupabaseClient>()),
     );
-    gh.lazySingleton<_i77.IMessagingRepository>(
-      () => _i540.SupabaseMessagingRepository(gh<_i454.SupabaseClient>()),
-    );
-    gh.factory<_i431.MessagingCubit>(
-      () => _i431.MessagingCubit(
-        gh<_i77.IMessagingRepository>(),
-        gh<_i454.SupabaseClient>(),
-      ),
-    );
     gh.lazySingleton<_i120.UserKeyManager>(
       () => _i120.UserKeyManager(
         gh<_i880.KeyDerivation>(),
@@ -218,9 +210,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i209.IHeritageRepository>(
       () => _i600.SupabaseHeritageRepository(gh<_i454.SupabaseClient>()),
-    );
-    gh.factory<_i899.MessagingThreadCubit>(
-      () => _i899.MessagingThreadCubit(gh<_i77.IMessagingRepository>()),
     );
     gh.lazySingleton<_i873.EscrowService>(
       () => _i873.EscrowService(
@@ -322,6 +311,13 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i120.UserKeyManager>(),
       ),
     );
+    gh.lazySingleton<_i1003.IE2EEService>(
+      () => _i1003.E2EEService(
+        gh<_i454.SupabaseClient>(),
+        gh<_i120.UserKeyManager>(),
+        gh<_i376.EncryptionService>(),
+      ),
+    );
     gh.lazySingleton<_i832.IReflectionRepository>(
       () => _i742.SupabaseReflectionRepository(
         gh<_i454.SupabaseClient>(),
@@ -349,6 +345,18 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i120.UserKeyManager>(),
       ),
     );
+    gh.lazySingleton<_i77.IMessagingRepository>(
+      () => _i540.SupabaseMessagingRepository(
+        gh<_i454.SupabaseClient>(),
+        gh<_i1003.IE2EEService>(),
+      ),
+    );
+    gh.factory<_i431.MessagingCubit>(
+      () => _i431.MessagingCubit(
+        gh<_i77.IMessagingRepository>(),
+        gh<_i454.SupabaseClient>(),
+      ),
+    );
     gh.factory<_i75.CircleCubit>(
       () => _i75.CircleCubit(
         gh<_i333.ICircleRepository>(),
@@ -356,14 +364,18 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i1021.ISubscriptionService>(),
       ),
     );
+    gh.factory<_i361.PrivateGalleryCubit>(
+      () => _i361.PrivateGalleryCubit(gh<_i340.IGalleryRepository>()),
+    );
+    gh.factory<_i899.MessagingThreadCubit>(
+      () => _i899.MessagingThreadCubit(gh<_i77.IMessagingRepository>()),
+    );
     gh.lazySingleton<_i363.AuthBloc>(
       () => _i363.AuthBloc(
         gh<_i1015.IAuthRepository>(),
         gh<_i610.IPushNotificationService>(),
+        gh<_i1003.IE2EEService>(),
       ),
-    );
-    gh.factory<_i361.PrivateGalleryCubit>(
-      () => _i361.PrivateGalleryCubit(gh<_i340.IGalleryRepository>()),
     );
     gh.factory<_i656.CircleMemberCubit>(
       () => _i656.CircleMemberCubit(gh<_i333.ICircleRepository>()),
