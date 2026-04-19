@@ -150,8 +150,8 @@ class FamilyDashboardScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 48),
                         _FamilyBentoGrid(circleId: circleId),
-                        const SizedBox(height: 64),
-                        const _SafetyCheckSection(),
+                        const SizedBox(height: 48),
+                        _SafetyCheckSection(circleId: circleId),
                         const SizedBox(height: 64),
                         _EmergencySOS(circleId: circleId),
                         const SizedBox(height: 64),
@@ -276,7 +276,8 @@ class _BentoTile extends StatelessWidget {
 // I'll update the GridView to use a different approach.
 
 class _SafetyCheckSection extends StatelessWidget {
-  const _SafetyCheckSection();
+  final String circleId;
+  const _SafetyCheckSection({required this.circleId});
 
   @override
   Widget build(BuildContext context) {
