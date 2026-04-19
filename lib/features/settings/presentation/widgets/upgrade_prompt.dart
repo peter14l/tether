@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:tether/core/widgets/glass_panel.dart';
 import 'package:tether/core/widgets/tether_button.dart';
 import 'package:tether/core/widgets/whisper_text.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 
 class UpgradePrompt extends StatelessWidget {
   final String featureName;
@@ -46,7 +48,7 @@ class UpgradePrompt extends StatelessWidget {
               color: colorScheme.primary.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: Icon(Icons.star_rounded, color: colorScheme.primary, size: 48),
+            child: Icon(FluentIcons.star_24_regular, color: colorScheme.primary, size: 48),
           ),
           const SizedBox(height: 24),
           Text(

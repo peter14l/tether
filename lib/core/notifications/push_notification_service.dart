@@ -189,7 +189,6 @@ class PushNotificationService implements IPushNotificationService {
       await _supabaseClient.from('user_devices').upsert({
         'user_id': userId,
         'fcm_token': token,
-        'updated_at': DateTime.now().toIso8601String(),
       });
       debugPrint('FCM token uploaded/updated for user $userId');
     } catch (e) {

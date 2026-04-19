@@ -5,8 +5,9 @@ import '../entities/message_entity.dart';
 
 abstract class IMessagingRepository {
   Future<Either<Failure, List<MessageEntity>>> getMessageThreads();
-  Future<Either<Failure, List<MessageEntity>>> getMessages(String receiverId, {String? circleId});
+  Future<Either<Failure, List<MessageEntity>>> getMessages(String roomId);
   Future<Either<Failure, MessageEntity>> sendMessage(MessageEntity message);
-  Stream<List<MessageEntity>> streamMessages(String receiverId, {String? circleId});
-  Future<Either<Failure, String>> uploadVoiceNote(File file);
+  Stream<List<MessageEntity>> streamMessages(String roomId);
+  Future<Either<Failure, ({String objectKey, String mediaKey})>> uploadMedia(File file, String roomId);
+  Future<Either<Failure, String>> getOrCreateRoom(String otherUserId);
 }

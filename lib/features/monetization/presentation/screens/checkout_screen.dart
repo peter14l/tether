@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import '../../domain/repositories/billing_repository.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
@@ -71,7 +73,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.star_rounded, size: 80, color: cs.primary),
+              Icon(FluentIcons.star_24_filled, size: 80, color: cs.primary),
               const SizedBox(height: 24),
               Text(
                 'Unlock Oasis Pro',
@@ -127,7 +129,7 @@ class _HeroSection extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(24),
           ),
-          child: Icon(Icons.favorite_rounded, color: cs.onPrimary, size: 36),
+          child: Icon(FluentIcons.heart_24_filled, color: cs.onPrimary, size: 36),
         ),
         const SizedBox(height: 16),
         Text(
@@ -151,10 +153,10 @@ class _FeatureList extends StatelessWidget {
   const _FeatureList({required this.cs});
 
   static const _features = [
-    (Icons.circle_notifications_outlined, 'Unlimited Circles & Canvas spaces'),
-    (Icons.mood_outlined, 'Advanced Mood Tracking & Wellness insights'),
-    (Icons.auto_stories_outlined, 'Extended Story duration & memory archives'),
-    (Icons.support_agent_outlined, 'Priority support & early feature access'),
+    (FluentIcons.alert_24_regular, 'Unlimited Circles & Canvas spaces'),
+    (FluentIcons.emoji_24_regular, 'Advanced Mood Tracking & Wellness insights'),
+    (FluentIcons.book_open_24_regular, 'Extended Story duration & memory archives'),
+    (FluentIcons.person_support_24_regular, 'Priority support & early feature access'),
   ];
 
   @override
@@ -269,7 +271,7 @@ class _PaymentButton extends StatelessWidget {
                   ),
                 ),
                 Icon(
-                  Icons.arrow_forward_ios_rounded,
+                  FluentIcons.chevron_right_24_regular,
                   size: 14,
                   color: isPrimary
                       ? cs.onPrimary.withOpacity(0.7)

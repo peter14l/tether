@@ -9,6 +9,8 @@ import '../../../../core/widgets/whisper_text.dart';
 import '../../../../core/widgets/tether_button.dart';
 import '../../../../core/widgets/tether_card.dart';
 import '../../../../injection_container.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 
 class SubscriptionScreen extends StatelessWidget {
   const SubscriptionScreen({super.key});
@@ -97,7 +99,7 @@ class SubscriptionScreen extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: Icon(
-              isPro ? Icons.verified_user : Icons.person_outline,
+              isPro ? FluentIcons.person_available_24_regular : FluentIcons.person_24_regular,
               color: isPro ? colorScheme.onPrimary : colorScheme.onSurfaceVariant,
               size: 32,
             ),
@@ -144,11 +146,11 @@ class SubscriptionScreen extends StatelessWidget {
   Widget _buildProBenefits(BuildContext context) {
     return Column(
       children: const [
-        _BenefitRow(icon: Icons.all_inclusive, label: 'Unlimited Circles'),
-        _BenefitRow(icon: Icons.favorite, label: 'Full Couples Features'),
-        _BenefitRow(icon: Icons.family_restroom, label: 'Advanced Family Safety'),
-        _BenefitRow(icon: Icons.mic, label: 'Voice Notes & Slow Chat'),
-        _BenefitRow(icon: Icons.history, label: 'Extended Memories Lane'),
+        _BenefitRow(icon: FluentIcons.approvals_app_24_regular, label: 'Unlimited Circles'),
+        _BenefitRow(icon: FluentIcons.heart_24_regular, label: 'Full Couples Features'),
+        _BenefitRow(icon: FluentIcons.people_24_regular, label: 'Advanced Family Safety'),
+        _BenefitRow(icon: FluentIcons.mic_24_regular, label: 'Voice Notes & Slow Chat'),
+        _BenefitRow(icon: FluentIcons.history_24_regular, label: 'Extended Memories Lane'),
       ],
     );
   }

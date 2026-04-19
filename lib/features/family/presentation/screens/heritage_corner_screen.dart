@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../injection_container.dart';
 import '../bloc/heritage_cubit.dart';
 import '../bloc/heritage_state.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 
 class HeritageCornerScreen extends StatelessWidget {
   final String circleId;
@@ -69,7 +71,7 @@ class HeritageCornerScreen extends StatelessWidget {
         floatingActionButton: Builder(
           builder: (context) => FloatingActionButton(
             onPressed: () => _showUploadDialog(context),
-            child: const Icon(Icons.add_a_photo),
+            child: const Icon(FluentIcons.camera_add_24_regular),
           ),
         ),
       ),

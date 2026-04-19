@@ -5,6 +5,8 @@ import '../../../../core/widgets/squircle_avatar.dart';
 import '../../../../core/widgets/glass_panel.dart';
 import '../../../../core/widgets/whisper_text.dart';
 import '../../domain/entities/circle_entity.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 
 class CircleCard extends StatelessWidget {
   final CircleEntity circle;
@@ -87,14 +89,14 @@ class CircleCard extends StatelessWidget {
                 if (onDelete != null)
                   IconButton(
                     icon: Icon(
-                      Icons.delete_outline,
+                      FluentIcons.delete_24_regular,
                       color: Theme.of(context).colorScheme.error.withOpacity(0.8),
                     ),
                     onPressed: onDelete,
                   )
                 else
                   Icon(
-                    Icons.chevron_right,
+                    FluentIcons.chevron_right_24_regular,
                     color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.4),
                   ),
               ],
@@ -108,13 +110,13 @@ class CircleCard extends StatelessWidget {
   IconData _getIconForType(String type) {
     switch (type.toLowerCase()) {
       case 'couple':
-        return Icons.favorite_outline;
+        return FluentIcons.heart_24_regular;
       case 'family':
-        return Icons.family_restroom_outlined;
+        return FluentIcons.people_24_regular;
       case 'friends':
-        return Icons.people_outline;
+        return FluentIcons.people_24_regular;
       default:
-        return Icons.circle_outlined;
+        return FluentIcons.circle_24_regular;
     }
   }
 

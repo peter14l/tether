@@ -6,6 +6,8 @@ import '../../../../core/widgets/tether_card.dart';
 import '../../../../core/widgets/tether_text_field.dart';
 import '../bloc/reflection_cubit.dart';
 import '../bloc/reflection_state.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 
 class ReflectionWallScreen extends StatefulWidget {
   const ReflectionWallScreen({super.key});
@@ -52,7 +54,7 @@ class _ReflectionWallScreenState extends State<ReflectionWallScreen> {
                             _contentController.clear();
                           }
                         },
-                        child: const Icon(Icons.send, size: 24),
+                        child: const Icon(FluentIcons.send_24_regular, size: 24),
                       );
                     },
                   ),

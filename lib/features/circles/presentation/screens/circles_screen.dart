@@ -13,6 +13,10 @@ import '../../../../core/presentation/widgets/tether_walkthrough_overlay.dart';
 import '../widgets/circle_card.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
+
+import '../../../../core/widgets/onboarding_overlay.dart';
 
 class CirclesScreen extends StatefulWidget {
   const CirclesScreen({super.key});
@@ -22,21 +26,36 @@ class CirclesScreen extends StatefulWidget {
 }
 
 class _CirclesScreenState extends State<CirclesScreen> {
-  final GlobalKey _fabKey = GlobalKey();
+  final GlobalKey _circleListKey = GlobalKey();
+  final GlobalKey _createButtonKey = GlobalKey();
+  final GlobalKey _circleCardKey = GlobalKey();
+
+  bool _showOverlay = false;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _checkShowcase());
+    _checkOnboarding();
   }
 
-  Future<void> _checkShowcase() async {
+  Future<void> _checkOnboarding() async {
     final prefs = await SharedPreferences.getInstance();
-    final hasSeen = prefs.getBool('has_seen_circles_guide') ?? false;
+    final hasSeen = prefs.getBool('has_seen_circles_onboarding_v2') ?? false;
     
     if (!hasSeen && mounted) {
-      ShowCaseWidget.of(context).startShowCase([_fabKey]);
-      await prefs.setBool('has_seen_circles_guide', true);
+      setState(() {
+        _showOverlay = true;
+      });
+    }
+  }
+
+  Future<void> _markOnboardingComplete() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('has_seen_circles_onboarding_v2', true);
+    if (mounted) {
+      setState(() {
+        _showOverlay = false;
+      });
     }
   }
 
@@ -47,8 +66,7 @@ class _CirclesScreenState extends State<CirclesScreen> {
 
     return BlocProvider(
       create: (context) => getIt<CircleCubit>()..loadCircles(),
-      child: ShowCaseWidget(
-        builder: (context) => Scaffold(
+      child: Scaffold(
         appBar: AppBar(
           backgroundColor: colorScheme.surface.withOpacity(0.01),
           elevation: 0,
@@ -87,90 +105,113 @@ class _CirclesScreenState extends State<CirclesScreen> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(24, 32, 24, 100),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const WhisperText('YOUR SANCTUARY'),
-              const SizedBox(height: 8),
-              Text(
-                'Your Circles',
-                style: theme.textTheme.displayMedium?.copyWith(
-                  fontStyle: FontStyle.italic,
-                  fontSize: 32,
-                  letterSpacing: -1,
-                ),
-              ),
-              const SizedBox(height: 32),
-              BlocBuilder<CircleCubit, CircleState>(
-                builder: (context, state) {
-                  if (state is CircleLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is CircleLoaded) {
-                    if (state.circles.isEmpty) {
-                      return const Center(child: Text('You are not in any circles yet.'));
-                    }
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: state.circles.length,
-                      itemBuilder: (context, index) {
-                        final circle = state.circles[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: CircleCard(
-                            circle: circle,
-                            onTap: () => context.push('/feed/${circle.id}'),
-                            onDelete: () {
-                              showDialog(
-                                context: context,
-                                builder: (ctx) => AlertDialog(
-                                  title: const Text('Delete Circle'),
-                                  content: Text('Are you sure you want to permanently delete "${circle.name}"? This action cannot be undone.'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () => Navigator.pop(ctx),
-                                      child: const Text('Cancel'),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(24, 32, 24, 100),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const WhisperText('YOUR SANCTUARY'),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Your Circles',
+                    style: theme.textTheme.displayMedium?.copyWith(
+                      fontStyle: FontStyle.italic,
+                      fontSize: 32,
+                      letterSpacing: -1,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  BlocBuilder<CircleCubit, CircleState>(
+                    builder: (context, state) {
+                      if (state is CircleLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (state is CircleLoaded) {
+                        if (state.circles.isEmpty) {
+                          return const Center(child: Text('You are not in any circles yet.'));
+                        }
+                        return ListView.builder(
+                          key: _circleListKey,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: state.circles.length,
+                          itemBuilder: (context, index) {
+                            final circle = state.circles[index];
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: CircleCard(
+                                key: index == 0 ? _circleCardKey : null,
+                                circle: circle,
+                                onTap: () => context.push('/feed/${circle.id}'),
+                                onDelete: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (ctx) => AlertDialog(
+                                      title: const Text('Delete Circle'),
+                                      content: Text('Are you sure you want to permanently delete "${circle.name}"? This action cannot be undone.'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () => Navigator.pop(ctx),
+                                          child: const Text('Cancel'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(ctx);
+                                            context.read<CircleCubit>().deleteCircle(circle.id);
+                                          },
+                                          child: const Text('Delete', style: TextStyle(color: Colors.red)),
+                                        ),
+                                      ],
                                     ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(ctx);
-                                        context.read<CircleCubit>().deleteCircle(circle.id);
-                                      },
-                                      child: const Text('Delete', style: TextStyle(color: Colors.red)),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
                         );
-                      },
-                    );
-                  } else if (state is CircleError) {
-                    return Center(child: Text('Error: ${state.message}'));
-                  }
-                  return const SizedBox();
-                },
+                      } else if (state is CircleError) {
+                        return Center(child: Text('Error: ${state.message}'));
+                      }
+                      return const SizedBox();
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            if (_showOverlay)
+              FeatureOnboardingOverlay(
+                steps: [
+                  OnboardingStep(
+                    targetKey: _circleListKey,
+                    title: 'Your Circles',
+                    body: "Each Circle is a private micro-network. What's shared inside one Circle never leaks to another. You architect your own social world.",
+                  ),
+                  OnboardingStep(
+                    targetKey: _createButtonKey,
+                    title: 'Start a New Circle',
+                    body: "Create a Circle for any context in your life — a group trip, a support system, a creative project. Give it a name and invite exactly the right people.",
+                  ),
+                  OnboardingStep(
+                    targetKey: _circleCardKey,
+                    title: 'Circle at a Glance',
+                    body: "See who's in each Circle and when they last shared. Tap to enter that Circle's dedicated feed.",
+                  ),
+                ],
+                onComplete: _markOnboardingComplete,
+                onSkip: _markOnboardingComplete,
+              ),
+          ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: Padding(
           padding: const EdgeInsets.only(bottom: 90),
-          child: TetherWalkthroughOverlay(
-            showcaseKey: _fabKey,
-            title: 'Your First Circle',
-            description: 'Create a sanctuary for you and your inner circle here.',
-            child: TetherButton(
-              onPressed: () => context.push('/circles/create'),
-              isHighPriority: true,
-              child: const Icon(Icons.add),
-            ),
+          child: TetherButton(
+            key: _createButtonKey,
+            onPressed: () => context.push('/circles/create'),
+            isHighPriority: true,
+            child: const Icon(FluentIcons.add_24_regular),
           ),
-        ),
         ),
       ),
     );

@@ -5,29 +5,62 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:tether/core/widgets/squircle_avatar.dart';
-import 'package:tether/core/widgets/whisper_text.dart';
-import 'package:tether/core/widgets/glass_panel.dart';
-import 'package:tether/core/widgets/tether_button.dart';
-import 'package:tether/core/widgets/tether_card.dart';
-import 'package:tether/injection_container.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../core/widgets/squircle_avatar.dart';
+import '../../../../core/widgets/whisper_text.dart';
+import '../../../../core/widgets/glass_panel.dart';
+import '../../../../core/widgets/tether_button.dart';
+import '../../../../core/widgets/tether_card.dart';
+import '../../../../core/widgets/onboarding_overlay.dart';
+import '../../../../injection_container.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
-import 'package:tether/features/monetization/domain/repositories/billing_repository.dart';
-import 'package:tether/features/settings/presentation/bloc/settings_cubit.dart';
-import 'package:tether/features/settings/presentation/bloc/settings_state.dart';
-import 'package:tether/core/theme/time_theme_cubit.dart';
+import '../../../monetization/domain/repositories/billing_repository.dart';
+import '../bloc/settings_cubit.dart';
+import '../bloc/settings_state.dart';
+import '../../../../core/theme/time_theme_cubit.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const _SettingsView();
-  }
+  State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
-class _SettingsView extends StatelessWidget {
-  const _SettingsView();
+class _SettingsScreenState extends State<SettingsScreen> {
+  final GlobalKey _identityKey = GlobalKey();
+  final GlobalKey _themesKey = GlobalKey();
+  final GlobalKey _privacyKey = GlobalKey();
+  final GlobalKey _premiumKey = GlobalKey();
+  final GlobalKey _securityKey = GlobalKey();
+
+  bool _showOverlay = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkOnboarding();
+  }
+
+  Future<void> _checkOnboarding() async {
+    final prefs = await SharedPreferences.getInstance();
+    final hasSeen = prefs.getBool('has_seen_settings_onboarding') ?? false;
+    if (!hasSeen && mounted) {
+      setState(() {
+        _showOverlay = true;
+      });
+    }
+  }
+
+  Future<void> _markOnboardingComplete() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('has_seen_settings_onboarding', true);
+    if (mounted) {
+      setState(() {
+        _showOverlay = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,109 +68,148 @@ class _SettingsView extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            floating: true,
-            pinned: true,
-            backgroundColor: colorScheme.surface.withOpacity(0.01),
-            surfaceTintColor: Colors.transparent,
-            flexibleSpace: ClipRect(
-              child: BackdropFilter(
-                filter: ColorFilter.mode(colorScheme.surface.withOpacity(0.8), BlendMode.srcOver),
-                child: Container(color: Colors.transparent),
+      body: Stack(
+        children: [
+          CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                floating: true,
+                pinned: true,
+                backgroundColor: colorScheme.surface.withOpacity(0.01),
+                surfaceTintColor: Colors.transparent,
+                flexibleSpace: ClipRect(
+                  child: BackdropFilter(
+                    filter: ColorFilter.mode(colorScheme.surface.withOpacity(0.8), BlendMode.srcOver),
+                    child: Container(color: Colors.transparent),
+                  ),
+                ),
+                title: Text(
+                  'Sanctuary Settings',
+                  style: theme.textTheme.headlineMedium?.copyWith(
+                    color: colorScheme.primary,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 24,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 24),
+                    child: BlocBuilder<SettingsCubit, SettingsState>(
+                      builder: (context, state) {
+                        return SquircleAvatar(
+                          imageUrl: state.user?.avatarUrl ?? '',
+                          size: 36,
+                          borderColor: colorScheme.primary.withOpacity(0.2),
+                          borderWidth: 2,
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ),
-            title: Text(
-              'Sanctuary Settings',
-              style: theme.textTheme.headlineMedium?.copyWith(
-                color: colorScheme.primary,
-                fontStyle: FontStyle.italic,
-                fontSize: 24,
-                letterSpacing: -0.5,
-              ),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 24),
+              SliverToBoxAdapter(
                 child: BlocBuilder<SettingsCubit, SettingsState>(
                   builder: (context, state) {
-                    return SquircleAvatar(
-                      imageUrl: state.user?.avatarUrl ?? '',
-                      size: 36,
-                      borderColor: colorScheme.primary.withOpacity(0.2),
-                      borderWidth: 2,
+                    if (state.isLoading && state.user == null) {
+                      return const Center(child: Padding(
+                        padding: EdgeInsets.all(64.0),
+                        child: CircularProgressIndicator(),
+                      ));
+                    }
+
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _ProfileSection(key: _identityKey),
+                          const SizedBox(height: 48),
+                          const _NotificationSection(),
+                          const SizedBox(height: 48),
+                          _WellnessInterfaceSection(key: _themesKey),
+                          const SizedBox(height: 48),
+                          _PrivacySecuritySection(
+                            privacyKey: _privacyKey,
+                            securityKey: _securityKey,
+                          ),
+                          const SizedBox(height: 48),
+                          _SubscriptionSection(key: _premiumKey),
+                          const SizedBox(height: 64),
+                          Center(
+                            child: TextButton(
+                              onPressed: () async {
+                                final confirmed = await showDialog<bool>(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text('Sign Out'),
+                                    content: const Text('Are you sure you want to leave your Sanctuary?'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context, false),
+                                        child: const Text('Stay'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context, true),
+                                        child: const Text('Sign Out', style: TextStyle(color: Colors.red)),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                                if (confirmed == true && context.mounted) {
+                                  await context.read<SettingsCubit>().signOut();
+                                  if (context.mounted) {
+                                    context.go('/login');
+                                  }
+                                }
+                              },
+                              child: Text(
+                                'Sign Out',
+                                style: TextStyle(color: colorScheme.error),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 120),
+                        ],
+                      ),
                     );
                   },
                 ),
               ),
             ],
           ),
-          SliverToBoxAdapter(
-            child: BlocBuilder<SettingsCubit, SettingsState>(
-              builder: (context, state) {
-                if (state.isLoading && state.user == null) {
-                  return const Center(child: Padding(
-                    padding: EdgeInsets.all(64.0),
-                    child: CircularProgressIndicator(),
-                  ));
-                }
-
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const _ProfileSection(),
-                      const SizedBox(height: 48),
-                      const _NotificationSection(),
-                      const SizedBox(height: 48),
-                      const _WellnessInterfaceSection(),
-                      const SizedBox(height: 48),
-                      const _PrivacySecuritySection(),
-                      const SizedBox(height: 48),
-                      const _SubscriptionSection(),
-                      const SizedBox(height: 64),
-                      Center(
-                        child: TextButton(
-                          onPressed: () async {
-                            final confirmed = await showDialog<bool>(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: const Text('Sign Out'),
-                                content: const Text('Are you sure you want to leave your Sanctuary?'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context, false),
-                                    child: const Text('Stay'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () => Navigator.pop(context, true),
-                                    child: const Text('Sign Out', style: TextStyle(color: Colors.red)),
-                                  ),
-                                ],
-                              ),
-                            );
-                            if (confirmed == true && context.mounted) {
-                              await context.read<SettingsCubit>().signOut();
-                              if (context.mounted) {
-                                context.go('/login');
-                              }
-                            }
-                          },
-                          child: Text(
-                            'Sign Out',
-                            style: TextStyle(color: colorScheme.error),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 120),
-                    ],
-                  ),
-                );
-              },
+          if (_showOverlay)
+            FeatureOnboardingOverlay(
+              steps: [
+                OnboardingStep(
+                  targetKey: _identityKey,
+                  title: 'Your Tether Identity',
+                  body: "Your name and photo are visible only to people already in your Circles. You're not discoverable publicly, not indexed anywhere. You're a person here — not a username.",
+                ),
+                OnboardingStep(
+                  targetKey: _themesKey,
+                  title: 'Safety Themes',
+                  body: "Switch how Tether looks and feels at any time — from here too. The theme follows you across the entire app the moment you change it.",
+                ),
+                OnboardingStep(
+                  targetKey: _privacyKey,
+                  title: 'Your Privacy Controls',
+                  body: "Control who can find you, add you to Circles, or send you messages. Your defaults are already the most private possible — these settings let you go further if needed.",
+                ),
+                OnboardingStep(
+                  targetKey: _premiumKey,
+                  title: 'Tether Premium',
+                  body: "Tether is free for the essentials. Premium unlocks unlimited Circles, the full encrypted Vault, and all Safety Themes. No ads. No data selling. Your subscription is how we stay independent.",
+                ),
+                OnboardingStep(
+                  targetKey: _securityKey,
+                  title: 'Lock Your Sanctuary',
+                  body: "Enable two-factor authentication and a passkey for the most secure, frictionless sign-in. Your data deserves a strong lock — this is where you set it.",
+                ),
+              ],
+              onComplete: _markOnboardingComplete,
+              onSkip: _markOnboardingComplete,
             ),
-          ),
         ],
       ),
     );
@@ -145,7 +217,7 @@ class _SettingsView extends StatelessWidget {
 }
 
 class _ProfileSection extends StatelessWidget {
-  const _ProfileSection();
+  const _ProfileSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -218,7 +290,7 @@ class _ProfileSection extends StatelessWidget {
                           color: colorScheme.primary,
                           shape: BoxShape.circle,
                         ),
-                        child: Icon(Icons.edit, size: 12, color: colorScheme.onPrimary),
+                        child: Icon(FluentIcons.edit_24_regular, size: 12, color: colorScheme.onPrimary),
                       ),
                     ),
                   ],
@@ -336,7 +408,6 @@ class _NotificationSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<SettingsCubit>().state;
     final cubit = context.read<SettingsCubit>();
-    final colorScheme = Theme.of(context).colorScheme;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -349,14 +420,14 @@ class _NotificationSection extends StatelessWidget {
           value: state.reflectionReminders,
           onChanged: cubit.toggleReflectionReminders,
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 16),
         _SwitchTile(
           label: 'Gratitude Prompts',
           subtitle: 'Thoughtful questions to start your day.',
           value: state.gratitudePrompts,
           onChanged: cubit.toggleGratitudePrompts,
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 16),
         _SwitchTile(
           label: 'Emergency SOS Alerts',
           subtitle: 'Bypass Do Not Disturb for critical safety.',
@@ -370,7 +441,7 @@ class _NotificationSection extends StatelessWidget {
 }
 
 class _WellnessInterfaceSection extends StatelessWidget {
-  const _WellnessInterfaceSection();
+  const _WellnessInterfaceSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -395,7 +466,7 @@ class _WellnessInterfaceSection extends StatelessWidget {
             }
           },
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 16),
         _SwitchTile(
           label: 'Haptic Breathing',
           subtitle: 'Physical pulses during exercises.',
@@ -408,7 +479,10 @@ class _WellnessInterfaceSection extends StatelessWidget {
 }
 
 class _PrivacySecuritySection extends StatelessWidget {
-  const _PrivacySecuritySection();
+  final GlobalKey? privacyKey;
+  final GlobalKey? securityKey;
+
+  const _PrivacySecuritySection({this.privacyKey, this.securityKey});
 
   @override
   Widget build(BuildContext context) {
@@ -421,17 +495,19 @@ class _PrivacySecuritySection extends StatelessWidget {
         const WhisperText('PRIVACY & SECURITY'),
         const SizedBox(height: 24),
         _SwitchTile(
+          key: privacyKey,
           label: 'Biometric Lock',
           subtitle: 'Require Face ID or PIN to open.',
           value: state.biometricLock,
           onChanged: cubit.toggleBiometricLock,
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 16),
         TetherCard(
+          key: securityKey,
           padding: const EdgeInsets.all(24),
           child: Row(
             children: [
-              const Icon(Icons.enhanced_encryption_outlined, color: Colors.green),
+              const Icon(FluentIcons.lock_closed_24_regular, color: Colors.green),
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
@@ -452,7 +528,7 @@ class _PrivacySecuritySection extends StatelessWidget {
 }
 
 class _SubscriptionSection extends StatelessWidget {
-  const _SubscriptionSection();
+  const _SubscriptionSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -476,7 +552,7 @@ class _SubscriptionSection extends StatelessWidget {
                   Row(
                     children: [
                       Icon(
-                        isPro ? Icons.verified_rounded : Icons.star_outline,
+                        isPro ? FluentIcons.checkmark_starburst_24_filled : FluentIcons.star_24_regular,
                         color: isPro ? Colors.amber : colorScheme.primary,
                       ),
                       const SizedBox(width: 16),
@@ -530,6 +606,7 @@ class _SwitchTile extends StatelessWidget {
   final bool isCritical;
 
   const _SwitchTile({
+    super.key,
     required this.label,
     required this.subtitle,
     required this.value,

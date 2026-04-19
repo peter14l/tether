@@ -1,0 +1,1005 @@
+Performing hot reload...
+Reloaded 2 of 3283 libraries in 2,192ms (compile: 88 ms, reload: 1330 ms, reassemble: 326 ms).
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 835982199 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@c257e58
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 71764466
+I/flutter (11281): AppRouter: Redirect check - location: /messaging/new, authState: Authenticated
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 539290338 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 871169659
+D/WindowOnBackDispatcher(11281): onBackInvoked, callback=androidx.navigationevent.OnBackInvokedInput$createOnBackAnimationCallback$1@6ff2396
+W/WindowOnBackDispatcher(11281): sendCancelIfRunning: isInProgress=false callback=androidx.navigationevent.OnBackInvokedInput$createOnBackAnimationCallback$1@6ff2396
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@c257e58
+
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 509243520 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@c257e58
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 163120011
+Performing hot reload...
+Reloaded 1 of 3283 libraries in 2,237ms (compile: 178 ms, reload: 1233 ms, reassemble: 250 ms).
+I/flutter (11281): AppRouter: Redirect check - location: /messaging/new, authState: Authenticated
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 695095164 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 982979414
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 607121264 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 516373595
+D/WindowOnBackDispatcher(11281): onBackInvoked, callback=androidx.navigationevent.OnBackInvokedInput$createOnBackAnimationCallback$1@6ff2396
+W/WindowOnBackDispatcher(11281): sendCancelIfRunning: isInProgress=false callback=androidx.navigationevent.OnBackInvokedInput$createOnBackAnimationCallback$1@6ff2396
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@c257e58
+
+Performing hot reload...
+Reloaded 1 of 3283 libraries in 2,078ms (compile: 90 ms, reload: 1321 ms, reassemble: 243 ms).
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 382266690 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@c257e58
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 83478617
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+
+══╡ EXCEPTION CAUGHT BY GESTURE ╞═══════════════════════════════════════════════════════════════════
+The following assertion was thrown while handling a gesture:
+unknown route name: new_message
+'package:go_router/src/configuration.dart':
+Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)'
+
+When the exception was thrown, this was the stack:
+#2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+#3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+#4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+#5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+#6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+#7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+#8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+#9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+#10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+#11     BaseTapGestureRecognizer.handlePrimaryPointer (package:flutter/src/gestures/tap.dart:314:7)
+#12     PrimaryPointerGestureRecognizer.handleEvent (package:flutter/src/gestures/recognizer.dart:721:9)
+#13     PointerRouter._dispatch (package:flutter/src/gestures/pointer_router.dart:97:12)
+#14     PointerRouter._dispatchEventToRoutes.<anonymous closure> (package:flutter/src/gestures/pointer_router.dart:140:9)
+#15     _LinkedHashMapMixin.forEach (dart:_compact_hash:765:13)
+#16     PointerRouter._dispatchEventToRoutes (package:flutter/src/gestures/pointer_router.dart:138:18)
+#17     PointerRouter.route (package:flutter/src/gestures/pointer_router.dart:128:7)
+#18     GestureBinding.handleEvent (package:flutter/src/gestures/binding.dart:528:19)
+#19     GestureBinding.dispatchEvent (package:flutter/src/gestures/binding.dart:498:22)
+#20     RendererBinding.dispatchEvent (package:flutter/src/rendering/binding.dart:473:11)
+#21     GestureBinding._handlePointerEventImmediately (package:flutter/src/gestures/binding.dart:437:7)
+#22     GestureBinding.handlePointerEvent (package:flutter/src/gestures/binding.dart:394:5)
+#23     GestureBinding._flushPointerEventQueue (package:flutter/src/gestures/binding.dart:341:7)
+#24     GestureBinding._handlePointerDataPacket (package:flutter/src/gestures/binding.dart:308:9)
+#25     _invoke1 (dart:ui/hooks.dart:372:13)
+#26     PlatformDispatcher._dispatchPointerDataPacket (dart:ui/platform_dispatcher.dart:467:7)
+#27     _dispatchPointerDataPacket (dart:ui/hooks.dart:307:31)
+(elided 2 frames from class _AssertionError)
+
+Handler: "onTap"
+Recognizer:
+  TapGestureRecognizer#6f203
+════════════════════════════════════════════════════════════════════════════════════════════════════
+
+W/Sentry  (11281): Failed to delete the current session file.
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 40238259 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 902580131
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+Another exception was thrown: unknown route name: new_message
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 860435641 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 344397821
+Another exception was thrown: unknown route name: new_message
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 1002244950 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 909328797
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+Another exception was thrown: unknown route name: new_message
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 793035254 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 890251031
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+Another exception was thrown: unknown route name: new_message
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 331902107 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 438007008
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+Another exception was thrown: unknown route name: new_message
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 188410741 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 291141218
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+Another exception was thrown: unknown route name: new_message
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 757741428 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 226091685
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+Another exception was thrown: unknown route name: new_message
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 221689555 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 516518878
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+Another exception was thrown: unknown route name: new_message
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 492938628 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 202340875
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+Another exception was thrown: unknown route name: new_message
+W/Sentry  (11281): Failed to delete the current session file.
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 746463677 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 545122318
+Another exception was thrown: unknown route name: new_message
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+Another exception was thrown: unknown route name: new_message
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 765363467 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 966753246
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@c257e58
+Performing hot reload...
+Reloaded 1 of 3283 libraries in 2,242ms (compile: 91 ms, reload: 1449 ms, reassemble: 256 ms).
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 171165828 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@c257e58
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 875357871
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+
+══╡ EXCEPTION CAUGHT BY GESTURE ╞═══════════════════════════════════════════════════════════════════
+The following assertion was thrown while handling a gesture:
+unknown route name: new_message
+'package:go_router/src/configuration.dart':
+Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)'
+
+When the exception was thrown, this was the stack:
+#2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+#3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+#4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+#5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+#6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+#7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+#8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+#9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+#10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+#11     BaseTapGestureRecognizer.handlePrimaryPointer (package:flutter/src/gestures/tap.dart:314:7)
+#12     PrimaryPointerGestureRecognizer.handleEvent (package:flutter/src/gestures/recognizer.dart:721:9)
+#13     PointerRouter._dispatch (package:flutter/src/gestures/pointer_router.dart:97:12)
+#14     PointerRouter._dispatchEventToRoutes.<anonymous closure> (package:flutter/src/gestures/pointer_router.dart:140:9)
+#15     _LinkedHashMapMixin.forEach (dart:_compact_hash:765:13)
+#16     PointerRouter._dispatchEventToRoutes (package:flutter/src/gestures/pointer_router.dart:138:18)
+#17     PointerRouter.route (package:flutter/src/gestures/pointer_router.dart:128:7)
+#18     GestureBinding.handleEvent (package:flutter/src/gestures/binding.dart:528:19)
+#19     GestureBinding.dispatchEvent (package:flutter/src/gestures/binding.dart:498:22)
+#20     RendererBinding.dispatchEvent (package:flutter/src/rendering/binding.dart:473:11)
+#21     GestureBinding._handlePointerEventImmediately (package:flutter/src/gestures/binding.dart:437:7)
+#22     GestureBinding.handlePointerEvent (package:flutter/src/gestures/binding.dart:394:5)
+#23     GestureBinding._flushPointerEventQueue (package:flutter/src/gestures/binding.dart:341:7)
+#24     GestureBinding._handlePointerDataPacket (package:flutter/src/gestures/binding.dart:308:9)
+#25     _invoke1 (dart:ui/hooks.dart:372:13)
+#26     PlatformDispatcher._dispatchPointerDataPacket (dart:ui/platform_dispatcher.dart:467:7)
+#27     _dispatchPointerDataPacket (dart:ui/hooks.dart:307:31)
+(elided 2 frames from class _AssertionError)
+
+Handler: "onTap"
+Recognizer:
+  TapGestureRecognizer#6f203
+════════════════════════════════════════════════════════════════════════════════════════════════════
+
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 380956110 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 18276674
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+Another exception was thrown: unknown route name: new_message
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@c257e58
+
+Performing hot reload...
+Reloaded 0 libraries in 776ms (compile: 91 ms, reload: 0 ms, reassemble: 220 ms).
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 421327644 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@c257e58
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 789775422
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): 'package:go_router/src/configuration.dart': Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)': unknown route name: new_message
+I/flutter (11281): #0      _AssertionError._doThrowNew (dart:core-patch/errors_patch.dart:67:4)
+I/flutter (11281): #1      _AssertionError._throwNew (dart:core-patch/errors_patch.dart:49:5)
+I/flutter (11281): #2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+I/flutter (11281): #3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+I/flutter (11281): #4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+I/flutter (11281): #5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+I/flutter (11281): #6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+I/flutter (11281): #7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+I/flutter (11281): #8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+I/flutter (11281): #9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+I/flutter (11281): #10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+I/flutter (11281): #11     BaseTapGestureRecognizer.handlePrimaryPointer (p
+I/flutter (11281): ----------------------------------------------------
+
+══╡ EXCEPTION CAUGHT BY GESTURE ╞═══════════════════════════════════════════════════════════════════
+The following assertion was thrown while handling a gesture:
+unknown route name: new_message
+'package:go_router/src/configuration.dart':
+Failed assertion: line 266 pos 12: '_nameToPath.containsKey(name)'
+
+When the exception was thrown, this was the stack:
+#2      RouteConfiguration.namedLocation (package:go_router/src/configuration.dart:266:12)
+#3      GoRouter.namedLocation (package:go_router/src/router.dart:338:21)
+#4      GoRouter.pushNamed (package:go_router/src/router.dart:408:9)
+#5      GoRouterHelper.pushNamed (package:go_router/src/misc/extensions.dart:62:25)
+#6      MessagingScreen.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/messaging_screen.dart:137:36)
+#7      _InkResponseState.handleTap (package:flutter/src/material/ink_well.dart:1224:21)
+#8      GestureRecognizer.invokeCallback (package:flutter/src/gestures/recognizer.dart:345:24)
+#9      TapGestureRecognizer.handleTapUp (package:flutter/src/gestures/tap.dart:758:11)
+#10     BaseTapGestureRecognizer._checkUp (package:flutter/src/gestures/tap.dart:383:5)
+#11     BaseTapGestureRecognizer.handlePrimaryPointer (package:flutter/src/gestures/tap.dart:314:7)
+#12     PrimaryPointerGestureRecognizer.handleEvent (package:flutter/src/gestures/recognizer.dart:721:9)
+#13     PointerRouter._dispatch (package:flutter/src/gestures/pointer_router.dart:97:12)
+#14     PointerRouter._dispatchEventToRoutes.<anonymous closure> (package:flutter/src/gestures/pointer_router.dart:140:9)
+#15     _LinkedHashMapMixin.forEach (dart:_compact_hash:765:13)
+#16     PointerRouter._dispatchEventToRoutes (package:flutter/src/gestures/pointer_router.dart:138:18)
+#17     PointerRouter.route (package:flutter/src/gestures/pointer_router.dart:128:7)
+#18     GestureBinding.handleEvent (package:flutter/src/gestures/binding.dart:528:19)
+#19     GestureBinding.dispatchEvent (package:flutter/src/gestures/binding.dart:498:22)
+#20     RendererBinding.dispatchEvent (package:flutter/src/rendering/binding.dart:473:11)
+#21     GestureBinding._handlePointerEventImmediately (package:flutter/src/gestures/binding.dart:437:7)
+#22     GestureBinding.handlePointerEvent (package:flutter/src/gestures/binding.dart:394:5)
+#23     GestureBinding._flushPointerEventQueue (package:flutter/src/gestures/binding.dart:341:7)
+#24     GestureBinding._handlePointerDataPacket (package:flutter/src/gestures/binding.dart:308:9)
+#25     _invoke1 (dart:ui/hooks.dart:372:13)
+#26     PlatformDispatcher._dispatchPointerDataPacket (dart:ui/platform_dispatcher.dart:467:7)
+#27     _dispatchPointerDataPacket (dart:ui/hooks.dart:307:31)
+(elided 2 frames from class _AssertionError)
+
+Handler: "onTap"
+Recognizer:
+  TapGestureRecognizer#6f203
+════════════════════════════════════════════════════════════════════════════════════════════════════
+
+
+
+
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@c257e58
+
+
+Performing hot restart...
+Restarted application in 9,544ms.
+I/FLTFireMsgService(11281): FlutterFirebaseMessagingBackgroundService started!
+I/flutter (11281): supabase.supabase_flutter: INFO: ***** Supabase init completed *****
+D/ConnectivityManager(11281): StackLog: [android.net.ConnectivityManager.sendRequestForNetwork(ConnectivityManager.java:4743)] [android.net.ConnectivityManager.registerDefaultNetworkCallbackForUid(ConnectivityManager.java:5468)] [android.net.ConnectivityManager.registerDefaultNetworkCallback(ConnectivityManager.java:5435)] [android.net.ConnectivityManager.registerDefaultNetworkCallback(ConnectivityManager.java:5409)] [io.sentry.android.core.internal.util.AndroidConnectionStatusProvider.registerNetworkCallback(AndroidConnectionStatusProvider.java:778)] [io.sentry.android.core.internal.util.AndroidConnectionStatusProvider.ensureNetworkCallbackRegistered(AndroidConnectionStatusProvider.java:341)] [io.sentry.android.core.internal.util.AndroidConnectionStatusProvider.lambda$new$0$io-sentry-android-core-internal-util-AndroidConnectionStatusProvider(AndroidConnectionStatusProvider.java:102)] [io.sentry.android.core.internal.util.AndroidConnectionStatusProvider$$ExternalSyntheticLambda3.run(D8$$SyntheticClass:0)] [java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:520)] [java.util.concurrent.FutureTask.run(FutureTask.java:317)] [java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:348)] [java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1154)] [java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:652)] [java.lang.Thread.run(Thread.java:1564)]
+W/Sentry  (11281): Sentry has been already initialized. Previous configuration will be overwritten.
+D/sentry-native(11281): shutting down backend
+W/sentry-native(11281): sentry_close() called, but options was empty
+I/sentry-native(11281): using database path "/data/data/com.tether.app.app/cache/sentry/a15328c3eef82c515b0797e5f645d6a6e6ac670a/.sentry-native"
+D/sentry-native(11281): starting backend
+D/sentry-native(11281): using existing signal stack (size: 32768, flags: 0)
+D/sentry-native(11281): using existing signal stack (size: 32768, flags: 0)
+D/sentry-native(11281): processing and pruning old runs
+D/ConnectivityManager(11281): StackLog: [android.net.ConnectivityManager.unregisterNetworkCallback(ConnectivityManager.java:5578)] [io.sentry.android.core.internal.util.AndroidConnectionStatusProvider.unregisterNetworkCallback(AndroidConnectionStatusProvider.java:798)] [io.sentry.android.core.internal.util.AndroidConnectionStatusProvider.unregisterNetworkCallback(AndroidConnectionStatusProvider.java:457)] [io.sentry.android.core.internal.util.AndroidConnectionStatusProvider.lambda$close$1$io-sentry-android-core-internal-util-AndroidConnectionStatusProvider(AndroidConnectionStatusProvider.java:472)] [io.sentry.android.core.internal.util.AndroidConnectionStatusProvider$$ExternalSyntheticLambda1.run(D8$$SyntheticClass:0)] [java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:520)] [java.util.concurrent.FutureTask.run(FutureTask.java:317)] [java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:348)] [java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1154)] [java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:652)] [java.lang.Thread.run(Thread.java:1564)]
+W/Sentry  (11281): Current session is not ended, we'd need to end it.
+I/flutter (11281): AppRouter: Redirect check - location: /, authState: AuthInitial
+I/flutter (11281): AppRouter: Redirecting to /login
+I/flutter (11281): AppRouter: Redirect check - location: /login, authState: AuthInitial
+I/flutter (11281): AppRouter: Redirect check - location: /, authState: AuthLoading
+W/WindowOnBackDispatcher(11281): sendCancelIfRunning: isInProgress=false callback=androidx.navigationevent.OnBackInvokedInput$createOnBackAnimationCallback$1@6ff2396
+I/flutter (11281): RevenueCat is not configured or using placeholder keys. Skipping initialization.
+I/flutter (11281): AppRouter: Redirect check - location: /, authState: Authenticated
+W/FLTFireMsgService(11281): Attempted to start a duplicate background isolate. Returning...
+W/WindowOnBackDispatcher(11281): sendCancelIfRunning: isInProgress=false callback=androidx.navigationevent.OnBackInvokedInput$createOnBackAnimationCallback$1@6ff2396
+I/flutter (11281): E2EE: Loaded existing keypair.
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 331449547 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@c257e58
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 830882815
+I/flutter (11281): FCM token uploaded/updated for user 9b6abf16-ab9f-4efd-a425-24c3c64f3fef
+I/ImeFocusController(11281): onPreWindowFocus: skipped hasWindowFocus=false mHasImeFocus=true
+I/ImeFocusController(11281): onPostWindowFocus: skipped hasWindowFocus=false mHasImeFocus=true
+D/InputTransport(11281): Input channel destroyed: 'ClientS', fd=215
+I/BiometricPrompt(11281): onAuthenticationSucceeded: 2
+W/WindowOnBackDispatcher(11281): sendCancelIfRunning: isInProgress=false callback=androidx.navigationevent.OnBackInvokedInput$createOnBackAnimationCallback$1@6ff2396
+I/InsetsSourceConsumer(11281): applyRequestedVisibilityToControl: visible=true, type=navigationBars, host=com.tether.app.app/com.tether.app.app.MainActivity
+I/InsetsSourceConsumer(11281): applyRequestedVisibilityToControl: visible=true, type=statusBars, host=com.tether.app.app/com.tether.app.app.MainActivity
+D/VRI[MainActivity]@c257e58(11281): mThreadedRenderer.initializeIfNeeded()#2 mSurface={isValid=true 0xb400007c72651160}
+D/InputMethodManagerUtils(11281): startInputInner - Id : 0
+I/InputMethodManager(11281): startInputInner - IInputMethodManagerGlobalInvoker.startInputOrWindowGainedFocus
+I/InputMethodManager(11281): handleMessage: setImeVisibility visible=false
+D/InsetsController(11281): hide(ime(), fromIme=false)
+I/ImeTracker(11281): com.tether.app.app:ce8f0d65: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+D/InputTransport(11281): Input channel constructed: 'ClientS', fd=215
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@c257e58
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 569109380 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@c257e58
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 860331888
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 1066047206 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 1014616899
+I/flutter (11281): AppRouter: Redirect check - location: /messaging, authState: Authenticated
+W/WindowOnBackDispatcher(11281): sendCancelIfRunning: isInProgress=false callback=androidx.navigationevent.OnBackInvokedInput$createOnBackAnimationCallback$1@6ff2396
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 447798511 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 453119024
+I/flutter (11281): AppRouter: Redirect check - location: /messaging/new, authState: Authenticated
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@c257e58
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 1009548648 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@c257e58
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 553497583
+I/InputMethodManager_LC(11281): showSoftInput(View,I)
+I/ImeTracker(11281): com.tether.app.app:d21e90e2: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser false
+I/InputMethodManager_LC(11281): ssi(): flags=0 view=com.tether.app.app reason=SHOW_SOFT_INPUT
+I/InputMethodManager_LC(11281): ssi() view is not EditText
+D/InputMethodManagerUtils(11281): startInputInner - Id : 0
+I/InputMethodManager(11281): startInputInner - IInputMethodManagerGlobalInvoker.startInputOrWindowGainedFocus
+D/InsetsController(11281): show(ime(), fromIme=false)
+D/InputTransport(11281): Input channel constructed: 'ClientS', fd=213
+D/InsetsController(11281): Setting requestedVisibleTypes to -1 (was -9)
+I/InsetsController(11281): setRequestedVisibleTypes: visible=true, mask=ime, host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.InsetsController.controlAnimationUnchecked:1604 android.view.InsetsController.applyAnimation:2416 android.view.InsetsController.applyAnimation:2343 android.view.InsetsController.show:1422 android.view.inputmethod.InputMethodManager.showSoftInput:2659 android.view.inputmethod.InputMethodManager.showSoftInput:2571 android.view.inputmethod.InputMethodManager.showSoftInput:2563 android.view.inputmethod.InputMethodManager.showSoftInput:2491 io.flutter.plugin.editing.TextInputPlugin.showTextInput:433 io.flutter.plugin.editing.TextInputPlugin$2.show:114
+I/VRI[MainActivity]@c257e58(11281): handleResized, frames=ClientWindowFrames{frame=[0,0][1080,2340] display=[0,0][1080,2340] parentFrame=[0,0][0,0]} displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false dragResizingChanged=false
+I/AssistStructure(11281): Flattened final assist data: 520 bytes, containing 1 windows, 3 views
+E/SpannableStringBuilder(11281): SPAN_EXCLUSIVE_EXCLUSIVE spans cannot have a zero length
+E/SpannableStringBuilder(11281): SPAN_EXCLUSIVE_EXCLUSIVE spans cannot have a zero length
+E/SpannableStringBuilder(11281): SPAN_EXCLUSIVE_EXCLUSIVE spans cannot have a zero length
+E/SpannableStringBuilder(11281): SPAN_EXCLUSIVE_EXCLUSIVE spans cannot have a zero length
+E/SpannableStringBuilder(11281): SPAN_EXCLUSIVE_EXCLUSIVE spans cannot have a zero length
+E/SpannableStringBuilder(11281): SPAN_EXCLUSIVE_EXCLUSIVE spans cannot have a zero length
+I/InsetsController(11281): onStateChanged: host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.ViewRootImpl.onInsetsStateChanged:3026, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2340), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(470, 0 - 610, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2340 physicalDisplayWidth=1080 physicalDisplayHeight=2340 density={2.8125} cutoutSpec={M 0,0 H -24.88888888888889 V 35.55555555555556 H 24.88888888888889 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=101, center=Point(101, 101)}, RoundedCorner{position=TopRight, radius=101, center=Point(979, 101)}, RoundedCorner{position=BottomRight, radius=101, center=Point(979, 2239)}, RoundedCorner{position=BottomLeft, radius=101, center=Point(101, 2239)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2340), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2340 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {92ca0000 mType=statusBars mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0005 mType=mandatorySystemGestures mFrame=[0,0][1080,134] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0006 mType=tappableElement mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {3 mType=ime mFrame=[0,0][0,0] mVisible=false mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {14fa0001 mType=navigationBars mFrame=[0,2298][1080,2340] mVisible=true mFlags=SUPPRESS_SCRIM mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0004 mType=systemGestures mFrame=[0,0][84,2340] mVisible=true mFlags= mSideHint=LEFT mBoundingRects=null}, InsetsSource: {14fa0005 mType=mandatorySystemGestures mFrame=[0,2250][1080,2340] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {14fa0024 mType=systemGestures mFrame=[996,0][1080,2340] mVisible=true mFlags= mSideHint=RIGHT mBoundingRects=null} }
+I/VRI[MainActivity]@c257e58(11281): handleResized, frames=ClientWindowFrames{frame=[0,0][1080,2340] display=[0,0][1080,2340] parentFrame=[0,0][0,0]} displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false dragResizingChanged=false
+W/.tether.app.app(11281): Cleared Reference was only reachable from finalizer (only reported once)
+D/InputTransport(11281): Input channel destroyed: 'ClientS', fd=213
+W/System  (11281): A resource failed to call close.
+I/InsetsController(11281): onStateChanged: host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.ViewRootImpl.onInsetsStateChanged:3026, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2340), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(470, 0 - 610, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2340 physicalDisplayWidth=1080 physicalDisplayHeight=2340 density={2.8125} cutoutSpec={M 0,0 H -24.88888888888889 V 35.55555555555556 H 24.88888888888889 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=101, center=Point(101, 101)}, RoundedCorner{position=TopRight, radius=101, center=Point(979, 101)}, RoundedCorner{position=BottomRight, radius=101, center=Point(979, 2239)}, RoundedCorner{position=BottomLeft, radius=101, center=Point(101, 2239)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2340), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2340 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {92ca0000 mType=statusBars mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0005 mType=mandatorySystemGestures mFrame=[0,0][1080,134] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0006 mType=tappableElement mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {3 mType=ime mFrame=[0,1340][1080,2340] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {14fa0001 mType=navigationBars mFrame=[0,2298][1080,2340] mVisible=true mFlags=SUPPRESS_SCRIM mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0004 mType=systemGestures mFrame=[0,0][84,2340] mVisible=true mFlags= mSideHint=LEFT mBoundingRects=null}, InsetsSource: {14fa0005 mType=mandatorySystemGestures mFrame=[0,2250][1080,2340] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {14fa0024 mType=systemGestures mFrame=[996,0][1080,2340] mVisible=true mFlags= mSideHint=RIGHT mBoundingRects=null} }
+I/VRI[MainActivity]@c257e58(11281): handleResized, frames=ClientWindowFrames{frame=[0,0][1080,2340] display=[0,0][1080,2340] parentFrame=[0,0][0,0]} displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false dragResizingChanged=false
+I/InsetsController(11281): onStateChanged: host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.ViewRootImpl.onInsetsStateChanged:3026, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2340), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(470, 0 - 610, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2340 physicalDisplayWidth=1080 physicalDisplayHeight=2340 density={2.8125} cutoutSpec={M 0,0 H -24.88888888888889 V 35.55555555555556 H 24.88888888888889 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=101, center=Point(101, 101)}, RoundedCorner{position=TopRight, radius=101, center=Point(979, 101)}, RoundedCorner{position=BottomRight, radius=101, center=Point(979, 2239)}, RoundedCorner{position=BottomLeft, radius=101, center=Point(101, 2239)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2340), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2340 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {92ca0000 mType=statusBars mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0005 mType=mandatorySystemGestures mFrame=[0,0][1080,134] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0006 mType=tappableElement mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {3 mType=ime mFrame=[0,1340][1080,2340] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {14fa0001 mType=navigationBars mFrame=[0,2298][1080,2340] mVisible=true mFlags=SUPPRESS_SCRIM mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0004 mType=systemGestures mFrame=[0,0][84,2340] mVisible=true mFlags= mSideHint=LEFT mBoundingRects=null}, InsetsSource: {14fa0005 mType=mandatorySystemGestures mFrame=[0,2250][1080,2340] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {14fa0024 mType=systemGestures mFrame=[996,0][1080,2340] mVisible=true mFlags= mSideHint=RIGHT mBoundingRects=null} }
+I/InsetsController(11281): controlAnimationUncheckedInner: Added types=ime, animType=0, host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.InsetsController.controlAnimationUnchecked:1608 android.view.InsetsController.applyAnimation:2416 android.view.InsetsController.applyAnimation:2343
+I/BLASTBufferQueue_Java(11281): update, w= 1080 h= 2340 mName = VRI[MainActivity]@c257e58 mNativeObject= 0xb400007d026d49e0 sc.mNativeObject= 0xb400007d426402d0 format= -3 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3574 android.view.ViewRootImpl.relayoutWindow:11685 android.view.ViewRootImpl.performTraversals:4804 android.view.ViewRootImpl.doTraversal:3924 android.view.ViewRootImpl$TraversalRunnable.run:12903 android.view.Choreographer$CallbackRecord.run:1901
+I/VRI[MainActivity]@c257e58(11281): Relayout returned: old=(0,0,1080,2340) new=(0,0,1080,2340) relayoutAsync=true req=(1080,2340)0 dur=0 res=0x0 s={true 0xb400007c72651160} ch=false seqId=0
+W/InteractionJankMonitor(11281): Initializing without READ_DEVICE_CONFIG permission. enabled=false, interval=1, missedFrameThreshold=3, frameTimeThreshold=64, package=com.tether.app.app
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): registerCallbackForPendingTransactions
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82700610 mBlastBufferQueue=0xb400007d026d49e0 fn= 3 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82728a10 mBlastBufferQueue=0xb400007d026d49e0 fn= 3 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.ViewRootImpl$10.onFrameDraw:6536 android.view.ViewRootImpl$4.onFrameDraw:2489 android.view.ThreadedRenderer$1.onFrameDraw:718
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82700610 mBlastBufferQueue=0xb400007d026d49e0 fn= 4 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c826f5390 mBlastBufferQueue=0xb400007d026d49e0 fn= 5 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c826f5390 mBlastBufferQueue=0xb400007d026d49e0 fn= 6 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8271f390 mBlastBufferQueue=0xb400007d026d49e0 fn= 7 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8271f390 mBlastBufferQueue=0xb400007d026d49e0 fn= 8 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82695d90 mBlastBufferQueue=0xb400007d026d49e0 fn= 9 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82695d90 mBlastBufferQueue=0xb400007d026d49e0 fn= 10 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82721bd0 mBlastBufferQueue=0xb400007d026d49e0 fn= 11 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82721bd0 mBlastBufferQueue=0xb400007d026d49e0 fn= 12 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c826fbc90 mBlastBufferQueue=0xb400007d026d49e0 fn= 13 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c826fbc90 mBlastBufferQueue=0xb400007d026d49e0 fn= 14 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8266ee90 mBlastBufferQueue=0xb400007d026d49e0 fn= 15 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+I/InsetsController(11281): cancelAnimation: types=ime, animType=0, host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.InsetsController.notifyFinished:2006 android.view.InsetsAnimationControlImpl.applyChangeInsets:335 android.view.InsetsController.lambda$new$3:957
+I/ImeTracker(11281): com.tether.app.app:d21e90e2: onShown
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8266ee90 mBlastBufferQueue=0xb400007d026d49e0 fn= 16 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+
+══╡ EXCEPTION CAUGHT BY WIDGETS ╞═══════════════════════════════════════════════════════════════════
+The following ProviderNotFoundException was thrown while calling onChanged:
+Error: Could not find the correct Provider<UserSearchCubit> above this NewMessageScreen Widget
+
+This happens because you used a `BuildContext` that does not include the provider
+of your choice. There are a few common scenarios:
+
+- You added a new provider in your `main.dart` and performed a hot-reload.
+  To fix, perform a hot-restart.
+
+- The provider you are trying to read is in a different route.
+
+  Providers are "scoped". So if you insert of provider inside a route, then
+  other routes will not be able to access that provider.
+
+- You used a `BuildContext` that is an ancestor of the provider you are trying to read.
+
+  Make sure that NewMessageScreen is under your MultiProvider/Provider<UserSearchCubit>.
+  This usually happens when you are creating a provider and trying to read it immediately.
+
+  For example, instead of:
+
+  ```
+  Widget build(BuildContext context) {
+    return Provider<Example>(
+      create: (_) => Example(),
+      // Will throw a ProviderNotFoundError, because `context` is associated
+      // to the widget that is the parent of `Provider<Example>`
+      child: Text(context.watch<Example>().toString()),
+    );
+  }
+  ```
+
+  consider using `builder` like so:
+
+  ```
+  Widget build(BuildContext context) {
+    return Provider<Example>(
+      create: (_) => Example(),
+      // we use `builder` to obtain a new `BuildContext` that has access to the provider
+      builder: (context, child) {
+        // No longer throws
+        return Text(context.watch<Example>().toString());
+      }
+    );
+  }
+  ```
+
+If none of these solutions work, consider asking for help on StackOverflow:
+https://stackoverflow.com/questions/tagged/flutter
+
+When the exception was thrown, this was the stack:
+#0      Provider._inheritedElementOf (package:provider/src/provider.dart:377:7)
+#1      Provider.of (package:provider/src/provider.dart:327:30)
+#2      ReadContext.read (package:provider/src/provider.dart:683:21)
+#3      _NewMessageScreenState.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/new_message_screen.dart:69:29)
+#4      EditableTextState._formatAndSetValue (package:flutter/src/widgets/editable_text.dart:4579:27)
+#5      EditableTextState.updateEditingValue (package:flutter/src/widgets/editable_text.dart:3549:7)
+#6      TextInput._updateEditingValue (package:flutter/src/services/text_input.dart:2256:43)
+#7      TextInput._handleTextInputInvocation (package:flutter/src/services/text_input.dart:2090:29)
+#8      TextInput._loudlyHandleTextInputInvocation (package:flutter/src/services/text_input.dart:1973:20)
+#9      MethodChannel._handleAsMethodCall (package:flutter/src/services/platform_channel.dart:607:55)
+#10     MethodChannel.setMethodCallHandler.<anonymous closure> (package:flutter/src/services/platform_channel.dart:597:55)
+#11     _DefaultBinaryMessenger.setMessageHandler.<anonymous closure> (package:flutter/src/services/binding.dart:663:35)
+#12     _invoke2 (dart:ui/hooks.dart:388:13)
+#13     _ChannelCallbackRecord.invoke (dart:ui/channel_buffers.dart:45:5)
+#14     _Channel.push (dart:ui/channel_buffers.dart:136:31)
+#15     ChannelBuffers.push (dart:ui/channel_buffers.dart:344:17)
+#16     PlatformDispatcher._dispatchPlatformMessage (dart:ui/platform_dispatcher.dart:819:22)
+#17     _dispatchPlatformMessage (dart:ui/hooks.dart:302:31)
+════════════════════════════════════════════════════════════════════════════════════════════════════
+
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): Error: Could not find the correct Provider<UserSearchCubit> above this NewMessageScreen Widget
+I/flutter (11281):
+I/flutter (11281): This happens because you used a `BuildContext` that does not include the provider
+I/flutter (11281): of your choice. There are a few common scenarios:
+I/flutter (11281):
+I/flutter (11281): - You added a new provider in your `main.dart` and performed a hot-reload.
+I/flutter (11281):   To fix, perform a hot-restart.
+I/flutter (11281):
+I/flutter (11281): - The provider you are trying to read is in a different route.
+I/flutter (11281):
+I/flutter (11281):   Providers are "scoped". So if you insert of provider inside a route, then
+I/flutter (11281):   other routes will not be able to access that provider.
+I/flutter (11281):
+I/flutter (11281): - You used a `BuildContext` that is an ancestor of the provider you are trying to read.
+I/flutter (11281):
+I/flutter (11281):   Make sure that NewMessageScreen is under your MultiProvider/Provider<UserSearchCubit>.
+I/flutter (11281):   This usually happens when you are creating a provider and trying to read it immediately.
+I/flutter (11281):
+I/flutter (11281):   For example, instead of:
+I/flutter (11281):
+I/flutter (11281):   ```
+I/flutter (11281):   Widget build(BuildContext context) {
+I/flutter (11281):     return Provider<Example>(
+I/flutter (11281):       create: (_) => Example(),
+I/flutter (11281):       // Will throw a ProviderNotFoundError, because `context` is associated
+I/flutter (11281):
+I/flutter (11281): #0      Provider._inheritedElementOf (package:provider/src/provider.dart:377:7)
+I/flutter (11281): #1      Provider.of (package:provider/src/provider.dart:327:30)
+I/flutter (11281): #2      ReadContext.read (package:provider/src/provider.dart:683:21)
+I/flutter (11281): #3      _NewMessageScreenState.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/new_message_screen.dart:69:29)
+I/flutter (11281): #4      EditableTextState._formatAndSetValue (package:flutter/src/widgets/editable_text.dart:4579:27)
+I/flutter (11281): #5      EditableTextState.updateEditingValue (package:flutter/src/widgets/editable_text.dart:3549:7)
+I/flutter (11281): #6      TextInput._updateEditingValue (package:flutter/src/services/text_input.dart:2256:43)
+I/flutter (11281): #7      TextInput._handleTextInputInvocation (package:flutter/src/services/text_input.dart:2090:29)
+I/flutter (11281): #8      TextInput._loudlyHandleTextInputInvocation (package:flutter/src/services/text_input.dart:1973:20)
+I/flutter (11281): #9      MethodChannel._handleAsMethodCall (package:flutter/src/services/platform_channel.dart:607:55)
+I/flutter (11281): #10     MethodChannel.setMethodCallHandler.<anonymous closure
+I/flutter (11281): ----------------------------------------------------
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): Error: Could not find the correct Provider<UserSearchCubit> above this NewMessageScreen Widget
+I/flutter (11281):
+I/flutter (11281): This happens because you used a `BuildContext` that does not include the provider
+I/flutter (11281): of your choice. There are a few common scenarios:
+I/flutter (11281):
+I/flutter (11281): - You added a new provider in your `main.dart` and performed a hot-reload.
+I/flutter (11281):   To fix, perform a hot-restart.
+I/flutter (11281):
+I/flutter (11281): - The provider you are trying to read is in a different route.
+I/flutter (11281):
+I/flutter (11281):   Providers are "scoped". So if you insert of provider inside a route, then
+I/flutter (11281):   other routes will not be able to access that provider.
+I/flutter (11281):
+I/flutter (11281): - You used a `BuildContext` that is an ancestor of the provider you are trying to read.
+I/flutter (11281):
+I/flutter (11281):   Make sure that NewMessageScreen is under your MultiProvider/Provider<UserSearchCubit>.
+I/flutter (11281):   This usually happens when you are creating a provider and trying to read it immediately.
+I/flutter (11281):
+I/flutter (11281):   For example, instead of:
+I/flutter (11281):
+I/flutter (11281):   ```
+I/flutter (11281):   Widget build(BuildContext context) {
+I/flutter (11281):     return Provider<Example>(
+I/flutter (11281):       create: (_) => Example(),
+I/flutter (11281):       // Will throw a ProviderNotFoundError, because `context` is associated
+I/flutter (11281):
+I/flutter (11281): #0      Provider._inheritedElementOf (package:provider/src/provider.dart:377:7)
+I/flutter (11281): #1      Provider.of (package:provider/src/provider.dart:327:30)
+I/flutter (11281): #2      ReadContext.read (package:provider/src/provider.dart:683:21)
+I/flutter (11281): #3      _NewMessageScreenState.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/new_message_screen.dart:69:29)
+I/flutter (11281): #4      EditableTextState._formatAndSetValue (package:flutter/src/widgets/editable_text.dart:4579:27)
+I/flutter (11281): #5      EditableTextState.updateEditingValue (package:flutter/src/widgets/editable_text.dart:3549:7)
+I/flutter (11281): #6      TextInput._updateEditingValue (package:flutter/src/services/text_input.dart:2256:43)
+I/flutter (11281): #7      TextInput._handleTextInputInvocation (package:flutter/src/services/text_input.dart:2090:29)
+I/flutter (11281): #8      TextInput._loudlyHandleTextInputInvocation (package:flutter/src/services/text_input.dart:1973:20)
+I/flutter (11281): #9      MethodChannel._handleAsMethodCall (package:flutter/src/services/platform_channel.dart:607:55)
+I/flutter (11281): #10     MethodChannel.setMethodCallHandler.<anonymous closure
+I/flutter (11281): ----------------------------------------------------
+Another exception was thrown: Error: Could not find the correct Provider<UserSearchCubit> above this NewMessageScreen Widget
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@c257e58
+I/ImeTracker(11281): com.tether.app.app:4854a78d: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT fromUser false
+I/InputMethodManager_LC(11281): hsifw() - flag : 0
+I/InputMethodManager_LC(11281): hsifw() - mService.hideSoftInput
+D/InsetsController(11281): hide(ime(), fromIme=false)
+W/WindowOnBackDispatcher(11281): sendCancelIfRunning: isInProgress=false callback=android.view.ImeBackAnimationController@7e2e2bc
+D/InsetsController(11281): Setting requestedVisibleTypes to -9 (was -1)
+I/InsetsController(11281): setRequestedVisibleTypes: visible=false, mask=ime, host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.InsetsController.controlAnimationUnchecked:1604 android.view.InsetsController.applyAnimation:2416 android.view.InsetsController.applyAnimation:2343 android.view.InsetsController.hide:1540 android.view.inputmethod.InputMethodManager.hideSoftInputFromWindow:2889 android.view.inputmethod.InputMethodManager.hideSoftInputFromWindow:2812 android.view.inputmethod.InputMethodManager.hideSoftInputFromWindow:2773 io.flutter.plugin.editing.TextInputPlugin.hideTextInput:447 io.flutter.plugin.editing.TextInputPlugin.access$400:44 io.flutter.plugin.editing.TextInputPlugin$2.hide:122
+I/InsetsController(11281): controlAnimationUncheckedInner: Added types=ime, animType=1, host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.InsetsController.controlAnimationUnchecked:1608 android.view.InsetsController.applyAnimation:2416 android.view.InsetsController.applyAnimation:2343
+D/CompatChangeReporter(11281): Compat change id reported: 395521150; UID 10764; state: ENABLED
+I/BLASTBufferQueue_Java(11281): update, w= 1080 h= 2340 mName = VRI[MainActivity]@c257e58 mNativeObject= 0xb400007d026d49e0 sc.mNativeObject= 0xb400007d426402d0 format= -3 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3574 android.view.ViewRootImpl.relayoutWindow:11685 android.view.ViewRootImpl.performTraversals:4804 android.view.ViewRootImpl.doTraversal:3924 android.view.ViewRootImpl$TraversalRunnable.run:12903 android.view.Choreographer$CallbackRecord.run:1901
+I/VRI[MainActivity]@c257e58(11281): Relayout returned: old=(0,0,1080,2340) new=(0,0,1080,2340) relayoutAsync=true req=(1080,2340)0 dur=0 res=0x0 s={true 0xb400007c72651160} ch=false seqId=0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): registerCallbackForPendingTransactions
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8271ead0 mBlastBufferQueue=0xb400007d026d49e0 fn= 17 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8266fe50 mBlastBufferQueue=0xb400007d026d49e0 fn= 17 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.ViewRootImpl$10.onFrameDraw:6536 android.view.ViewRootImpl$4.onFrameDraw:2489 android.view.ThreadedRenderer$1.onFrameDraw:718
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c826a34d0 mBlastBufferQueue=0xb400007d026d49e0 fn= 18 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82726fd0 mBlastBufferQueue=0xb400007d026d49e0 fn= 19 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82725c90 mBlastBufferQueue=0xb400007d026d49e0 fn= 20 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82727f90 mBlastBufferQueue=0xb400007d026d49e0 fn= 21 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82704510 mBlastBufferQueue=0xb400007d026d49e0 fn= 22 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82711fd0 mBlastBufferQueue=0xb400007d026d49e0 fn= 23 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c826a0210 mBlastBufferQueue=0xb400007d026d49e0 fn= 24 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8270a550 mBlastBufferQueue=0xb400007d026d49e0 fn= 25 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8270cbd0 mBlastBufferQueue=0xb400007d026d49e0 fn= 26 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8269b6d0 mBlastBufferQueue=0xb400007d026d49e0 fn= 27 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82722f10 mBlastBufferQueue=0xb400007d026d49e0 fn= 28 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8272ab50 mBlastBufferQueue=0xb400007d026d49e0 fn= 29 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8265e490 mBlastBufferQueue=0xb400007d026d49e0 fn= 30 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82719f90 mBlastBufferQueue=0xb400007d026d49e0 fn= 31 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82723990 mBlastBufferQueue=0xb400007d026d49e0 fn= 32 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82729490 mBlastBufferQueue=0xb400007d026d49e0 fn= 33 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+I/InsetsController(11281): cancelAnimation: types=ime, animType=1, host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.InsetsController.notifyFinished:2006 android.view.InsetsAnimationControlImpl.applyChangeInsets:335 android.view.InsetsController.lambda$new$3:957
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+D/InputMethodManagerUtils(11281): startInputInner - Id : 0
+I/InputMethodManager(11281): startInputInner - IInputMethodManagerGlobalInvoker.startInputOrWindowGainedFocus
+W/RemoteInputConnectionImpl(11281): getExtractedText on inactive InputConnection
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c826ec950 mBlastBufferQueue=0xb400007d026d49e0 fn= 34 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+W/RemoteInputConnectionImpl(11281): getTextBeforeCursor on inactive InputConnection
+D/InputTransport(11281): Input channel constructed: 'ClientS', fd=213
+I/InsetsController(11281): onStateChanged: host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.ViewRootImpl.onInsetsStateChanged:3026, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2340), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(470, 0 - 610, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2340 physicalDisplayWidth=1080 physicalDisplayHeight=2340 density={2.8125} cutoutSpec={M 0,0 H -24.88888888888889 V 35.55555555555556 H 24.88888888888889 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=101, center=Point(101, 101)}, RoundedCorner{position=TopRight, radius=101, center=Point(979, 101)}, RoundedCorner{position=BottomRight, radius=101, center=Point(979, 2239)}, RoundedCorner{position=BottomLeft, radius=101, center=Point(101, 2239)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2340), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2340 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {92ca0000 mType=statusBars mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0005 mType=mandatorySystemGestures mFrame=[0,0][1080,134] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0006 mType=tappableElement mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {3 mType=ime mFrame=[0,1340][1080,2340] mVisible=false mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {14fa0001 mType=navigationBars mFrame=[0,2298][1080,2340] mVisible=true mFlags=SUPPRESS_SCRIM mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0004 mType=systemGestures mFrame=[0,0][84,2340] mVisible=true mFlags= mSideHint=LEFT mBoundingRects=null}, InsetsSource: {14fa0005 mType=mandatorySystemGestures mFrame=[0,2250][1080,2340] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {14fa0024 mType=systemGestures mFrame=[996,0][1080,2340] mVisible=true mFlags= mSideHint=RIGHT mBoundingRects=null} }
+I/VRI[MainActivity]@c257e58(11281): handleResized, frames=ClientWindowFrames{frame=[0,0][1080,2340] display=[0,0][1080,2340] parentFrame=[0,0][0,0]} displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false dragResizingChanged=false
+I/InsetsSourceConsumer(11281): applyRequestedVisibilityToControl: visible=true, type=navigationBars, host=com.tether.app.app/com.tether.app.app.MainActivity
+I/ImeTracker(11281): system_server:af95f15f: onCancelled at PHASE_CLIENT_ON_CONTROLS_CHANGED
+I/InsetsController(11281): onStateChanged: host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.ViewRootImpl.onInsetsStateChanged:3026, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2340), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(470, 0 - 610, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2340 physicalDisplayWidth=1080 physicalDisplayHeight=2340 density={2.8125} cutoutSpec={M 0,0 H -24.88888888888889 V 35.55555555555556 H 24.88888888888889 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=101, center=Point(101, 101)}, RoundedCorner{position=TopRight, radius=101, center=Point(979, 101)}, RoundedCorner{position=BottomRight, radius=101, center=Point(979, 2239)}, RoundedCorner{position=BottomLeft, radius=101, center=Point(101, 2239)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2340), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2340 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {92ca0000 mType=statusBars mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0005 mType=mandatorySystemGestures mFrame=[0,0][1080,134] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0006 mType=tappableElement mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {3 mType=ime mFrame=[0,1552][1080,2340] mVisible=false mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {14fa0001 mType=navigationBars mFrame=[0,2298][1080,2340] mVisible=true mFlags=SUPPRESS_SCRIM mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0004 mType=systemGestures mFrame=[0,0][84,2340] mVisible=true mFlags= mSideHint=LEFT mBoundingRects=null}, InsetsSource: {14fa0005 mType=mandatorySystemGestures mFrame=[0,2250][1080,2340] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {14fa0024 mType=systemGestures mFrame=[996,0][1080,2340] mVisible=true mFlags= mSideHint=RIGHT mBoundingRects=null} }
+I/VRI[MainActivity]@c257e58(11281): handleResized, frames=ClientWindowFrames{frame=[0,0][1080,2340] display=[0,0][1080,2340] parentFrame=[0,0][0,0]} displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false dragResizingChanged=false
+I/InsetsController(11281): onStateChanged: host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.ViewRootImpl.onInsetsStateChanged:3026, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2340), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(470, 0 - 610, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2340 physicalDisplayWidth=1080 physicalDisplayHeight=2340 density={2.8125} cutoutSpec={M 0,0 H -24.88888888888889 V 35.55555555555556 H 24.88888888888889 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=101, center=Point(101, 101)}, RoundedCorner{position=TopRight, radius=101, center=Point(979, 101)}, RoundedCorner{position=BottomRight, radius=101, center=Point(979, 2239)}, RoundedCorner{position=BottomLeft, radius=101, center=Point(101, 2239)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2340), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2340 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {92ca0000 mType=statusBars mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0005 mType=mandatorySystemGestures mFrame=[0,0][1080,134] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0006 mType=tappableElement mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {3 mType=ime mFrame=[0,0][0,0] mVisible=false mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {14fa0001 mType=navigationBars mFrame=[0,2298][1080,2340] mVisible=true mFlags=SUPPRESS_SCRIM mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0004 mType=systemGestures mFrame=[0,0][84,2340] mVisible=true mFlags= mSideHint=LEFT mBoundingRects=null}, InsetsSource: {14fa0005 mType=mandatorySystemGestures mFrame=[0,2250][1080,2340] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {14fa0024 mType=systemGestures mFrame=[996,0][1080,2340] mVisible=true mFlags= mSideHint=RIGHT mBoundingRects=null} }
+I/VRI[MainActivity]@c257e58(11281): handleResized, frames=ClientWindowFrames{frame=[0,0][1080,2340] display=[0,0][1080,2340] parentFrame=[0,0][0,0]} displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false dragResizingChanged=false
+I/GestureDetector(11281): obtain mCurrentDownEvent. id: 501228811 caller: androidx.core.view.GestureDetectorCompat.onTouchEvent:98 io.sentry.android.core.internal.gestures.SentryWindowCallback.handleTouchEvent:70 io.sentry.android.core.internal.gestures.SentryWindowCallback.dispatchTouchEvent:57
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=high hint, reason=touch, vri=VRI[MainActivity]@c257e58
+I/GestureDetector(11281): obtain mCurrentMotionEventRaw. action: 2 id: 1030966008
+D/InputMethodManagerUtils(11281): startInputInner - Id : 0
+I/InputMethodManager(11281): startInputInner - IInputMethodManagerGlobalInvoker.startInputOrWindowGainedFocus
+I/InputMethodManager_LC(11281): showSoftInput(View,I)
+I/ImeTracker(11281): com.tether.app.app:44dbc1df: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser false
+I/InputMethodManager_LC(11281): ssi(): flags=0 view=com.tether.app.app reason=SHOW_SOFT_INPUT
+I/InputMethodManager_LC(11281): ssi() view is not EditText
+D/InsetsController(11281): show(ime(), fromIme=false)
+D/InputTransport(11281): Input channel constructed: 'ClientS', fd=233
+D/InsetsController(11281): Setting requestedVisibleTypes to -1 (was -9)
+I/InsetsController(11281): setRequestedVisibleTypes: visible=true, mask=ime, host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.InsetsController.controlAnimationUnchecked:1604 android.view.InsetsController.applyAnimation:2416 android.view.InsetsController.applyAnimation:2343 android.view.InsetsController.show:1422 android.view.inputmethod.InputMethodManager.showSoftInput:2659 android.view.inputmethod.InputMethodManager.showSoftInput:2571 android.view.inputmethod.InputMethodManager.showSoftInput:2563 android.view.inputmethod.InputMethodManager.showSoftInput:2491 io.flutter.plugin.editing.TextInputPlugin.showTextInput:433 io.flutter.plugin.editing.TextInputPlugin$2.show:114
+I/VRI[MainActivity]@c257e58(11281): handleResized, frames=ClientWindowFrames{frame=[0,0][1080,2340] display=[0,0][1080,2340] parentFrame=[0,0][0,0]} displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false dragResizingChanged=false
+I/InsetsController(11281): onStateChanged: host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.ViewRootImpl.onInsetsStateChanged:3026, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2340), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(470, 0 - 610, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2340 physicalDisplayWidth=1080 physicalDisplayHeight=2340 density={2.8125} cutoutSpec={M 0,0 H -24.88888888888889 V 35.55555555555556 H 24.88888888888889 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=101, center=Point(101, 101)}, RoundedCorner{position=TopRight, radius=101, center=Point(979, 101)}, RoundedCorner{position=BottomRight, radius=101, center=Point(979, 2239)}, RoundedCorner{position=BottomLeft, radius=101, center=Point(101, 2239)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2340), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2340 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {92ca0000 mType=statusBars mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0005 mType=mandatorySystemGestures mFrame=[0,0][1080,134] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0006 mType=tappableElement mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {3 mType=ime mFrame=[0,0][0,0] mVisible=false mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {14fa0001 mType=navigationBars mFrame=[0,2298][1080,2340] mVisible=true mFlags=SUPPRESS_SCRIM mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0004 mType=systemGestures mFrame=[0,0][84,2340] mVisible=true mFlags= mSideHint=LEFT mBoundingRects=null}, InsetsSource: {14fa0005 mType=mandatorySystemGestures mFrame=[0,2250][1080,2340] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {14fa0024 mType=systemGestures mFrame=[996,0][1080,2340] mVisible=true mFlags= mSideHint=RIGHT mBoundingRects=null} }
+I/VRI[MainActivity]@c257e58(11281): handleResized, frames=ClientWindowFrames{frame=[0,0][1080,2340] display=[0,0][1080,2340] parentFrame=[0,0][0,0]} displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false dragResizingChanged=false
+I/InsetsController(11281): onStateChanged: host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.ViewRootImpl.onInsetsStateChanged:3026, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2340), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(470, 0 - 610, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2340 physicalDisplayWidth=1080 physicalDisplayHeight=2340 density={2.8125} cutoutSpec={M 0,0 H -24.88888888888889 V 35.55555555555556 H 24.88888888888889 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=101, center=Point(101, 101)}, RoundedCorner{position=TopRight, radius=101, center=Point(979, 101)}, RoundedCorner{position=BottomRight, radius=101, center=Point(979, 2239)}, RoundedCorner{position=BottomLeft, radius=101, center=Point(101, 2239)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2340), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2340 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {92ca0000 mType=statusBars mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0005 mType=mandatorySystemGestures mFrame=[0,0][1080,134] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0006 mType=tappableElement mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {3 mType=ime mFrame=[0,1340][1080,2340] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {14fa0001 mType=navigationBars mFrame=[0,2298][1080,2340] mVisible=true mFlags=SUPPRESS_SCRIM mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0004 mType=systemGestures mFrame=[0,0][84,2340] mVisible=true mFlags= mSideHint=LEFT mBoundingRects=null}, InsetsSource: {14fa0005 mType=mandatorySystemGestures mFrame=[0,2250][1080,2340] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {14fa0024 mType=systemGestures mFrame=[996,0][1080,2340] mVisible=true mFlags= mSideHint=RIGHT mBoundingRects=null} }
+I/VRI[MainActivity]@c257e58(11281): handleResized, frames=ClientWindowFrames{frame=[0,0][1080,2340] display=[0,0][1080,2340] parentFrame=[0,0][0,0]} displayId=0 dragResizing=false compatScale=1.0 frameChanged=false attachedFrameChanged=false configChanged=false displayChanged=false compatScaleChanged=false dragResizingChanged=false
+I/InsetsController(11281): onStateChanged: host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.ViewRootImpl.onInsetsStateChanged:3026, state=InsetsState: {mDisplayFrame=Rect(0, 0 - 1080, 2340), mDisplayCutout=DisplayCutout{insets=Rect(0, 100 - 0, 0) waterfall=Insets{left=0, top=0, right=0, bottom=0} boundingRect={Bounds=[Rect(0, 0 - 0, 0), Rect(470, 0 - 610, 100), Rect(0, 0 - 0, 0), Rect(0, 0 - 0, 0)]} cutoutPathParserInfo={CutoutPathParserInfo{displayWidth=1080 displayHeight=2340 physicalDisplayWidth=1080 physicalDisplayHeight=2340 density={2.8125} cutoutSpec={M 0,0 H -24.88888888888889 V 35.55555555555556 H 24.88888888888889 V 0 H 0 Z @dp} rotation={0} scale={1.0} physicalPixelDisplaySizeRatio={1.0}}} sideOverrides={}}, mRoundedCorners=RoundedCorners{[RoundedCorner{position=TopLeft, radius=101, center=Point(101, 101)}, RoundedCorner{position=TopRight, radius=101, center=Point(979, 101)}, RoundedCorner{position=BottomRight, radius=101, center=Point(979, 2239)}, RoundedCorner{position=BottomLeft, radius=101, center=Point(101, 2239)}]}  mRoundedCornerFrame=Rect(0, 0 - 1080, 2340), mPrivacyIndicatorBounds=PrivacyIndicatorBounds {static bounds=Rect(956, 0 - 1080, 100) rotation=0}, mDisplayShape=DisplayShape{ spec=-311912193 displayWidth=1080 displayHeight=2340 physicalPixelDisplaySizeRatio=1.0 rotation=0 offsetX=0 offsetY=0 scale=1.0}, mSources= { InsetsSource: {92ca0000 mType=statusBars mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0005 mType=mandatorySystemGestures mFrame=[0,0][1080,134] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {92ca0006 mType=tappableElement mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {3 mType=ime mFrame=[0,1340][1080,2340] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {27 mType=displayCutout mFrame=[0,0][1080,100] mVisible=true mFlags= mSideHint=TOP mBoundingRects=null}, InsetsSource: {14fa0001 mType=navigationBars mFrame=[0,2298][1080,2340] mVisible=true mFlags=SUPPRESS_SCRIM mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0004 mType=systemGestures mFrame=[0,0][84,2340] mVisible=true mFlags= mSideHint=LEFT mBoundingRects=null}, InsetsSource: {14fa0005 mType=mandatorySystemGestures mFrame=[0,2250][1080,2340] mVisible=true mFlags= mSideHint=BOTTOM mBoundingRects=null}, InsetsSource: {14fa0006 mType=tappableElement mFrame=[0,0][0,0] mVisible=true mFlags= mSideHint=NONE mBoundingRects=null}, InsetsSource: {14fa0024 mType=systemGestures mFrame=[996,0][1080,2340] mVisible=true mFlags= mSideHint=RIGHT mBoundingRects=null} }
+I/InsetsController(11281): controlAnimationUncheckedInner: Added types=ime, animType=0, host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.InsetsController.controlAnimationUnchecked:1608 android.view.InsetsController.applyAnimation:2416 android.view.InsetsController.applyAnimation:2343
+I/BLASTBufferQueue_Java(11281): update, w= 1080 h= 2340 mName = VRI[MainActivity]@c257e58 mNativeObject= 0xb400007d026d49e0 sc.mNativeObject= 0xb400007d426402d0 format= -3 caller= android.view.ViewRootImpl.updateBlastSurfaceIfNeeded:3574 android.view.ViewRootImpl.relayoutWindow:11685 android.view.ViewRootImpl.performTraversals:4804 android.view.ViewRootImpl.doTraversal:3924 android.view.ViewRootImpl$TraversalRunnable.run:12903 android.view.Choreographer$CallbackRecord.run:1901
+I/VRI[MainActivity]@c257e58(11281): Relayout returned: old=(0,0,1080,2340) new=(0,0,1080,2340) relayoutAsync=true req=(1080,2340)0 dur=0 res=0x0 s={true 0xb400007c72651160} ch=false seqId=0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): registerCallbackForPendingTransactions
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82713bd0 mBlastBufferQueue=0xb400007d026d49e0 fn= 35 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8270cd90 mBlastBufferQueue=0xb400007d026d49e0 fn= 35 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.ViewRootImpl$10.onFrameDraw:6536 android.view.ViewRootImpl$4.onFrameDraw:2489 android.view.ThreadedRenderer$1.onFrameDraw:718
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8272aed0 mBlastBufferQueue=0xb400007d026d49e0 fn= 36 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c826fa090 mBlastBufferQueue=0xb400007d026d49e0 fn= 37 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c826e08d0 mBlastBufferQueue=0xb400007d026d49e0 fn= 38 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8269c4d0 mBlastBufferQueue=0xb400007d026d49e0 fn= 39 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c826e8190 mBlastBufferQueue=0xb400007d026d49e0 fn= 40 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8269cd90 mBlastBufferQueue=0xb400007d026d49e0 fn= 41 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c826e8350 mBlastBufferQueue=0xb400007d026d49e0 fn= 42 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c826e2150 mBlastBufferQueue=0xb400007d026d49e0 fn= 43 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82720350 mBlastBufferQueue=0xb400007d026d49e0 fn= 44 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8270a390 mBlastBufferQueue=0xb400007d026d49e0 fn= 45 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82721310 mBlastBufferQueue=0xb400007d026d49e0 fn= 46 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8266fc90 mBlastBufferQueue=0xb400007d026d49e0 fn= 47 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c827214d0 mBlastBufferQueue=0xb400007d026d49e0 fn= 48 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82709910 mBlastBufferQueue=0xb400007d026d49e0 fn= 49 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c826ed750 mBlastBufferQueue=0xb400007d026d49e0 fn= 50 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c826edc90 mBlastBufferQueue=0xb400007d026d49e0 fn= 51 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c8271fc50 mBlastBufferQueue=0xb400007d026d49e0 fn= 52 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+I/InsetsController(11281): cancelAnimation: types=ime, animType=0, host=com.tether.app.app/com.tether.app.app.MainActivity, from=android.view.InsetsController.notifyFinished:2006 android.view.InsetsAnimationControlImpl.applyChangeInsets:335 android.view.InsetsController.lambda$new$3:957
+I/ImeTracker(11281): com.tether.app.app:44dbc1df: onShown
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+D/FlutterJNI(11281): Sending viewport metrics to the engine.
+I/VRI[MainActivity]@c257e58(11281): mWNT: t=0xb400007c82725050 mBlastBufferQueue=0xb400007d026d49e0 fn= 53 HdrRenderState mRenderHdrSdrRatio=1.0 caller= android.view.SyncRtSurfaceTransactionApplier.applyTransaction:100 android.view.SyncRtSurfaceTransactionApplier.lambda$scheduleApply$0:73 android.view.SyncRtSurfaceTransactionApplier.$r8$lambda$afI4fXg3U3-nBZQEDQMiNy-B06s:0
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): Error: Could not find the correct Provider<UserSearchCubit> above this NewMessageScreen Widget
+I/flutter (11281):
+I/flutter (11281): This happens because you used a `BuildContext` that does not include the provider
+I/flutter (11281): of your choice. There are a few common scenarios:
+I/flutter (11281):
+I/flutter (11281): - You added a new provider in your `main.dart` and performed a hot-reload.
+I/flutter (11281):   To fix, perform a hot-restart.
+I/flutter (11281):
+I/flutter (11281): - The provider you are trying to read is in a different route.
+I/flutter (11281):
+I/flutter (11281):   Providers are "scoped". So if you insert of provider inside a route, then
+I/flutter (11281):   other routes will not be able to access that provider.
+I/flutter (11281):
+I/flutter (11281): - You used a `BuildContext` that is an ancestor of the provider you are trying to read.
+I/flutter (11281):
+I/flutter (11281):   Make sure that NewMessageScreen is under your MultiProvider/Provider<UserSearchCubit>.
+I/flutter (11281):   This usually happens when you are creating a provider and trying to read it immediately.
+I/flutter (11281):
+I/flutter (11281):   For example, instead of:
+I/flutter (11281):
+I/flutter (11281):   ```
+I/flutter (11281):   Widget build(BuildContext context) {
+I/flutter (11281):     return Provider<Example>(
+I/flutter (11281):       create: (_) => Example(),
+I/flutter (11281):       // Will throw a ProviderNotFoundError, because `context` is associated
+I/flutter (11281):
+I/flutter (11281): #0      Provider._inheritedElementOf (package:provider/src/provider.dart:377:7)
+I/flutter (11281): #1      Provider.of (package:provider/src/provider.dart:327:30)
+I/flutter (11281): #2      ReadContext.read (package:provider/src/provider.dart:683:21)
+I/flutter (11281): #3      _NewMessageScreenState.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/new_message_screen.dart:69:29)
+I/flutter (11281): #4      EditableTextState._formatAndSetValue (package:flutter/src/widgets/editable_text.dart:4579:27)
+Another exception was thrown: Error: Could not find the correct Provider<UserSearchCubit> above this NewMessageScreen Widget
+I/flutter (11281): #5      EditableTextState.updateEditingValue (package:flutter/src/widgets/editable_text.dart:3549:7)
+I/flutter (11281): #6      TextInput._updateEditingValue (package:flutter/src/services/text_input.dart:2256:43)
+I/flutter (11281): #7      TextInput._handleTextInputInvocation (package:flutter/src/services/text_input.dart:2090:29)
+I/flutter (11281): #8      TextInput._loudlyHandleTextInputInvocation (package:flutter/src/services/text_input.dart:1973:20)
+I/flutter (11281): #9      MethodChannel._handleAsMethodCall (package:flutter/src/services/platform_channel.dart:607:55)
+I/flutter (11281): #10     MethodChannel.setMethodCallHandler.<anonymous closure
+I/flutter (11281): ----------------------------------------------------
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): Error: Could not find the correct Provider<UserSearchCubit> above this NewMessageScreen Widget
+I/flutter (11281):
+I/flutter (11281): This happens because you used a `BuildContext` that does not include the provider
+I/flutter (11281): of your choice. There are a few common scenarios:
+I/flutter (11281):
+I/flutter (11281): - You added a new provider in your `main.dart` and performed a hot-reload.
+I/flutter (11281):   To fix, perform a hot-restart.
+I/flutter (11281):
+I/flutter (11281): - The provider you are trying to read is in a different route.
+I/flutter (11281):
+I/flutter (11281):   Providers are "scoped". So if you insert of provider inside a route, then
+I/flutter (11281):   other routes will not be able to access that provider.
+I/flutter (11281):
+I/flutter (11281): - You used a `BuildContext` that is an ancestor of the provider you are trying to read.
+I/flutter (11281):
+I/flutter (11281):   Make sure that NewMessageScreen is under your MultiProvider/Provider<UserSearchCubit>.
+I/flutter (11281):   This usually happens when you are creating a provider and trying to read it immediately.
+I/flutter (11281):
+I/flutter (11281):   For example, instead of:
+I/flutter (11281):
+I/flutter (11281):   ```
+I/flutter (11281):   Widget build(BuildContext context) {
+I/flutter (11281):     return Provider<Example>(
+I/flutter (11281):       create: (_) => Example(),
+I/flutter (11281):       // Will throw a ProviderNotFoundError, because `context` is associated
+I/flutter (11281):
+I/flutter (11281): #0      Provider._inheritedElementOf (package:provider/src/provider.dart:377:7)
+I/flutter (11281): #1      Provider.of (package:provider/src/provider.dart:327:30)
+I/flutter (11281): #2      ReadContext.read (package:provider/src/provider.dart:683:21)
+I/flutter (11281): #3      _NewMessageScreenState.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/new_message_screen.dart:69:29)
+I/flutter (11281): #4      EditableTextState._formatAndSetValue (package:flutter/src/widgets/editable_text.dart:4579:27)
+I/flutter (11281): #5      EditableTextState.updateEditingValue (package:flutter/src/widgets/editable_text.dart:3549:7)
+I/flutter (11281): #6      TextInput._updateEditingValue (package:flutter/src/services/text_input.dart:2256:43)
+I/flutter (11281): #7      TextInput._handleTextInputInvocation (package:flutter/src/services/text_input.dart:2090:29)
+I/flutter (11281): #8      TextInput._loudlyHandleTextInputInvocation (package:flutter/src/services/text_input.dart:1973:20)
+I/flutter (11281): #9      MethodChannel._handleAsMethodCall (package:flutter/src/services/platform_channel.dart:607:55)
+I/flutter (11281): #10     MethodChannel.setMethodCallHandler.<anonymous closure
+Another exception was thrown: Error: Could not find the correct Provider<UserSearchCubit> above this NewMessageScreen Widget
+I/flutter (11281): ----------------------------------------------------
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): Error: Could not find the correct Provider<UserSearchCubit> above this NewMessageScreen Widget
+I/flutter (11281):
+I/flutter (11281): This happens because you used a `BuildContext` that does not include the provider
+I/flutter (11281): of your choice. There are a few common scenarios:
+I/flutter (11281):
+I/flutter (11281): - You added a new provider in your `main.dart` and performed a hot-reload.
+I/flutter (11281):   To fix, perform a hot-restart.
+I/flutter (11281):
+I/flutter (11281): - The provider you are trying to read is in a different route.
+I/flutter (11281):
+I/flutter (11281):   Providers are "scoped". So if you insert of provider inside a route, then
+I/flutter (11281):   other routes will not be able to access that provider.
+I/flutter (11281):
+I/flutter (11281): - You used a `BuildContext` that is an ancestor of the provider you are trying to read.
+I/flutter (11281):
+I/flutter (11281):   Make sure that NewMessageScreen is under your MultiProvider/Provider<UserSearchCubit>.
+I/flutter (11281):   This usually happens when you are creating a provider and trying to read it immediately.
+I/flutter (11281):
+I/flutter (11281):   For example, instead of:
+I/flutter (11281):
+I/flutter (11281):   ```
+I/flutter (11281):   Widget build(BuildContext context) {
+I/flutter (11281):     return Provider<Example>(
+I/flutter (11281):       create: (_) => Example(),
+I/flutter (11281):       // Will throw a ProviderNotFoundError, because `context` is associated
+I/flutter (11281):
+I/flutter (11281): #0      Provider._inheritedElementOf (package:provider/src/provider.dart:377:7)
+Another exception was thrown: Error: Could not find the correct Provider<UserSearchCubit> above this NewMessageScreen Widget
+I/flutter (11281): #1      Provider.of (package:provider/src/provider.dart:327:30)
+I/flutter (11281): #2      ReadContext.read (package:provider/src/provider.dart:683:21)
+I/flutter (11281): #3      _NewMessageScreenState.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/new_message_screen.dart:69:29)
+I/flutter (11281): #4      EditableTextState._formatAndSetValue (package:flutter/src/widgets/editable_text.dart:4579:27)
+I/flutter (11281): #5      EditableTextState.updateEditingValue (package:flutter/src/widgets/editable_text.dart:3549:7)
+I/flutter (11281): #6      TextInput._updateEditingValue (package:flutter/src/services/text_input.dart:2256:43)
+I/flutter (11281): #7      TextInput._handleTextInputInvocation (package:flutter/src/services/text_input.dart:2090:29)
+I/flutter (11281): #8      TextInput._loudlyHandleTextInputInvocation (package:flutter/src/services/text_input.dart:1973:20)
+I/flutter (11281): #9      MethodChannel._handleAsMethodCall (package:flutter/src/services/platform_channel.dart:607:55)
+I/flutter (11281): #10     MethodChannel.setMethodCallHandler.<anonymous closure
+I/flutter (11281): ----------------------------------------------------
+W/Sentry  (11281): Failed to delete the current session file.
+I/flutter (11281): ----------------FIREBASE CRASHLYTICS----------------
+I/flutter (11281): Error: Could not find the correct Provider<UserSearchCubit> above this NewMessageScreen Widget
+I/flutter (11281):
+I/flutter (11281): This happens because you used a `BuildContext` that does not include the provider
+I/flutter (11281): of your choice. There are a few common scenarios:
+I/flutter (11281):
+I/flutter (11281): - You added a new provider in your `main.dart` and performed a hot-reload.
+I/flutter (11281):   To fix, perform a hot-restart.
+I/flutter (11281):
+I/flutter (11281): - The provider you are trying to read is in a different route.
+I/flutter (11281):
+I/flutter (11281):   Providers are "scoped". So if you insert of provider inside a route, then
+I/flutter (11281):   other routes will not be able to access that provider.
+I/flutter (11281):
+I/flutter (11281): - You used a `BuildContext` that is an ancestor of the provider you are trying to read.
+I/flutter (11281):
+I/flutter (11281):   Make sure that NewMessageScreen is under your MultiProvider/Provider<UserSearchCubit>.
+I/flutter (11281):   This usually happens when you are creating a provider and trying to read it immediately.
+I/flutter (11281):
+I/flutter (11281):   For example, instead of:
+I/flutter (11281):
+I/flutter (11281):   ```
+I/flutter (11281):   Widget build(BuildContext context) {
+I/flutter (11281):     return Provider<Example>(
+I/flutter (11281):       create: (_) => Example(),
+I/flutter (11281):       // Will throw a ProviderNotFoundError, because `context` is associated
+I/flutter (11281):
+I/flutter (11281): #0      Provider._inheritedElementOf (package:provider/src/provider.dart:377:7)
+I/flutter (11281): #1      Provider.of (package:provider/src/provider.dart:327:30)
+I/flutter (11281): #2      ReadContext.read (package:provider/src/provider.dart:683:21)
+Another exception was thrown: Error: Could not find the correct Provider<UserSearchCubit> above this NewMessageScreen Widget
+I/flutter (11281): #3      _NewMessageScreenState.build.<anonymous closure> (package:tether/features/messaging/presentation/screens/new_message_screen.dart:69:29)
+I/flutter (11281): #4      EditableTextState._formatAndSetValue (package:flutter/src/widgets/editable_text.dart:4579:27)
+I/flutter (11281): #5      EditableTextState.updateEditingValue (package:flutter/src/widgets/editable_text.dart:3549:7)
+I/flutter (11281): #6      TextInput._updateEditingValue (package:flutter/src/services/text_input.dart:2256:43)
+I/flutter (11281): #7      TextInput._handleTextInputInvocation (package:flutter/src/services/text_input.dart:2090:29)
+I/flutter (11281): #8      TextInput._loudlyHandleTextInputInvocation (package:flutter/src/services/text_input.dart:1973:20)
+I/flutter (11281): #9      MethodChannel._handleAsMethodCall (package:flutter/src/services/platform_channel.dart:607:55)
+I/flutter (11281): #10     MethodChannel.setMethodCallHandler.<anonymous closure
+I/flutter (11281): ----------------------------------------------------
+W/Sentry  (11281): Failed to delete the current session file.
+D/InputTransport(11281): Input channel destroyed: 'ClientS', fd=213
+D/InputTransport(11281): Input channel destroyed: 'ClientS', fd=233
+I/VRI[MainActivity]@c257e58(11281): call setFrameRateCategory for touch hint category=no preference, reason=boost timeout, vri=VRI[MainActivity]@c257e58

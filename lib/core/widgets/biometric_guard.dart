@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../security/biometric_service.dart';
 import '../../injection_container.dart';
 import 'tether_button.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 
 class BiometricGuard extends StatefulWidget {
   final Widget child;
@@ -69,7 +71,7 @@ class _BiometricGuardState extends State<BiometricGuard> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.lock_outline, size: 64, color: Colors.grey),
+              const Icon(FluentIcons.lock_closed_24_regular, size: 64, color: Colors.grey),
               const SizedBox(height: 24),
               const Text(
                 'Authentication Required',
@@ -83,7 +85,11 @@ class _BiometricGuardState extends State<BiometricGuard> {
               const SizedBox(height: 16),
               TetherButton(
                 style: TetherButtonStyle.secondary,
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () {
+                  if (Navigator.of(context).canPop()) {
+                    Navigator.of(context).pop();
+                  }
+                },
                 child: const Text('Go Back'),
               ),
             ],

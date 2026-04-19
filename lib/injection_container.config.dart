@@ -14,6 +14,7 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i454;
 
+import 'core/network/r2_storage_service.dart' as _i175;
 import 'core/notifications/push_notification_service.dart' as _i610;
 import 'core/security/biometric_service.dart' as _i325;
 import 'core/security/e2ee_service.dart' as _i1003;
@@ -105,6 +106,7 @@ import 'features/messaging/domain/repositories/messaging_repository.dart'
 import 'features/messaging/presentation/bloc/messaging_cubit.dart' as _i431;
 import 'features/messaging/presentation/bloc/messaging_thread_cubit.dart'
     as _i899;
+import 'features/messaging/presentation/bloc/user_search_cubit.dart' as _i930;
 import 'features/monetization/data/repositories/billing_repository_impl.dart'
     as _i1019;
 import 'features/monetization/domain/repositories/billing_repository.dart'
@@ -167,6 +169,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i376.EncryptionService>(() => _i376.EncryptionService());
     gh.lazySingleton<_i880.KeyDerivation>(() => _i880.KeyDerivation());
     gh.lazySingleton<_i325.IBiometricService>(() => _i325.BiometricService());
+    gh.lazySingleton<_i175.R2StorageService>(
+      () => _i175.R2StorageService(gh<_i454.SupabaseClient>()),
+    );
     gh.lazySingleton<_i309.ISettingsRepository>(
       () => _i68.SharedPrefsSettingsRepository(gh<_i460.SharedPreferences>()),
     );
@@ -352,18 +357,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i120.UserKeyManager>(),
       ),
     );
-    gh.lazySingleton<_i77.IMessagingRepository>(
-      () => _i540.SupabaseMessagingRepository(
-        gh<_i454.SupabaseClient>(),
-        gh<_i1003.IE2EEService>(),
-      ),
-    );
-    gh.factory<_i431.MessagingCubit>(
-      () => _i431.MessagingCubit(
-        gh<_i77.IMessagingRepository>(),
-        gh<_i454.SupabaseClient>(),
-      ),
-    );
     gh.factory<_i404.WellnessCubit>(
       () => _i404.WellnessCubit(
         gh<_i146.IWellnessRepository>(),
@@ -375,6 +368,13 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i333.ICircleRepository>(),
         gh<_i454.SupabaseClient>(),
         gh<_i1021.ISubscriptionService>(),
+      ),
+    );
+    gh.lazySingleton<_i77.IMessagingRepository>(
+      () => _i540.SupabaseMessagingRepository(
+        gh<_i454.SupabaseClient>(),
+        gh<_i1003.IE2EEService>(),
+        gh<_i175.R2StorageService>(),
       ),
     );
     gh.factory<_i427.CheckInCubit>(
@@ -415,6 +415,18 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i235.SettingsCubit(
         gh<_i1015.IAuthRepository>(),
         gh<_i309.ISettingsRepository>(),
+      ),
+    );
+    gh.factory<_i930.UserSearchCubit>(
+      () => _i930.UserSearchCubit(
+        gh<_i1015.IAuthRepository>(),
+        gh<_i77.IMessagingRepository>(),
+      ),
+    );
+    gh.factory<_i431.MessagingCubit>(
+      () => _i431.MessagingCubit(
+        gh<_i77.IMessagingRepository>(),
+        gh<_i454.SupabaseClient>(),
       ),
     );
     return this;

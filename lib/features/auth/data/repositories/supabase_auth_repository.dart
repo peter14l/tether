@@ -175,6 +175,29 @@ class SupabaseAuthRepository implements IAuthRepository {
   }
 
   @override
+  Future<Either<Failure, List<UserEntity>>> searchUsers(String query) async {
+    try {
+      final currentUserId = _client.auth.currentUser?.id;
+      
+      final response = await _client
+          .from('profiles')
+          .select()
+          .or('username.ilike.%$query%,display_name.ilike.%$query%')
+          .neq('id', currentUserId ?? '')
+          .limit(20);
+
+      final List<UserEntity> users = [];
+      for (final json in (response as List)) {
+        users.add(UserModel.fromJson(json, '')); // Email not available for others
+      }
+      
+      return Right(users);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Stream<UserEntity?> get onAuthStateChanged {
     return _client.auth.onAuthStateChange.asyncMap((event) async {
       final session = event.session;

@@ -22,10 +22,54 @@ import '../bloc/family_safety_state.dart';
 import '../bloc/heritage_cubit.dart';
 import '../bloc/heritage_state.dart';
 import '../widgets/sos_alert_overlay.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
-class FamilyDashboardScreen extends StatelessWidget {
+
+import '../../../../core/widgets/onboarding_overlay.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class FamilyDashboardScreen extends StatefulWidget {
   final String circleId;
   const FamilyDashboardScreen({super.key, required this.circleId});
+
+  @override
+  State<FamilyDashboardScreen> createState() => _FamilyDashboardScreenState();
+}
+
+class _FamilyDashboardScreenState extends State<FamilyDashboardScreen> {
+  final GlobalKey _bentoGridKey = GlobalKey();
+  final GlobalKey _memoryTileKey = GlobalKey();
+  final GlobalKey _safetyTileKey = GlobalKey();
+  final GlobalKey _voiceNoteTileKey = GlobalKey();
+  final GlobalKey _customiseGridKey = GlobalKey();
+
+  bool _showOverlay = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkOnboarding();
+  }
+
+  Future<void> _checkOnboarding() async {
+    final prefs = await SharedPreferences.getInstance();
+    final hasSeen = prefs.getBool('has_seen_family_onboarding') ?? false;
+    if (!hasSeen && mounted) {
+      setState(() {
+        _showOverlay = true;
+      });
+    }
+  }
+
+  Future<void> _markOnboardingComplete() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('has_seen_family_onboarding', true);
+    if (mounted) {
+      setState(() {
+        _showOverlay = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +80,12 @@ class FamilyDashboardScreen extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => getIt<FamilySafetyCubit>()
-            ..listenToSosAlerts(circleId)
-            ..loadSafetyChecks(circleId),
+            ..listenToSosAlerts(widget.circleId)
+            ..loadSafetyChecks(widget.circleId),
         ),
         BlocProvider(
           create: (context) =>
-              getIt<CircleMemberCubit>()..loadMembers(circleId),
+              getIt<CircleMemberCubit>()..loadMembers(widget.circleId),
         ),
         BlocProvider(
           create: (context) => getIt<CircleCubit>()..loadCircles(),
@@ -89,7 +133,8 @@ class FamilyDashboardScreen extends StatelessWidget {
                         fontSize: 24,
                         letterSpacing: -0.5,
                       ),
-                    ),                    actions: [
+                    ),
+                    actions: [
                       Padding(
                         padding: const EdgeInsets.only(right: 24),
                         child: BlocBuilder<AuthBloc, AuthState>(
@@ -129,7 +174,7 @@ class FamilyDashboardScreen extends StatelessWidget {
                                       String name = 'Loading Circle...';
                                       if (state is CircleLoaded) {
                                         final circle = state.circles.firstWhere(
-                                          (c) => c.id == circleId,
+                                          (c) => c.id == widget.circleId,
                                           orElse: () => state.circles.first,
                                         );
                                         name = circle.name;
@@ -154,7 +199,7 @@ class FamilyDashboardScreen extends StatelessWidget {
                                         ? null
                                         : () => context
                                             .read<CheckInCubit>()
-                                            .submitCheckIn(circleId),
+                                            .submitCheckIn(widget.circleId),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
@@ -167,7 +212,7 @@ class FamilyDashboardScreen extends StatelessWidget {
                                           )
                                         else
                                           const Icon(
-                                              Icons.check_circle_outline,
+                                              FluentIcons.checkmark_circle_24_regular,
                                               size: 18),
                                         const SizedBox(width: 8),
                                         const Text("I'm Okay ✓"),
@@ -179,11 +224,18 @@ class FamilyDashboardScreen extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 48),
-                          _FamilyBentoGrid(circleId: circleId),
+                          _FamilyBentoGrid(
+                            key: _bentoGridKey,
+                            circleId: widget.circleId,
+                            memoryKey: _memoryTileKey,
+                            safetyKey: _safetyTileKey,
+                            voiceKey: _voiceNoteTileKey,
+                            customiseKey: _customiseGridKey,
+                          ),
                           const SizedBox(height: 48),
-                          _SafetyCheckSection(circleId: circleId),
+                          _SafetyCheckSection(circleId: widget.circleId),
                           const SizedBox(height: 64),
-                          _EmergencySOS(circleId: circleId),
+                          _EmergencySOS(circleId: widget.circleId),
                           const SizedBox(height: 64),
                           const _HeritageCornerPreview(),
                           const SizedBox(height: 64),
@@ -194,6 +246,38 @@ class FamilyDashboardScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              if (_showOverlay)
+                FeatureOnboardingOverlay(
+                  steps: [
+                    OnboardingStep(
+                      targetKey: _bentoGridKey,
+                      title: 'Welcome to the Family Bento',
+                      body: "Each tile is a living widget — memories, voice notes, check-ins, shared calendars. Everything your family shares, organised into one beautiful, modular view.",
+                    ),
+                    OnboardingStep(
+                      targetKey: _memoryTileKey,
+                      title: 'Shared Memories',
+                      body: "Any family member can drop a photo, a voice clip, or a 'little win' here. Over time, it becomes your family's living album — built together, one moment at a time.",
+                    ),
+                    OnboardingStep(
+                      targetKey: _safetyTileKey,
+                      title: 'Gentle Check-Ins',
+                      body: "A simple 'I'm okay' check-in — not tracking, not surveillance. Just the quiet comfort of knowing everyone in your family is doing alright today.",
+                    ),
+                    OnboardingStep(
+                      targetKey: _voiceNoteTileKey,
+                      title: 'Family Voice Notes',
+                      body: "Drop a voice note for the whole family. It renders as a warm, organic waveform — not a cold audio bar. Because voice carries what text simply can't.",
+                    ),
+                    OnboardingStep(
+                      targetKey: _customiseGridKey,
+                      title: 'Make It Yours',
+                      body: "Add new tiles, remove what you don't use, and rearrange until the Bento fits how your family actually lives. There's no default that works for everyone.",
+                    ),
+                  ],
+                  onComplete: _markOnboardingComplete,
+                  onSkip: _markOnboardingComplete,
+                ),
               BlocBuilder<FamilySafetyCubit, FamilySafetyState>(
                 builder: (context, state) {
                   if (state.activeAlerts.isNotEmpty) {
@@ -217,7 +301,19 @@ class FamilyDashboardScreen extends StatelessWidget {
 
 class _FamilyBentoGrid extends StatelessWidget {
   final String circleId;
-  const _FamilyBentoGrid({required this.circleId});
+  final GlobalKey? memoryKey;
+  final GlobalKey? safetyKey;
+  final GlobalKey? voiceKey;
+  final GlobalKey? customiseKey;
+
+  const _FamilyBentoGrid({
+    super.key,
+    required this.circleId,
+    this.memoryKey,
+    this.safetyKey,
+    this.voiceKey,
+    this.customiseKey,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -233,36 +329,38 @@ class _FamilyBentoGrid extends StatelessWidget {
       children: [
         // Large Tile: Recent Feed
         _BentoTile(
+          key: memoryKey,
           columnSpan: 2,
           rowSpan: 2,
-          icon: Icons.rss_feed_outlined,
+          icon: FluentIcons.news_24_regular,
           title: 'Recent Feed',
-          subtitle: null,
-          imageUrl: null,
           onTap: () {},
         ),
         // Small Tiles
         _BentoTile(
+          key: safetyKey,
           columnSpan: 2,
-          icon: Icons.health_and_safety_outlined,
+          icon: FluentIcons.shield_task_24_regular,
           title: 'Safety Check',
           onTap: () {},
         ),
         _BentoTile(
+          key: voiceKey,
           columnSpan: 2,
-          icon: Icons.notifications_active_outlined,
-          title: 'Reminders',
+          icon: FluentIcons.mic_24_regular,
+          title: 'Voice Notes',
+          onTap: () {},
+        ),
+        _BentoTile(
+          key: customiseKey,
+          columnSpan: 2,
+          icon: FluentIcons.edit_24_regular,
+          title: 'Edit Bento',
           onTap: () {},
         ),
         _BentoTile(
           columnSpan: 2,
-          icon: Icons.history_edu_outlined,
-          title: 'Heritage',
-          onTap: () => context.push('/family/$circleId/heritage'),
-        ),
-        _BentoTile(
-          columnSpan: 2,
-          icon: Icons.location_on_outlined,
+          icon: FluentIcons.location_24_regular,
           title: 'Location',
           onTap: () {},
         ),
@@ -281,6 +379,7 @@ class _BentoTile extends StatelessWidget {
   final VoidCallback onTap;
 
   const _BentoTile({
+    super.key,
     this.columnSpan = 1,
     this.rowSpan = 1,
     required this.icon,
@@ -354,7 +453,7 @@ class _SafetyCheckSection extends StatelessWidget {
               Row(
                 children: [
                   Icon(
-                    Icons.warning_amber_rounded,
+                    FluentIcons.warning_24_regular,
                     color: colorScheme.tertiary,
                     size: 32,
                   ),
@@ -387,7 +486,7 @@ class _SafetyCheckSection extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
-                          Icon(Icons.check, size: 18),
+                          Icon(FluentIcons.check_24_regular, size: 18),
                           SizedBox(width: 8),
                           Text("I'm Safe ✓"),
                         ],
@@ -658,22 +757,22 @@ class _GrandparentEasyView extends StatelessWidget {
             crossAxisSpacing: 20,
             children: [
               _EasyButton(
-                icon: Icons.groups_outlined,
+                icon: FluentIcons.people_community_24_regular,
                 label: 'See Family',
                 color: colorScheme.primaryContainer.withOpacity(0.8),
               ),
               _EasyButton(
-                icon: Icons.call_outlined,
+                icon: FluentIcons.call_24_regular,
                 label: 'Call Someone',
                 color: colorScheme.secondary.withOpacity(0.8),
               ),
               _EasyButton(
-                icon: Icons.photo_library_outlined,
+                icon: FluentIcons.image_24_regular,
                 label: 'New Photo',
                 color: colorScheme.tertiary.withOpacity(0.8),
               ),
               _EasyButton(
-                icon: Icons.check_circle_outline,
+                icon: FluentIcons.checkmark_circle_24_regular,
                 label: "I'm Okay",
                 color: const Color(0xFF86EFAC).withOpacity(0.8),
               ),

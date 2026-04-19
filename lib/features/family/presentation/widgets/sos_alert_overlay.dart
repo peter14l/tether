@@ -3,6 +3,8 @@ import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:url_launcher/url_launcher.dart';
 import '../../domain/entities/sos_alert.dart';
 import '../../../../core/widgets/tether_button.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 
 class SosAlertOverlay extends StatelessWidget {
   final SosAlertEntity alert;
@@ -43,7 +45,7 @@ class SosAlertOverlay extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.warning_amber_rounded, size: 80, color: Colors.white),
+            const Icon(FluentIcons.warning_24_regular, size: 80, color: Colors.white),
             const SizedBox(height: 24),
             Text(
               'SOS ALERT',

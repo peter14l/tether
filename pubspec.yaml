@@ -42,6 +42,10 @@ dependencies:
   flutter_local_notifications: ^21.0.0
   fluent_ui: ^4.15.1
   url_launcher: ^6.3.2
+  fluentui_system_icons: ^1.1.273
+  flutter_animate: ^4.5.2
+  smooth_page_indicator: ^2.0.1
+  sensors_plus: ^7.0.0
 
 dev_dependencies:
   sentry_dart_plugin: ^3.2.1

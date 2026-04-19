@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 
 class DigitalHugAnimation extends StatelessWidget {
   const DigitalHugAnimation({super.key});
@@ -33,7 +35,7 @@ class HeartbeatAnimation extends StatelessWidget {
       builder: (context, value, child) {
         return Transform.scale(
           scale: value,
-          child: const Icon(Icons.favorite, color: Colors.red, size: 100),
+          child: const Icon(FluentIcons.heart_24_regular, color: Colors.red, size: 100),
         );
       },
     );

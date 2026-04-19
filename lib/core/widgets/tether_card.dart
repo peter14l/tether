@@ -41,15 +41,16 @@ class TetherCard extends StatelessWidget {
             boxShadow: shadows ?? [
               // Outer Halo
               BoxShadow(
-                color: tokens.textPrimary.withOpacity(0.06),
-                blurRadius: 40,
+                color: tokens.textPrimary.withOpacity(isDark ? 0.04 : 0.06),
+                blurRadius: isDark ? 24 : 40,
+                spreadRadius: isDark ? -2 : 0,
                 offset: const Offset(0, 4),
               ),
-              // Inner Bloom (Simulated with a second shadow or can be done with gradient)
+              // Inner Bloom
               BoxShadow(
-                color: tokens.accentPrimary.withOpacity(0.1),
-                blurRadius: 20,
-                spreadRadius: -5,
+                color: tokens.accentPrimary.withOpacity(isDark ? 0.08 : 0.1),
+                blurRadius: isDark ? 12 : 20,
+                spreadRadius: isDark ? -8 : -5,
               ),
             ],
           ),

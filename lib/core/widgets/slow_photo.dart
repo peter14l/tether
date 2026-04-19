@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../theme/theme_tokens.dart';
 import '../theme/time_theme_cubit.dart';
 import '../theme/time_theme_state.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 
 class SlowPhoto extends StatelessWidget {
   final String imageUrl;
@@ -69,7 +71,7 @@ class SlowPhoto extends StatelessWidget {
                 errorBuilder: (context, error, stackTrace) {
                   return Center(
                     child: Icon(
-                      Icons.broken_image_outlined,
+                      FluentIcons.image_24_regular,
                       color: tokens.textSecondary.withOpacity(0.5),
                     ),
                   );

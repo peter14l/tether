@@ -8,6 +8,8 @@ import '../../../../core/widgets/tether_text_field.dart';
 import '../../../../core/widgets/whisper_text.dart';
 import '../bloc/circle_cubit.dart';
 import '../bloc/circle_state.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 
 class CreateCircleScreen extends StatefulWidget {
   const CreateCircleScreen({super.key});
@@ -54,7 +56,7 @@ class _CreateCircleScreenState extends State<CreateCircleScreen> {
                   ),
                 ),
                 leading: IconButton(
-                  icon: Icon(Icons.close, color: colorScheme.primary),
+                  icon: Icon(FluentIcons.dismiss_24_regular, color: colorScheme.primary),
                   onPressed: () => Navigator.pop(context),
                 ),
                 title: Text(

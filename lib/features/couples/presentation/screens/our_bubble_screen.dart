@@ -2,15 +2,18 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../injection_container.dart';
 import '../../../../core/widgets/squircle_avatar.dart';
 import '../../../../core/widgets/glass_panel.dart';
+import '../../../../core/widgets/onboarding_overlay.dart';
 import '../../../circles/presentation/bloc/circle_member_cubit.dart';
 import '../../../circles/presentation/bloc/circle_member_state.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
 import '../bloc/couple_bubble_cubit.dart';
 import '../bloc/couple_bubble_state.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
 class OurBubbleScreen extends StatefulWidget {
   final String circleId;
@@ -21,6 +24,40 @@ class OurBubbleScreen extends StatefulWidget {
 }
 
 class _OurBubbleScreenState extends State<OurBubbleScreen> {
+  final GlobalKey _sharedCanvasKey = GlobalKey();
+  final GlobalKey _sharedCalendarKey = GlobalKey();
+  final GlobalKey _intimacyCheckInKey = GlobalKey();
+  final GlobalKey _privateVaultKey = GlobalKey();
+  final GlobalKey _sharedMemoryStreamKey = GlobalKey();
+
+  bool _showOverlay = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkOnboarding();
+  }
+
+  Future<void> _checkOnboarding() async {
+    final prefs = await SharedPreferences.getInstance();
+    final hasSeen = prefs.getBool('has_seen_couples_onboarding') ?? false;
+    if (!hasSeen && mounted) {
+      setState(() {
+        _showOverlay = true;
+      });
+    }
+  }
+
+  Future<void> _markOnboardingComplete() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('has_seen_couples_onboarding', true);
+    if (mounted) {
+      setState(() {
+        _showOverlay = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -115,15 +152,52 @@ class _OurBubbleScreenState extends State<OurBubbleScreen> {
                   sliver: SliverToBoxAdapter(
                     child: Column(
                       children: [
-                        _PartnerConnectionHeader(),
+                        _PartnerConnectionHeader(key: _sharedCanvasKey),
                         const SizedBox(height: 64),
-                        _BentoGrid(),
+                        _BentoGrid(
+                          calendarKey: _sharedCalendarKey,
+                          checkInKey: _intimacyCheckInKey,
+                          vaultKey: _privateVaultKey,
+                          memoryKey: _sharedMemoryStreamKey,
+                        ),
                       ],
                     ),
                   ),
                 ),
               ],
             ),
+            if (_showOverlay)
+              FeatureOnboardingOverlay(
+                steps: [
+                  OnboardingStep(
+                    targetKey: _sharedCanvasKey,
+                    title: 'Your Shared Space',
+                    body: "This space is visible only to you and your partner. Think of it as a living digital home you've built together — private from everyone else, always.",
+                  ),
+                  OnboardingStep(
+                    targetKey: _sharedCalendarKey,
+                    title: 'Plan Together',
+                    body: "Add dates, events, and countdowns. Tether remembers your milestones — anniversaries, first dates, trips — so you never have to dig through old messages.",
+                  ),
+                  OnboardingStep(
+                    targetKey: _intimacyCheckInKey,
+                    title: 'How Are We Doing?',
+                    body: "A gentle, periodic nudge to check in on the relationship itself — not logistics, not schedules. Just: how are we, as us? Prompted softly, never intrusively.",
+                  ),
+                  OnboardingStep(
+                    targetKey: _privateVaultKey,
+                    title: 'The Private Vault',
+                    body: "End-to-end encrypted storage for your most sensitive documents, photos, and notes. Only the two of you can ever open it. Even Tether cannot access what's inside.",
+                  ),
+                  OnboardingStep(
+                    targetKey: _sharedMemoryStreamKey,
+                    title: 'Your Story, In Order',
+                    body: "A private, chronological stream of everything you've shared with each other. Your relationship's history — unfiltered, unranked, always yours.",
+                  ),
+                ],
+                onComplete: _markOnboardingComplete,
+                onSkip: _markOnboardingComplete,
+              ),
           ],
         ),
       ),
@@ -132,6 +206,8 @@ class _OurBubbleScreenState extends State<OurBubbleScreen> {
 }
 
 class _PartnerConnectionHeader extends StatelessWidget {
+  const _PartnerConnectionHeader({super.key});
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -239,6 +315,18 @@ class _PartnerConnectionHeader extends StatelessWidget {
 }
 
 class _BentoGrid extends StatelessWidget {
+  final GlobalKey? calendarKey;
+  final GlobalKey? checkInKey;
+  final GlobalKey? vaultKey;
+  final GlobalKey? memoryKey;
+
+  const _BentoGrid({
+    this.calendarKey,
+    this.checkInKey,
+    this.vaultKey,
+    this.memoryKey,
+  });
+
   @override
   Widget build(BuildContext context) {
     return GridView.count(
@@ -249,34 +337,38 @@ class _BentoGrid extends StatelessWidget {
       crossAxisSpacing: 16,
       children: [
         const _BentoCard(
-          icon: Icons.photo_library_outlined,
+          icon: FluentIcons.image_24_regular,
           label: 'Gallery',
           color: Colors.orange,
         ),
-        const _BentoCard(
-          icon: Icons.music_note_outlined,
-          label: 'Song',
-          color: Colors.pink,
-        ),
-        const _BentoCard(
-          icon: Icons.auto_awesome_outlined,
+        _BentoCard(
+          key: memoryKey,
+          icon: FluentIcons.sparkle_24_regular,
           label: 'Memories',
           color: Colors.amber,
           isDouble: true,
         ),
         const _BentoCard(
-          icon: Icons.mail_outline,
-          label: 'Letters',
-          color: Colors.orangeAccent,
+          icon: FluentIcons.music_note_2_24_regular,
+          label: 'Song',
+          color: Colors.pink,
         ),
-        const _BentoCard(
-          icon: Icons.calendar_today_outlined,
+        _BentoCard(
+          key: vaultKey,
+          icon: FluentIcons.lock_closed_24_regular,
+          label: 'Vault',
+          color: Colors.blue,
+        ),
+        _BentoCard(
+          key: calendarKey,
+          icon: FluentIcons.calendar_ltr_24_regular,
           label: 'Planner',
           color: Colors.pinkAccent,
         ),
-        const _BentoCard(
-          icon: Icons.verified_outlined,
-          label: 'Promises',
+        _BentoCard(
+          key: checkInKey,
+          icon: FluentIcons.heart_pulse_24_regular,
+          label: 'Check-In',
           color: Colors.amberAccent,
         ),
       ],
@@ -291,6 +383,7 @@ class _BentoCard extends StatelessWidget {
   final bool isDouble;
 
   const _BentoCard({
+    super.key,
     required this.icon,
     required this.label,
     required this.color,

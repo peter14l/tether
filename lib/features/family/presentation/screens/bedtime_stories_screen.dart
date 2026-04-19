@@ -7,6 +7,8 @@ import 'package:record/record.dart';
 import '../../../../injection_container.dart';
 import '../bloc/bedtime_stories_cubit.dart';
 import '../bloc/bedtime_stories_state.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 
 class BedtimeStoriesScreen extends StatefulWidget {
   final String circleId;
@@ -62,7 +64,7 @@ class _BedtimeStoriesScreenState extends State<BedtimeStoriesScreen> {
                   return Card(
                     child: ListTile(
                       leading: Icon(
-                        isPlaying ? Icons.stop_circle : Icons.play_circle_fill,
+                        isPlaying ? FluentIcons.stop_24_regular : FluentIcons.play_24_filled,
                         size: 40,
                         color: Colors.orange,
                       ),
@@ -85,7 +87,7 @@ class _BedtimeStoriesScreenState extends State<BedtimeStoriesScreen> {
           builder: (context) => FloatingActionButton.extended(
             onPressed: () => _showRecordDialog(context),
             label: const Text('Record a Story'),
-            icon: const Icon(Icons.mic),
+            icon: const Icon(FluentIcons.mic_24_regular),
           ),
         ),
       ),
@@ -207,7 +209,7 @@ class _RecordStoryDialogState extends State<_RecordStoryDialog> {
           ),
         ElevatedButton.icon(
           onPressed: _isRecording ? _stopRecording : _startRecording,
-          icon: Icon(_isRecording ? Icons.stop : Icons.mic),
+          icon: Icon(_isRecording ? FluentIcons.stop_24_regular : FluentIcons.mic_24_regular),
           label: Text(_isRecording ? 'Stop' : 'Start Recording'),
         ),
       ],

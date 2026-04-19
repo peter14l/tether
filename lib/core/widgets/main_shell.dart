@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'bottom_nav_bar.dart';
 import 'biometric_guard.dart';
 import '../../features/settings/presentation/bloc/settings_cubit.dart';
@@ -15,7 +16,6 @@ class MainShell extends StatelessWidget {
       builder: (context, state) {
         Widget content = Scaffold(
           body: child,
-          extendBody: true,
           bottomNavigationBar: const TetherBottomNavBar(),
         );
 
@@ -23,7 +23,9 @@ class MainShell extends StatelessWidget {
           content = BiometricGuard(child: content);
         }
 
-        return content;
+        return ShowCaseWidget(
+          builder: (context) => content,
+        );
       },
     );
   }

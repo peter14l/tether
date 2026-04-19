@@ -6,6 +6,8 @@ import '../../../../core/widgets/tether_card.dart';
 import '../../../../core/widgets/tether_text_field.dart';
 import '../bloc/journal_cubit.dart';
 import '../bloc/journal_state.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 
 class JournalScreen extends StatefulWidget {
   const JournalScreen({super.key});
@@ -51,7 +53,7 @@ class _JournalScreenState extends State<JournalScreen> {
                             _contentController.clear();
                           }
                         },
-                        child: const Icon(Icons.check_circle, size: 28),
+                        child: const Icon(FluentIcons.checkmark_circle_24_regular, size: 28),
                       );
                     },
                   ),

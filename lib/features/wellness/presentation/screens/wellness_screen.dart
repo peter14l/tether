@@ -2,11 +2,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/widgets/squircle_avatar.dart';
 import '../../../../core/widgets/whisper_text.dart';
 import '../../../../core/widgets/glass_panel.dart';
 import '../../../../core/widgets/tether_button.dart';
 import '../../../../core/widgets/tether_card.dart';
+import '../../../../core/widgets/onboarding_overlay.dart';
 import '../../../../injection_container.dart';
 import '../../../mood/presentation/bloc/mood_cubit.dart';
 import '../../../mood/presentation/bloc/mood_state.dart';
@@ -23,9 +25,11 @@ import '../bloc/playlist_cubit.dart';
 import '../../domain/entities/shared_playlist.dart';
 import '../../../../core/theme/time_theme_cubit.dart';
 import '../../../../core/theme/time_theme_state.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 
 class WellnessScreen extends StatefulWidget {
-  const WellnessScreen({super.key});
+  final String? initialCircleId;
+  const WellnessScreen({super.key, this.initialCircleId});
 
   @override
   State<WellnessScreen> createState() => _WellnessScreenState();
@@ -40,9 +44,18 @@ class _WellnessScreenState extends State<WellnessScreen>
   String? _currentlyPlayingUrl;
   CircleEntity? _selectedCircle;
 
+  final GlobalKey _moodLoggerKey = GlobalKey();
+  final GlobalKey _shareVibeKey = GlobalKey();
+  final GlobalKey _breathingToolKey = GlobalKey();
+  final GlobalKey _safetyThemesKey = GlobalKey();
+  final GlobalKey _moodHistoryKey = GlobalKey();
+
+  bool _showOverlay = false;
+
   @override
   void initState() {
     super.initState();
+    _checkOnboarding();
     _breathingController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 8),
@@ -60,6 +73,26 @@ class _WellnessScreenState extends State<WellnessScreen>
     );
     
     _audioPlayer.setReleaseMode(ReleaseMode.loop);
+  }
+
+  Future<void> _checkOnboarding() async {
+    final prefs = await SharedPreferences.getInstance();
+    final hasSeen = prefs.getBool('has_seen_wellness_onboarding') ?? false;
+    if (!hasSeen && mounted) {
+      setState(() {
+        _showOverlay = true;
+      });
+    }
+  }
+
+  Future<void> _markOnboardingComplete() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('has_seen_wellness_onboarding', true);
+    if (mounted) {
+      setState(() {
+        _showOverlay = false;
+      });
+    }
   }
 
   @override
@@ -100,112 +133,161 @@ class _WellnessScreenState extends State<WellnessScreen>
       child: BlocListener<CircleCubit, CircleState>(
         listener: (context, state) {
           if (state is CircleLoaded && state.circles.isNotEmpty && _selectedCircle == null) {
+            CircleEntity? targetCircle;
+            if (widget.initialCircleId != null) {
+              targetCircle = state.circles.firstWhere(
+                (c) => c.id == widget.initialCircleId,
+                orElse: () => state.circles.first,
+              );
+            } else {
+              targetCircle = state.circles.first;
+            }
+
             setState(() {
-              _selectedCircle = state.circles.first;
+              _selectedCircle = targetCircle;
             });
-            context.read<WellnessCubit>().loadStreaks(state.circles.first.id);
+            context.read<WellnessCubit>().loadStreaks(targetCircle!.id);
           }
         },
         child: Scaffold(
-          body: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                floating: true,
-                pinned: true,
-                backgroundColor: colorScheme.surface.withOpacity(0.01),
-                surfaceTintColor: Colors.transparent,
-                flexibleSpace: ClipRect(
-                  child: BackdropFilter(
-                    filter: ColorFilter.mode(
-                      colorScheme.surface.withOpacity(0.8),
-                      BlendMode.srcOver,
+          body: Stack(
+            children: [
+              CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    floating: true,
+                    pinned: true,
+                    backgroundColor: colorScheme.surface.withOpacity(0.01),
+                    surfaceTintColor: Colors.transparent,
+                    flexibleSpace: ClipRect(
+                      child: BackdropFilter(
+                        filter: ColorFilter.mode(
+                          colorScheme.surface.withOpacity(0.8),
+                          BlendMode.srcOver,
+                        ),
+                        child: Container(color: Colors.transparent),
+                      ),
                     ),
-                    child: Container(color: Colors.transparent),
-                  ),
-                ),
-                title: Text(
-                  'Wellness',
-                  style: theme.textTheme.headlineMedium?.copyWith(
-                    color: colorScheme.primary,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 24,
-                    letterSpacing: -0.5,
-                  ),
-                ),
-                actions: [
-                  _CircleSelector(
-                    selectedCircle: _selectedCircle,
-                    onSelected: (circle) {
-                      setState(() {
-                        _selectedCircle = circle;
-                      });
-                      context.read<WellnessCubit>().loadStreaks(circle.id);
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 24, left: 8),
-                    child: BlocBuilder<MoodCubit, MoodState>(
-                      builder: (context, state) {
-                        String emoji = '😊';
-                        if (state is MoodLoaded) {
-                          emoji = _getMoodEmoji(state.status.status);
-                        }
-                        return GestureDetector(
-                          onTap: () => _showMoodSelection(context),
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              SquircleAvatar(
-                                imageUrl: '',
-                                size: 40,
-                                borderColor: colorScheme.primary.withOpacity(0.2),
-                                borderWidth: 2,
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: Container(
-                                  padding: const EdgeInsets.all(2),
-                                  decoration: BoxDecoration(
-                                    color: colorScheme.surface,
-                                    shape: BoxShape.circle,
+                    title: Text(
+                      'Wellness',
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                        color: colorScheme.primary,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 24,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                    actions: [
+                      _CircleSelector(
+                        key: _shareVibeKey,
+                        selectedCircle: _selectedCircle,
+                        onSelected: (circle) {
+                          setState(() {
+                            _selectedCircle = circle;
+                          });
+                          context.read<WellnessCubit>().loadStreaks(circle.id);
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 24, left: 8),
+                        child: BlocBuilder<MoodCubit, MoodState>(
+                          builder: (context, state) {
+                            String emoji = '😊';
+                            if (state is MoodLoaded) {
+                              emoji = _getMoodEmoji(state.status.status);
+                            }
+                            return GestureDetector(
+                              key: _moodLoggerKey,
+                              onTap: () => _showMoodSelection(context),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  SquircleAvatar(
+                                    imageUrl: '',
+                                    size: 40,
+                                    borderColor: colorScheme.primary.withOpacity(0.2),
+                                    borderWidth: 2,
                                   ),
-                                  child: Text(emoji, style: const TextStyle(fontSize: 12)),
-                                ),
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(2),
+                                      decoration: BoxDecoration(
+                                        color: colorScheme.surface,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Text(emoji, style: const TextStyle(fontSize: 12)),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        );
-                      },
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  SliverToBoxAdapter(
+                    child: Column(
+                      children: [
+                        _BreathingSection(
+                          key: _breathingToolKey,
+                          animation: _breathingAnimation,
+                          opacityAnimation: _opacityAnimation,
+                          currentlyPlayingUrl: _currentlyPlayingUrl,
+                          onToggleSound: _toggleSound,
+                        ),
+                        const SizedBox(height: 48),
+                        const _MoodStatusBanner(),
+                        const SizedBox(height: 64),
+                        _DigitalHugSection(selectedCircle: _selectedCircle),
+                        const SizedBox(height: 64),
+                        _CheckInSection(selectedCircle: _selectedCircle),
+                        const SizedBox(height: 64),
+                        _GratitudeJournal(key: _moodHistoryKey),
+                        const SizedBox(height: 64),
+                        _KindnessBadges(key: _safetyThemesKey),
+                        const SizedBox(height: 64),
+                        const _QuietHours(),
+                        const SizedBox(height: 120),
+                      ],
                     ),
                   ),
                 ],
               ),
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    _BreathingSection(
-                      animation: _breathingAnimation,
-                      opacityAnimation: _opacityAnimation,
-                      currentlyPlayingUrl: _currentlyPlayingUrl,
-                      onToggleSound: _toggleSound,
+              if (_showOverlay)
+                FeatureOnboardingOverlay(
+                  steps: [
+                    OnboardingStep(
+                      targetKey: _moodLoggerKey,
+                      title: 'How Are You Feeling?',
+                      body: "Tap a mood to log your emotional state. The color palette is designed for nuance — not just 'happy' or 'sad.' Real emotional complexity lives somewhere in the middle.",
                     ),
-                    const SizedBox(height: 48),
-                    const _MoodStatusBanner(),
-                    const SizedBox(height: 64),
-                    _DigitalHugSection(selectedCircle: _selectedCircle),
-                    const SizedBox(height: 64),
-                    _CheckInSection(selectedCircle: _selectedCircle),
-                    const SizedBox(height: 64),
-                    const _GratitudeJournal(),
-                    const SizedBox(height: 64),
-                    const _KindnessBadges(),
-                    const SizedBox(height: 64),
-                    const _QuietHours(),
-                    const SizedBox(height: 120),
+                    OnboardingStep(
+                      targetKey: _shareVibeKey,
+                      title: 'Let Your Circle Know',
+                      body: "You can share your current mood with specific Circles — without typing a single word. The people who care about you can check in proactively.",
+                    ),
+                    OnboardingStep(
+                      targetKey: _breathingToolKey,
+                      title: 'The Breathing Tool',
+                      body: "Tap the orb to start a guided breathing session. It syncs with your breath — in, hold, out. It's always here, one tap away, no matter how you got here.",
+                    ),
+                    OnboardingStep(
+                      targetKey: _safetyThemesKey,
+                      title: 'Safety Themes',
+                      body: "Change how the entire app looks and feels based on what you need right now. 'Calm' softens everything. 'Focus' removes visual noise. Your app adapts to you.",
+                    ),
+                    OnboardingStep(
+                      targetKey: _moodHistoryKey,
+                      title: 'Your Mood History',
+                      body: "This is private to you — no one else sees it. Track patterns over time. Spot your good weeks and your rough ones. Know yourself better.",
+                    ),
                   ],
+                  onComplete: _markOnboardingComplete,
+                  onSkip: _markOnboardingComplete,
                 ),
-              ),
             ],
           ),
         ),
@@ -242,7 +324,7 @@ class _CircleSelector extends StatelessWidget {
   final CircleEntity? selectedCircle;
   final Function(CircleEntity) onSelected;
 
-  const _CircleSelector({this.selectedCircle, required this.onSelected});
+  const _CircleSelector({super.key, this.selectedCircle, required this.onSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -252,7 +334,7 @@ class _CircleSelector extends StatelessWidget {
           return PopupMenuButton<CircleEntity>(
             initialValue: selectedCircle,
             onSelected: onSelected,
-            icon: Icon(Icons.group_outlined, color: Theme.of(context).colorScheme.primary),
+            icon: Icon(FluentIcons.people_24_regular, color: Theme.of(context).colorScheme.primary),
             itemBuilder: (context) => state.circles
                 .map((c) => PopupMenuItem(value: c, child: Text(c.name)))
                 .toList(),
@@ -422,6 +504,7 @@ class _BreathingSection extends StatelessWidget {
   final Function(String) onToggleSound;
 
   const _BreathingSection({
+    super.key,
     required this.animation,
     required this.opacityAnimation,
     this.currentlyPlayingUrl,
@@ -550,7 +633,7 @@ class _SoundChip extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(isSelected ? Icons.pause : Icons.play_arrow, size: 14),
+            Icon(isSelected ? FluentIcons.pause_24_regular : FluentIcons.play_24_regular, size: 14),
             const SizedBox(width: 8),
             Text(
               label,
@@ -600,7 +683,7 @@ class _DigitalHugSection extends StatelessWidget {
                 ),
               ),
               Icon(
-                Icons.volunteer_activism_outlined,
+                FluentIcons.heart_24_regular,
                 color: colorScheme.primary,
                 size: 56,
               ),
@@ -695,7 +778,7 @@ class _CheckInSection extends StatelessWidget {
 }
 
 class _GratitudeJournal extends StatelessWidget {
-  const _GratitudeJournal();
+  const _GratitudeJournal({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -826,7 +909,7 @@ class _GratitudeEntry extends StatelessWidget {
             children: [
               WhisperText(date),
               Icon(
-                Icons.lock_outline,
+                FluentIcons.lock_closed_24_regular,
                 size: 16,
                 color: colorScheme.onSurfaceVariant.withOpacity(0.3),
               ),
@@ -839,7 +922,7 @@ class _GratitudeEntry extends StatelessWidget {
 }
 
 class _KindnessBadges extends StatelessWidget {
-  const _KindnessBadges();
+  const _KindnessBadges({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -872,7 +955,7 @@ class _KindnessBadges extends StatelessWidget {
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
-                              Icons.favorite_outline,
+                              FluentIcons.heart_24_regular,
                               color: colorScheme.primary,
                             ),
                           ),
@@ -896,7 +979,7 @@ class _KindnessBadges extends StatelessWidget {
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
-                              Icons.wb_sunny_outlined,
+                              FluentIcons.weather_sunny_24_regular,
                               color: colorScheme.secondary,
                             ),
                           ),
@@ -932,7 +1015,7 @@ class _QuietHoursState extends State<_QuietHours> {
     return Column(
       children: [
         Icon(
-          _isEnabled ? Icons.nights_stay : Icons.nights_stay_outlined,
+          _isEnabled ? FluentIcons.weather_moon_24_regular : FluentIcons.weather_moon_24_regular,
           color: _isEnabled ? colorScheme.primary : colorScheme.onSurfaceVariant.withOpacity(0.4),
           size: 32,
         ),

@@ -1,11 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/circles/presentation/screens/circles_screen.dart';
 import '../../features/circles/presentation/screens/create_circle_screen.dart';
 import '../../features/feed/presentation/screens/feed_screen.dart';
 import '../../features/messaging/presentation/screens/messaging_screen.dart';
 import '../../features/messaging/presentation/screens/chat_screen.dart';
+import '../../features/messaging/presentation/screens/new_message_screen.dart';
+import '../../features/messaging/presentation/bloc/user_search_cubit.dart';
+import '../../features/messaging/presentation/bloc/messaging_cubit.dart';
 import '../../features/mood/presentation/screens/mood_selection_screen.dart';
 import '../../features/journal/presentation/screens/journal_screen.dart';
 import '../../features/journal/presentation/screens/reflection_wall_screen.dart';
@@ -21,6 +25,9 @@ import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/sign_up_screen.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../../features/auth/presentation/bloc/auth_state.dart';
+import '../../features/feed/presentation/screens/compose_post_screen.dart';
+import '../../features/feed/presentation/screens/home_feed_screen.dart';
+import '../../features/onboarding/presentation/pages/onboarding_screen.dart';
 import '../../injection_container.dart';
 import '../widgets/main_shell.dart';
 import '../widgets/biometric_guard.dart';
@@ -30,14 +37,14 @@ final goRouter = GoRouter(
   refreshListenable: _AuthRefreshListenable(getIt<AuthBloc>()),
   redirect: (context, state) {
     final authState = getIt<AuthBloc>().state;
-    final bool loggingIn = state.matchedLocation == '/login' || state.matchedLocation == '/signup';
+    final bool loggingIn = state.matchedLocation == '/login' || state.matchedLocation == '/signup' || state.matchedLocation == '/onboarding';
 
     debugPrint('AppRouter: Redirect check - location: ${state.matchedLocation}, authState: ${authState.runtimeType}');
 
     if (authState is Unauthenticated || authState is AuthInitial) {
       if (!loggingIn) {
-        debugPrint('AppRouter: Redirecting to /login');
-        return '/login';
+        debugPrint('AppRouter: Redirecting to /onboarding');
+        return '/onboarding';
       }
       return null;
     }
@@ -52,11 +59,19 @@ final goRouter = GoRouter(
     return null;
   },
   routes: [
+    GoRoute(
+      path: '/onboarding',
+      builder: (context, state) => const OnboardingScreen(),
+    ),
     ShellRoute(
       builder: (context, state, child) => MainShell(child: child),
       routes: [
         GoRoute(
           path: '/',
+          builder: (context, state) => const MessagingScreen(),
+        ),
+        GoRoute(
+          path: '/circles',
           builder: (context, state) => const CirclesScreen(),
         ),
         GoRoute(
@@ -68,17 +83,46 @@ final goRouter = GoRouter(
         ),
         GoRoute(
           path: '/messaging',
+          name: 'messaging',
           builder: (context, state) => const MessagingScreen(),
         ),
         GoRoute(
+          path: '/messaging/new',
+          name: 'new_message',
+          builder: (context, state) => BlocProvider(
+            create: (context) => getIt<UserSearchCubit>(),
+            child: const NewMessageScreen(),
+          ),
+        ),
+        GoRoute(
+          path: '/messaging/chat/:roomId',
+          name: 'chat',
+          builder: (context, state) {
+            final roomId = state.pathParameters['roomId']!;
+            final otherUserId = state.uri.queryParameters['otherUserId'];
+            return BlocProvider(
+              create: (context) => getIt<MessagingCubit>()..loadMessages(roomId),
+              child: ChatScreen(roomId: roomId, otherUserId: otherUserId),
+            );
+          },
+        ),
+
+        GoRoute(
           path: '/breathing',
-          builder: (context, state) => const WellnessScreen(),
+          builder: (context, state) {
+            final circleId = state.uri.queryParameters['circleId'];
+            return WellnessScreen(initialCircleId: circleId);
+          },
         ),
         GoRoute(
           path: '/settings',
           builder: (context, state) => const SettingsScreen(),
         ),
       ],
+    ),
+    GoRoute(
+      path: '/compose',
+      builder: (context, state) => const ComposePostScreen(),
     ),
     GoRoute(
       path: '/login',
@@ -99,14 +143,6 @@ final goRouter = GoRouter(
     GoRoute(
       path: '/subscription',
       builder: (context, state) => const SubscriptionScreen(),
-    ),
-    GoRoute(
-      path: '/messaging/chat/:circleId/:otherUserId',
-      builder: (context, state) {
-        final circleId = state.pathParameters['circleId']!;
-        final otherUserId = state.pathParameters['otherUserId']!;
-        return ChatScreen(circleId: circleId, otherUserId: otherUserId);
-      },
     ),
     GoRoute(
       path: '/mood',

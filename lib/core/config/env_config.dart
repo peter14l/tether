@@ -48,25 +48,11 @@ class EnvConfig {
 
   static String get _rawRcAndroid =>
       const String.fromEnvironment('REVENUECAT_ANDROID_KEY');
-  static String get revenueCatAndroidApiKey {
-    if (_rawRcAndroid.isEmpty) {
-      throw Exception(
-        'REVENUECAT_ANDROID_KEY is required. Set via --dart-define=REVENUECAT_ANDROID_KEY=...',
-      );
-    }
-    return _rawRcAndroid;
-  }
+  static String get revenueCatAndroidApiKey => _rawRcAndroid;
 
   static String get _rawRcIos =>
       const String.fromEnvironment('REVENUECAT_IOS_KEY');
-  static String get revenueCatIosApiKey {
-    if (_rawRcIos.isEmpty) {
-      throw Exception(
-        'REVENUECAT_IOS_KEY is required. Set via --dart-define=REVENUECAT_IOS_KEY=...',
-      );
-    }
-    return _rawRcIos;
-  }
+  static String get revenueCatIosApiKey => _rawRcIos;
 
   static bool get isRevenueCatEnabled {
     final key = kIsWeb

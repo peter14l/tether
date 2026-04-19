@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -14,33 +15,33 @@ class MessagingCubit extends Cubit<MessagingState> {
 
   MessagingCubit(this._messagingRepository, this._supabaseClient) : super(MessagingInitial());
 
-  Future<void> loadMessages(String receiverId, {String? circleId}) async {
+  Future<void> loadMessages(String roomId) async {
     emit(MessagingLoading());
-    final result = await _messagingRepository.getMessages(receiverId, circleId: circleId);
+    final result = await _messagingRepository.getMessages(roomId);
     result.fold(
       (failure) => emit(MessagingError(failure.message)),
       (messages) {
         emit(MessagingLoaded(messages));
-        _subscribeToMessages(receiverId, circleId: circleId);
+        _subscribeToMessages(roomId);
       },
     );
   }
 
-  void _subscribeToMessages(String receiverId, {String? circleId}) {
+  void _subscribeToMessages(String roomId) {
     _messagesSubscription?.cancel();
     _messagesSubscription = _messagingRepository
-        .streamMessages(receiverId, circleId: circleId)
+        .streamMessages(roomId)
         .listen((messages) {
       emit(MessagingLoaded(messages));
     });
   }
 
   Future<void> sendMessage({
-    required String receiverId,
-    String? circleId,
-    required String contentType,
+    required String roomId,
+    required String messageType,
     String? contentText,
-    String? mediaUrl,
+    String? r2ObjectKey,
+    String? mediaKey,
   }) async {
     final userId = _supabaseClient.auth.currentUser?.id;
     if (userId == null) {
@@ -50,20 +51,39 @@ class MessagingCubit extends Cubit<MessagingState> {
 
     final newMessage = MessageEntity(
       id: '',
+      roomId: roomId,
       senderId: userId,
-      receiverId: receiverId,
-      circleId: circleId,
-      contentType: contentType,
-      contentText: contentText,
-      mediaUrl: mediaUrl,
-      isRead: false,
+      messageType: messageType,
+      encryptedText: contentText, // This will be encrypted by the repository
+      r2ObjectKey: r2ObjectKey,
+      mediaKey: mediaKey,
       createdAt: DateTime.now(),
     );
 
     final result = await _messagingRepository.sendMessage(newMessage);
     result.fold(
       (failure) => emit(MessagingError(failure.message)),
-      (_) => null, // Stream will update the UI
+      (_) => null,
+    );
+  }
+
+  Future<void> sendMediaMessage({
+    required String roomId,
+    required String messageType,
+    required File file,
+  }) async {
+    final uploadResult = await _messagingRepository.uploadMedia(file, roomId);
+    
+    uploadResult.fold(
+      (failure) => emit(MessagingError(failure.message)),
+      (mediaData) {
+        sendMessage(
+          roomId: roomId,
+          messageType: messageType,
+          r2ObjectKey: mediaData.objectKey,
+          mediaKey: mediaData.mediaKey,
+        );
+      },
     );
   }
 

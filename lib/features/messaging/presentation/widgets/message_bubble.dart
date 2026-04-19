@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/message_entity.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+
 
 class MessageBubble extends StatelessWidget {
   final MessageEntity message;
@@ -45,7 +47,7 @@ class MessageBubble extends StatelessWidget {
                 const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.play_arrow, size: 24),
+                    Icon(FluentIcons.play_24_regular, size: 24),
                     SizedBox(width: 8),
                     Text('Voice Note'),
                   ],

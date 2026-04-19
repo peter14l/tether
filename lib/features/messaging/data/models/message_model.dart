@@ -3,28 +3,28 @@ import '../../domain/entities/message_entity.dart';
 class MessageModel extends MessageEntity {
   const MessageModel({
     required super.id,
+    required super.roomId,
     required super.senderId,
-    required super.receiverId,
-    super.circleId,
-    required super.contentType,
-    super.contentText,
-    super.mediaUrl,
-    required super.isRead,
-    super.readAt,
+    super.receiverId,
+    required super.messageType,
+    super.encryptedText,
+    super.r2ObjectKey,
+    super.mediaKey,
+    super.isExpired = false,
     required super.createdAt,
   });
 
   factory MessageModel.fromJson(Map<String, dynamic> json) {
     return MessageModel(
       id: json['id'] as String? ?? '',
+      roomId: json['room_id'] as String? ?? '',
       senderId: json['sender_id'] as String? ?? '',
-      receiverId: json['receiver_id'] as String? ?? '',
-      circleId: json['circle_id'] as String?,
-      contentType: json['content_type'] as String? ?? 'text',
-      contentText: json['content_text'] as String?,
-      mediaUrl: json['media_url'] as String?,
-      isRead: json['is_read'] as bool? ?? false,
-      readAt: json['read_at'] != null ? DateTime.parse(json['read_at'] as String) : null,
+      receiverId: json['receiver_id'] as String?,
+      messageType: json['message_type'] as String? ?? 'text',
+      encryptedText: json['encrypted_text'] as String?,
+      r2ObjectKey: json['r2_object_key'] as String?,
+      mediaKey: json['media_key'] as String?,
+      isExpired: json['is_expired'] as bool? ?? false,
       createdAt: json['created_at'] != null 
           ? DateTime.parse(json['created_at'] as String) 
           : DateTime.now(),
@@ -33,40 +33,14 @@ class MessageModel extends MessageEntity {
 
   Map<String, dynamic> toJson() {
     return {
+      'room_id': roomId,
       'sender_id': senderId,
       'receiver_id': receiverId,
-      'circle_id': circleId,
-      'content_type': contentType,
-      'content_text': contentText,
-      'media_url': mediaUrl,
-      'is_read': isRead,
-      'read_at': readAt?.toIso8601String(),
+      'message_type': messageType,
+      'encrypted_text': encryptedText,
+      'r2_object_key': r2ObjectKey,
+      'media_key': mediaKey,
+      'is_expired': isExpired,
     };
-  }
-
-  MessageModel copyWith({
-    String? id,
-    String? senderId,
-    String? receiverId,
-    String? circleId,
-    String? contentType,
-    String? contentText,
-    String? mediaUrl,
-    bool? isRead,
-    DateTime? readAt,
-    DateTime? createdAt,
-  }) {
-    return MessageModel(
-      id: id ?? this.id,
-      senderId: senderId ?? this.senderId,
-      receiverId: receiverId ?? this.receiverId,
-      circleId: circleId ?? this.circleId,
-      contentType: contentType ?? this.contentType,
-      contentText: contentText ?? this.contentText,
-      mediaUrl: mediaUrl ?? this.mediaUrl,
-      isRead: isRead ?? this.isRead,
-      readAt: readAt ?? this.readAt,
-      createdAt: createdAt ?? this.createdAt,
-    );
   }
 }
