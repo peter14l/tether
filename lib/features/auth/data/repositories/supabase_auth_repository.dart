@@ -179,12 +179,10 @@ class SupabaseAuthRepository implements IAuthRepository {
     try {
       final currentUserId = _client.auth.currentUser?.id;
       
-      final response = await _client
-          .from('profiles')
-          .select()
-          .or('username.ilike.%$query%,display_name.ilike.%$query%')
-          .neq('id', currentUserId ?? '')
-          .limit(20);
+      final response = await _client.rpc('search_users', params: {
+        'search_query': query,
+        'current_user_id': currentUserId ?? '00000000-0000-0000-0000-000000000000',
+      });
 
       final List<UserEntity> users = [];
       for (final json in (response as List)) {
