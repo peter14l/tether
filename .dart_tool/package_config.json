@@ -398,6 +398,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "fluent_ui",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/fluent_ui-4.15.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.8"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///C:/Users/peter/dev/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -450,6 +456,12 @@
       "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/flutter_local_notifications_windows-3.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.10"
+    },
+    {
+      "name": "flutter_localizations",
+      "rootUri": "file:///C:/Users/peter/dev/flutter/packages/flutter_localizations",
+      "packageUri": "lib/",
+      "languageVersion": "3.9"
     },
     {
       "name": "flutter_plugin_android_lifecycle",
@@ -765,21 +777,21 @@
     },
     {
       "name": "local_auth",
-      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/local_auth-2.3.0",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/local_auth-3.0.1",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.9"
     },
     {
       "name": "local_auth_android",
-      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/local_auth_android-1.0.56",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/local_auth_android-2.0.8",
       "packageUri": "lib/",
       "languageVersion": "3.9"
     },
     {
       "name": "local_auth_darwin",
-      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/local_auth_darwin-1.6.1",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/local_auth_darwin-2.0.3",
       "packageUri": "lib/",
-      "languageVersion": "3.9"
+      "languageVersion": "3.10"
     },
     {
       "name": "local_auth_platform_interface",
@@ -789,9 +801,9 @@
     },
     {
       "name": "local_auth_windows",
-      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/local_auth_windows-1.0.11",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/local_auth_windows-2.0.1",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.8"
     },
     {
       "name": "logging",
@@ -810,6 +822,12 @@
       "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/material_color_utilities-0.13.0",
       "packageUri": "lib/",
       "languageVersion": "3.5"
+    },
+    {
+      "name": "math_expressions",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/math_expressions-3.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.8"
     },
     {
       "name": "meta",
@@ -1110,6 +1128,12 @@
       "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/rxdart-0.28.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "scroll_pos",
+      "rootUri": "file:///F:/DevCaches/Pub/Cache/hosted/pub.dev/scroll_pos-0.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
     },
     {
       "name": "sentry",

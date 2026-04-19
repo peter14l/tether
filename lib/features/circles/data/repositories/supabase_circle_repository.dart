@@ -78,6 +78,16 @@ class SupabaseCircleRepository implements ICircleRepository {
   }
 
   @override
+  Future<Either<Failure, void>> deleteCircle(String circleId) async {
+    try {
+      await _client.from('circles').delete().eq('id', circleId);
+      return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, void>> addMember(String circleId, String userId, String role) async {
     try {
       await _client.from('circle_members').insert({

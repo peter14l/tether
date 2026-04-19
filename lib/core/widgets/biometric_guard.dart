@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../security/biometric_service.dart';
 import '../../injection_container.dart';
+import 'tether_button.dart';
 
 class BiometricGuard extends StatefulWidget {
   final Widget child;
@@ -75,11 +76,13 @@ class _BiometricGuardState extends State<BiometricGuard> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
-              ElevatedButton(
+              TetherButton(
                 onPressed: _authenticate,
                 child: const Text('Try Again'),
               ),
-              TextButton(
+              const SizedBox(height: 16),
+              TetherButton(
+                style: TetherButtonStyle.secondary,
                 onPressed: () => Navigator.of(context).pop(),
                 child: const Text('Go Back'),
               ),

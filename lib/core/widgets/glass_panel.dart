@@ -14,7 +14,7 @@ class GlassPanel extends StatelessWidget {
     super.key,
     required this.child,
     this.blur = 20.0,
-    this.opacity = 0.4,
+    this.opacity = 1.0, // Solid opacity
     this.borderRadius,
     this.color,
     this.border,
@@ -24,23 +24,17 @@ class GlassPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return ClipRRect(
-      borderRadius: borderRadius ?? BorderRadius.circular(18),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-        child: Container(
-          padding: padding,
-          decoration: BoxDecoration(
-            color: (color ?? theme.colorScheme.surface).withOpacity(opacity),
-            borderRadius: borderRadius ?? BorderRadius.circular(18),
-            border: border ?? Border.all(
-              color: theme.colorScheme.outlineVariant.withOpacity(0.18),
-              width: 1,
-            ),
-          ),
-          child: child,
+    return Container(
+      padding: padding,
+      decoration: BoxDecoration(
+        color: (color ?? theme.colorScheme.surfaceContainerHighest).withOpacity(1.0), // Solid color
+        borderRadius: borderRadius ?? BorderRadius.circular(18),
+        border: border ?? Border.all(
+          color: theme.colorScheme.outlineVariant.withOpacity(0.3),
+          width: 1,
         ),
       ),
+      child: child,
     );
   }
 }

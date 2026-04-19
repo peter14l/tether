@@ -74,4 +74,16 @@ class CircleCubit extends Cubit<CircleState> {
       (circle) => emit(CircleCreated(circle)),
     );
   }
+
+  Future<void> deleteCircle(String circleId) async {
+    emit(CircleLoading());
+    final result = await _circleRepository.deleteCircle(circleId);
+    result.fold(
+      (failure) => emit(CircleError(failure.message)),
+      (_) {
+        emit(CircleDeleted(circleId));
+        loadCircles(); // Reload to refresh list
+      },
+    );
+  }
 }

@@ -122,6 +122,28 @@ class _CirclesScreenState extends State<CirclesScreen> {
                           child: CircleCard(
                             circle: circle,
                             onTap: () => context.push('/feed/${circle.id}'),
+                            onDelete: () {
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  title: const Text('Delete Circle'),
+                                  content: Text('Are you sure you want to permanently delete "${circle.name}"? This action cannot be undone.'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(ctx),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(ctx);
+                                        context.read<CircleCubit>().deleteCircle(circle.id);
+                                      },
+                                      child: const Text('Delete', style: TextStyle(color: Colors.red)),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                           ),
                         );
                       },

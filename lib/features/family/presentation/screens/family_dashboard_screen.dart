@@ -199,7 +199,9 @@ class FamilyDashboardScreen extends StatelessWidget {
                   if (state.activeAlerts.isNotEmpty) {
                     return SosAlertOverlay(
                       alert: state.activeAlerts.first,
-                      onResolve: () {},
+                      onResolve: () {
+                        context.read<FamilySafetyCubit>().resolveSos(state.activeAlerts.first.id);
+                      },
                     );
                   }
                   return const SizedBox();

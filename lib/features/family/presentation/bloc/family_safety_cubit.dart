@@ -81,6 +81,10 @@ class FamilySafetyCubit extends Cubit<FamilySafetyState> {
     });
   }
 
+  Future<void> resolveSos(String alertId) async {
+    await _familyRepository.resolveSos(alertId);
+  }
+
   Future<void> loadSafetyChecks(String circleId) async {
     final result = await _familyRepository.getSafetyChecks(circleId);
     result.fold(

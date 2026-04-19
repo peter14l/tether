@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ButtonStyle;
+import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../theme/theme_tokens.dart';
 import '../theme/time_theme_cubit.dart';
@@ -84,67 +85,74 @@ class _TetherButtonState extends State<TetherButton> with SingleTickerProviderSt
     return BlocBuilder<TimeThemeCubit, TimeThemeState>(
       builder: (context, state) {
         final tokens = ThemeTokens.getTokens(state.slot);
-        final isDark = state.slot == TimeSlot.dusk || state.slot == TimeSlot.night;
 
-        Decoration? decoration;
-        if (widget.style == TetherButtonStyle.primary) {
-          decoration = BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            gradient: widget.backgroundColor == null
-                ? LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      tokens.accentPrimary,
-                      tokens.accentPrimary.withOpacity(0.8),
-                    ],
-                  )
-                : null,
-            color: widget.backgroundColor,
-            boxShadow: isDark && widget.onPressed != null ? tokens.glowShadows : null,
-          );
-        } else {
-          decoration = BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            color: tokens.surfaceContainerHigh.withOpacity(0.5),
-            border: Border.all(
-              color: Theme.of(context).colorScheme.outlineVariant.withOpacity(0.18),
-              width: 1,
-            ),
-          );
-        }
+        final fgColor = widget.style == TetherButtonStyle.primary
+            ? (widget.foregroundColor ?? tokens.textOnAccent)
+            : (widget.foregroundColor ?? tokens.textPrimary);
+        
+        final bgColor = widget.style == TetherButtonStyle.primary
+            ? (widget.backgroundColor ?? tokens.accentPrimary)
+            : tokens.surfaceContainerHigh;
 
-        Widget buttonContent = Container(
-          decoration: decoration,
-          child: ElevatedButton(
-            onPressed: widget.loading ? null : widget.onPressed,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              foregroundColor: widget.style == TetherButtonStyle.primary
-                  ? (widget.foregroundColor ?? tokens.textOnAccent)
-                  : (widget.foregroundColor ?? tokens.textPrimary),
-              elevation: 0,
-              shadowColor: Colors.transparent,
-              padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-              ),
-            ),
-            child: widget.loading
-                ? SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        widget.style == TetherButtonStyle.primary
-                            ? (widget.foregroundColor ?? tokens.textOnAccent)
-                            : (widget.foregroundColor ?? tokens.textPrimary),
-                      ),
-                    ),
-                  )
-                : widget.child,
+        final buttonChild = widget.loading
+            ? SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(fgColor),
+                ),
+              )
+            : widget.child;
+
+        // Use Fluent UI buttons
+        Widget buttonContent = fluent.FluentTheme(
+          data: fluent.FluentThemeData(
+            accentColor: widget.style == TetherButtonStyle.primary 
+              ? fluent.AccentColor('custom', {
+                  'darkest': bgColor,
+                  'darker': bgColor,
+                  'dark': bgColor,
+                  'normal': bgColor,
+                  'light': bgColor,
+                  'lighter': bgColor,
+                  'lightest': bgColor,
+                })
+              : fluent.Colors.blue,
           ),
+          child: widget.style == TetherButtonStyle.primary
+              ? fluent.FilledButton(
+                  onPressed: widget.loading ? null : widget.onPressed,
+                  style: fluent.ButtonStyle(
+                    padding: fluent.WidgetStateProperty.all(
+                      const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                    ),
+                    backgroundColor: fluent.WidgetStateProperty.resolveWith((states) {
+                      if (states.isDisabled) return bgColor.withOpacity(0.5);
+                      if (states.isPressing) return bgColor.withOpacity(0.8);
+                      if (states.isHovering) return bgColor.withOpacity(0.9);
+                      return bgColor;
+                    }),
+                    foregroundColor: fluent.WidgetStateProperty.all(fgColor),
+                  ),
+                  child: buttonChild,
+                )
+              : fluent.Button(
+                  onPressed: widget.loading ? null : widget.onPressed,
+                  style: fluent.ButtonStyle(
+                    padding: fluent.WidgetStateProperty.all(
+                      const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                    ),
+                    backgroundColor: fluent.WidgetStateProperty.resolveWith((states) {
+                      if (states.isDisabled) return bgColor.withOpacity(0.5);
+                      if (states.isPressing) return bgColor.withOpacity(0.8);
+                      if (states.isHovering) return bgColor.withOpacity(0.9);
+                      return bgColor;
+                    }),
+                    foregroundColor: fluent.WidgetStateProperty.all(fgColor),
+                  ),
+                  child: buttonChild,
+                ),
         );
 
         if (widget.isHighPriority && widget.style == TetherButtonStyle.primary) {

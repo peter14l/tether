@@ -1,7 +1,10 @@
 import 'dart:ui';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tether/core/widgets/squircle_avatar.dart';
 import 'package:tether/core/widgets/whisper_text.dart';
 import 'package:tether/core/widgets/glass_panel.dart';
@@ -162,8 +165,43 @@ class _ProfileSection extends StatelessWidget {
           child: Row(
             children: [
               GestureDetector(
-                onTap: () {
-                  // TODO: Edit Avatar
+                onTap: () async {
+                  try {
+                    final ImagePicker picker = ImagePicker();
+                    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+                    if (image != null && context.mounted) {
+                      final bytes = await image.readAsBytes();
+                      final fileExt = image.path.split('.').last;
+                      final fileName = '${user?.id}_${DateTime.now().millisecondsSinceEpoch}.$fileExt';
+                      
+                      // Show loading snackbar
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Uploading avatar...')),
+                      );
+
+                      final supabase = Supabase.instance.client;
+                      await supabase.storage
+                          .from('avatars')
+                          .uploadBinary(fileName, bytes);
+                      
+                      final imageUrl = supabase.storage
+                          .from('avatars')
+                          .getPublicUrl(fileName);
+
+                      if (context.mounted) {
+                        context.read<SettingsCubit>().updateProfile(avatarUrl: imageUrl);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Avatar updated successfully')),
+                        );
+                      }
+                    }
+                  } catch (e) {
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Failed to update avatar: $e')),
+                      );
+                    }
+                  }
                 },
                 child: Stack(
                   children: [
@@ -350,7 +388,14 @@ class _WellnessInterfaceSection extends StatelessWidget {
           label: 'Night Mode',
           subtitle: 'Force dark theme or follow time of day.',
           value: state.isDarkMode,
-          onChanged: cubit.toggleDarkMode,
+          onChanged: (val) {
+            cubit.toggleDarkMode(val);
+            if (val) {
+              context.read<TimeThemeCubit>().toggleDarkMode(enabled: true);
+            } else {
+              context.read<TimeThemeCubit>().clearDarkModeOverride();
+            }
+          },
         ),
         const SizedBox(height: 12),
         _SwitchTile(

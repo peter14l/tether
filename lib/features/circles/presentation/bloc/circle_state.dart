@@ -38,3 +38,12 @@ class CircleCreated extends CircleState {
   @override
   List<Object?> get props => [circle];
 }
+
+class CircleDeleted extends CircleState {
+  final String circleId;
+
+  const CircleDeleted(this.circleId);
+
+  @override
+  List<Object?> get props => [circleId];
+}

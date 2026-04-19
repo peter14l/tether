@@ -13,6 +13,7 @@ import 'core/theme/time_theme_state.dart';
 import 'core/telemetry/telemetry_service.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/bloc/auth_event.dart';
+import 'features/settings/presentation/bloc/settings_cubit.dart';
 import 'injection_container.dart';
 
 Future<void> main() async {
@@ -96,6 +97,11 @@ class MyApp extends StatelessWidget {
             routerConfig: goRouter,
           );
         },
+      ),
+    );
+  }
+}
+      },
       ),
     );
   }

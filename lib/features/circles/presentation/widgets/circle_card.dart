@@ -9,11 +9,13 @@ import '../../domain/entities/circle_entity.dart';
 class CircleCard extends StatelessWidget {
   final CircleEntity circle;
   final VoidCallback onTap;
+  final VoidCallback? onDelete;
 
   const CircleCard({
     super.key,
     required this.circle,
     required this.onTap,
+    this.onDelete,
   });
 
   @override
@@ -82,10 +84,19 @@ class CircleCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Icon(
-                  Icons.chevron_right,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.4),
-                ),
+                if (onDelete != null)
+                  IconButton(
+                    icon: Icon(
+                      Icons.delete_outline,
+                      color: Theme.of(context).colorScheme.error.withOpacity(0.8),
+                    ),
+                    onPressed: onDelete,
+                  )
+                else
+                  Icon(
+                    Icons.chevron_right,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.4),
+                  ),
               ],
             ),
           ),
