@@ -30,10 +30,8 @@ class BiometricService implements IBiometricService {
     try {
       final bool didAuthenticate = await _auth.authenticate(
         localizedReason: localizedReason,
-        options: const AuthenticationOptions(
-          stickyAuth: true,
-          biometricOnly: true,
-        ),
+        persistAcrossBackgrounding: true,
+        biometricOnly: true,
       );
       return didAuthenticate;
     } on PlatformException catch (e) {

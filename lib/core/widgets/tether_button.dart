@@ -129,8 +129,8 @@ class _TetherButtonState extends State<TetherButton> with SingleTickerProviderSt
                     ),
                     backgroundColor: fluent.WidgetStateProperty.resolveWith((states) {
                       if (states.isDisabled) return bgColor.withOpacity(0.5);
-                      if (states.isPressing) return bgColor.withOpacity(0.8);
-                      if (states.isHovering) return bgColor.withOpacity(0.9);
+                      if (states.contains(fluent.WidgetState.pressed)) return bgColor.withOpacity(0.8);
+                      if (states.contains(fluent.WidgetState.hovered)) return bgColor.withOpacity(0.9);
                       return bgColor;
                     }),
                     foregroundColor: fluent.WidgetStateProperty.all(fgColor),
@@ -145,8 +145,8 @@ class _TetherButtonState extends State<TetherButton> with SingleTickerProviderSt
                     ),
                     backgroundColor: fluent.WidgetStateProperty.resolveWith((states) {
                       if (states.isDisabled) return bgColor.withOpacity(0.5);
-                      if (states.isPressing) return bgColor.withOpacity(0.8);
-                      if (states.isHovering) return bgColor.withOpacity(0.9);
+                      if (states.contains(fluent.WidgetState.pressed)) return bgColor.withOpacity(0.8);
+                      if (states.contains(fluent.WidgetState.hovered)) return bgColor.withOpacity(0.9);
                       return bgColor;
                     }),
                     foregroundColor: fluent.WidgetStateProperty.all(fgColor),

@@ -65,9 +65,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TetherButton(
                       onPressed: () {
                         context.read<AuthBloc>().add(
-                              LoginRequested(
-                                email: _emailController.text,
-                                password: _passwordController.text,
+                              SignInRequested(
+                                _emailController.text,
+                                _passwordController.text,
                               ),
                             );
                       },
