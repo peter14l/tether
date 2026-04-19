@@ -89,7 +89,7 @@ class BillingRepositoryImpl implements IBillingRepository {
     if (!_isRcInitialized) return false;
     try {
       final customerInfo = await Purchases.getCustomerInfo();
-      return customerInfo.entitlements.all['Oasis Pro']?.isActive ?? false;
+      return customerInfo.entitlements.all['Tether Plus']?.isActive ?? false;
     } catch (e) {
       debugPrint('RevenueCat isPro error: $e');
       return false;
@@ -177,9 +177,9 @@ class BillingRepositoryImpl implements IBillingRepository {
       final customerInfo = result.customerInfo;
       _customerInfoController.add(customerInfo);
 
-      // Check if entitlement 'Oasis Pro' is active
+      // Check if entitlement 'Tether Plus' is active
       final isEntitled =
-          customerInfo.entitlements.all['Oasis Pro']?.isActive ?? false;
+          customerInfo.entitlements.all['Tether Plus']?.isActive ?? false;
 
       if (isEntitled) {
         return const Right(null);
@@ -232,7 +232,7 @@ class BillingRepositoryImpl implements IBillingRepository {
     final options = {
       'key': EnvConfig.razorpayKeyId,
       'amount': 49900,
-      'name': 'Oasis Pro',
+      'name': 'Tether Plus',
       'description': 'Monthly Premium Subscription',
       'prefill': {'contact': '', 'email': ''},
     };

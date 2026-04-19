@@ -61,7 +61,8 @@ class MoodRoom extends StatelessWidget {
           mainAxisSpacing: 16,
           crossAxisSpacing: 16,
           childAspectRatio: 1.2,
-          children: [
+          children: const [
+            /*
             _MoodButton(
               icon: Icons.air,
               label: 'Need Quiet',
@@ -83,6 +84,7 @@ class MoodRoom extends StatelessWidget {
               label: 'Feeling Anxious',
               color: colorScheme.error,
             ),
+            */
           ],
         ),
       ],

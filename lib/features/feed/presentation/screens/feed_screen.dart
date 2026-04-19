@@ -8,8 +8,6 @@ import '../bloc/feed_state.dart';
 import '../../../../core/widgets/tether_button.dart';
 import '../widgets/post_card.dart';
 import '../widgets/mood_room.dart';
-import '../widgets/presence_circles.dart';
-import '../widgets/temperature_check.dart';
 
 class FeedScreen extends StatefulWidget {
   final String circleId;
@@ -66,7 +64,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 Padding(
                   padding: const EdgeInsets.only(right: 24),
                   child: SquircleAvatar(
-                    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAcJfry8HNWQrKeOk3f7p1H6nXJVmr1ZuBaPuuQXb6xi1iWm--PQLHvBqYu-wupO1_AaoL5WuZnYmsB8fgR5PQyJTHRhZExAB3lAs8SWp-7Y_1Ee5KH_9IgoW8VJzA1YhE2We0IiZEnGfpX5gMr79hJEEW5epeymvaojqgoWJjSJS1ppFbgwsYzb1tC-LwTioHI2Zp2QLm94SLFGcZO0gVUbbbc8YRlcgIHnrowbrHheLQNhzTlF6kbD49F-skJeOgfb9LTP6ISQxGJ',
+                    imageUrl: '',
                     size: 40,
                     borderColor: colorScheme.primary.withOpacity(0.2),
                     borderWidth: 2,
@@ -80,25 +78,12 @@ class _FeedScreenState extends State<FeedScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const WhisperText('YOUR SANCTUARY'),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Mood Room',
-                      style: theme.textTheme.displaySmall?.copyWith(
-                        fontStyle: FontStyle.italic,
-                        fontSize: 28,
-                        letterSpacing: -0.5,
-                      ),
-                    ),
-                    const SizedBox(height: 24),
                     const MoodRoom(),
                     const SizedBox(height: 48),
-                    const PresenceCircles(),
-                    const SizedBox(height: 48),
-                    const TemperatureCheck(),
-                    const SizedBox(height: 48),
-                    _GentleNudge(),
-                    const SizedBox(height: 48),
+                    // const PresenceCircles(),
+                    // const SizedBox(height: 48),
+                    // const TemperatureCheck(),
+                    // const SizedBox(height: 48),
                     Text(
                       'Chronological Feed',
                       style: theme.textTheme.headlineSmall?.copyWith(
@@ -171,41 +156,3 @@ class _FeedScreenState extends State<FeedScreen> {
   }
 }
 
-class _GentleNudge extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerLow,
-        borderRadius: BorderRadius.circular(32),
-        border: Border.all(color: colorScheme.outlineVariant.withOpacity(0.1)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Text(
-              'Gentle Nudge: Maya is feeling "Anxious"',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                fontStyle: FontStyle.italic,
-                color: colorScheme.onSurfaceVariant,
-              ),
-            ),
-          ),
-          Text(
-            'SEND CARE',
-            style: theme.textTheme.labelSmall?.copyWith(
-              color: colorScheme.primary,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

@@ -11,8 +11,8 @@ class TetherBottomNavBar extends StatelessWidget {
     final location = GoRouterState.of(context).matchedLocation;
 
     return Container(
-      height: 90,
-      margin: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+      height: 70,
+      margin: const EdgeInsets.fromLTRB(24, 0, 24, 16),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(32),
         child: BackdropFilter(
@@ -91,7 +91,7 @@ class _NavBarItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(24),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: isSelected ? colorScheme.primary.withOpacity(0.12) : Colors.transparent,
           shape: BoxShape.circle,
@@ -105,7 +105,7 @@ class _NavBarItem extends StatelessWidget {
         child: Icon(
           isSelected ? activeIcon : icon,
           color: isSelected ? colorScheme.primary : colorScheme.onSurface.withOpacity(0.4),
-          size: 26,
+          size: 22,
         ),
       ),
     );

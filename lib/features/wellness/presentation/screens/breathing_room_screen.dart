@@ -5,7 +5,6 @@ import '../../../../core/widgets/whisper_text.dart';
 import '../../../../core/widgets/glass_panel.dart';
 import '../../../../core/widgets/tether_button.dart';
 import '../../../../core/widgets/tether_card.dart';
-import '../../../../core/widgets/slow_photo.dart';
 
 class BreathingRoomScreen extends StatefulWidget {
   const BreathingRoomScreen({super.key});
@@ -85,8 +84,7 @@ class _BreathingRoomScreenState extends State<BreathingRoomScreen>
               Padding(
                 padding: const EdgeInsets.only(right: 24),
                 child: SquircleAvatar(
-                  imageUrl:
-                      'https://lh3.googleusercontent.com/aida-public/AB6AXuAcJfry8HNWQrKeOk3f7p1H6nXJVmr1ZuBaPuuQXb6xi1iWm--PQLHvBqYu-wupO1_AaoL5WuZnYmsB8fgR5PQyJTHRhZExAB3lAs8SWp-7Y_1Ee5KH_9IgoW8VJzA1YhE2We0IiZEnGfpX5gMr79hJEEW5epeymvaojqgoWJjSJS1ppFbgwsYzb1tC-LwTioHI2Zp2QLm94SLFGcZO0gVUbbbc8YRlcgIHnrowbrHheLQNhzTlF6kbD49F-skJeOgfb9LTP6ISQxGJ',
+                  imageUrl: '',
                   size: 40,
                   borderColor: colorScheme.primary.withOpacity(0.2),
                   borderWidth: 2,
@@ -206,7 +204,7 @@ class _BreathingSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Take a breath.',
+                'Wellness',
                 style: theme.textTheme.displayLarge?.copyWith(
                   color: colorScheme.primary,
                   fontStyle: FontStyle.italic,
@@ -216,18 +214,18 @@ class _BreathingSection extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               const WhisperText(
-                'Inhale the stillness of the dusk.',
+                'Mindfulness',
                 fontSize: 14,
               ),
               const SizedBox(height: 64),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const _SoundChip(label: 'Rain'),
+                  const _SoundChip(label: 'Sound 1'),
                   const SizedBox(width: 16),
-                  const _SoundChip(label: 'White Noise', isSelected: true),
+                  const _SoundChip(label: 'Sound 2', isSelected: true),
                   const SizedBox(width: 16),
-                  const _SoundChip(label: 'Silence'),
+                  const _SoundChip(label: 'Sound 3'),
                 ],
               ),
             ],
@@ -304,14 +302,14 @@ class _DigitalHugSection extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         Text(
-          'Your hug is on its way.',
+          'Digital Hug',
           style: theme.textTheme.headlineSmall?.copyWith(
             fontStyle: FontStyle.italic,
             fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 8),
-        const WhisperText('A warm radial pulse sent to your Circle.'),
+        const WhisperText('Connecting...'),
       ],
     );
   }
@@ -336,10 +334,10 @@ class _GratitudeJournal extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const WhisperText('TODAY\'S PROMPT'),
+                const WhisperText('PROMPT'),
                 const SizedBox(height: 12),
                 Text(
-                  'What made you smile today?',
+                  'Reflect on your day',
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontStyle: FontStyle.italic,
                     fontSize: 24,
@@ -349,16 +347,7 @@ class _GratitudeJournal extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 32),
-          const _GratitudeEntry(
-            text: 'The way the light hit the kitchen table at breakfast...',
-            date: 'October 24',
-          ),
-          const SizedBox(height: 16),
-          const _GratitudeEntry(
-            text:
-                'Hearing the distant sound of the rain against the attic window...',
-            date: 'October 22',
-          ),
+          // No entries to show
         ],
       ),
     );
@@ -423,7 +412,7 @@ class _ReflectionAndMemories extends StatelessWidget {
           const WhisperText('REFLECTION WALL'),
           const SizedBox(height: 16),
           Text(
-            'This is just for you.',
+            'Journal',
             style: theme.textTheme.headlineSmall?.copyWith(
               fontStyle: FontStyle.italic,
               color: colorScheme.primary,
@@ -449,21 +438,7 @@ class _ReflectionAndMemories extends StatelessWidget {
           const SizedBox(height: 64),
           const WhisperText('MEMORIES LANE'),
           const SizedBox(height: 32),
-          const WhisperText('OCTOBER'),
-          const SizedBox(height: 16),
-          TetherCard(
-            padding: const EdgeInsets.all(8),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: const SlowPhoto(
-                imageUrl:
-                    'https://images.unsplash.com/photo-1507400492013-16286576f50b?w=400&h=300&fit=crop',
-                height: 240,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+          // No memories to show
         ],
       ),
     );
@@ -486,10 +461,10 @@ class _MemoryReveal extends StatelessWidget {
           width: 300,
           child: Column(
             children: [
-              const WhisperText('A YEAR AGO TODAY'),
+              const WhisperText('MEMORY'),
               const SizedBox(height: 24),
               Text(
-                '"Finally felt the crisp autumn air on the ridge. Peace."',
+                '[No memory to show]',
                 textAlign: TextAlign.center,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontStyle: FontStyle.italic,
@@ -503,7 +478,7 @@ class _MemoryReveal extends StatelessWidget {
                   Expanded(
                     child: TetherButton(
                       onPressed: () {},
-                      child: const Text('Keep'),
+                      child: const Text('Action'),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -552,7 +527,7 @@ class _KindnessBadges extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const WhisperText('HEART LISTENER'),
+                  const WhisperText('Badge'),
                 ],
               ),
             ),
@@ -576,7 +551,7 @@ class _KindnessBadges extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const WhisperText('WARM PRESENCE'),
+                  const WhisperText('Badge'),
                 ],
               ),
             ),
@@ -602,14 +577,14 @@ class _QuietHours extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         const WhisperText(
-          'Winding down in 20 mins.\nThe sanctuary is preparing for rest.',
+          'Quiet Hours',
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 8),
         TextButton(
           onPressed: () {},
           child: Text(
-            'STAY A LITTLE LONGER',
+            'SETTINGS',
             style: TextStyle(
               color: colorScheme.primary,
               fontSize: 11,

@@ -9,6 +9,7 @@ import '../../../../core/widgets/tether_button.dart';
 import '../../../../core/widgets/tether_card.dart';
 import '../bloc/messaging_cubit.dart';
 import '../bloc/messaging_state.dart';
+import '../../domain/entities/message_entity.dart';
 
 class ChatScreen extends StatefulWidget {
   final String circleId;
@@ -27,6 +28,12 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final _messageController = TextEditingController();
   bool _isSlowChat = false;
+
+  @override
+  void dispose() {
+    _messageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             padding: const EdgeInsets.only(right: 24),
                             child: SquircleAvatar(
                               imageUrl:
-                                  'https://lh3.googleusercontent.com/aida-public/AB6AXuAcJfry8HNWQrKeOk3f7p1H6nXJVmr1ZuBaPuuQXb6xi1iWm--PQLHvBqYu-wupO1_AaoL5WuZnYmsB8fgR5PQyJTHRhZExAB3lAs8SWp-7Y_1Ee5KH_9IgoW8VJzA1YhE2We0IiZEnGfpX5gMr79hJEEW5epeymvaojqgoWJjSJS1ppFbgwsYzb1tC-LwTioHI2Zp2QLm94SLFGcZO0gVUbbbc8YRlcgIHnrowbrHheLQNhzTlF6kbD49F-skJeOgfb9LTP6ISQxGJ',
+                                  'https://ui-avatars.com/api/?name=${widget.otherUserId}&background=6366f1&color=fff',
                               size: 40,
                               borderColor: colorScheme.primary.withOpacity(0.2),
                               borderWidth: 2,
@@ -92,30 +99,64 @@ class _ChatScreenState extends State<ChatScreen> {
                         padding: const EdgeInsets.all(24),
                         sliver: BlocBuilder<MessagingCubit, MessagingState>(
                           builder: (context, state) {
-                            return SliverList(
-                              delegate: SliverChildListDelegate([
-                                _buildReceiverBubble(
-                                  context,
-                                  'I was thinking about that letter you sent. It really moved me.',
-                                  '10:42 AM',
+                            if (state is MessagingLoading) {
+                              return const SliverFillRemaining(
+                                child: Center(child: CircularProgressIndicator()),
+                              );
+                            }
+                            if (state is MessagingError) {
+                              return SliverFillRemaining(
+                                child: Center(child: Text(state.message)),
+                              );
+                            }
+                            if (state is MessagingLoaded) {
+                              if (state.messages.isEmpty) {
+                                return const SliverFillRemaining(
+                                  child: Center(
+                                    child: WhisperText('No reflections yet...'),
+                                  ),
+                                );
+                              }
+                              return SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                                  (context, index) {
+                                    final message = state.messages[index];
+                                    final isMe = message.senderId != widget.otherUserId;
+                                    final time =
+                                        "${message.createdAt.hour}:${message.createdAt.minute.toString().padLeft(2, '0')}";
+
+                                    if (message.contentType == 'voice') {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(bottom: 24),
+                                        child: _buildVoiceNotePlayer(context, message),
+                                      );
+                                    }
+
+                                    if (isMe) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(bottom: 24),
+                                        child: _buildSenderBubble(
+                                          context,
+                                          message.contentText ?? '',
+                                          time,
+                                        ),
+                                      );
+                                    } else {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(bottom: 24),
+                                        child: _buildReceiverBubble(
+                                          context,
+                                          message.contentText ?? '',
+                                          time,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  childCount: state.messages.length,
                                 ),
-                                const SizedBox(height: 24),
-                                _buildVoiceNotePlayer(context),
-                                const SizedBox(height: 24),
-                                _buildSenderBubble(
-                                  context,
-                                  "I'm so glad. It took me a long time to find the right words.",
-                                  '10:45 AM',
-                                ),
-                                const SizedBox(height: 64),
-                                const _AnonymousVent(),
-                                const SizedBox(height: 32),
-                                const _OneWayPost(),
-                                const SizedBox(height: 64),
-                                const _LetterArrival(),
-                                const SizedBox(height: 120),
-                              ]),
-                            );
+                              );
+                            }
+                            return const SliverToBoxAdapter(child: SizedBox.shrink());
                           },
                         ),
                       ),
@@ -189,12 +230,12 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget _buildVoiceNotePlayer(BuildContext context) {
+  Widget _buildVoiceNotePlayer(BuildContext context, MessageEntity message) {
     final colorScheme = Theme.of(context).colorScheme;
-    final theme = Theme.of(context);
+    final isMe = message.senderId != widget.otherUserId;
 
     return Align(
-      alignment: Alignment.centerLeft,
+      alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
       child: GlassPanel(
         padding: EdgeInsets.zero,
         opacity: 0.1,
@@ -203,9 +244,9 @@ class _ChatScreenState extends State<ChatScreen> {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              const SquircleAvatar(
+              SquircleAvatar(
                 imageUrl:
-                    'https://ui-avatars.com/api/?name=Circle&background=6366f1&color=fff&size=150',
+                    'https://ui-avatars.com/api/?name=${message.senderId}&background=6366f1&color=fff',
                 size: 48,
               ),
               const SizedBox(width: 16),
@@ -243,7 +284,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    const WhisperText('🎙️ Voice note · 0:42'),
+                    const WhisperText('🎙️ Voice note'),
                   ],
                 ),
               ),
@@ -320,52 +361,64 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  GlassPanel(
-                    padding: const EdgeInsets.all(10),
-                    opacity: 0.05,
-                    borderRadius: BorderRadius.circular(32),
-                    child: Icon(
-                      Icons.mic_none_outlined,
-                      color: colorScheme.primary,
-                      size: 24,
+              Builder(builder: (context) {
+                return Row(
+                  children: [
+                    GlassPanel(
+                      padding: const EdgeInsets.all(10),
+                      opacity: 0.05,
+                      borderRadius: BorderRadius.circular(32),
+                      child: Icon(
+                        Icons.mic_none_outlined,
+                        color: colorScheme.primary,
+                        size: 24,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: colorScheme.surfaceContainerLow.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(28),
-                      ),
-                      child: TextField(
-                        controller: _messageController,
-                        decoration: const InputDecoration(
-                          hintText: 'Type a reflection...',
-                          filled: false,
-                          border: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(vertical: 12),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 4,
                         ),
-                        style: const TextStyle(fontSize: 15),
+                        decoration: BoxDecoration(
+                          color: colorScheme.surfaceContainerLow.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(28),
+                        ),
+                        child: TextField(
+                          controller: _messageController,
+                          decoration: const InputDecoration(
+                            hintText: 'Type a reflection...',
+                            filled: false,
+                            border: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.symmetric(vertical: 12),
+                          ),
+                          style: const TextStyle(fontSize: 15),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  TetherButton(
-                    onPressed: () {},
-                    width: 52,
-                    height: 52,
-                    child: const Icon(Icons.send_rounded, size: 24),
-                  ),
-                ],
-              ),
+                    const SizedBox(width: 12),
+                    TetherButton(
+                      onPressed: () {
+                        if (_messageController.text.trim().isNotEmpty) {
+                          context.read<MessagingCubit>().sendMessage(
+                                receiverId: widget.otherUserId,
+                                circleId: widget.circleId,
+                                contentType: 'text',
+                                contentText: _messageController.text.trim(),
+                              );
+                          _messageController.clear();
+                        }
+                      },
+                      width: 52,
+                      height: 52,
+                      child: const Icon(Icons.send_rounded, size: 24),
+                    ),
+                  ],
+                );
+              }),
             ],
           ),
         ),

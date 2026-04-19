@@ -1,4 +1,4 @@
-# Screenshot files — never commit binary assets
+# Screenshot files â€” never commit binary assets
 *.png
 *.webp
 *.jpg

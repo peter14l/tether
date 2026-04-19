@@ -11,8 +11,14 @@ import '../../../../core/widgets/tether_card.dart';
 import '../../../../core/widgets/slow_photo.dart';
 import '../../../circles/presentation/bloc/circle_member_cubit.dart';
 import '../../../circles/presentation/bloc/circle_member_state.dart';
+import '../../../circles/presentation/bloc/circle_cubit.dart';
+import '../../../circles/presentation/bloc/circle_state.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../auth/presentation/bloc/auth_state.dart';
 import '../bloc/family_safety_cubit.dart';
 import '../bloc/family_safety_state.dart';
+import '../bloc/heritage_cubit.dart';
+import '../bloc/heritage_state.dart';
 import '../widgets/sos_alert_overlay.dart';
 
 class FamilyDashboardScreen extends StatelessWidget {
@@ -34,6 +40,9 @@ class FamilyDashboardScreen extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               getIt<CircleMemberCubit>()..loadMembers(circleId),
+        ),
+        BlocProvider(
+          create: (context) => getIt<CircleCubit>()..loadCircles(),
         ),
       ],
       child: Scaffold(
@@ -71,12 +80,19 @@ class FamilyDashboardScreen extends StatelessWidget {
                   actions: [
                     Padding(
                       padding: const EdgeInsets.only(right: 24),
-                      child: SquircleAvatar(
-                        imageUrl:
-                            'https://lh3.googleusercontent.com/aida-public/AB6AXuAFZi4AMlXlcZsUsGOSehPSf0Hzi7jA-7Xn18nzU-iBOqly34PpcHperzFKdfcYbR6mukDLBTxGTnkazJbNmm4kE9TGC4fec1pnrLesabuJBhrNtk5AehvALUtu1aee1qH3Z2HpW0mFNbJprR0pF9M-n9iyUVljo0gCwibTQ03uk4hMcrJvQ-AlZB0ayG_2wt2dCR9opnUg2LTew9UH032_JtWg4Vs5uZrg2JS1f-v0B5jhR-zf29WmVjUGhPRGYsN164ThQn23shLq',
-                        size: 40,
-                        borderColor: colorScheme.primary.withOpacity(0.2),
-                        borderWidth: 2,
+                      child: BlocBuilder<AuthBloc, AuthState>(
+                        builder: (context, state) {
+                          String? imageUrl;
+                          if (state is Authenticated) {
+                            imageUrl = state.user.avatarUrl;
+                          }
+                          return SquircleAvatar(
+                            imageUrl: imageUrl ?? '',
+                            size: 40,
+                            borderColor: colorScheme.primary.withOpacity(0.2),
+                            borderWidth: 2,
+                          );
+                        },
                       ),
                     ),
                   ],
@@ -96,13 +112,26 @@ class FamilyDashboardScreen extends StatelessWidget {
                               children: [
                                 const WhisperText('FAMILY SANCTUARY'),
                                 const SizedBox(height: 8),
-                                Text(
-                                  'The Thompson Circle',
-                                  style: theme.textTheme.displaySmall?.copyWith(
-                                    fontStyle: FontStyle.italic,
-                                    fontSize: 32,
-                                    letterSpacing: -1,
-                                  ),
+                                BlocBuilder<CircleCubit, CircleState>(
+                                  builder: (context, state) {
+                                    String name = 'Loading Circle...';
+                                    if (state is CircleLoaded) {
+                                      final circle = state.circles.firstWhere(
+                                        (c) => c.id == circleId,
+                                        orElse: () => state.circles.first,
+                                      );
+                                      name = circle.name;
+                                    }
+                                    return Text(
+                                      name,
+                                      style: theme.textTheme.displaySmall
+                                          ?.copyWith(
+                                        fontStyle: FontStyle.italic,
+                                        fontSize: 32,
+                                        letterSpacing: -1,
+                                      ),
+                                    );
+                                  },
                                 ),
                               ],
                             ),
@@ -175,9 +204,8 @@ class _FamilyBentoGrid extends StatelessWidget {
           rowSpan: 2,
           icon: Icons.rss_feed_outlined,
           title: 'Recent Feed',
-          subtitle: '12 new moments shared today',
-          imageUrl:
-              'https://lh3.googleusercontent.com/aida-public/AB6AXuAyGb1jh0c0gaqYh3W6LU02KVKnjDAyy4xQwmz2YCrxhdssjHL_clAqeIjgImkx-9VZMMDQ_ZcUPUsHUq2W_0KPv7LwDJhopooY6SWnKcgWMPhvq7Z3TiwVgnUWT5nsLyZ3Vu2ODcYfUCJD9W7JdvkVx1Ugzy4ZW81JUVdapp2Z4vhuoR3WAIiLhUzJKhIMJQwq73tSeO_u264fsRGQNEceDVFk1i4G22Q5BABNp0MZkYREsoM2lS8NiRiuW9r2_YPSGBpK867bcqWV',
+          subtitle: null,
+          imageUrl: null,
           onTap: () {},
         ),
         // Small Tiles
@@ -255,67 +283,81 @@ class _SafetyCheckSection extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
-    return TetherCard(
-      padding: const EdgeInsets.all(32),
-      backgroundColor: const Color(
-        0xFF2A1A10,
-      ).withOpacity(0.6), // Dark warm earth
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+    return BlocBuilder<FamilySafetyCubit, FamilySafetyState>(
+      builder: (context, state) {
+        if (state.pendingSafetyChecks.isEmpty) {
+          return const SizedBox.shrink();
+        }
+
+        final check = state.pendingSafetyChecks.first;
+
+        return TetherCard(
+          padding: const EdgeInsets.all(32),
+          backgroundColor: const Color(
+            0xFF2A1A10,
+          ).withOpacity(0.6), // Dark warm earth
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                Icons.warning_amber_rounded,
-                color: colorScheme.tertiary,
-                size: 32,
-              ),
-              const SizedBox(width: 16),
-              Text(
-                'Safety Check Active',
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  fontSize: 20,
-                  fontStyle: FontStyle.italic,
-                  color: colorScheme.tertiary,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          const Text(
-            'Unusual activity detected near the coast. Please confirm your status to reassure the circle.',
-            style: TextStyle(color: Colors.white70, height: 1.5),
-          ),
-          const SizedBox(height: 32),
-          Row(
-            children: [
-              Expanded(
-                child: TetherButton(
-                  onPressed: () {},
-                  backgroundColor: const Color(0xFF2D4A3E),
-                  foregroundColor: const Color(0xFF86EFAC),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.check, size: 18),
-                      SizedBox(width: 8),
-                      Text("I'm Safe ✓"),
-                    ],
+              Row(
+                children: [
+                  Icon(
+                    Icons.warning_amber_rounded,
+                    color: colorScheme.tertiary,
+                    size: 32,
                   ),
-                ),
+                  const SizedBox(width: 16),
+                  Text(
+                    'Safety Check Active',
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontSize: 20,
+                      fontStyle: FontStyle.italic,
+                      color: colorScheme.tertiary,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: TetherButton(
-                  onPressed: () {},
-                  style: TetherButtonStyle.secondary,
-                  child: const Text('Need Help'),
-                ),
+              const SizedBox(height: 20),
+              Text(
+                'A safety check was triggered. Please confirm your status to reassure the circle.',
+                style: const TextStyle(color: Colors.white70, height: 1.5),
+              ),
+              const SizedBox(height: 32),
+              Row(
+                children: [
+                  Expanded(
+                    child: TetherButton(
+                      onPressed: () => context
+                          .read<FamilySafetyCubit>()
+                          .respondToSafetyCheck(check.id, 'safe'),
+                      backgroundColor: const Color(0xFF2D4A3E),
+                      foregroundColor: const Color(0xFF86EFAC),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.check, size: 18),
+                          SizedBox(width: 8),
+                          Text("I'm Safe ✓"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: TetherButton(
+                      onPressed: () => context
+                          .read<FamilySafetyCubit>()
+                          .respondToSafetyCheck(check.id, 'escalated'),
+                      style: TetherButtonStyle.secondary,
+                      child: const Text('Need Help'),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
