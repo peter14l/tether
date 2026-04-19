@@ -6,15 +6,15 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
-    private val channel = MethodChannel(flutterEngine.dartExecutor, "com.oasis/installer")
+    private val channelName = "com.tether/installer"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
-        channel.setMethodCallHandler { call, result ->
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, channelName).setMethodCallHandler { call, result ->
             when (call.method) {
                 "getInstaller" -> {
-                    val installer = packageManager.getInstallerPackageName(packageName)
+                    val installer = context.packageManager.getInstallerPackageName(context.packageName)
                     result.success(installer)
                 }
                 else -> result.notImplemented()
