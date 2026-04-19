@@ -17,6 +17,12 @@ class TimeThemeState extends Equatable {
   bool get isDark =>
       isDarkModeOverride ?? (slot == TimeSlot.dusk || slot == TimeSlot.night);
 
+  ThemeTokens get tokens {
+    return isDark
+        ? (slot == TimeSlot.night ? ThemeTokens.night : ThemeTokens.dusk)
+        : ThemeTokens.getTokens(slot);
+  }
+
   @override
   List<Object?> get props => [slot, isDarkModeOverride];
 }

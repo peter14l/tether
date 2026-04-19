@@ -28,9 +28,9 @@ class TetherCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TimeThemeCubit, TimeThemeState>(
       builder: (context, state) {
-        final tokens = ThemeTokens.getTokens(state.slot);
+        final tokens = state.tokens;
         final isDusk = state.slot == TimeSlot.dusk;
-        final isDark = state.slot == TimeSlot.dusk || state.slot == TimeSlot.night;
+        final isDark = state.isDark;
 
         return Container(
           width: width,

@@ -22,10 +22,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<SettingsCubit>()..loadSettings(),
-      child: const _SettingsView(),
-    );
+    return const _SettingsView();
   }
 }
 

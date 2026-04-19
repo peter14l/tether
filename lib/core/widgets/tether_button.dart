@@ -84,7 +84,7 @@ class _TetherButtonState extends State<TetherButton> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return BlocBuilder<TimeThemeCubit, TimeThemeState>(
       builder: (context, state) {
-        final tokens = ThemeTokens.getTokens(state.slot);
+        final tokens = state.tokens;
 
         final fgColor = widget.style == TetherButtonStyle.primary
             ? (widget.foregroundColor ?? tokens.textOnAccent)
@@ -109,14 +109,14 @@ class _TetherButtonState extends State<TetherButton> with SingleTickerProviderSt
         Widget buttonContent = fluent.FluentTheme(
           data: fluent.FluentThemeData(
             accentColor: widget.style == TetherButtonStyle.primary 
-              ? fluent.AccentColor('custom', {
-                  'darkest': bgColor,
-                  'darker': bgColor,
+              ? fluent.AccentColor.swatch({
+                  'darkest': bgColor.withValues(alpha: 0.8),
+                  'darker': bgColor.withValues(alpha: 0.9),
                   'dark': bgColor,
                   'normal': bgColor,
-                  'light': bgColor,
-                  'lighter': bgColor,
-                  'lightest': bgColor,
+                  'light': bgColor.withValues(alpha: 0.9),
+                  'lighter': bgColor.withValues(alpha: 0.8),
+                  'lightest': bgColor.withValues(alpha: 0.7),
                 })
               : fluent.Colors.blue,
           ),
@@ -126,6 +126,11 @@ class _TetherButtonState extends State<TetherButton> with SingleTickerProviderSt
                   style: fluent.ButtonStyle(
                     padding: fluent.WidgetStateProperty.all(
                       const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                    ),
+                    shape: fluent.WidgetStateProperty.all(
+                      fluent.RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
                     ),
                     backgroundColor: fluent.WidgetStateProperty.resolveWith((states) {
                       if (states.isDisabled) return bgColor.withOpacity(0.5);
@@ -142,6 +147,11 @@ class _TetherButtonState extends State<TetherButton> with SingleTickerProviderSt
                   style: fluent.ButtonStyle(
                     padding: fluent.WidgetStateProperty.all(
                       const EdgeInsets.symmetric(horizontal: 28, vertical: 12),
+                    ),
+                    shape: fluent.WidgetStateProperty.all(
+                      fluent.RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
                     ),
                     backgroundColor: fluent.WidgetStateProperty.resolveWith((states) {
                       if (states.isDisabled) return bgColor.withOpacity(0.5);

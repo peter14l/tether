@@ -66,8 +66,8 @@ class _TetherTextFieldState extends State<TetherTextField> {
   Widget build(BuildContext context) {
     return BlocBuilder<TimeThemeCubit, TimeThemeState>(
       builder: (context, state) {
-        final tokens = ThemeTokens.getTokens(state.slot);
-        final isDark = state.slot == TimeSlot.dusk || state.slot == TimeSlot.night;
+        final tokens = state.tokens;
+        final isDark = state.isDark;
 
         return AnimatedContainer(
           duration: const Duration(milliseconds: 200),

@@ -26,7 +26,7 @@ class SlowPhoto extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TimeThemeCubit, TimeThemeState>(
       builder: (context, state) {
-        final tokens = ThemeTokens.getTokens(state.slot);
+        final tokens = state.tokens;
 
         return Opacity(
           opacity: opacity,

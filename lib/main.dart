@@ -84,7 +84,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => getIt<TimeThemeCubit>())],
+      providers: [
+        BlocProvider(create: (context) => getIt<TimeThemeCubit>()),
+        BlocProvider(create: (context) => getIt<SettingsCubit>()..loadSettings()),
+      ],
       child: BlocBuilder<TimeThemeCubit, TimeThemeState>(
         builder: (context, state) {
           return MaterialApp.router(
