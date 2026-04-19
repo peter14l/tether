@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../../auth/domain/repositories/auth_repository.dart';
+import '../../../auth/domain/entities/user_entity.dart';
 import '../../domain/repositories/settings_repository.dart';
 import 'settings_state.dart';
 

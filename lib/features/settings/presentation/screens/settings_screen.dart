@@ -258,15 +258,15 @@ class _ProfileSection extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(_).viewInsets.bottom),
+      builder: (sheetContext) => Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(sheetContext).viewInsets.bottom),
         child: GlassPanel(
           padding: const EdgeInsets.all(32),
           borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Edit $label', style: Theme.of(_).textTheme.headlineSmall),
+              Text('Edit $label', style: Theme.of(sheetContext).textTheme.headlineSmall),
               const SizedBox(height: 24),
               TextField(
                 controller: controller,
@@ -281,7 +281,7 @@ class _ProfileSection extends StatelessWidget {
               TetherButton(
                 onPressed: () {
                   onSave(controller.text);
-                  Navigator.pop(_);
+                  Navigator.pop(sheetContext);
                 },
                 child: const Text('Save Changes'),
               ),

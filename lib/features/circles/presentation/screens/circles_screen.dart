@@ -11,6 +11,8 @@ import 'package:showcaseview/showcaseview.dart';
 import '../../../../core/widgets/tether_button.dart';
 import '../../../../core/presentation/widgets/tether_walkthrough_overlay.dart';
 import '../widgets/circle_card.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../auth/presentation/bloc/auth_state.dart';
 
 class CirclesScreen extends StatefulWidget {
   const CirclesScreen({super.key});

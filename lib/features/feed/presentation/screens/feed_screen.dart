@@ -8,6 +8,8 @@ import '../bloc/feed_state.dart';
 import '../../../../core/widgets/tether_button.dart';
 import '../widgets/post_card.dart';
 import '../widgets/mood_room.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../auth/presentation/bloc/auth_state.dart';
 
 class FeedScreen extends StatefulWidget {
   final String circleId;

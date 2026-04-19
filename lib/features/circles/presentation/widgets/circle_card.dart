@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/widgets/tether_card.dart';
 import '../../../../core/widgets/squircle_avatar.dart';
 import '../../../../core/widgets/glass_panel.dart';

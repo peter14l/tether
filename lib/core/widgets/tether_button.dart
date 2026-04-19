@@ -13,6 +13,7 @@ class TetherButton extends StatefulWidget {
   final String? semanticsLabel;
   final bool isFullWidth;
   final bool isHighPriority;
+  final bool loading;
   final TetherButtonStyle style;
   final Color? backgroundColor;
   final Color? foregroundColor;
@@ -27,6 +28,7 @@ class TetherButton extends StatefulWidget {
     this.semanticsLabel,
     this.isFullWidth = false,
     this.isHighPriority = false,
+    this.loading = false,
     this.style = TetherButtonStyle.primary,
     this.backgroundColor,
     this.foregroundColor,
@@ -115,7 +117,7 @@ class _TetherButtonState extends State<TetherButton> with SingleTickerProviderSt
         Widget buttonContent = Container(
           decoration: decoration,
           child: ElevatedButton(
-            onPressed: widget.onPressed,
+            onPressed: widget.loading ? null : widget.onPressed,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.transparent,
               foregroundColor: widget.style == TetherButtonStyle.primary
@@ -128,7 +130,20 @@ class _TetherButtonState extends State<TetherButton> with SingleTickerProviderSt
                 borderRadius: BorderRadius.circular(14),
               ),
             ),
-            child: widget.child,
+            child: widget.loading
+                ? SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        widget.style == TetherButtonStyle.primary
+                            ? (widget.foregroundColor ?? tokens.textOnAccent)
+                            : (widget.foregroundColor ?? tokens.textPrimary),
+                      ),
+                    ),
+                  )
+                : widget.child,
           ),
         );
 
